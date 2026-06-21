@@ -265,120 +265,139 @@
   }
   .rank-score .stars{color:var(--pi-accent);font-size:12px;display:block;margin-top:2px;}
 
-  /* ============ Price Panel Styles (4 Camps) ============ */
+  /* ============ Price Panel Styles (6 Vertical Camps) ============ */
   .price-card{
     margin:20px 16px 0;
-    max-width:900px;
+    max-width:800px;
     margin-left:auto;
     margin-right:auto;
   }
   .camp-grid{
-    display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+    display:flex;flex-direction:column;gap:12px;
   }
   .camp{
     background:var(--pi-card);
-    border-radius:16px;
-    padding:18px 16px;
-    box-shadow:0 6px 18px rgba(108,43,158,.08);
+    border-radius:14px;
+    padding:14px 16px;
+    box-shadow:0 4px 16px rgba(108,43,158,.08);
     position:relative;overflow:hidden;
     border:1.5px solid var(--pi-border);
     transition:transform .25s ease, box-shadow .25s ease;
   }
   .camp:hover{
-    transform:translateY(-3px);
+    transform:translateY(-2px) scale(1.01);
     box-shadow:0 10px 28px rgba(108,43,158,.18);
   }
   .camp::before{
     content:"";
-    position:absolute;top:-50%;right:-50%;
+    position:absolute;top:-50%;left:-50%;
     width:160px;height:160px;border-radius:50%;
-    opacity:.18;filter:blur(12px);
+    opacity:.16;filter:blur(14px);
     pointer-events:none;
+  }
+  .camp-inner{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:14px;
+    align-items:center;
+    position:relative;z-index:1;
   }
   .camp-gcv{border-color:#b39ddb;}
   .camp-gcv::before{background:linear-gradient(135deg,#7c4dff,#6c2b9e);}
-  .camp-ex{border-color:#81c784;}
-  .camp-ex::before{background:linear-gradient(135deg,#26a69a,#2e7d32);}
-  .camp-zero{border-color:#bdbdbd;}
-  .camp-zero::before{background:linear-gradient(135deg,#616161,#424242);}
   .camp-cash{border-color:#ffcc80;}
   .camp-cash::before{background:linear-gradient(135deg,#ff9800,#e65100);}
+  .camp-ex{border-color:#81c784;}
+  .camp-ex::before{background:linear-gradient(135deg,#26a69a,#2e7d32);}
+  .camp-eco{border-color:#4fc3f7;}
+  .camp-eco::before{background:linear-gradient(135deg,#03a9f4,#0277bd);}
+  .camp-node{border-color:#ffab91;}
+  .camp-node::before{background:linear-gradient(135deg,#ff5722,#bf360c);}
+  .camp-zero{border-color:#bdbdbd;}
+  .camp-zero::before{background:linear-gradient(135deg,#616161,#424242);}
 
-  .camp-head{
-    display:flex;align-items:center;gap:10px;margin-bottom:12px;
-    position:relative;z-index:1;
-  }
   .camp-emoji{
-    width:38px;height:38px;border-radius:10px;
+    width:44px;height:44px;border-radius:12px;
     display:flex;align-items:center;justify-content:center;
-    font-size:20px;flex-shrink:0;
+    font-size:22px;flex-shrink:0;
     background:var(--pi-bg);border:1px solid var(--pi-border);
   }
   .camp-gcv .camp-emoji{background:linear-gradient(135deg,#ede7f6,#d1c4e9);color:#6c2b9e;border-color:#b39ddb;}
-  .camp-ex .camp-emoji{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);color:#2e7d32;border-color:#81c784;}
-  .camp-zero .camp-emoji{background:linear-gradient(135deg,#f5f5f5,#cfcfcf);color:#424242;border-color:#bdbdbd;}
   .camp-cash .camp-emoji{background:linear-gradient(135deg,#fff3e0,#ffe0b2);color:#e65100;border-color:#ffcc80;}
-  .camp-title{font-size:15px;font-weight:700;color:var(--pi-text);}
-  .camp-slogan{font-size:11px;color:var(--pi-muted);margin-top:2px;}
+  .camp-ex .camp-emoji{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);color:#2e7d32;border-color:#81c784;}
+  .camp-eco .camp-emoji{background:linear-gradient(135deg,#e1f5fe,#b3e5fc);color:#0277bd;border-color:#4fc3f7;}
+  .camp-node .camp-emoji{background:linear-gradient(135deg,#fbe9e7,#ffccbc);color:#bf360c;border-color:#ffab91;}
+  .camp-zero .camp-emoji{background:linear-gradient(135deg,#f5f5f5,#cfcfcf);color:#424242;border-color:#bdbdbd;}
 
+  .camp-center{min-width:0;}
+  .camp-title{font-size:15px;font-weight:700;color:var(--pi-text);margin-bottom:4px;}
+  .camp-desc{font-size:12px;color:var(--pi-muted);line-height:1.5;margin-bottom:6px;}
   .camp-price{
-    font-size:22px;font-weight:700;letter-spacing:.5px;
-    margin:8px 0 4px;position:relative;z-index:1;
+    font-size:17px;font-weight:700;letter-spacing:.3px;
   }
+  .camp-price small{font-size:12px;font-weight:500;color:var(--pi-muted);margin-left:6px;}
   .camp-gcv .camp-price{color:#7c4dff;}
-  .camp-ex .camp-price{color:#2e7d32;}
-  .camp-zero .camp-price{color:#424242;}
   .camp-cash .camp-price{color:#e65100;}
-  .camp-price small{font-size:12px;font-weight:500;color:var(--pi-muted);display:block;margin-top:2px;}
+  .camp-ex .camp-price{color:#2e7d32;}
+  .camp-eco .camp-price{color:#0288d1;}
+  .camp-node .camp-price{color:#bf360c;}
+  .camp-zero .camp-price{color:#424242;}
 
+  .camp-right{
+    display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+    flex-shrink:0;min-width:150px;
+  }
   .camp-supporters{
-    display:flex;align-items:center;gap:6px;
-    font-size:12px;color:var(--pi-muted);margin-bottom:14px;
-    position:relative;z-index:1;
+    display:flex;align-items:center;gap:5px;
+    font-size:11.5px;color:var(--pi-muted);
+    background:var(--pi-bg);padding:5px 10px;border-radius:20px;
+    border:1px solid var(--pi-border);
   }
-  .camp-supporters .num{
-    font-weight:700;color:var(--pi-text);font-size:13px;
-  }
+  .camp-supporters .num{font-weight:700;color:var(--pi-text);font-size:12.5px;}
   .camp-gcv .camp-supporters .num{color:#7c4dff;}
-  .camp-ex .camp-supporters .num{color:#2e7d32;}
-  .camp-zero .camp-supporters .num{color:#424242;}
   .camp-cash .camp-supporters .num{color:#e65100;}
+  .camp-ex .camp-supporters .num{color:#2e7d32;}
+  .camp-eco .camp-supporters .num{color:#0288d1;}
+  .camp-node .camp-supporters .num{color:#bf360c;}
+  .camp-zero .camp-supporters .num{color:#424242;}
 
-  .camp-vote{
-    display:flex;gap:8px;position:relative;z-index:1;
-  }
+  .camp-vote{display:flex;gap:6px;}
   .vote-btn{
-    flex:1;padding:8px 6px;border-radius:10px;
+    padding:6px 10px;border-radius:10px;
     border:1.5px solid var(--pi-border);background:#fff;
-    font-size:12px;font-weight:600;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;gap:4px;
+    font-size:11.5px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;gap:4px;
     transition:all .2s ease;font-family:inherit;color:var(--pi-text);
+    white-space:nowrap;
   }
   .vote-btn:hover{transform:translateY(-1px);}
   .vote-btn.like:hover{background:#e8f5e9;border-color:#66bb6a;color:#2e7d32;}
   .vote-btn.dislike:hover{background:#ffebee;border-color:#ef5350;color:#c62828;}
   .vote-btn.liked{background:#e8f5e9;border-color:#66bb6a;color:#2e7d32;}
   .vote-btn.disliked{background:#ffebee;border-color:#ef5350;color:#c62828;}
-  .vote-btn .count{font-size:11px;opacity:.75;}
+  .vote-btn .count{font-size:11px;opacity:.8;}
 
-  /* Sparkle effect on hover */
+  /* Sparkle effect */
   @keyframes sparkle{
     0%,100%{opacity:0;transform:scale(.5) rotate(0deg);}
-    50%{opacity:1;transform:scale(1) rotate(180deg);}
+    50%{opacity:1;transform:scale(1.1) rotate(180deg);}
   }
   .camp .sparkle{
-    position:absolute;font-size:14px;opacity:0;pointer-events:none;
-    animation:sparkle 2s ease-in-out infinite;
+    position:absolute;font-size:13px;opacity:0;pointer-events:none;
+    animation:sparkle 2.2s ease-in-out infinite;
+    z-index:1;
   }
-  .camp:hover .sparkle{opacity:.7;}
-  .camp .s1{top:10px;left:10px;animation-delay:0s;}
-  .camp .s2{bottom:10px;right:10px;animation-delay:.7s;}
-  .camp .s3{top:30%;right:14px;animation-delay:1.3s;font-size:12px;}
+  .camp:hover .sparkle{opacity:.75;}
+  .camp .s1{top:8px;right:14px;animation-delay:0s;}
+  .camp .s2{bottom:10px;left:50%;animation-delay:.8s;font-size:11px;}
+  .camp .s3{top:40%;right:30%;animation-delay:1.5s;font-size:11px;opacity:0;}
 
   @media(min-width:720px){
-    .camp-grid{gap:18px;}
-    .camp{padding:22px 20px;}
-    .camp-price{font-size:26px;}
+    .camp{padding:16px 22px;}
+    .camp-price{font-size:19px;}
+    .camp-right{min-width:170px;}
+    .camp-emoji{width:48px;height:48px;font-size:24px;}
+    .camp-title{font-size:16px;}
+    .camp-desc{font-size:12.5px;}
   }
 
   /* ============ Contact Panel Styles ============ */
@@ -702,86 +721,130 @@
           <div class="sparkle s1">✨</div>
           <div class="sparkle s2">💫</div>
           <div class="sparkle s3">⭐</div>
-          <div class="camp-head">
+          <div class="camp-inner">
             <div class="camp-emoji">🏛️</div>
-            <div>
+            <div class="camp-center">
               <div class="camp-title">GCV 价格</div>
-              <div class="camp-slogan">全球共识 · 生态统一基准</div>
+              <div class="camp-desc">全球共识价值 · 由 Pi 生态整体价值驱动，以统一基准为锚定</div>
+              <div class="camp-price">$314,159 <small>≈ ￥2,200,000 / Pi</small></div>
             </div>
-          </div>
-          <div class="camp-price">$314,159
-            <small>￥2,200,000 / Pi</small>
-          </div>
-          <div class="camp-supporters">👥 支持人数 <span class="num" data-base="85247">85,247</span> 人</div>
-          <div class="camp-vote">
-            <button class="vote-btn like" type="button">👍 支持 <span class="count">68,421</span></button>
-            <button class="vote-btn dislike" type="button">👎 反对 <span class="count">16,826</span></button>
+            <div class="camp-right">
+              <div class="camp-supporters">👥 <span class="num" data-base="85247">85,247</span> 人</div>
+              <div class="camp-vote">
+                <button class="vote-btn like" type="button">👍 <span class="count">68,421</span></button>
+                <button class="vote-btn dislike" type="button">👎 <span class="count">16,826</span></button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- 阵营 2: 交易所价格 -->
-        <div class="camp camp-ex" data-camp="ex">
-          <div class="sparkle s1">📈</div>
-          <div class="sparkle s2">💹</div>
-          <div class="sparkle s3">🚀</div>
-          <div class="camp-head">
-            <div class="camp-emoji">🏦</div>
-            <div>
-              <div class="camp-title">交易所价格</div>
-              <div class="camp-slogan">市场交易 · 实时行情波动</div>
-            </div>
-          </div>
-          <div class="camp-price">$45 ~ $380
-            <small>￥320 ~ ￥2,660 / Pi</small>
-          </div>
-          <div class="camp-supporters">👥 支持人数 <span class="num" data-base="62318">62,318</span> 人</div>
-          <div class="camp-vote">
-            <button class="vote-btn like" type="button">👍 支持 <span class="count">42,856</span></button>
-            <button class="vote-btn dislike" type="button">👎 反对 <span class="count">19,462</span></button>
-          </div>
-        </div>
-
-        <!-- 阵营 3: 归零者 -->
-        <div class="camp camp-zero" data-camp="zero">
-          <div class="sparkle s1">🌫️</div>
-          <div class="sparkle s2">⚫</div>
-          <div class="sparkle s3">💀</div>
-          <div class="camp-head">
-            <div class="camp-emoji">🕳️</div>
-            <div>
-              <div class="camp-title">归零者</div>
-              <div class="camp-slogan">虚无主义 · 一文不值派</div>
-            </div>
-          </div>
-          <div class="camp-price">$0.00
-            <small>￥0.00 / Pi · 价值归于零</small>
-          </div>
-          <div class="camp-supporters">👥 支持人数 <span class="num" data-base="28914">28,914</span> 人</div>
-          <div class="camp-vote">
-            <button class="vote-btn like" type="button">👍 支持 <span class="count">18,743</span></button>
-            <button class="vote-btn dislike" type="button">👎 反对 <span class="count">10,171</span></button>
-          </div>
-        </div>
-
-        <!-- 阵营 4: 变现者 -->
+        <!-- 阵营 2: 变现者 -->
         <div class="camp camp-cash" data-camp="cash">
           <div class="sparkle s1">💰</div>
           <div class="sparkle s2">💎</div>
           <div class="sparkle s3">🤑</div>
-          <div class="camp-head">
+          <div class="camp-inner">
             <div class="camp-emoji">💸</div>
-            <div>
+            <div class="camp-center">
               <div class="camp-title">变现者</div>
-              <div class="camp-slogan">落袋为安 · 快速变现通道</div>
+              <div class="camp-desc">落袋为安 · 以快速变现为目的，接受当前市场的即时兑换价值</div>
+              <div class="camp-price">$0.10 ~ $25 <small>≈ ￥0.70 ~ ￥175 / Pi</small></div>
+            </div>
+            <div class="camp-right">
+              <div class="camp-supporters">👥 <span class="num" data-base="53762">53,762</span> 人</div>
+              <div class="camp-vote">
+                <button class="vote-btn like" type="button">👍 <span class="count">38,204</span></button>
+                <button class="vote-btn dislike" type="button">👎 <span class="count">15,558</span></button>
+              </div>
             </div>
           </div>
-          <div class="camp-price">$0.10 ~ $25
-            <small>￥0.70 ~ ￥175 / Pi</small>
+        </div>
+
+        <!-- 阵营 3: 交易所价格 -->
+        <div class="camp camp-ex" data-camp="ex">
+          <div class="sparkle s1">📈</div>
+          <div class="sparkle s2">💹</div>
+          <div class="sparkle s3">🚀</div>
+          <div class="camp-inner">
+            <div class="camp-emoji">🏦</div>
+            <div class="camp-center">
+              <div class="camp-title">交易所价格</div>
+              <div class="camp-desc">市场交易 · 按实时行情波动，反映公开市场上的交易撮合价格</div>
+              <div class="camp-price">$45 ~ $380 <small>≈ ￥320 ~ ￥2,660 / Pi</small></div>
+            </div>
+            <div class="camp-right">
+              <div class="camp-supporters">👥 <span class="num" data-base="62318">62,318</span> 人</div>
+              <div class="camp-vote">
+                <button class="vote-btn like" type="button">👍 <span class="count">42,856</span></button>
+                <button class="vote-btn dislike" type="button">👎 <span class="count">19,462</span></button>
+              </div>
+            </div>
           </div>
-          <div class="camp-supporters">👥 支持人数 <span class="num" data-base="53762">53,762</span> 人</div>
-          <div class="camp-vote">
-            <button class="vote-btn like" type="button">👍 支持 <span class="count">38,204</span></button>
-            <button class="vote-btn dislike" type="button">👎 反对 <span class="count">15,558</span></button>
+        </div>
+
+        <!-- 阵营 4: 生态者 -->
+        <div class="camp camp-eco" data-camp="eco">
+          <div class="sparkle s1">🌿</div>
+          <div class="sparkle s2">🌐</div>
+          <div class="sparkle s3">💚</div>
+          <div class="camp-inner">
+            <div class="camp-emoji">🌱</div>
+            <div class="camp-center">
+              <div class="camp-title">生态者</div>
+              <div class="camp-desc">生态建设者 · 相信 Pi 生态长期繁荣，价值随生态规模同步增长</div>
+              <div class="camp-price">$1,000 ~ $10,000 <small>≈ ￥7,000 ~ ￥70,000 / Pi</small></div>
+            </div>
+            <div class="camp-right">
+              <div class="camp-supporters">👥 <span class="num" data-base="71482">71,482</span> 人</div>
+              <div class="camp-vote">
+                <button class="vote-btn like" type="button">👍 <span class="count">52,617</span></button>
+                <button class="vote-btn dislike" type="button">👎 <span class="count">18,865</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 阵营 5: 节点者 -->
+        <div class="camp camp-node" data-camp="node">
+          <div class="sparkle s1">⚡</div>
+          <div class="sparkle s2">🖥️</div>
+          <div class="sparkle s3">🔥</div>
+          <div class="camp-inner">
+            <div class="camp-emoji">🛰️</div>
+            <div class="camp-center">
+              <div class="camp-title">节点者</div>
+              <div class="camp-desc">网络守护者 · 运营节点维护网络稳定，相信基础设施价值会被长期兑现</div>
+              <div class="camp-price">$314 ~ $3,141 <small>≈ ￥2,200 ~ ￥22,000 / Pi</small></div>
+            </div>
+            <div class="camp-right">
+              <div class="camp-supporters">👥 <span class="num" data-base="47693">47,693</span> 人</div>
+              <div class="camp-vote">
+                <button class="vote-btn like" type="button">👍 <span class="count">35,418</span></button>
+                <button class="vote-btn dislike" type="button">👎 <span class="count">12,275</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 阵营 6: 归零者 -->
+        <div class="camp camp-zero" data-camp="zero">
+          <div class="sparkle s1">🌫️</div>
+          <div class="sparkle s2">⚫</div>
+          <div class="sparkle s3">💀</div>
+          <div class="camp-inner">
+            <div class="camp-emoji">🕳️</div>
+            <div class="camp-center">
+              <div class="camp-title">归零者</div>
+              <div class="camp-desc">虚无主义 · 认为 Pi 缺乏实际价值支撑，终将归零至一文不值</div>
+              <div class="camp-price">$0.00 <small>≈ ￥0.00 / Pi</small></div>
+            </div>
+            <div class="camp-right">
+              <div class="camp-supporters">👥 <span class="num" data-base="28914">28,914</span> 人</div>
+              <div class="camp-vote">
+                <button class="vote-btn like" type="button">👍 <span class="count">18,743</span></button>
+                <button class="vote-btn dislike" type="button">👎 <span class="count">10,171</span></button>
+              </div>
+            </div>
           </div>
         </div>
 
