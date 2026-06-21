@@ -1,0 +1,2287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3生态应用</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f3f4f6;
+        }
+        
+        .page-container {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+        }
+        
+        .content-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .page {
+            transition: opacity 0.3s ease;
+        }
+        
+        .page.hidden {
+            display: none;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            transform: scale(1);
+            font-size: 14px;
+        }
+        
+        .btn:active {
+            transform: scale(0.96);
+        }
+        
+        .btn-blue {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-green {
+            background: linear-gradient(135deg, #15803d 0%, #22c55e 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        }
+        
+        .btn-purple {
+            background: linear-gradient(135deg, #7e22ce 0%, #a855f7 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(168, 85, 247, 0.3);
+        }
+        
+        .btn-orange {
+            background: linear-gradient(135deg, #ea580c 0%, #f97316 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
+        }
+        
+        .btn-yellow {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        
+        .btn-gray {
+            background: linear-gradient(135deg, #4b5563 0%, #6b7280 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(107, 114, 128, 0.3);
+        }
+        
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 8px;
+        }
+        
+        .bottom-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            height: 72px;
+            padding-bottom: env(safe-area-inset-bottom, 8px);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 8px 4px;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-item.active {
+            color: #1e40af;
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .app-item {
+            background: white;
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-top: 4px solid #3b82f6;
+        }
+        
+        .app-eco {
+            border-top-color: #a855f7;
+            background: linear-gradient(135deg, #f9fafb 0%, white 100%);
+        }
+        
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+        
+        .countdown-box {
+            background: white;
+            border-radius: 12px;
+            padding: 6px 10px;
+            text-align: center;
+        }
+        
+        .countdown-num {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        
+        .countdown-label {
+            font-size: 12px;
+            color: #6b7280;
+        }
+        
+        .marquee {
+            animation: marquee 15s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        
+        .float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            max-width: 360px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        /* 悬浮圆圈 */
+        #floating-circle {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #f093fb 50%, #f5576c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            user-select: none;
+            touch-action: none;
+            transition: transform 0.1s;
+            animation: breathe 2s ease-in-out infinite;
+        }
+        
+        @keyframes breathe {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 6px 20px rgba(240, 147, 251, 0.7);
+            }
+        }
+        
+        #floating-circle:hover {
+            transform: scale(1.15);
+        }
+        
+        #floating-circle.hidden {
+            display: none;
+        }
+        
+        /* 特效粒子 */
+        .particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        /* 爆炸特效 */
+        .explosion-particle {
+            animation: explode 0.6s ease-out forwards;
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: scale(0) translate(0, 0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) translate(var(--tx), var(--ty));
+                opacity: 0;
+            }
+        }
+        
+        /* 烟花特效 */
+        .firework-particle {
+            animation: firework 0.8s ease-out forwards;
+        }
+        
+        @keyframes firework {
+            0% {
+                transform: scale(0) translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) translate(var(--tx), var(--ty)) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 星星特效 */
+        .star-particle {
+            animation: star 0.7s ease-out forwards;
+        }
+        
+        @keyframes star {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) translate(var(--tx), var(--ty)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 波纹特效 */
+        .ripple {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: ripple 0.5s ease-out forwards;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .content-container {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 14px;
+            }
+            
+            .app-item {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="content-container">
+            <!-- 首页 -->
+            <div id="home-page" class="page active">
+                <!-- 绿色Web3超级入口 -->
+                <div class="bg-gradient-to-r from-green-600 to-green-700 text-white p-4 rounded-2xl mb-3 shadow-lg">
+                    <h1 class="text-xl font-bold">派生态 全球Web3超级入口</h1>
+                    <p class="text-sm opacity-90 mt-1">一站，派生态最新资讯，抢先看！</p>
+                </div>
+                
+                <!-- 社区聚会 -->
+                <div class="card overflow-hidden p-0 mb-3">
+                    <div class="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-3 text-center">
+                        <h2 class="text-base font-bold">山西太原派生态社区 · 线下聚会</h2>
+                    </div>
+                    <div class="bg-gradient-to-r from-yellow-400 to-yellow-500 p-4">
+                        <div class="flex justify-center gap-3 items-center">
+                            <div class="countdown-box flex items-center gap-1">
+                                <span id="event-days" class="countdown-num text-2xl">00</span>
+                                <span class="countdown-label text-lg">天</span>
+                            </div>
+                            <div class="countdown-box flex items-center gap-1">
+                                <span id="event-hours" class="countdown-num text-2xl">00</span>
+                                <span class="countdown-label text-lg">时</span>
+                            </div>
+                            <div class="countdown-box flex items-center gap-1">
+                                <span id="event-minutes" class="countdown-num text-2xl">00</span>
+                                <span class="countdown-label text-lg">分</span>
+                            </div>
+                            <div class="countdown-box flex items-center gap-1">
+                                <span id="event-seconds" class="countdown-num text-2xl">00</span>
+                                <span class="countdown-label text-lg">秒</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-3">
+                        <div id="event-date" class="font-bold text-gray-800 text-base mb-2">2026年6月30日 14:30</div>
+                        <p class="text-gray-600 text-xs mb-1">毕向阳：155 1363 6709</p>
+                        <p class="text-gray-600 text-xs mb-1">魏国炳：155 3645 5536</p>
+                        <div class="bg-gray-50 p-2 rounded-lg mt-2 border border-gray-100">
+                            <p class="text-gray-600 text-xs">📍 山西省太原市和平北路营村优山美郡17号楼2单元负1层0102号</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 公告栏 -->
+                <div class="bg-white p-3 mb-4 rounded-2xl shadow flex items-center border border-gray-100">
+                    <span class="font-bold text-sm mr-2 whitespace-nowrap">📢 公告</span>
+                    <div class="flex-1 overflow-hidden">
+                        <div class="marquee inline-block text-sm">加入群聊节点搭建，共建Web3生态</div>
+                    </div>
+                </div>
+                
+                <!-- 主内容区 -->
+                <div class="card overflow-hidden relative">
+                    <!-- 三个按钮 -->
+                    <div class="flex gap-2 mb-3 mt-2">
+                        <button class="btn btn-purple flex-1 py-3 text-sm" onclick="playSound('click'); renderAppList(appList1); hideEcoDocking();">推荐派应用</button>
+                        <button class="btn btn-blue flex-1 py-3 text-sm" onclick="playSound('click'); renderAppList(appList2); showEcoDocking();">生态对接</button>
+                        <button class="btn btn-green flex-1 py-3 text-sm" onclick="playSound('click'); renderAppList(toolsList); hideEcoDocking();">工具</button>
+                    </div>
+                    
+                    <!-- 应用列表 -->
+                    <div id="app-list"></div>
+                    
+                    <!-- 正在对接中的生态 -->
+                    <div id="eco-docking-card" class="hidden mt-4">
+                        <div class="bg-gradient-to-r from-gray-100 to-gray-200 rounded-xl p-4 border border-gray-300">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center text-white mr-2">
+                                    <i class="fa fa-construction"></i>
+                                </div>
+                                <h3 class="font-bold text-gray-800">派社区正在对接的生态</h3>
+                            </div>
+                            <p class="text-xs text-gray-600 mb-3">探索派生态最新对接项目，共同建设Web3未来</p>
+                            <div id="eco-docking-list" class="grid grid-cols-1 gap-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="height: 80px"></div>
+            </div>
+            
+            <!-- 生态页面 -->
+            <div id="ecosystem-page" class="page hidden">
+                <a href="https://www.teltlk.com/#/register?invite=sss444" class="block bg-gradient-to-r from-red-500 to-yellow-500 text-white p-5 rounded-2xl mb-3 text-center hover:opacity-90 transition shadow-lg">
+                    <h1 class="text-lg font-bold mb-1">加入社群 TELTLK</h1>
+                    <p class="text-sm opacity-90 font-bold">PI友没有teltlk怎么办？点击此处下载</p>
+                </a>
+                
+                <div class="card p-5">
+                    <div class="bg-gradient-to-r from-indigo-600 to-blue-600 p-5 text-white rounded-xl mb-5">
+                        <h2 class="text-lg font-bold text-center">群聊联络处 · 咨询</h2>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                            <p class="text-lg font-bold text-gray-800">魏国炳</p>
+                            <p class="text-base text-gray-600 font-medium mt-1">155 3645 5536</p>
+                        </div>
+                        <div class="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+                            <p class="text-lg font-bold text-gray-800">毕向阳</p>
+                            <p class="text-base text-gray-600 font-medium mt-1">153 1363 6709</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card p-5">
+                    <h2 class="text-lg font-bold mb-4 text-center">派友社群 · TELTLK扫码</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center">
+                            <div class="w-full aspect-square max-w-40 mx-auto bg-white border-2 border-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                                <div class="w-3/4 h-3/4 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-4xl text-blue-500 font-bold">1</span>
+                                </div>
+                            </div>
+                            <p class="text-sm mt-3 font-bold text-gray-700">山西太原</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-full aspect-square max-w-40 mx-auto bg-white border-2 border-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                                <div class="w-3/4 h-3/4 bg-gradient-to-br from-purple-100 to-blue-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-comments text-4xl text-purple-600"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm mt-3 font-bold text-gray-700">派信娱乐</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-full aspect-square max-w-40 mx-auto bg-white border-2 border-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                                <div class="w-3/4 h-3/4 bg-gradient-to-br from-green-100 to-teal-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-comments text-4xl text-green-600"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm mt-3 font-bold text-gray-700">穷聊</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-full aspect-square max-w-40 mx-auto bg-white border-2 border-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                                <div class="w-3/4 h-3/4 bg-gradient-to-br from-red-100 to-pink-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-4xl text-red-600 font-bold">2</span>
+                                </div>
+                            </div>
+                            <p class="text-sm mt-3 font-bold text-gray-700">北京社群</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-full aspect-square max-w-40 mx-auto bg-white border-2 border-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                                <div class="w-3/4 h-3/4 bg-gradient-to-br from-yellow-100 to-orange-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-4xl text-yellow-600 font-bold">3</span>
+                                </div>
+                            </div>
+                            <p class="text-sm mt-3 font-bold text-gray-700">上海社群</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-full aspect-square max-w-40 mx-auto bg-white border-2 border-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                                <div class="w-3/4 h-3/4 bg-gradient-to-br from-cyan-100 to-blue-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-comments text-4xl text-cyan-600"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm mt-3 font-bold text-gray-700">广州社群</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-full aspect-square max-w-40 mx-auto bg-white border-2 border-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                                <div class="w-3/4 h-3/4 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-lg flex items-center justify-center">
+                                    <span class="text-4xl text-indigo-600 font-bold">4</span>
+                                </div>
+                            </div>
+                            <p class="text-sm mt-3 font-bold text-gray-700">深圳社群</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-full aspect-square max-w-40 mx-auto bg-white border-2 border-gray-200 rounded-xl flex items-center justify-center shadow-sm">
+                                <div class="w-3/4 h-3/4 bg-gradient-to-br from-emerald-100 to-green-100 rounded-lg flex items-center justify-center">
+                                    <i class="fa fa-comments text-4xl text-emerald-600"></i>
+                                </div>
+                            </div>
+                            <p class="text-sm mt-3 font-bold text-gray-700">成都社群</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="height: 80px"></div>
+            </div>
+            
+            <!-- 节点搭建页面 -->
+            <div id="community-page" class="page hidden">
+                <div class="card">
+                    <h2 class="text-base font-bold mb-3 text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">节点搭建指南</h2>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start p-3 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg border border-blue-100">
+                            <div class="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0 shadow">
+                                <span class="font-bold text-sm">1</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-blue-800 text-sm">准备工作</h3>
+                                <p class="text-xs text-gray-600 mt-1">确保设备符合最低要求，网络稳定</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-3 bg-gradient-to-r from-green-50 to-green-100 rounded-lg border border-green-100">
+                            <div class="w-9 h-9 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0 shadow">
+                                <span class="font-bold text-sm">2</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-green-800 text-sm">下载节点软件</h3>
+                                <p class="text-xs text-gray-600 mt-1">从官方渠道获取最新版本的节点软件</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg border border-purple-100">
+                            <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0 shadow">
+                                <span class="font-bold text-sm">3</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-purple-800 text-sm">配置节点</h3>
+                                <p class="text-xs text-gray-600 mt-1">按照指引完成节点配置和账户绑定</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-3 bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg border border-yellow-100">
+                            <div class="w-9 h-9 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0 shadow">
+                                <span class="font-bold text-sm">4</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-yellow-800 text-sm">启动运行</h3>
+                                <p class="text-xs text-gray-600 mt-1">启动节点，保持在线状态获取奖励</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="font-bold text-gray-800 mb-3 text-sm">节点配置方案</h3>
+                    <div class="space-y-3 mb-4">
+                        <div class="p-3 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl border border-blue-200 shadow-sm">
+                            <div class="flex items-center mb-2">
+                                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white mr-3 shadow">
+                                    <i class="fa fa-server"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-blue-800 text-sm">节点配置 A</h4>
+                                    <p class="text-xs text-blue-600 mt-1">入门级配置，稳定收益</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-bold text-blue-800">¥7,500</p>
+                                    <p class="text-xs text-blue-600">一次性投入</p>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg p-2 mt-2 border border-blue-100">
+                                <p class="text-xs text-gray-700"><i class="fa fa-check-circle text-green-500 mr-1"></i>每天稳定产出：<span class="font-bold text-blue-700">13 - 15 个派币</span>以上</p>
+                            </div>
+                        </div>
+                        
+                        <div class="p-3 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl border border-purple-200 shadow-sm">
+                            <div class="flex items-center mb-2">
+                                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center text-white mr-3 shadow">
+                                    <i class="fa fa-cogs"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-bold text-purple-800 text-sm">节点配置 B</h4>
+                                    <p class="text-xs text-purple-600 mt-1">进阶配置，更高产出</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-bold text-purple-800">¥8,500</p>
+                                    <p class="text-xs text-purple-600">一次性投入</p>
+                                </div>
+                            </div>
+                            <div class="bg-white rounded-lg p-2 mt-2 border border-purple-100">
+                                <p class="text-xs text-gray-700"><i class="fa fa-check-circle text-green-500 mr-1"></i>每天稳定产出：<span class="font-bold text-purple-700">15 - 19 个派币</span>以上</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl border border-yellow-200 shadow-sm">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center text-white mr-3 shadow">
+                                <i class="fa fa-shield"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-yellow-800 text-sm">专业托管服务</h4>
+                                <p class="text-xs text-yellow-700 mt-1">省心省力，专业团队维护</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-white rounded-lg p-3 border border-yellow-100 text-center">
+                                <p class="text-xs text-gray-600 mb-1">基础托管</p>
+                                <p class="text-lg font-bold text-orange-700">¥450<span class="text-xs font-normal text-gray-500">/月</span></p>
+                                <p class="text-xs text-gray-500 mt-1">24小时在线</p>
+                            </div>
+                            <div class="bg-white rounded-lg p-3 border border-yellow-100 text-center">
+                                <p class="text-xs text-gray-600 mb-1">高级托管</p>
+                                <p class="text-lg font-bold text-orange-700">¥550<span class="text-xs font-normal text-gray-500">/月</span></p>
+                                <p class="text-xs text-gray-500 mt-1">稳定优先</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="height: 80px"></div>
+            </div>
+            
+            <!-- 数据页面 -->
+            <div id="data-page" class="page hidden">
+                <div class="bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl p-4 mb-3 text-white shadow-lg">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h2 class="text-base font-bold mb-1 text-center">派币实时数据</h2>
+                            <p class="text-sm opacity-90 text-center">Pi Network 最新行情</p>
+                        </div>
+                        <button id="refresh-data-btn" class="ml-3 bg-white/20 hover:bg-white/30 text-white px-3 py-2 rounded-lg flex items-center transition-all" onclick="refreshData()">
+                            <i class="fa fa-refresh mr-1"></i>
+                            <span class="text-sm">更新</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 派币价格（增强版） -->
+                <div class="card">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center text-white mr-3 shadow-md">
+                            <span class="text-2xl font-bold">π</span>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-base font-bold text-gray-800">派币 (Pi Network)</h3>
+                            <p class="text-xs text-gray-500" id="pi-update-time">最后更新: --</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200 text-center shadow-sm">
+                            <p class="text-xs text-blue-600 mb-1">美元价格</p>
+                            <p class="text-2xl font-bold text-blue-800" id="pi-price-usd">$0.00</p>
+                            <p class="text-xs text-green-600 mt-1" id="pi-change-usd">+0.00%</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-4 border border-red-200 text-center shadow-sm">
+                            <p class="text-xs text-red-600 mb-1">人民币价格</p>
+                            <p class="text-2xl font-bold text-red-800" id="pi-price-cny">¥0.00</p>
+                            <p class="text-xs text-green-600 mt-1" id="pi-change-cny">+0.00%</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-2 p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+                        <div class="text-center">
+                            <p class="text-xs text-gray-500">24h最高</p>
+                            <p class="text-sm font-bold text-gray-800 mt-1" id="pi-high">--</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xs text-gray-500">24h最低</p>
+                            <p class="text-sm font-bold text-gray-800 mt-1" id="pi-low">--</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xs text-gray-500">流通市值</p>
+                            <p class="text-sm font-bold text-gray-800 mt-1" id="pi-market-cap">--</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 派币走势图 -->
+                <div class="card">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white mr-3 shadow">
+                            <i class="fa fa-line-chart"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-base font-bold text-gray-800">派币价格走势</h3>
+                            <p class="text-xs text-gray-500">最近30天趋势图</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-3 border border-gray-200 mb-3">
+                        <div id="pi-chart" style="height: 180px;"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-4 gap-2 text-center">
+                        <div class="p-2 bg-gray-50 rounded-lg">
+                            <p class="text-xs text-gray-500">7日</p>
+                            <p class="text-sm font-bold text-green-600" id="pi-trend-7d">+0.00%</p>
+                        </div>
+                        <div class="p-2 bg-gray-50 rounded-lg">
+                            <p class="text-xs text-gray-500">14日</p>
+                            <p class="text-sm font-bold text-green-600" id="pi-trend-14d">+0.00%</p>
+                        </div>
+                        <div class="p-2 bg-gray-50 rounded-lg">
+                            <p class="text-xs text-gray-500">21日</p>
+                            <p class="text-sm font-bold text-green-600" id="pi-trend-21d">+0.00%</p>
+                        </div>
+                        <div class="p-2 bg-gray-50 rounded-lg">
+                            <p class="text-xs text-gray-500">30日</p>
+                            <p class="text-sm font-bold text-green-600" id="pi-trend-30d">+0.00%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 今日/昨日价格对比 -->
+                <div class="card">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white mr-3 shadow">
+                            <i class="fa fa-bar-chart"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-gray-800">价格数据对比</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <div class="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 text-center">
+                            <p class="text-xs text-green-600 mb-2">今日价格</p>
+                            <p class="text-lg font-bold text-green-800" id="pi-today-usd">$0.00</p>
+                            <p class="text-xs text-green-700 mt-1" id="pi-today-cny">¥0.00</p>
+                        </div>
+                        <div class="p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl border border-orange-200 text-center">
+                            <p class="text-xs text-orange-600 mb-2">昨日价格</p>
+                            <p class="text-lg font-bold text-orange-800" id="pi-yesterday-usd">$0.00</p>
+                            <p class="text-xs text-orange-700 mt-1" id="pi-yesterday-cny">¥0.00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-3 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200 text-center">
+                        <p class="text-xs text-gray-600 mb-1">24h价格变动</p>
+                        <p class="text-base font-bold" id="pi-24h-change">+$0.00 (+0.00%)</p>
+                    </div>
+                </div>
+                
+                <!-- 社区服务工具 -->
+                <div class="card">
+                    <div class="flex items-center mb-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white mr-3 shadow">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-gray-800">社区服务工具</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-4 gap-2 mb-3">
+                        <div class="text-center p-3 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 cursor-pointer hover:scale-105 transition-transform" onclick="openPriceCalculator()">
+                            <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white mx-auto mb-2 shadow">
+                                <i class="fa fa-calculator"></i>
+                            </div>
+                            <p class="text-xs font-bold text-gray-800">价格计算</p>
+                        </div>
+                        <div class="text-center p-3 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200 cursor-pointer hover:scale-105 transition-transform" onclick="openCurrencyExchange()">
+                            <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white mx-auto mb-2 shadow">
+                                <i class="fa fa-refresh"></i>
+                            </div>
+                            <p class="text-xs font-bold text-gray-800">货币兑换</p>
+                        </div>
+                        <div class="text-center p-3 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg border border-yellow-200 cursor-pointer hover:scale-105 transition-transform" onclick="openPriceAlert()">
+                            <div class="w-10 h-10 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center text-white mx-auto mb-2 shadow">
+                                <i class="fa fa-bell"></i>
+                            </div>
+                            <p class="text-xs font-bold text-gray-800">价格提醒</p>
+                        </div>
+                        <div class="text-center p-3 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200 cursor-pointer hover:scale-105 transition-transform" onclick="playSound('click')">
+                            <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white mx-auto mb-2 shadow">
+                                <i class="fa fa-book"></i>
+                            </div>
+                            <p class="text-xs font-bold text-gray-800">行情资讯</p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-3 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg border border-purple-200 text-center">
+                        <p class="text-xs text-gray-600">
+                            <i class="fa fa-info-circle text-purple-500 mr-1"></i>
+                            派币数据仅供参考，不构成投资建议
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 价格提醒设置 -->
+                <div id="price-alert-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+                    <div class="bg-white rounded-2xl p-5 mx-4 max-w-sm w-full shadow-2xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-gray-800">价格提醒设置</h3>
+                            <button onclick="closePriceAlert()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-sm font-bold text-gray-700 mb-2 block">当派币价格达到</label>
+                                <div class="flex items-center bg-gray-50 rounded-xl p-3 border border-gray-200">
+                                    <span class="text-gray-600 mr-2 font-bold">$</span>
+                                    <input type="number" id="alert-price" placeholder="输入目标价格" class="flex-1 bg-transparent outline-none text-gray-800 text-base" step="0.01" min="0">
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setAlertDirection('above')" id="alert-above-btn" class="p-3 rounded-xl bg-red-50 border-2 border-red-200 text-red-700 font-bold text-sm hover:bg-red-100 transition-all">
+                                    <i class="fa fa-arrow-up mr-1"></i>超过此价
+                                </button>
+                                <button onclick="setAlertDirection('below')" id="alert-below-btn" class="p-3 rounded-xl bg-green-50 border-2 border-green-200 text-green-700 font-bold text-sm hover:bg-green-100 transition-all">
+                                    <i class="fa fa-arrow-down mr-1"></i>低于此价
+                                </button>
+                            </div>
+                            
+                            <div id="alert-status" class="p-3 bg-yellow-50 rounded-xl border border-yellow-200 text-center">
+                                <p class="text-xs text-yellow-700">
+                                    <i class="fa fa-exclamation-circle mr-1"></i>
+                                    <span id="alert-status-text">未设置价格提醒</span>
+                                </p>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="savePriceAlert()" class="p-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white font-bold rounded-xl shadow-lg hover:scale-105 transition-transform">
+                                    <i class="fa fa-check mr-1"></i>设置提醒
+                                </button>
+                                <button onclick="cancelPriceAlert()" class="p-3 bg-gradient-to-r from-gray-400 to-gray-500 text-white font-bold rounded-xl shadow-lg hover:scale-105 transition-transform">
+                                    <i class="fa fa-trash mr-1"></i>取消提醒
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 价格计算器弹窗 -->
+                <div id="calculator-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+                    <div class="bg-white rounded-2xl p-5 mx-4 max-w-sm w-full shadow-2xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-gray-800">价格计算器</h3>
+                            <button onclick="closeCalculator()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-sm font-bold text-gray-700 mb-2 block">派币数量</label>
+                                <div class="flex items-center bg-gray-50 rounded-xl p-3 border border-gray-200">
+                                    <span class="text-yellow-600 mr-2 font-bold text-lg">π</span>
+                                    <input type="number" id="calc-amount" placeholder="输入数量" class="flex-1 bg-transparent outline-none text-gray-800 text-base" oninput="calculatePrice()">
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200 text-center">
+                                <p class="text-xs text-blue-600 mb-1">等值美元</p>
+                                <p class="text-2xl font-bold text-blue-800" id="calc-usd">$0.00</p>
+                            </div>
+                            
+                            <div class="p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-xl border border-red-200 text-center">
+                                <p class="text-xs text-red-600 mb-1">等值人民币</p>
+                                <p class="text-2xl font-bold text-red-800" id="calc-cny">¥0.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 货币兑换弹窗 -->
+                <div id="exchange-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center">
+                    <div class="bg-white rounded-2xl p-5 mx-4 max-w-sm w-full shadow-2xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-gray-800">货币兑换</h3>
+                            <button onclick="closeExchange()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:bg-gray-200">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-sm font-bold text-gray-700 mb-2 block">金额</label>
+                                <div class="flex items-center bg-gray-50 rounded-xl p-3 border border-gray-200">
+                                    <select id="ex-from-currency" class="bg-transparent outline-none text-gray-700 mr-2 font-bold" onchange="calculateExchange()">
+                                        <option value="pi">π</option>
+                                        <option value="usd">$</option>
+                                        <option value="cny">¥</option>
+                                    </select>
+                                    <input type="number" id="ex-amount" placeholder="输入金额" class="flex-1 bg-transparent outline-none text-gray-800 text-base" oninput="calculateExchange()">
+                                </div>
+                            </div>
+                            
+                            <div class="text-center text-gray-500">
+                                <i class="fa fa-exchange text-xl"></i>
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="p-3 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200 text-center">
+                                    <p class="text-xs text-blue-600 mb-1">美元</p>
+                                    <p class="text-lg font-bold text-blue-800" id="ex-usd">$0.00</p>
+                                </div>
+                                <div class="p-3 bg-gradient-to-br from-red-50 to-red-100 rounded-xl border border-red-200 text-center">
+                                    <p class="text-xs text-red-600 mb-1">人民币</p>
+                                    <p class="text-lg font-bold text-red-800" id="ex-cny">¥0.00</p>
+                                </div>
+                            </div>
+                            
+                            <div class="p-3 bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl border border-yellow-200 text-center">
+                                <p class="text-xs text-yellow-700 mb-1">派币数量</p>
+                                <p class="text-lg font-bold text-yellow-800" id="ex-pi">π 0.00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="height: 80px"></div>
+            </div>
+            
+            <!-- 福利空投页面 -->
+            <div id="profile-page" class="page hidden">
+                <div class="bg-gradient-to-r from-yellow-400 to-red-400 rounded-2xl p-4 mb-3 text-white shadow-lg">
+                    <h1 class="text-base font-bold mb-1 text-center">福利中心板块</h1>
+                    <p class="text-sm opacity-90 text-center">对接的福利生态</p>
+                </div>
+                
+                <div class="space-y-3 mb-3">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-4 border-2 border-blue-200 cursor-pointer" onclick="playSound('success'); openModal('pi-network-modal')">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0 shadow">
+                                <i class="fa fa-rocket text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-bold text-blue-800 mb-1">Pi Network 官方空投</h3>
+                                <p class="text-xs text-blue-600 mb-2">Pi 主网映射奖励</p>
+                                <p class="text-xs text-gray-700 mb-2">完成主网映射，获得额外 Pi 奖励，最高可达 1000 Pi！</p>
+                                <button class="btn btn-blue w-full py-2 text-xs" onclick="playSound('click')">立即参与</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-lg p-4 border-2 border-green-200 cursor-pointer" onclick="playSound('success'); openModal('ecosystem-modal')">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center text-white mr-3 flex-shrink-0 shadow">
+                                <i class="fa fa-gift text-lg"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-base font-bold text-green-800 mb-1">生态应用激励计划</h3>
+                                <p class="text-xs text-green-600 mb-2">应用使用奖励</p>
+                                <p class="text-xs text-gray-700 mb-2">体验 Pi 生态应用，获得应用代币奖励，多劳多得！</p>
+                                <button class="btn btn-green w-full py-2 text-xs" onclick="playSound('click')">查看详情</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="height: 80px"></div>
+            </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item active" data-page="home-page" onclick="playSound('nav')">
+                <i class="fa fa-home nav-icon"></i>
+                <span class="nav-label">首页</span>
+            </div>
+            <div class="nav-item" data-page="ecosystem-page" onclick="playSound('nav')">
+                <i class="fa fa-comments nav-icon"></i>
+                <span class="nav-label">加入群聊</span>
+            </div>
+            <div class="nav-item" data-page="community-page" onclick="playSound('nav')">
+                <i class="fa fa-cubes nav-icon"></i>
+                <span class="nav-label">节点搭建</span>
+            </div>
+            <div class="nav-item" data-page="data-page" onclick="playSound('nav')">
+                <i class="fa fa-bar-chart nav-icon"></i>
+                <span class="nav-label">数据</span>
+            </div>
+            <div class="nav-item" data-page="profile-page" onclick="playSound('nav')">
+                <i class="fa fa-gift nav-icon"></i>
+                <span class="nav-label">福利空投</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 模态框 -->
+    <div id="pi-network-modal" class="modal">
+        <div class="modal-content relative">
+            <button class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-lg" onclick="playSound('close'); closeModal('pi-network-modal')">
+                <i class="fa fa-times"></i>
+            </button>
+            <div class="text-center mb-4 pt-4">
+                <div class="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center text-white mx-auto mb-3">
+                    <i class="fa fa-rocket text-xl"></i>
+                </div>
+                <h2 class="text-base font-bold text-blue-800">Pi Network 官方空投</h2>
+                <p class="text-gray-600 text-xs mt-1">完成主网映射，获得额外 Pi 奖励！</p>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-blue-50 p-3 rounded-lg">
+                    <h3 class="font-semibold text-blue-800 text-xs">奖励详情</h3>
+                    <ul class="text-xs text-gray-700 mt-2 space-y-1">
+                        <li>• 完成主网映射：500 Pi</li>
+                        <li>• 邀请3位好友：300 Pi</li>
+                        <li>• 参与社区活动：200 Pi</li>
+                    </ul>
+                </div>
+                <button class="btn btn-blue w-full py-2 text-xs" onclick="playSound('click')">立即领取奖励</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="ecosystem-modal" class="modal">
+        <div class="modal-content relative">
+            <button class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-lg" onclick="playSound('close'); closeModal('ecosystem-modal')">
+                <i class="fa fa-times"></i>
+            </button>
+            <div class="text-center mb-4 pt-4">
+                <div class="w-14 h-14 rounded-full bg-green-600 flex items-center justify-center text-white mx-auto mb-3">
+                    <i class="fa fa-gift text-xl"></i>
+                </div>
+                <h2 class="text-base font-bold text-green-800">生态应用激励计划</h2>
+                <p class="text-gray-600 text-xs mt-1">体验 Pi 生态应用，获得丰厚奖励！</p>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-green-50 p-3 rounded-lg">
+                    <h3 class="font-semibold text-green-800 text-xs">参与应用</h3>
+                    <ul class="text-xs text-gray-700 mt-2 space-y-1">
+                        <li>• Pi 钱包：每日签到奖励</li>
+                        <li>• Pi 浏览器：浏览时长奖励</li>
+                        <li>• Pi 聊天：消息互动奖励</li>
+                    </ul>
+                </div>
+                <button class="btn btn-green w-full py-2 text-xs" onclick="playSound('click')">探索生态应用</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="referral-modal" class="modal">
+        <div class="modal-content relative">
+            <button class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 text-lg" onclick="playSound('close'); closeModal('referral-modal')">
+                <i class="fa fa-times"></i>
+            </button>
+            <div class="text-center mb-4 pt-4">
+                <div class="w-14 h-14 rounded-full bg-purple-600 flex items-center justify-center text-white mx-auto mb-3">
+                    <i class="fa fa-users text-xl"></i>
+                </div>
+                <h2 class="text-base font-bold text-purple-800">推荐好友奖励</h2>
+                <p class="text-gray-600 text-xs mt-1">邀请新用户，双方共赢！</p>
+            </div>
+            <div class="space-y-3">
+                <div class="bg-purple-50 p-3 rounded-lg">
+                    <h3 class="font-semibold text-purple-800 text-xs">邀请奖励</h3>
+                    <ul class="text-xs text-gray-700 mt-2 space-y-1">
+                        <li>• 每邀请1位好友：50 Pi</li>
+                        <li>• 好友完成映射：额外30 Pi</li>
+                        <li>• 邀请排行榜：额外奖励</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-100 p-3 rounded-lg text-center">
+                    <p class="text-xs text-gray-600">您的邀请码</p>
+                    <p class="font-bold text-purple-600 mt-1 text-sm">PI-FRIEND-2026</p>
+                </div>
+                <button class="btn btn-purple w-full py-2 text-xs" onclick="playSound('copy')">复制邀请码</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 音效系统
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+        
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+        }
+        
+        function playSound(type) {
+            initAudio();
+            if (!audioCtx) return;
+            
+            const oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            switch(type) {
+                case 'click':
+                    oscillator.frequency.value = 800;
+                    oscillator.type = 'sine';
+                    gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                    oscillator.start(audioCtx.currentTime);
+                    oscillator.stop(audioCtx.currentTime + 0.1);
+                    break;
+                case 'nav':
+                    oscillator.frequency.value = 600;
+                    oscillator.type = 'triangle';
+                    gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                    oscillator.start(audioCtx.currentTime);
+                    oscillator.stop(audioCtx.currentTime + 0.15);
+                    break;
+                case 'success':
+                    oscillator.frequency.value = 1000;
+                    oscillator.type = 'sine';
+                    gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime);
+                    setTimeout(() => {
+                        const osc2 = audioCtx.createOscillator();
+                        const gain2 = audioCtx.createGain();
+                        osc2.connect(gain2);
+                        gain2.connect(audioCtx.destination);
+                        osc2.frequency.value = 1200;
+                        osc2.type = 'sine';
+                        gain2.gain.setValueAtTime(0.25, audioCtx.currentTime);
+                        gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                        osc2.start(audioCtx.currentTime);
+                        osc2.stop(audioCtx.currentTime + 0.15);
+                    }, 80);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                    oscillator.start(audioCtx.currentTime);
+                    oscillator.stop(audioCtx.currentTime + 0.1);
+                    break;
+                case 'close':
+                    oscillator.frequency.value = 400;
+                    oscillator.type = 'sawtooth';
+                    gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+                    oscillator.start(audioCtx.currentTime);
+                    oscillator.stop(audioCtx.currentTime + 0.12);
+                    break;
+                case 'copy':
+                    oscillator.frequency.value = 700;
+                    oscillator.type = 'sine';
+                    gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                    setTimeout(() => {
+                        const osc2 = audioCtx.createOscillator();
+                        const gain2 = audioCtx.createGain();
+                        osc2.connect(gain2);
+                        gain2.connect(audioCtx.destination);
+                        osc2.frequency.value = 900;
+                        osc2.type = 'sine';
+                        gain2.gain.setValueAtTime(0.2, audioCtx.currentTime + 0.08);
+                        gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                        osc2.start(audioCtx.currentTime + 0.08);
+                        osc2.stop(audioCtx.currentTime + 0.2);
+                    }, 60);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                    oscillator.start(audioCtx.currentTime);
+                    oscillator.stop(audioCtx.currentTime + 0.1);
+                    break;
+            }
+        }
+        
+        // 应用数据
+        const appList1 = [
+            { name: "TELTLK - 派生态", desc: "派友必备社群生态", icon: "fa-comment", color: "orange", url: "https://www.teltlk.com/#/register?invite=sss444", copyUrl: "https://www.teltlk.com/#/register?invite=sss444", copy: true },
+            { name: "Satrpi派链孵化器", desc: "派生态部署工具", icon: "fa-line-chart", color: "purple", url: "https://mysticring.jiewai.pro/Share/#/home?trendsId=726270", copyUrl: "startpi.app", copy: true, action: "video" },
+            { name: "hashpi - 哈希派", desc: "链上加密&NFT确权", icon: "fa-hashtag", color: "blue", url: "https://mysticring.jiewai.pro/Share/#/home?trendsId=726278", copyUrl: "hashpi.app", copy: true, action: "video" },
+            { name: "Piday - 派对土地", desc: "购买全球虚拟土地", icon: "fa-map", color: "blue", url: "https://mysticring.jiewai.pro/Share/#/home?trendsId=769963", copyUrl: "https://piday.world/zh-CN?ic=MGV2PG", copy: true, action: "video" },
+            { name: "CrowdFundPi众筹", desc: "邀请码FiA5y5HE", icon: "fa-leaf", color: "green", url: "https://mysticring.jiewai.pro/Share/#/home?trendsId=769965", copyUrl: "https://crowdfundpi.com", copy: true, action: "video" },
+            { name: "Pipet - π宠物紫色", desc: "链游NFT养成宠物", icon: "fa-paw", color: "purple", url: "https://mysticring.jiewai.pro/Share/#/home?trendsId=726289", copyUrl: "https://pipet.me/#/pages/login/login?invite=419296", copy: true, action: "video" },
+            { name: "DOPAI多派元宇宙", desc: "元宇宙模块资产/场景", icon: "fa-bullseye", color: "orange", url: "https://www.dopaimeta.net/#/pages/login/register/?uid=OKCfsi", copyUrl: "https://www.dopaimeta.net/#/pages/login/register/?uid=OKCfsi", copy: true },
+            { name: "月光宝盒", desc: "抽奖盲盒NFT应用", icon: "fa-diamond", color: "pink", url: "https://mysticring.jiewai.pro/Share/#/home?trendsId=777570", copyUrl: "https://openbox.world?referral_code=15536455536", copy: true, action: "video" },
+            { name: "VCITY - 第五城城市", desc: "第五城？签到积分NFT", icon: "fa-building", color: "teal", url: "https://mysticring.jiewai.pro/Share/#/home?trendsId=777571", copyUrl: "https://120", copy: true, action: "video" },
+            { name: "观看操作视频", desc: "观看派生态操作指南视频", icon: "fa-video-camera", color: "gray", url: "https://mysticring.jiewai.pro/Share/#/home?trendsId=776018", copyUrl: "https://110", copy: true, action: "video" }
+        ];
+        
+        const appList2 = [
+            { name: "PIX-派信娱乐", desc: "派社区生态社交娱乐平台，集社交、娱乐、游戏于一体的Web3应用", icon: "fa-gamepad", color: "purple", url: "https://pixinyule333.pages.dev/", copy: true, btnText: "进入详情", countdown: true, targetDate: "2026-11-11T13:19:31", share: "原始股份：200万枚", progress: "社区建设中" },
+            { name: "SPACE-派社区生态", desc: "Pi生态应用市场，汇聚各类优质生态应用，欢迎开发者入驻", icon: "fa-rocket", color: "blue", url: "https://spacepi333.pages.dev/", copy: true, btnText: "进入详情", countdown: true, targetDate: "2026-12-12T03:15:15", share: "已统计：200+生态应用", progress: "生态对接进行中" },
+            { name: "实名DID数字凭证", desc: "派生态实名身份认证系统，为您提供安全可信的数字身份凭证", icon: "fa-id-card", color: "green", url: "https://mysticring.jiewai.pro/mysticringapp", copy: true, action: "download" },
+            { name: "OPA免费生态挖矿", desc: "参与派生态贡献，免费获得OPA生态代币奖励", icon: "fa-gift", color: "orange", url: "https://share.feijipan.com/s/Ct24IYSE", copy: true, action: "download" }
+        ];
+        
+        const ecoDockingList = [
+            { name: "PiPay支付", desc: "派币支付解决方案，支持派生态内快速转账和支付", icon: "fa-credit-card", status: "开发中", url: "#", color: "green" }
+        ];
+        
+        const toolsList = [
+            { name: "派下载大全", desc: "派币下载，浏览器下载", icon: "fa-cloud", color: "blue", url: "https://share.feijipan.com/s/rB3w9JF3", copy: true },
+            { name: "加速器下载", desc: "加速器若干下载", icon: "fa-desktop", color: "gray", url: "https://share.feijipan.com/s/C84YBszt", copy: true },
+            { name: "派辅助工具", desc: "Pi远程辅助安卓下载", icon: "fa-mobile", color: "yellow", url: "https://share.feijipan.com/s/YsbAgBel", copy: true },
+            { name: "加密交易所", desc: "【工具】加密交易所下载", icon: "fa-graduation-cap", color: "teal", url: "https://share.feijipan.com/s/J9aSS7XQ", copy: true },
+            { name: "加密钱包", desc: "【工具】加密钱包下载", icon: "fa-building", color: "red", url: "https://share.feijipan.com/s/zRaSSKiX", copy: true },
+            { name: "分身术", desc: "软件分身多开复制", icon: "fa-search", color: "blue", url: "https://share.feijipan.com/s/6xaSSme7", copy: true },
+            { name: "实时传送", desc: "任何平台 实时传送所有内容", icon: "fa-rocket", color: "purple", url: "https://yunge.in/", copy: true, action: "custom", btnText: "传送进入", highlight: true }
+        ];
+        
+        // 颜色映射
+        const colorMap = {
+            orange: { bg: "from-orange-100 to-orange-200", text: "text-orange-600", btn: "btn-orange" },
+            purple: { bg: "from-purple-100 to-purple-200", text: "text-purple-600", btn: "btn-purple" },
+            blue: { bg: "from-blue-100 to-blue-200", text: "text-blue-600", btn: "btn-blue" },
+            green: { bg: "from-green-100 to-green-200", text: "text-green-600", btn: "btn-green" },
+            pink: { bg: "from-pink-100 to-pink-200", text: "text-pink-600", btn: "btn-purple" },
+            teal: { bg: "from-teal-100 to-teal-200", text: "text-teal-600", btn: "btn-green" },
+            gray: { bg: "from-gray-100 to-gray-200", text: "text-gray-600", btn: "btn-gray" },
+            yellow: { bg: "from-yellow-100 to-yellow-200", text: "text-yellow-600", btn: "btn-orange" },
+            red: { bg: "from-red-100 to-red-200", text: "text-red-600", btn: "btn-orange" }
+        };
+        
+        // 渲染应用列表
+        function renderAppList(appList) {
+            const container = document.getElementById('app-list');
+            const isEco = appList === appList2;
+            container.innerHTML = appList.map((app, index) => {
+                const colors = colorMap[app.color] || colorMap.blue;
+                
+                // 根据action字段确定按钮文字，支持自定义按钮文字
+                let btnText = '点击进入详情';
+                if (app.btnText) btnText = app.btnText;
+                else if (app.action === 'video') btnText = '操作视频';
+                else if (app.action === 'copy') btnText = '复制网址';
+                else if (app.action === 'download') btnText = '点击下载';
+                else if (app.copy) btnText = '点击下载';
+                
+                // 高亮卡片样式
+                const highlightClass = app.highlight ? 'ring-2 ring-purple-400 shadow-lg shadow-purple-200 scale-105' : '';
+                
+                let extra = '';
+                if (isEco && (app.share || app.progress)) {
+                    extra = `
+                        <div class="mt-3 pt-3 border-t border-purple-200 bg-purple-50 rounded-lg p-3">
+                            ${app.share ? `<div class="flex items-center mb-1"><i class="fa fa-coins text-purple-600 mr-2 text-xs"></i><span class="text-xs font-bold text-purple-800">${app.share}</span></div>` : ''}
+                            ${app.progress ? `<div class="flex items-center"><i class="fa fa-spinner fa-spin text-green-600 mr-2 text-xs"></i><span class="text-xs text-green-700">${app.progress}</span></div>` : ''}
+                        </div>
+                    `;
+                }
+                return `
+                    <div class="app-item ${isEco ? 'app-eco' : ''} ${highlightClass}">
+                        <div class="flex items-start">
+                            <div class="icon-box bg-gradient-to-br ${colors.bg}">
+                                <i class="fa ${app.icon} ${colors.text} text-xl"></i>
+                            </div>
+                            <div class="flex-1 min-w-0 mx-3">
+                                <h4 class="font-bold text-gray-800 text-sm mb-1">${app.name}</h4>
+                                <p class="text-xs text-gray-600 leading-snug">${app.desc}</p>
+                            </div>
+                            <button class="${colors.btn} text-xs px-3 py-2 flex-shrink-0" onclick="handleAppClick(event, '${app.url}', '${app.action || ''}', ${app.copy})">
+                                ${btnText}
+                            </button>
+                        </div>
+                        ${app.countdown ? `<div class="text-center mt-3 text-xs text-red-600 font-bold" id="cd-${index}">即将上线</div>` : ''}
+                        ${extra}
+                        ${app.copy ? `
+                            <div class="mt-3 pt-3 border-t border-gray-100 flex items-center">
+                                <span class="text-xs text-gray-500 flex-1 truncate bg-gray-50 px-2 py-1 rounded border border-gray-200">${app.copyUrl || app.url}</span>
+                                <button class="btn btn-blue text-xs px-3 py-1.5 ml-2" onclick="playSound('copy'); copyUrl(event, '${app.copyUrl || app.url}', this)">
+                                    <i class="fa fa-copy mr-1"></i>复制
+                                </button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+            
+            if (isEco) startAppCountdowns();
+        }
+        
+        // 显示/隐藏对接中的生态卡片
+        function showEcoDocking() {
+            const card = document.getElementById('eco-docking-card');
+            const list = document.getElementById('eco-docking-list');
+            if (card && list && ecoDockingList.length > 0) {
+                card.classList.remove('hidden');
+                const item = ecoDockingList[0];
+                const colors = colorMap[item.color] || colorMap.blue;
+                // 模仿OPA免费生态挖矿的样式
+                list.innerHTML = `
+                    <div class="bg-white rounded-lg p-4 border border-gray-200">
+                        <div class="flex items-start">
+                            <div class="icon-box bg-gradient-to-br ${colors.bg}">
+                                <i class="fa ${item.icon} ${colors.text} text-xl"></i>
+                            </div>
+                            <div class="flex-1 min-w-0 mx-3">
+                                <div class="flex items-center">
+                                    <h4 class="font-bold text-gray-800 text-sm">${item.name}</h4>
+                                    <span class="ml-2 text-xs px-2 py-0.5 bg-blue-100 text-blue-600 rounded-full">${item.status}</span>
+                                </div>
+                                <p class="text-xs text-gray-600 leading-snug mt-1">${item.desc}</p>
+                            </div>
+                            <button class="${colors.btn} text-xs px-3 py-2 flex-shrink-0" onclick="playSound('click'); window.open('${item.url}', '_blank')">
+                                进入详情
+                            </button>
+                        </div>
+                        <div class="mt-3 pt-3 border-t border-gray-100 flex items-center">
+                            <span class="text-xs text-gray-500 flex-1 truncate bg-gray-50 px-2 py-1 rounded border border-gray-200">${item.url}</span>
+                            <button class="btn btn-blue text-xs px-3 py-1.5 ml-2" onclick="playSound('copy'); copyUrl(event, '${item.url}', this)">
+                                <i class="fa fa-copy mr-1"></i>复制
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        function hideEcoDocking() {
+            const card = document.getElementById('eco-docking-card');
+            if (card) card.classList.add('hidden');
+        }
+        
+        // 处理应用点击
+        function handleAppClick(e, url, action, copy) {
+            e.stopPropagation();
+            playSound('click');
+            
+            if (action === 'video') {
+                // 操作视频按钮：跳转到对应的链接
+                window.open(url, '_blank');
+            } else if (action === 'copy' || !copy) {
+                // 复制网址或查看详情
+                copyUrl(e, url, e.target);
+            } else {
+                // 点击下载/进入详情
+                window.open(url, '_blank');
+            }
+        }
+        
+        // 复制URL
+        function copyUrl(e, url, btn) {
+            e.stopPropagation();
+            const textArea = document.createElement('textarea');
+            textArea.value = url;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.select();
+            try { document.execCommand('copy'); } catch(err) {}
+            document.body.removeChild(textArea);
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<i class="fa fa-check mr-1"></i>已复制';
+            setTimeout(() => btn.innerHTML = orig, 2000);
+        }
+        
+        // 页面切换
+        function switchPage(pageName) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
+            document.querySelector(`[data-page="${pageName}"]`).classList.add('active');
+            document.getElementById(pageName).classList.remove('hidden');
+            
+            // 如果是数据页面，初始化数据
+            if (pageName === 'data-page') {
+                initDataPage();
+            }
+        }
+        
+        // 模态框
+        function openModal(id) {
+            document.getElementById(id).classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('show');
+            document.body.style.overflow = '';
+        }
+        
+        // 事件倒计时
+        function startEventCountdown() {
+            const target = new Date('2026-06-30T14:30:00');
+            const targetTime = target.getTime();
+            
+            // 格式化日期显示
+            document.getElementById('event-date').textContent = '2026年6月30日 14:30';
+            
+            const update = () => {
+                const currentTime = new Date().getTime();
+                const d = targetTime - currentTime;
+                if (d < 0) {
+                    document.getElementById('event-days').textContent = '00';
+                    document.getElementById('event-hours').textContent = '00';
+                    document.getElementById('event-minutes').textContent = '00';
+                    document.getElementById('event-seconds').textContent = '00';
+                    return;
+                }
+                const days = Math.floor(d / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((d % (1000 * 60)) / 1000);
+                document.getElementById('event-days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('event-hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('event-minutes').textContent = mins.toString().padStart(2, '0');
+                document.getElementById('event-seconds').textContent = secs.toString().padStart(2, '0');
+            };
+            update();
+            setInterval(update, 1000);
+        }
+        
+        // 应用倒计时
+        function startAppCountdowns() {
+            appList2.forEach((app, index) => {
+                if (app.countdown && app.targetDate) {
+                    const target = new Date(app.targetDate).getTime();
+                    const el = document.getElementById(`cd-${index}`);
+                    if (!el) return;
+                    const update = () => {
+                        const now = new Date().getTime();
+                        const d = target - now;
+                        if (d < 0) { el.textContent = '已上线'; return; }
+                        const days = Math.floor(d / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const mins = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+                        const secs = Math.floor((d % (1000 * 60)) / 1000);
+                        el.textContent = `${days}天 ${hours}时 ${mins}分 ${secs}秒`;
+                    };
+                    update();
+                    setInterval(update, 1000);
+                }
+            });
+        }
+        
+        // 数据页面功能
+        let dataUpdateInterval = null;
+        let currentPiPrice = 314159.0;
+        let yesterdayPiPrice = 314100.0;
+        let cnyRate = 7.2;
+        const BASE_PRICE = 314159.0;
+        const PRICE_FLUCTUATION = 1000;
+        let fluctuationDirection = 1;
+        
+        let priceAlertData = {
+            targetPrice: 0,
+            direction: 'above',
+            isSet: false
+        };
+        
+        // 初始化数据页面
+        function initDataPage() {
+            updatePiData();
+            drawPiChart();
+            if (dataUpdateInterval) clearInterval(dataUpdateInterval);
+            dataUpdateInterval = setInterval(() => {
+                updatePiData();
+                checkPriceAlert();
+            }, 1000);
+        }
+        
+        async function refreshData() {
+            const btn = document.getElementById('refresh-data-btn');
+            if (!btn) return;
+            
+            const icon = btn.querySelector('i');
+            if (icon) {
+                icon.style.animation = 'spin 0.6s linear infinite';
+            }
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+            
+            try {
+                updatePiData();
+                drawPiChart();
+                
+                const originalText = btn.querySelector('span').textContent;
+                btn.querySelector('span').textContent = '已更新!';
+                setTimeout(() => {
+                    btn.querySelector('span').textContent = originalText;
+                }, 1000);
+                
+            } finally {
+                if (icon) {
+                    icon.style.animation = '';
+                }
+                btn.disabled = false;
+                btn.style.opacity = '1';
+            }
+        }
+        
+        function updatePiData() {
+            // 每秒±$1000浮动，围绕基准价格波动
+            const fluctuation = (Math.random() - 0.5) * 2 * PRICE_FLUCTUATION;
+            currentPiPrice = BASE_PRICE + fluctuation;
+            const piPriceCny = currentPiPrice * cnyRate;
+            
+            const piPriceUsdEl = document.getElementById('pi-price-usd');
+            const piPriceCnyEl = document.getElementById('pi-price-cny');
+            const piUpdateTimeEl = document.getElementById('pi-update-time');
+            
+            if (piPriceUsdEl) piPriceUsdEl.textContent = '$' + currentPiPrice.toFixed(2);
+            if (piPriceCnyEl) piPriceCnyEl.textContent = '¥' + piPriceCny.toFixed(2);
+            if (piUpdateTimeEl) {
+                const now = new Date();
+                piUpdateTimeEl.textContent = '最后更新: ' + now.toLocaleTimeString('zh-CN');
+            }
+            
+            const priceChangeUsd = currentPiPrice - yesterdayPiPrice;
+            const changePercent = (priceChangeUsd / yesterdayPiPrice) * 100;
+            
+            const usdChangeEl = document.getElementById('pi-change-usd');
+            const cnyChangeEl = document.getElementById('pi-change-cny');
+            
+            if (usdChangeEl) {
+                usdChangeEl.textContent = (changePercent >= 0 ? '+' : '') + changePercent.toFixed(2) + '%';
+                usdChangeEl.className = 'text-xs mt-1 ' + (changePercent >= 0 ? 'text-green-600' : 'text-red-600');
+            }
+            if (cnyChangeEl) {
+                cnyChangeEl.textContent = (changePercent >= 0 ? '+' : '') + changePercent.toFixed(2) + '%';
+                cnyChangeEl.className = 'text-xs mt-1 ' + (changePercent >= 0 ? 'text-green-600' : 'text-red-600');
+            }
+            
+            const highEl = document.getElementById('pi-high');
+            const lowEl = document.getElementById('pi-low');
+            const marketCapEl = document.getElementById('pi-market-cap');
+            
+            const highPrice = currentPiPrice + PRICE_FLUCTUATION;
+            const lowPrice = currentPiPrice - PRICE_FLUCTUATION;
+            const marketCap = currentPiPrice * 100000000;
+            
+            if (highEl) highEl.textContent = '$' + highPrice.toFixed(2);
+            if (lowEl) lowEl.textContent = '$' + lowPrice.toFixed(2);
+            if (marketCapEl) marketCapEl.textContent = '$' + (marketCap / 1000000000).toFixed(2) + 'B';
+            
+            const trends = [7, 14, 21, 30];
+            trends.forEach((d, i) => {
+                const el = document.getElementById('pi-trend-' + d + 'd');
+                if (el) {
+                    const change = (Math.random() - 0.3) * (0.5 + i * 0.2);
+                    el.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+                    el.className = 'text-sm font-bold ' + (change >= 0 ? 'text-green-600' : 'text-red-600');
+                }
+            });
+            
+            const todayUsdEl = document.getElementById('pi-today-usd');
+            const todayCnyEl = document.getElementById('pi-today-cny');
+            const yesterdayUsdEl = document.getElementById('pi-yesterday-usd');
+            const yesterdayCnyEl = document.getElementById('pi-yesterday-cny');
+            
+            if (todayUsdEl) todayUsdEl.textContent = '$' + currentPiPrice.toFixed(2);
+            if (todayCnyEl) todayCnyEl.textContent = '¥' + piPriceCny.toFixed(2);
+            if (yesterdayUsdEl) yesterdayUsdEl.textContent = '$' + yesterdayPiPrice.toFixed(2);
+            if (yesterdayCnyEl) yesterdayCnyEl.textContent = '¥' + (yesterdayPiPrice * cnyRate).toFixed(2);
+            
+            const changeEl = document.getElementById('pi-24h-change');
+            if (changeEl) {
+                const sign = priceChangeUsd >= 0 ? '+' : '';
+                changeEl.textContent = sign + '$' + priceChangeUsd.toFixed(2) + ' (' + sign + changePercent.toFixed(2) + '%)';
+                changeEl.className = 'text-base font-bold ' + (priceChangeUsd >= 0 ? 'text-green-600' : 'text-red-600');
+            }
+        }
+        
+        function drawPiChart() {
+            const chartEl = document.getElementById('pi-chart');
+            if (!chartEl) return;
+            
+            const days = 30;
+            const data = [];
+            let price = BASE_PRICE - 500;
+            for (let i = 0; i < days; i++) {
+                const volatility = (Math.random() - 0.5) * PRICE_FLUCTUATION * 2;
+                price += volatility;
+                price = Math.max(BASE_PRICE - PRICE_FLUCTUATION * 3, Math.min(BASE_PRICE + PRICE_FLUCTUATION * 3, price));
+                data.push(price);
+            }
+            
+            const width = chartEl.offsetWidth || 320;
+            const height = 180;
+            const padding = 20;
+            
+            const min = Math.min(...data) * 0.95;
+            const max = Math.max(...data) * 1.05;
+            
+            let pathD = '';
+            let areaD = '';
+            
+            data.forEach((price, i) => {
+                const x = padding + (i / (days - 1)) * (width - 2 * padding);
+                const y = height - padding - ((price - min) / (max - min)) * (height - 2 * padding);
+                if (i === 0) {
+                    pathD += 'M ' + x + ' ' + y;
+                    areaD += 'M ' + x + ' ' + (height - padding) + ' L ' + x + ' ' + y;
+                } else {
+                    pathD += ' L ' + x + ' ' + y;
+                    areaD += ' L ' + x + ' ' + y;
+                }
+            });
+            
+            const lastX = padding + ((days - 1) / (days - 1)) * (width - 2 * padding);
+            areaD += ' L ' + lastX + ' ' + (height - padding) + ' Z';
+            
+            let gridLines = '';
+            for (let i = 0; i <= 4; i++) {
+                const y = padding + (i / 4) * (height - 2 * padding);
+                gridLines += '<line x1="' + padding + '" y1="' + y + '" x2="' + (width - padding) + '" y2="' + y + '" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3,3"/>';
+            }
+            
+            chartEl.innerHTML = `
+                <svg width="100%" height="180" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.3"/>
+                            <stop offset="100%" style="stop-color:#10b981;stop-opacity:0.05"/>
+                        </linearGradient>
+                    </defs>
+                    ${gridLines}
+                    <path d="${areaD}" fill="url(#chartGradient)" stroke="none"/>
+                    <path d="${pathD}" stroke="#10b981" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <text x="${padding}" y="12" font-size="10" fill="#6b7280">$${max.toFixed(0)}</text>
+                    <text x="${padding}" y="${height - padding + 14}" font-size="10" fill="#6b7280">$${min.toFixed(0)}</text>
+                </svg>
+            `;
+        }
+        
+        window.addEventListener('resize', function() {
+            if (!document.getElementById('data-page').classList.contains('hidden')) {
+                drawPiChart();
+            }
+        });
+        
+        // 价格提醒功能
+        function openPriceAlert() {
+            playSound('click');
+            const modal = document.getElementById('price-alert-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                
+                // 填充当前价格
+                const priceInput = document.getElementById('alert-price');
+                if (priceInput && !priceInput.value) {
+                    priceInput.value = currentPiPrice.toFixed(2);
+                }
+                
+                updateAlertStatus();
+                setAlertDirection('above');
+            }
+        }
+        
+        function closePriceAlert() {
+            const modal = document.getElementById('price-alert-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+        
+        function setAlertDirection(direction) {
+            priceAlertData.direction = direction;
+            const aboveBtn = document.getElementById('alert-above-btn');
+            const belowBtn = document.getElementById('alert-below-btn');
+            
+            if (aboveBtn) {
+                aboveBtn.style.borderColor = direction === 'above' ? '#dc2626' : '#e5e7eb';
+                aboveBtn.style.backgroundColor = direction === 'above' ? '#fef2f2' : '#f9fafb';
+            }
+            if (belowBtn) {
+                belowBtn.style.borderColor = direction === 'below' ? '#16a34a' : '#e5e7eb';
+                belowBtn.style.backgroundColor = direction === 'below' ? '#f0fdf4' : '#f9fafb';
+            }
+        }
+        
+        function savePriceAlert() {
+            const priceInput = document.getElementById('alert-price');
+            if (priceInput && priceInput.value) {
+                priceAlertData.targetPrice = parseFloat(priceInput.value);
+                priceAlertData.isSet = true;
+                updateAlertStatus();
+                setTimeout(closePriceAlert, 800);
+            }
+        }
+        
+        function cancelPriceAlert() {
+            priceAlertData.isSet = false;
+            priceAlertData.targetPrice = 0;
+            updateAlertStatus();
+            setTimeout(closePriceAlert, 500);
+        }
+        
+        function updateAlertStatus() {
+            const statusEl = document.getElementById('alert-status');
+            const statusTextEl = document.getElementById('alert-status-text');
+            if (statusEl && statusTextEl) {
+                if (priceAlertData.isSet) {
+                    statusEl.style.borderColor = '#059669';
+                    statusEl.style.backgroundColor = '#d1fae5';
+                    const dir = priceAlertData.direction === 'above' ? '超过' : '低于';
+                    statusTextEl.textContent = `已设置：当派币${dir}$${priceAlertData.targetPrice.toFixed(2)}时提醒`;
+                } else {
+                    statusEl.style.borderColor = '#f59e0b';
+                    statusEl.style.backgroundColor = '#fef3c7';
+                    statusTextEl.textContent = '未设置价格提醒';
+                }
+            }
+        }
+        
+        function checkPriceAlert() {
+            if (!priceAlertData.isSet) return;
+            
+            const shouldTrigger = 
+                (priceAlertData.direction === 'above' && currentPiPrice >= priceAlertData.targetPrice) ||
+                (priceAlertData.direction === 'below' && currentPiPrice <= priceAlertData.targetPrice);
+            
+            if (shouldTrigger) {
+                const dir = priceAlertData.direction === 'above' ? '超过' : '低于';
+                alert(`💰 价格提醒！\n派币已${dir}$${priceAlertData.targetPrice.toFixed(2)}\n当前价格：$${currentPiPrice.toFixed(2)}`);
+                priceAlertData.isSet = false;
+            }
+        }
+        
+        // 价格计算器
+        function openPriceCalculator() {
+            playSound('click');
+            const modal = document.getElementById('calculator-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                calculatePrice();
+            }
+        }
+        
+        function closeCalculator() {
+            const modal = document.getElementById('calculator-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+        
+        function calculatePrice() {
+            const amountInput = document.getElementById('calc-amount');
+            const usdEl = document.getElementById('calc-usd');
+            const cnyEl = document.getElementById('calc-cny');
+            if (!amountInput || !usdEl || !cnyEl) return;
+            
+            const amount = parseFloat(amountInput.value) || 0;
+            usdEl.textContent = '$' + (amount * currentPiPrice).toFixed(2);
+            cnyEl.textContent = '¥' + (amount * currentPiPrice * cnyRate).toFixed(2);
+        }
+        
+        // 货币兑换
+        function openCurrencyExchange() {
+            playSound('click');
+            const modal = document.getElementById('exchange-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                calculateExchange();
+            }
+        }
+        
+        function closeExchange() {
+            const modal = document.getElementById('exchange-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+        
+        function calculateExchange() {
+            const fromSelect = document.getElementById('ex-from-currency');
+            const amountInput = document.getElementById('ex-amount');
+            const usdEl = document.getElementById('ex-usd');
+            const cnyEl = document.getElementById('ex-cny');
+            const piEl = document.getElementById('ex-pi');
+            if (!fromSelect || !amountInput || !usdEl || !cnyEl || !piEl) return;
+            
+            const from = fromSelect.value;
+            const amount = parseFloat(amountInput.value) || 0;
+            let amountInUsd;
+            
+            if (from === 'pi') amountInUsd = amount * currentPiPrice;
+            else if (from === 'usd') amountInUsd = amount;
+            else amountInUsd = amount / cnyRate;
+            
+            usdEl.textContent = '$' + amountInUsd.toFixed(2);
+            cnyEl.textContent = '¥' + (amountInUsd * cnyRate).toFixed(2);
+            piEl.textContent = 'π ' + (amountInUsd / currentPiPrice).toFixed(4);
+        }
+        
+        
+
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const page = this.getAttribute('data-page');
+                    if (page) switchPage(page);
+                });
+            });
+            
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    if (e.target === this) closeModal(this.id);
+                });
+            });
+            
+            renderAppList(appList1);
+            startEventCountdown();
+            initFloatingCircle();
+        });
+        
+        // 悬浮圆圈功能
+        let circleX = 0;
+        let circleY = 0;
+        let circleVX = 0;
+        let circleVY = 0;
+        let circleInterval = null;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let circleStartX = 0;
+        let circleStartY = 0;
+        let clickStartTime = 0;
+        let effectIndex = 0;
+        let hasMoved = false;
+        let clickCount = 0;
+        const TARGET_URL = 'https://sj-2se.pages.dev/';
+        
+        // 音效上下文
+        let audioCtxEffects = null;
+        
+        function initEffectsAudio() {
+            if (!audioCtxEffects) {
+                audioCtxEffects = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+        
+        // 播放砰的声音
+        function playBoomSound() {
+            initEffectsAudio();
+            if (!audioCtxEffects) return;
+            
+            const oscillator = audioCtxEffects.createOscillator();
+            const gainNode = audioCtxEffects.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtxEffects.destination);
+            
+            // 爆炸音效 - 快速下降的频率
+            oscillator.frequency.setValueAtTime(200, audioCtxEffects.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(50, audioCtxEffects.currentTime + 0.2);
+            oscillator.type = 'sawtooth';
+            
+            // 音量快速衰减
+            gainNode.gain.setValueAtTime(0.8, audioCtxEffects.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtxEffects.currentTime + 0.3);
+            
+            oscillator.start(audioCtxEffects.currentTime);
+            oscillator.stop(audioCtxEffects.currentTime + 0.3);
+        }
+        
+        // 播放其他音效
+        function playPopSound() {
+            initEffectsAudio();
+            if (!audioCtxEffects) return;
+            
+            const oscillator = audioCtxEffects.createOscillator();
+            const gainNode = audioCtxEffects.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtxEffects.destination);
+            
+            oscillator.frequency.setValueAtTime(800, audioCtxEffects.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(200, audioCtxEffects.currentTime + 0.15);
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.6, audioCtxEffects.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtxEffects.currentTime + 0.15);
+            
+            oscillator.start(audioCtxEffects.currentTime);
+            oscillator.stop(audioCtxEffects.currentTime + 0.15);
+        }
+        
+        function playSparkleSound() {
+            initEffectsAudio();
+            if (!audioCtxEffects) return;
+            
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const oscillator = audioCtxEffects.createOscillator();
+                    const gainNode = audioCtxEffects.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtxEffects.destination);
+                    
+                    oscillator.frequency.setValueAtTime(1000 + Math.random() * 1000, audioCtxEffects.currentTime);
+                    oscillator.type = 'sine';
+                    
+                    gainNode.gain.setValueAtTime(0.2, audioCtxEffects.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtxEffects.currentTime + 0.1);
+                    
+                    oscillator.start(audioCtxEffects.currentTime);
+                    oscillator.stop(audioCtxEffects.currentTime + 0.1);
+                }, i * 50);
+            }
+        }
+        
+        // 创建爆炸特效
+        function createExplosion(x, y) {
+            const colors = ['#ff6b6b', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3'];
+            const particleCount = 12;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle explosion-particle';
+                
+                const angle = (i / particleCount) * Math.PI * 2;
+                const distance = 50 + Math.random() * 50;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.cssText = `
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: ${8 + Math.random() * 8}px;
+                    height: ${8 + Math.random() * 8}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    --tx: ${tx}px;
+                    --ty: ${ty}px;
+                `;
+                
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 600);
+            }
+        }
+        
+        // 创建烟花特效
+        function createFirework(x, y) {
+            const colors = ['#ff6b6b', '#feca57', '#ff9ff3', '#54a0ff', '#5f27cd', '#00d2d3', '#1dd1a1', '#ff9f43'];
+            const particleCount = 16;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle firework-particle';
+                
+                const angle = (i / particleCount) * Math.PI * 2;
+                const distance = 80 + Math.random() * 40;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.cssText = `
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: ${6 + Math.random() * 6}px;
+                    height: ${6 + Math.random() * 6}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    --tx: ${tx}px;
+                    --ty: ${ty}px;
+                    border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                `;
+                
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 800);
+            }
+        }
+        
+        // 创建星星特效
+        function createStars(x, y) {
+            const colors = ['#feca57', '#ff9ff3', '#54a0ff', '#fff'];
+            const particleCount = 8;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle star-particle';
+                
+                const angle = (i / particleCount) * Math.PI * 2;
+                const distance = 40 + Math.random() * 30;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.cssText = `
+                    left: ${x}px;
+                    top: ${y}px;
+                    width: ${10 + Math.random() * 10}px;
+                    height: ${10 + Math.random() * 10}px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    --tx: ${tx}px;
+                    --ty: ${ty}px;
+                    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+                `;
+                
+                document.body.appendChild(particle);
+                setTimeout(() => particle.remove(), 700);
+            }
+        }
+        
+        // 创建波纹特效
+        function createRipple(x, y) {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            
+            ripple.style.cssText = `
+                left: ${x - 30}px;
+                top: ${y - 30}px;
+                width: 60px;
+                height: 60px;
+                border: 3px solid #667eea;
+            `;
+            
+            document.body.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 500);
+        }
+        
+        // 特效数组
+        const effects = [
+            { name: 'explosion', create: createExplosion, sound: playBoomSound },
+            { name: 'firework', create: createFirework, sound: playPopSound },
+            { name: 'stars', create: createStars, sound: playSparkleSound },
+            { name: 'ripple', create: createRipple, sound: playPopSound }
+        ];
+        
+        function resetCirclePosition() {
+            const circle = document.getElementById('floating-circle');
+            if (!circle) return;
+            
+            const padding = 50;
+            circleX = padding + Math.random() * (window.innerWidth - 2 * padding - 40);
+            circleY = padding + Math.random() * (window.innerHeight - 2 * padding - 40);
+            
+            // 随机速度方向
+            const speed = 2;
+            const angle = Math.random() * Math.PI * 2;
+            circleVX = Math.cos(angle) * speed;
+            circleVY = Math.sin(angle) * speed;
+            
+            updateCirclePosition();
+            circle.classList.remove('hidden');
+        }
+        
+        function startCircleMovement() {
+            if (circleInterval) clearInterval(circleInterval);
+            
+            circleInterval = setInterval(() => {
+                if (isDragging) return;
+                
+                const circle = document.getElementById('floating-circle');
+                if (!circle || circle.classList.contains('hidden')) return;
+                
+                // 更新位置
+                circleX += circleVX;
+                circleY += circleVY;
+                
+                // 边界检测和反弹
+                const circleSize = 40;
+                if (circleX <= 0 || circleX >= window.innerWidth - circleSize) {
+                    circleVX = -circleVX;
+                    circleX = Math.max(0, Math.min(circleX, window.innerWidth - circleSize));
+                }
+                if (circleY <= 0 || circleY >= window.innerHeight - circleSize) {
+                    circleVY = -circleVY;
+                    circleY = Math.max(0, Math.min(circleY, window.innerHeight - circleSize));
+                }
+                
+                updateCirclePosition();
+            }, 16); // 约60fps
+        }
+        
+        function updateCirclePosition() {
+            const circle = document.getElementById('floating-circle');
+            if (!circle) return;
+            circle.style.left = circleX + 'px';
+            circle.style.top = circleY + 'px';
+        }
+        
+        function initFloatingCircle() {
+            const circle = document.getElementById('floating-circle');
+            if (!circle) return;
+            
+            // 随机初始位置
+            resetCirclePosition();
+            
+            // 开始运动
+            startCircleMovement();
+            
+            // 触摸事件
+            circle.addEventListener('touchstart', handleTouchStart, { passive: false });
+            circle.addEventListener('touchmove', handleTouchMove, { passive: false });
+            circle.addEventListener('touchend', handleTouchEnd);
+            
+            // 鼠标事件
+            circle.addEventListener('mousedown', handleMouseDown);
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+        }
+        
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            startDrag(touch.clientX, touch.clientY);
+        }
+        
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (!isDragging) return;
+            const touch = e.touches[0];
+            doDrag(touch.clientX, touch.clientY);
+        }
+        
+        function handleTouchEnd(e) {
+            endDrag();
+        }
+        
+        function handleMouseDown(e) {
+            e.preventDefault();
+            startDrag(e.clientX, e.clientY);
+        }
+        
+        function handleMouseMove(e) {
+            if (!isDragging) return;
+            doDrag(e.clientX, e.clientY);
+        }
+        
+        function handleMouseUp(e) {
+            endDrag();
+        }
+        
+        function startDrag(clientX, clientY) {
+            isDragging = true;
+            hasMoved = false;
+            clickStartTime = Date.now();
+            if (circleInterval) clearInterval(circleInterval);
+            
+            dragStartX = clientX;
+            dragStartY = clientY;
+            circleStartX = circleX;
+            circleStartY = circleY;
+        }
+        
+        function doDrag(clientX, clientY) {
+            const dx = clientX - dragStartX;
+            const dy = clientY - dragStartY;
+            
+            // 检测是否有移动
+            if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+                hasMoved = true;
+            }
+            
+            circleX = circleStartX + dx;
+            circleY = circleStartY + dy;
+            
+            // 限制在屏幕内
+            const circleSize = 40;
+            circleX = Math.max(0, Math.min(circleX, window.innerWidth - circleSize));
+            circleY = Math.max(0, Math.min(circleY, window.innerHeight - circleSize));
+            
+            updateCirclePosition();
+        }
+        
+        function endDrag() {
+            if (!isDragging) return;
+            
+            // 如果没有移动，视为点击
+            if (!hasMoved) {
+                handleCircleClickAtPosition(circleX + 20, circleY + 20);
+            }
+            
+            isDragging = false;
+            
+            // 重新开始运动
+            const speed = 2;
+            const angle = Math.random() * Math.PI * 2;
+            circleVX = Math.cos(angle) * speed;
+            circleVY = Math.sin(angle) * speed;
+            
+            startCircleMovement();
+        }
+        
+        function handleCircleClickAtPosition(x, y) {
+            clickCount++;
+            
+            const circle = document.getElementById('floating-circle');
+            
+            // 显示点击计数
+            if (circle) {
+                const remaining = 3 - clickCount;
+                if (remaining > 0) {
+                    circle.textContent = remaining;
+                } else {
+                    circle.textContent = '✓';
+                }
+            }
+            
+            if (clickCount >= 3) {
+                // 第三次点击 - 播放大爆炸特效
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => {
+                        const effect = effects[i % effects.length];
+                        const offsetX = (Math.random() - 0.5) * 60;
+                        const offsetY = (Math.random() - 0.5) * 60;
+                        effect.create(x + offsetX, y + offsetY);
+                        effect.sound();
+                    }, i * 100);
+                }
+                
+                playBoomSound();
+                
+                // 隐藏圆圈并跳转
+                if (circle) {
+                    circle.classList.add('hidden');
+                }
+                
+                setTimeout(() => {
+                    window.open(TARGET_URL, '_blank');
+                    
+                    // 3秒后在新位置重新出现
+                    setTimeout(() => {
+                        clickCount = 0;
+                        if (circle) {
+                            circle.textContent = '派';
+                        }
+                        resetCirclePosition();
+                    }, 3000);
+                }, 500);
+                
+                clickCount = 0;
+            } else {
+                // 前两次点击 - 触发特效和音效
+                const effect = effects[effectIndex];
+                effect.create(x, y);
+                effect.sound();
+                effectIndex = (effectIndex + 1) % effects.length;
+                
+                // 1.5秒后恢复显示"派"
+                setTimeout(() => {
+                    if (circle && clickCount < 3) {
+                        circle.textContent = '派';
+                    }
+                }, 1500);
+            }
+        }
+        
+        function handleCircleClick(e) {
+            // 这个函数保留但不使用，因为我们在endDrag中处理
+            // 防止事件冒泡
+            if (e.stopPropagation) e.stopPropagation();
+        }
+    </script>
+    
+    <!-- 悬浮圆圈 -->
+    <div id="floating-circle">派</div>
+</body>
+</html>
