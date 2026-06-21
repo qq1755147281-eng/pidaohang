@@ -15,7 +15,7 @@
     --pi-card:#ffffff;
     --pi-border:#ece3f5;
     --pi-accent:#ffc629;
-    --header-h:128px;
+    --header-h:96px;
     --bottom-h:92px;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -35,35 +35,34 @@
     position:fixed;top:0;left:0;right:0;z-index:50;
     background:linear-gradient(135deg,var(--pi-purple) 0%,var(--pi-purple-deep) 100%);
     color:#fff;
-    padding:22px 24px 26px;
-    position:fixed;
+    padding:14px 20px;
     overflow:hidden;
     box-shadow:0 2px 14px rgba(108,43,158,.2);
   }
   .header::after{
     content:"";
     position:absolute;
-    right:-80px;top:-80px;
-    width:240px;height:240px;
+    right:-60px;top:-60px;
+    width:180px;height:180px;
     background:radial-gradient(circle, rgba(255,198,41,.18) 0%, transparent 60%);
     border-radius:50%;
   }
   .header-inner{
-    display:flex;align-items:center;gap:14px;
+    display:flex;align-items:center;gap:12px;
     position:relative;z-index:1;
     max-width:900px;margin:0 auto;
   }
   .pi-logo{
-    width:44px;height:44px;border-radius:50%;
+    width:36px;height:36px;border-radius:50%;
     background:#fff;color:var(--pi-purple);
     display:flex;align-items:center;justify-content:center;
-    font-size:24px;font-weight:700;
-    box-shadow:0 4px 14px rgba(0,0,0,.15);
-    border:2px solid var(--pi-accent);
+    font-size:20px;font-weight:700;
+    box-shadow:0 3px 10px rgba(0,0,0,.15);
+    border:1.5px solid var(--pi-accent);
     flex-shrink:0;
   }
-  .brand h1{font-size:20px;font-weight:700;letter-spacing:.5px;}
-  .brand p{font-size:12px;opacity:.88;margin-top:2px;}
+  .brand h1{font-size:17px;font-weight:700;letter-spacing:.5px;}
+  .brand p{font-size:11.5px;opacity:.88;margin-top:2px;}
 
   /* ============ Main Scrollable Area ============ */
   .main{
@@ -368,7 +367,7 @@
 
   /* ============ Responsive ============ */
   @media(min-width:720px){
-    :root{--header-h:120px;--bottom-h:88px;}
+    :root{--header-h:88px;--bottom-h:88px;}
     .app-grid{grid-template-columns:repeat(6,1fr);}
     .price-grid{grid-template-columns:repeat(4,1fr);}
     .bottom-grid{max-width:680px;gap:10px;}
