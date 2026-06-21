@@ -15,7 +15,7 @@
     --pi-card:#ffffff;
     --pi-border:#ece3f5;
     --pi-accent:#ffc629;
-    --header-h:96px;
+    --header-h:78px;
     --bottom-h:78px;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
@@ -35,34 +35,34 @@
     position:fixed;top:0;left:0;right:0;z-index:50;
     background:linear-gradient(135deg,var(--pi-purple) 0%,var(--pi-purple-deep) 100%);
     color:#fff;
-    padding:14px 20px;
+    padding:10px 20px 10px;
     overflow:hidden;
     box-shadow:0 2px 14px rgba(108,43,158,.2);
   }
   .header::after{
     content:"";
     position:absolute;
-    right:-60px;top:-60px;
-    width:180px;height:180px;
+    right:-50px;top:-50px;
+    width:140px;height:140px;
     background:radial-gradient(circle, rgba(255,198,41,.18) 0%, transparent 60%);
     border-radius:50%;
   }
   .header-inner{
-    display:flex;align-items:center;gap:12px;
+    display:flex;align-items:center;gap:10px;
     position:relative;z-index:1;
     max-width:900px;margin:0 auto;
   }
   .pi-logo{
-    width:36px;height:36px;border-radius:50%;
+    width:32px;height:32px;border-radius:50%;
     background:#fff;color:var(--pi-purple);
     display:flex;align-items:center;justify-content:center;
-    font-size:20px;font-weight:700;
-    box-shadow:0 3px 10px rgba(0,0,0,.15);
+    font-size:17px;font-weight:700;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
     border:1.5px solid var(--pi-accent);
     flex-shrink:0;
   }
-  .brand h1{font-size:17px;font-weight:700;letter-spacing:.5px;}
-  .brand p{font-size:11.5px;opacity:.88;margin-top:2px;}
+  .brand h1{font-size:15px;font-weight:700;letter-spacing:.5px;}
+  .brand p{font-size:11px;opacity:.9;margin-top:2px;line-height:1.3;}
 
   /* ============ Main Scrollable Area ============ */
   .main{
@@ -79,25 +79,111 @@
   .panel.active{display:block;}
   @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
 
-  /* ============ Hero ============ */
+  /* ============ Hero (compact, on rank/price/contact panels) ============ */
   .hero{
-    margin:18px 16px 0;
+    margin:14px 16px 0;
     background:var(--pi-card);
-    border-radius:18px;
-    padding:20px;
-    box-shadow:0 10px 30px rgba(108,43,158,.08);
+    border-radius:16px;
+    padding:16px 18px;
+    box-shadow:0 6px 20px rgba(108,43,158,.08);
     max-width:900px;
     margin-left:auto;
     margin-right:auto;
   }
-  .hero h2{font-size:17px;color:var(--pi-purple);margin-bottom:6px;}
-  .hero p{font-size:13px;color:var(--pi-muted);}
-  .hero-badge{
-    display:inline-block;margin-top:12px;
-    padding:6px 12px;border-radius:20px;
-    background:linear-gradient(90deg,var(--pi-purple),var(--pi-purple-light));
-    color:#fff;font-size:12px;font-weight:500;
+  .hero h2{font-size:17px;color:var(--pi-purple);margin-bottom:6px;font-weight:800;letter-spacing:.5px;}
+  .hero p{font-size:12.5px;color:var(--pi-muted);}
+
+  /* ============ Home Panel Carousel (6:10 = wide short banners) ============ */
+  .home-carousel{
+    margin:12px 16px 0;
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
+    position:relative;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 10px 28px rgba(108,43,158,.12);
+    aspect-ratio:10 / 6;
   }
+  .carousel-track{
+    display:flex;width:400%;height:100%;
+    transition:transform .6s cubic-bezier(.4,.0,.2,1);
+  }
+  .carousel-slide{
+    width:25%;height:100%;
+    position:relative;
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;
+    flex-shrink:0;
+  }
+  .carousel-slide.s1{background:linear-gradient(120deg,#6c2b9e 0%,#ffc629 100%);}
+  .carousel-slide.s2{background:linear-gradient(120deg,#5a1f87 0%,#ff6b9d 100%);}
+  .carousel-slide.s3{background:linear-gradient(120deg,#0077b6 0%,#00f5d4 100%);}
+  .carousel-slide.s4{background:linear-gradient(120deg,#f77f00 0%,#d62828 100%);}
+  .carousel-content{
+    position:relative;z-index:2;
+    text-align:left;
+    padding:0 8%;
+    width:100%;
+  }
+  .carousel-slide::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 80% 30%,rgba(255,255,255,.22),transparent 55%);
+  }
+  .carousel-title{
+    font-size:22px;font-weight:800;letter-spacing:.5px;
+    margin-bottom:6px;
+    text-shadow:0 2px 8px rgba(0,0,0,.2);
+  }
+  .carousel-sub{font-size:13px;opacity:.95;margin-bottom:10px;}
+  .carousel-btn{
+    display:inline-block;
+    padding:7px 16px;border-radius:18px;
+    background:rgba(255,255,255,.95);
+    color:var(--pi-purple);
+    font-size:12px;font-weight:700;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+  }
+  .carousel-dots{
+    position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+    display:flex;gap:6px;z-index:3;
+  }
+  .carousel-dot{
+    width:7px;height:7px;border-radius:50%;
+    background:rgba(255,255,255,.5);
+    transition:all .3s;cursor:pointer;
+  }
+  .carousel-dot.active{width:22px;border-radius:4px;background:#fff;}
+  .carousel-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:32px;height:32px;border-radius:50%;
+    background:rgba(255,255,255,.85);
+    color:var(--pi-purple);
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:700;
+    cursor:pointer;z-index:3;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+    user-select:none;
+  }
+  .carousel-arrow.prev{left:10px;}
+  .carousel-arrow.next{right:10px;}
+
+  /* ============ Home Panel Section Title (big & bold) ============ */
+  .home-title{
+    margin:22px 20px 4px;
+    max-width:900px;margin-left:auto;margin-right:auto;
+    padding:0 2px;
+  }
+  .home-title h3{
+    font-size:19px;font-weight:800;color:var(--pi-text);
+    letter-spacing:1px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .home-title h3::before{
+    content:"";display:inline-block;width:4px;height:20px;border-radius:2px;
+    background:linear-gradient(180deg,var(--pi-purple),var(--pi-accent));
+  }
+  .home-title p{font-size:12.5px;color:var(--pi-muted);margin-top:4px;margin-left:14px;}
 
   /* ============ Tabs ============ */
   .tabs-wrap{
@@ -216,8 +302,9 @@
   .home-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:18px 6px;
-    padding:16px 4px 28px;
+    gap:22px 6px;
+    padding:14px 20px 30px;
+    max-width:900px;margin:0 auto;
   }
 
   /* ============ Ranking Panel Styles (TOP 20) ============ */
@@ -271,16 +358,21 @@
   .rank-top-info p{font-size:12px;color:var(--pi-muted);line-height:1.5;}
   .rank-top-info p.sub{font-size:11px;color:#999;margin-top:2px;opacity:.8;}
   .rank-top-meta{
-    flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:4px;
+    flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:6px;
   }
   .rank-top-meta .heat{
-    font-size:11.5px;color:var(--pi-muted);
-    background:var(--pi-bg);padding:4px 10px;border-radius:10px;
-    border:1px solid var(--pi-border);
+    font-size:12px;color:var(--pi-text);
+    background:linear-gradient(135deg,#fff9e6,#fff2bf);
+    padding:5px 11px;border-radius:10px;
+    border:1px solid #ffe58a;
+    font-weight:600;
   }
   .rank-top-meta .score{
-    font-size:17px;font-weight:700;color:var(--pi-purple);
-    letter-spacing:0.5px;
+    font-size:20px;font-weight:800;
+    color:#ffb703;
+    text-shadow:0 0 8px rgba(255,183,3,.55),0 0 2px rgba(255,215,0,.9);
+    letter-spacing:1px;
+    line-height:1;
   }
 
   /* ============ Price Panel Styles (6 Vertical Camps) ============ */
@@ -498,10 +590,52 @@
   <!-- ========== PANEL 1: HOME / ECOSYSTEM ========== -->
   <section class="panel active" data-panel="home">
 
-    <div class="hero">
-      <h2>Core Team Apps & 社区生态</h2>
-      <p>精选 41 个派生态应用，点击图标即可跳转至对应应用</p>
-      <span class="hero-badge">★ PiApp.Link 官方生态导航</span>
+    <!-- 4-banner carousel (6:10 ratio) -->
+    <div class="home-carousel" id="homeCarousel">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide s1">
+          <div class="carousel-content">
+            <div class="carousel-title">Pi App · 全球派生态导航</div>
+            <div class="carousel-sub">一站式探索 41+ 派生态应用</div>
+            <a class="carousel-btn" href="https://pi.app" target="_blank" rel="noopener">立即探索 →</a>
+          </div>
+        </div>
+        <div class="carousel-slide s2">
+          <div class="carousel-content">
+            <div class="carousel-title">Pi 钱包 · 安全管理派资产</div>
+            <div class="carousel-sub">支持 Pi 币收支 · 生态应用快捷支付</div>
+            <a class="carousel-btn" href="https://wallet.pi" target="_blank" rel="noopener">打开钱包 →</a>
+          </div>
+        </div>
+        <div class="carousel-slide s3">
+          <div class="carousel-content">
+            <div class="carousel-title">Fireside · 派友社区论坛</div>
+            <div class="carousel-sub">每日活跃超百万派友，分享观点与机会</div>
+            <a class="carousel-btn" href="https://fireside.pi" target="_blank" rel="noopener">进入论坛 →</a>
+          </div>
+        </div>
+        <div class="carousel-slide s4">
+          <div class="carousel-content">
+            <div class="carousel-title">3141 商城 · 派币直接购物</div>
+            <div class="carousel-sub">万件商品支持 Pi 支付 · 商家实时入驻</div>
+            <a class="carousel-btn" href="https://3141.mall" target="_blank" rel="noopener">逛一逛 →</a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-arrow prev" data-role="prev">‹</div>
+      <div class="carousel-arrow next" data-role="next">›</div>
+      <div class="carousel-dots" id="carouselDots">
+        <span class="carousel-dot active" data-i="0"></span>
+        <span class="carousel-dot" data-i="1"></span>
+        <span class="carousel-dot" data-i="2"></span>
+        <span class="carousel-dot" data-i="3"></span>
+      </div>
+    </div>
+
+    <!-- Section title -->
+    <div class="home-title">
+      <h3>精选 41 个派生态应用</h3>
+      <p>点击图标即可跳转至对应应用 · 覆盖官方核心、社交、金融、商城、资讯、AI 全品类</p>
     </div>
 
     <div class="home-grid">
@@ -545,37 +679,38 @@
       <a class="app-item" href="https://pinews.pi" target="_blank" rel="noopener"><div class="app-icon">📰</div><div class="app-name">PiNews 资讯</div></a>
       <a class="app-item" href="https://piblog.pi" target="_blank" rel="noopener"><div class="app-icon">✍️</div><div class="app-name">PiBlog 博客</div></a>
       <a class="app-item" href="https://piai.pi" target="_blank" rel="noopener"><div class="app-icon">🤖</div><div class="app-name">PiAI 智能</div></a>
+      <a class="app-item" href="https://piassistant.pi" target="_blank" rel="noopener"><div class="app-icon">✨</div><div class="app-name">PiAssistant</div></a>
     </div>
   </section>
 
   <!-- ========== PANEL 2: RANKING ========== -->
   <section class="panel" data-panel="rank">
     <div class="hero">
-      <h2>🏆 热门派币生态</h2>
-      <p>派生态 TOP 20 热门应用，按热度实时排名</p>
+      <h2>🏆 派生态 TOP20热门应用</h2>
+      <p>按生态前景、热度实时显示排名</p>
     </div>
 
     <div class="rank-top-list">
-      <div class="rank-top-item"><div class="rank-top-no">01</div><div class="rank-top-icon">🔥</div><div class="rank-top-info"><h4>Fireside</h4><p>派友社区论坛 · 每日活跃用户超万人</p><p class="sub">官方核心 · 社交内容平台</p></div><div class="rank-top-meta"><div class="heat">9,812 热度</div><div class="score">98</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">02</div><div class="rank-top-icon">💬</div><div class="rank-top-info"><h4>PIBBS.CHAT</h4><p>派友在线交流 · 全球首家生态论坛</p><p class="sub">开放发帖 · 即时讨论区</p></div><div class="rank-top-meta"><div class="heat">8,431 热度</div><div class="score">95</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">03</div><div class="rank-top-icon">🏪</div><div class="rank-top-info"><h4>3141 商城</h4><p>Pi 支付购物 · 支持派币直接结算</p><p class="sub">电商购物 · 万件商品支持 Pi</p></div><div class="rank-top-meta"><div class="heat">7,825 热度</div><div class="score">92</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">04</div><div class="rank-top-icon">👁️</div><div class="rank-top-info"><h4>PiTanTan 派探探</h4><p>兴趣配对平台 · 派友社交新玩法</p><p class="sub">社交 · 兴趣标签匹配</p></div><div class="rank-top-meta"><div class="heat">7,218 热度</div><div class="score">90</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">05</div><div class="rank-top-icon">🎵</div><div class="rank-top-info"><h4>PiTok 短视频</h4><p>短视频创作平台 · 派友原创内容社区</p><p class="sub">视频 · 打赏收益全 Pi 结算</p></div><div class="rank-top-meta"><div class="heat">6,945 热度</div><div class="score">88</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">06</div><div class="rank-top-icon">💹</div><div class="rank-top-info"><h4>PiExchange</h4><p>兑换与交易平台 · 生态内价值流转</p><p class="sub">金融 · 实时汇率撮合交易</p></div><div class="rank-top-meta"><div class="heat">6,512 热度</div><div class="score">87</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">07</div><div class="rank-top-icon">🧭</div><div class="rank-top-info"><h4>派导航 PiHub</h4><p>生态入口导航 · 一站式发现所有派应用</p><p class="sub">工具 · 分类索引 + 搜索</p></div><div class="rank-top-meta"><div class="heat">6,128 热度</div><div class="score">85</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">08</div><div class="rank-top-icon">🌾</div><div class="rank-top-info"><h4>PiFarm 农场</h4><p>种植与经营 · 休闲游戏人气最高</p><p class="sub">游戏娱乐 · 轻量养成游戏</p></div><div class="rank-top-meta"><div class="heat">5,814 热度</div><div class="score">84</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">09</div><div class="rank-top-icon">🤖</div><div class="rank-top-info"><h4>PiAI 智能</h4><p>智能对话助手 · 派生态 AI 入口</p><p class="sub">AI · 多轮对话 + 创作工具</p></div><div class="rank-top-meta"><div class="heat">5,623 热度</div><div class="score">82</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">10</div><div class="rank-top-icon">🎮</div><div class="rank-top-info"><h4>PiZone 游戏厅</h4><p>综合游戏平台 · 集合数十款派生态游戏</p><p class="sub">游戏娱乐 · 多人在线对战</p></div><div class="rank-top-meta"><div class="heat">5,286 热度</div><div class="score">81</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">11</div><div class="rank-top-icon">🎨</div><div class="rank-top-info"><h4>PiArt 绘画</h4><p>AI 艺术创作 · 一句话生成精美画作</p><p class="sub">AI · 图像生成与编辑</p></div><div class="rank-top-meta"><div class="heat">4,912 热度</div><div class="score">80</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">12</div><div class="rank-top-icon">📰</div><div class="rank-top-info"><h4>PiNews 资讯</h4><p>派生态每日动态 · 官方消息第一时间推送</p><p class="sub">资讯 · 全球行情 + 社区</p></div><div class="rank-top-meta"><div class="heat">4,658 热度</div><div class="score">79</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">13</div><div class="rank-top-icon">💰</div><div class="rank-top-info"><h4>PiEarn 理财</h4><p>生态理财工具 · 稳定收益派币存款</p><p class="sub">金融 · 低门槛活期存款</p></div><div class="rank-top-meta"><div class="heat">4,421 热度</div><div class="score">77</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">14</div><div class="rank-top-icon">🛍️</div><div class="rank-top-info"><h4>PiBuy 购物</h4><p>在线购物平台 · 生态商家直接入驻</p><p class="sub">商城购物 · 日用百货齐全</p></div><div class="rank-top-meta"><div class="heat">4,128 热度</div><div class="score">76</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">15</div><div class="rank-top-icon">🍜</div><div class="rank-top-info"><h4>PiFood 外卖</h4><p>本地外卖服务 · 派友专享折扣配送</p><p class="sub">商城 · 本地商家外卖订单</p></div><div class="rank-top-meta"><div class="heat">3,815 热度</div><div class="score">74</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">16</div><div class="rank-top-icon">🧩</div><div class="rank-top-info"><h4>PiMatch 消消乐</h4><p>休闲三消游戏 · 通关赢 Pi 奖励</p><p class="sub">游戏娱乐 · 轻度休闲玩法</p></div><div class="rank-top-meta"><div class="heat">3,546 热度</div><div class="score">72</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">17</div><div class="rank-top-icon">👥</div><div class="rank-top-info"><h4>PiCircle 圈子</h4><p>兴趣小组平台 · 同好派友共同话题交流</p><p class="sub">社交 · 各类兴趣社群</p></div><div class="rank-top-meta"><div class="heat">3,284 热度</div><div class="score">71</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">18</div><div class="rank-top-icon">✍️</div><div class="rank-top-info"><h4>PiBlog 博客</h4><p>长文创作分享 · 派友深度文章交流平台</p><p class="sub">资讯社区 · 原创长文</p></div><div class="rank-top-meta"><div class="heat">3,125 热度</div><div class="score">70</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">19</div><div class="rank-top-icon">💳</div><div class="rank-top-info"><h4>PiPay 支付</h4><p>线上线下支付工具 · 商家收款派币首选</p><p class="sub">金融 · 支付接入 SDK</p></div><div class="rank-top-meta"><div class="heat">2,985 热度</div><div class="score">69</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">20</div><div class="rank-top-icon">🔗</div><div class="rank-top-info"><h4>PiApp.Link</h4><p>派生态官方链接聚合 · 快速跳转全站应用</p><p class="sub">工具导航 · 统一生态入口</p></div><div class="rank-top-meta"><div class="heat">2,814 热度</div><div class="score">67</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">01</div><div class="rank-top-icon">🔥</div><div class="rank-top-info"><h4>Fireside</h4><p>派友社区论坛 · 每日活跃用户超万人</p><p class="sub">官方核心 · 社交内容平台</p></div><div class="rank-top-meta"><div class="heat">862 万 热度</div><div class="score">98</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">02</div><div class="rank-top-icon">💬</div><div class="rank-top-info"><h4>PIBBS.CHAT</h4><p>派友在线交流 · 全球首家生态论坛</p><p class="sub">开放发帖 · 即时讨论区</p></div><div class="rank-top-meta"><div class="heat">728 万 热度</div><div class="score">95</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">03</div><div class="rank-top-icon">🏪</div><div class="rank-top-info"><h4>3141 商城</h4><p>Pi 支付购物 · 支持派币直接结算</p><p class="sub">电商购物 · 万件商品支持 Pi</p></div><div class="rank-top-meta"><div class="heat">620 万 热度</div><div class="score">92</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">04</div><div class="rank-top-icon">👁️</div><div class="rank-top-info"><h4>PiTanTan 派探探</h4><p>兴趣配对平台 · 派友社交新玩法</p><p class="sub">社交 · 兴趣标签匹配</p></div><div class="rank-top-meta"><div class="heat">586 万 热度</div><div class="score">90</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">05</div><div class="rank-top-icon">🎵</div><div class="rank-top-info"><h4>PiTok 短视频</h4><p>短视频创作平台 · 派友原创内容社区</p><p class="sub">视频 · 打赏收益全 Pi 结算</p></div><div class="rank-top-meta"><div class="heat">512 万 热度</div><div class="score">88</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">06</div><div class="rank-top-icon">💹</div><div class="rank-top-info"><h4>PiExchange</h4><p>兑换与交易平台 · 生态内价值流转</p><p class="sub">金融 · 实时汇率撮合交易</p></div><div class="rank-top-meta"><div class="heat">458 万 热度</div><div class="score">87</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">07</div><div class="rank-top-icon">🧭</div><div class="rank-top-info"><h4>派导航 PiHub</h4><p>生态入口导航 · 一站式发现所有派应用</p><p class="sub">工具 · 分类索引 + 搜索</p></div><div class="rank-top-meta"><div class="heat">412 万 热度</div><div class="score">86</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">08</div><div class="rank-top-icon">🌾</div><div class="rank-top-info"><h4>PiFarm 农场</h4><p>种植与经营 · 休闲游戏人气最高</p><p class="sub">游戏娱乐 · 轻量养成游戏</p></div><div class="rank-top-meta"><div class="heat">386 万 热度</div><div class="score">84</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">09</div><div class="rank-top-icon">🤖</div><div class="rank-top-info"><h4>PiAI 智能</h4><p>智能对话助手 · 派生态 AI 入口</p><p class="sub">AI · 多轮对话 + 创作工具</p></div><div class="rank-top-meta"><div class="heat">348 万 热度</div><div class="score">83</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">10</div><div class="rank-top-icon">🎮</div><div class="rank-top-info"><h4>PiZone 游戏厅</h4><p>综合游戏平台 · 集合数十款派生态游戏</p><p class="sub">游戏娱乐 · 多人在线对战</p></div><div class="rank-top-meta"><div class="heat">312 万 热度</div><div class="score">81</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">11</div><div class="rank-top-icon">🎨</div><div class="rank-top-info"><h4>PiArt 绘画</h4><p>AI 艺术创作 · 一句话生成精美画作</p><p class="sub">AI · 图像生成与编辑</p></div><div class="rank-top-meta"><div class="heat">286 万 热度</div><div class="score">80</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">12</div><div class="rank-top-icon">📰</div><div class="rank-top-info"><h4>PiNews 资讯</h4><p>派生态每日动态 · 官方消息第一时间推送</p><p class="sub">资讯 · 全球行情 + 社区</p></div><div class="rank-top-meta"><div class="heat">254 万 热度</div><div class="score">79</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">13</div><div class="rank-top-icon">💰</div><div class="rank-top-info"><h4>PiEarn 理财</h4><p>生态理财工具 · 稳定收益派币存款</p><p class="sub">金融 · 低门槛活期存款</p></div><div class="rank-top-meta"><div class="heat">228 万 热度</div><div class="score">77</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">14</div><div class="rank-top-icon">🛍️</div><div class="rank-top-info"><h4>PiBuy 购物</h4><p>在线购物平台 · 生态商家直接入驻</p><p class="sub">商城购物 · 日用百货齐全</p></div><div class="rank-top-meta"><div class="heat">208 万 热度</div><div class="score">76</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">15</div><div class="rank-top-icon">🍜</div><div class="rank-top-info"><h4>PiFood 外卖</h4><p>本地外卖服务 · 派友专享折扣配送</p><p class="sub">商城 · 本地商家外卖订单</p></div><div class="rank-top-meta"><div class="heat">186 万 热度</div><div class="score">74</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">16</div><div class="rank-top-icon">🧩</div><div class="rank-top-info"><h4>PiMatch 消消乐</h4><p>休闲三消游戏 · 通关赢 Pi 奖励</p><p class="sub">游戏娱乐 · 轻度休闲玩法</p></div><div class="rank-top-meta"><div class="heat">162 万 热度</div><div class="score">73</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">17</div><div class="rank-top-icon">👥</div><div class="rank-top-info"><h4>PiCircle 圈子</h4><p>兴趣小组平台 · 同好派友共同话题交流</p><p class="sub">社交 · 各类兴趣社群</p></div><div class="rank-top-meta"><div class="heat">148 万 热度</div><div class="score">71</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">18</div><div class="rank-top-icon">✍️</div><div class="rank-top-info"><h4>PiBlog 博客</h4><p>长文创作分享 · 派友深度文章交流平台</p><p class="sub">资讯社区 · 原创长文</p></div><div class="rank-top-meta"><div class="heat">128 万 热度</div><div class="score">70</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">19</div><div class="rank-top-icon">💳</div><div class="rank-top-info"><h4>PiPay 支付</h4><p>线上线下支付工具 · 商家收款派币首选</p><p class="sub">金融 · 支付接入 SDK</p></div><div class="rank-top-meta"><div class="heat">112 万 热度</div><div class="score">68</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">20</div><div class="rank-top-icon">🔗</div><div class="rank-top-info"><h4>PiApp.Link</h4><p>派生态官方链接聚合 · 快速跳转全站应用</p><p class="sub">工具导航 · 统一生态入口</p></div><div class="rank-top-meta"><div class="heat">102 万 热度</div><div class="score">66</div></div></div>
     </div>
   </section>
 
@@ -790,6 +925,34 @@
       main.scrollTo({top:0, behavior:'smooth'});
     });
   });
+
+  // ============ Home carousel: 4 banners (auto + arrows + dots) ============
+  const track = document.getElementById('carouselTrack');
+  const dotsWrap = document.getElementById('carouselDots');
+  const dots = dotsWrap ? dotsWrap.querySelectorAll('.carousel-dot') : [];
+  const arrows = document.querySelectorAll('.carousel-arrow');
+  let carIdx = 0;
+  const carTotal = 4;
+  function goCarousel(i){
+    carIdx = (i + carTotal) % carTotal;
+    if (track) track.style.transform = `translateX(-${carIdx * 25}%)`;
+    dots.forEach((d, k) => d.classList.toggle('active', k === carIdx));
+  }
+  arrows.forEach(a => {
+    a.addEventListener('click', () => {
+      const dir = a.dataset.role === 'next' ? 1 : -1;
+      goCarousel(carIdx + dir);
+      resetCarTimer();
+    });
+  });
+  dots.forEach(d => {
+    d.addEventListener('click', () => {
+      goCarousel(parseInt(d.dataset.i));
+      resetCarTimer();
+    });
+  });
+  let carTimer = setInterval(() => goCarousel(carIdx + 1), 4000);
+  function resetCarTimer(){ clearInterval(carTimer); carTimer = setInterval(() => goCarousel(carIdx + 1), 4000); }
 
   // ============ Price panel: 6-camp voting ============
   const camps = document.querySelectorAll('.camp');
