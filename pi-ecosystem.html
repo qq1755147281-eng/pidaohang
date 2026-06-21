@@ -16,7 +16,7 @@
     --pi-border:#ece3f5;
     --pi-accent:#ffc629;
     --header-h:96px;
-    --bottom-h:92px;
+    --bottom-h:78px;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
   html,body{height:100%;}
@@ -179,27 +179,27 @@
     position:fixed;bottom:0;left:0;right:0;z-index:50;
     background:#fff;
     border-top:1px solid var(--pi-border);
-    padding:10px 14px calc(10px + env(safe-area-inset-bottom));
-    box-shadow:0 -6px 20px rgba(108,43,158,.08);
+    padding:8px 12px calc(8px + env(safe-area-inset-bottom));
+    box-shadow:0 -4px 16px rgba(108,43,158,.08);
   }
   .bottom-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
-    max-width:600px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:6px;
+    max-width:560px;margin:0 auto;
   }
   .btn{
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:3px;padding:8px 4px;
-    border-radius:12px;border:1.5px solid var(--pi-border);
+    gap:2px;padding:6px 2px;
+    border-radius:10px;border:1px solid var(--pi-border);
     background:#fff;color:var(--pi-text);
-    font-size:11.5px;cursor:pointer;
+    font-size:11px;cursor:pointer;
     transition:all .2s ease;
     font-family:inherit;
   }
   .btn:hover{
     border-color:var(--pi-purple);
     background:var(--pi-bg);
-    transform:translateY(-2px);
-    box-shadow:0 4px 10px rgba(108,43,158,.1);
+    transform:translateY(-1px);
+    box-shadow:0 3px 8px rgba(108,43,158,.1);
   }
   .btn.active{
     border-color:var(--pi-purple);
@@ -209,8 +209,8 @@
     background:linear-gradient(135deg,var(--pi-purple),var(--pi-purple-deep));
     color:#fff;border-color:transparent;
   }
-  .btn.primary:hover{box-shadow:0 6px 14px rgba(108,43,158,.28);}
-  .btn-icon{font-size:18px;line-height:1;}
+  .btn.primary:hover{box-shadow:0 4px 12px rgba(108,43,158,.25);}
+  .btn-icon{font-size:16px;line-height:1;}
 
   /* ============ Ranking Panel Styles ============ */
   .rank-tabs{
@@ -367,10 +367,10 @@
 
   /* ============ Responsive ============ */
   @media(min-width:720px){
-    :root{--header-h:88px;--bottom-h:88px;}
+    :root{--header-h:88px;--bottom-h:74px;}
     .app-grid{grid-template-columns:repeat(6,1fr);}
     .price-grid{grid-template-columns:repeat(4,1fr);}
-    .bottom-grid{max-width:680px;gap:10px;}
+    .bottom-grid{max-width:620px;gap:8px;}
   }
   @media(min-width:1080px){
     .app-grid{grid-template-columns:repeat(8,1fr);}
