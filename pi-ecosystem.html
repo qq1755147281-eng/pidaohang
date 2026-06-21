@@ -336,7 +336,26 @@
     display:flex;align-items:center;gap:14px;
     padding:14px 0;border-bottom:1px solid var(--pi-border);
   }
-  .contact-list li:last-child{border-bottom:none;}
+  .contact-tip{
+    margin-top:22px;
+    padding:18px;
+    background:linear-gradient(135deg,#fff4e0 0%,#ffe9cc 100%);
+    border-left:4px solid var(--pi-accent);
+    border-radius:12px;
+    display:flex;align-items:flex-start;gap:14px;
+  }
+  .contact-tip-icon{
+    width:40px;height:40px;border-radius:10px;
+    background:#fff;display:flex;align-items:center;justify-content:center;
+    font-size:22px;flex-shrink:0;
+    box-shadow:0 2px 8px rgba(108,43,158,.08);
+  }
+  .contact-tip-title{
+    font-size:15px;font-weight:700;color:#8a5d00;margin-bottom:6px;
+  }
+  .contact-tip-text{
+    font-size:13px;color:#6b4e00;line-height:1.7;
+  }
   .contact-ico{
     width:38px;height:38px;border-radius:10px;
     background:linear-gradient(135deg,var(--pi-bg),#f1e9f8);
@@ -346,31 +365,6 @@
   }
   .contact-label{font-size:13px;color:var(--pi-muted);flex:1;}
   .contact-value{font-size:13.5px;color:var(--pi-purple);font-weight:600;}
-  .contact-form{
-    margin-top:22px;padding-top:22px;border-top:1px solid var(--pi-border);
-  }
-  .contact-form label{
-    display:block;font-size:12.5px;color:var(--pi-muted);
-    margin-bottom:6px;
-  }
-  .contact-form input,.contact-form textarea{
-    width:100%;padding:10px 12px;border:1.5px solid var(--pi-border);
-    border-radius:10px;font-size:13.5px;background:#faf7ff;
-    font-family:inherit;color:var(--pi-text);margin-bottom:12px;
-    outline:none;transition:border-color .2s ease;
-  }
-  .contact-form input:focus,.contact-form textarea:focus{
-    border-color:var(--pi-purple-light);background:#fff;
-  }
-  .contact-form textarea{resize:vertical;min-height:80px;}
-  .submit-btn{
-    width:100%;padding:12px;
-    background:linear-gradient(135deg,var(--pi-purple),var(--pi-purple-deep));
-    color:#fff;border:none;border-radius:12px;
-    font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
-    transition:all .2s ease;
-  }
-  .submit-btn:hover{box-shadow:0 6px 16px rgba(108,43,158,.3);}
 
   /* ============ Responsive ============ */
   @media(min-width:720px){
@@ -682,22 +676,19 @@
       <h3>联系方式</h3>
       <ul class="contact-list">
         <li><div class="contact-ico">📧</div><div class="contact-label">官方邮箱</div><div class="contact-value">contact@pi.app</div></li>
-        <li><div class="contact-ico">💬</div><div class="contact-label">微信 / WeChat</div><div class="contact-value">PiEcosystem</div></li>
-        <li><div class="contact-ico">✈️</div><div class="contact-label">Telegram</div><div class="contact-value">@PiEco</div></li>
-        <li><div class="contact-ico">🐦</div><div class="contact-label">Twitter / X</div><div class="contact-value">@PiCoreTeam</div></li>
-        <li><div class="contact-ico">🌐</div><div class="contact-label">官方网站</div><div class="contact-value">minepi.com</div></li>
-        <li><div class="contact-ico">📱</div><div class="contact-label">PiApp.Link</div><div class="contact-value">piapp.link</div></li>
+        <li><div class="contact-ico">💬</div><div class="contact-label">微信号</div><div class="contact-value">PiEco-2026</div></li>
+        <li><div class="contact-ico">📱</div><div class="contact-label">手机号 1</div><div class="contact-value">138-0000-0001</div></li>
+        <li><div class="contact-ico">📱</div><div class="contact-label">手机号 2</div><div class="contact-value">138-0000-0002</div></li>
+        <li><div class="contact-ico">🐧</div><div class="contact-label">QQ 号</div><div class="contact-value">123456789</div></li>
       </ul>
 
-      <form class="contact-form" onsubmit="event.preventDefault(); alert('感谢您的留言，我们会尽快与您联系！');">
-        <label for="c-name">您的称呼</label>
-        <input id="c-name" type="text" placeholder="请输入您的姓名或昵称" required>
-        <label for="c-contact">联系方式（邮箱或电话）</label>
-        <input id="c-contact" type="text" placeholder="example@pi.app" required>
-        <label for="c-msg">留言内容</label>
-        <textarea id="c-msg" placeholder="请输入您想告诉我们的内容..." required></textarea>
-        <button type="submit" class="submit-btn">📨 提交留言</button>
-      </form>
+      <div class="contact-tip">
+        <div class="contact-tip-icon">💼</div>
+        <div class="contact-tip-body">
+          <div class="contact-tip-title">派生态商家与合作者</div>
+          <div class="contact-tip-text">如果您是派生态的商家、合作伙伴或有意合作，欢迎通过以上任意方式与我们联系。我们将在第一时间为您回复，并为您提供生态合作、入驻、资源对接等相关咨询服务。</div>
+        </div>
+      </div>
     </div>
   </section>
 
