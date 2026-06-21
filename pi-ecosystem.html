@@ -265,55 +265,120 @@
   }
   .rank-score .stars{color:var(--pi-accent);font-size:12px;display:block;margin-top:2px;}
 
-  /* ============ Price Panel Styles ============ */
+  /* ============ Price Panel Styles (4 Camps) ============ */
   .price-card{
     margin:20px 16px 0;
-    background:var(--pi-card);
-    border-radius:18px;
-    padding:24px 20px;
-    box-shadow:0 6px 20px rgba(108,43,158,.08);
     max-width:900px;
     margin-left:auto;
     margin-right:auto;
   }
-  .price-head{
-    display:flex;align-items:center;gap:14px;margin-bottom:18px;
-    padding-bottom:18px;border-bottom:1px solid var(--pi-border);
-  }
-  .price-logo{
-    width:56px;height:56px;border-radius:50%;
-    background:linear-gradient(135deg,var(--pi-purple),var(--pi-purple-light));
-    color:#fff;display:flex;align-items:center;justify-content:center;
-    font-size:28px;font-weight:700;flex-shrink:0;
-  }
-  .price-head h3{font-size:18px;color:var(--pi-text);}
-  .price-head .pair{font-size:12px;color:var(--pi-muted);margin-top:4px;}
-  .price-big{
-    font-size:32px;font-weight:700;color:var(--pi-purple);
-    letter-spacing:.5px;
-  }
-  .price-change{
-    display:inline-block;margin-left:10px;
-    padding:4px 10px;border-radius:8px;
-    background:#e8f5e9;color:#2e8b57;
-    font-size:13px;font-weight:600;
-  }
-  .price-change.down{background:#fdecea;color:#d32f2f;}
-  .price-grid{
+  .camp-grid{
     display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
-    margin-top:10px;
   }
-  .price-item{
-    padding:14px;border-radius:12px;background:var(--pi-bg);
+  .camp{
+    background:var(--pi-card);
+    border-radius:16px;
+    padding:18px 16px;
+    box-shadow:0 6px 18px rgba(108,43,158,.08);
+    position:relative;overflow:hidden;
+    border:1.5px solid var(--pi-border);
+    transition:transform .25s ease, box-shadow .25s ease;
   }
-  .price-item .label{font-size:12px;color:var(--pi-muted);margin-bottom:6px;}
-  .price-item .val{font-size:15px;color:var(--pi-text);font-weight:600;}
-  .price-item .val.up{color:#2e8b57;}
-  .price-item .val.down{color:#d32f2f;}
-  .price-note{
-    margin-top:18px;padding:12px;
-    background:#fff8e1;border-left:3px solid var(--pi-accent);
-    border-radius:6px;font-size:12px;color:#8a6d00;line-height:1.6;
+  .camp:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 28px rgba(108,43,158,.18);
+  }
+  .camp::before{
+    content:"";
+    position:absolute;top:-50%;right:-50%;
+    width:160px;height:160px;border-radius:50%;
+    opacity:.18;filter:blur(12px);
+    pointer-events:none;
+  }
+  .camp-gcv{border-color:#b39ddb;}
+  .camp-gcv::before{background:linear-gradient(135deg,#7c4dff,#6c2b9e);}
+  .camp-ex{border-color:#81c784;}
+  .camp-ex::before{background:linear-gradient(135deg,#26a69a,#2e7d32);}
+  .camp-zero{border-color:#bdbdbd;}
+  .camp-zero::before{background:linear-gradient(135deg,#616161,#424242);}
+  .camp-cash{border-color:#ffcc80;}
+  .camp-cash::before{background:linear-gradient(135deg,#ff9800,#e65100);}
+
+  .camp-head{
+    display:flex;align-items:center;gap:10px;margin-bottom:12px;
+    position:relative;z-index:1;
+  }
+  .camp-emoji{
+    width:38px;height:38px;border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;flex-shrink:0;
+    background:var(--pi-bg);border:1px solid var(--pi-border);
+  }
+  .camp-gcv .camp-emoji{background:linear-gradient(135deg,#ede7f6,#d1c4e9);color:#6c2b9e;border-color:#b39ddb;}
+  .camp-ex .camp-emoji{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);color:#2e7d32;border-color:#81c784;}
+  .camp-zero .camp-emoji{background:linear-gradient(135deg,#f5f5f5,#cfcfcf);color:#424242;border-color:#bdbdbd;}
+  .camp-cash .camp-emoji{background:linear-gradient(135deg,#fff3e0,#ffe0b2);color:#e65100;border-color:#ffcc80;}
+  .camp-title{font-size:15px;font-weight:700;color:var(--pi-text);}
+  .camp-slogan{font-size:11px;color:var(--pi-muted);margin-top:2px;}
+
+  .camp-price{
+    font-size:22px;font-weight:700;letter-spacing:.5px;
+    margin:8px 0 4px;position:relative;z-index:1;
+  }
+  .camp-gcv .camp-price{color:#7c4dff;}
+  .camp-ex .camp-price{color:#2e7d32;}
+  .camp-zero .camp-price{color:#424242;}
+  .camp-cash .camp-price{color:#e65100;}
+  .camp-price small{font-size:12px;font-weight:500;color:var(--pi-muted);display:block;margin-top:2px;}
+
+  .camp-supporters{
+    display:flex;align-items:center;gap:6px;
+    font-size:12px;color:var(--pi-muted);margin-bottom:14px;
+    position:relative;z-index:1;
+  }
+  .camp-supporters .num{
+    font-weight:700;color:var(--pi-text);font-size:13px;
+  }
+  .camp-gcv .camp-supporters .num{color:#7c4dff;}
+  .camp-ex .camp-supporters .num{color:#2e7d32;}
+  .camp-zero .camp-supporters .num{color:#424242;}
+  .camp-cash .camp-supporters .num{color:#e65100;}
+
+  .camp-vote{
+    display:flex;gap:8px;position:relative;z-index:1;
+  }
+  .vote-btn{
+    flex:1;padding:8px 6px;border-radius:10px;
+    border:1.5px solid var(--pi-border);background:#fff;
+    font-size:12px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;gap:4px;
+    transition:all .2s ease;font-family:inherit;color:var(--pi-text);
+  }
+  .vote-btn:hover{transform:translateY(-1px);}
+  .vote-btn.like:hover{background:#e8f5e9;border-color:#66bb6a;color:#2e7d32;}
+  .vote-btn.dislike:hover{background:#ffebee;border-color:#ef5350;color:#c62828;}
+  .vote-btn.liked{background:#e8f5e9;border-color:#66bb6a;color:#2e7d32;}
+  .vote-btn.disliked{background:#ffebee;border-color:#ef5350;color:#c62828;}
+  .vote-btn .count{font-size:11px;opacity:.75;}
+
+  /* Sparkle effect on hover */
+  @keyframes sparkle{
+    0%,100%{opacity:0;transform:scale(.5) rotate(0deg);}
+    50%{opacity:1;transform:scale(1) rotate(180deg);}
+  }
+  .camp .sparkle{
+    position:absolute;font-size:14px;opacity:0;pointer-events:none;
+    animation:sparkle 2s ease-in-out infinite;
+  }
+  .camp:hover .sparkle{opacity:.7;}
+  .camp .s1{top:10px;left:10px;animation-delay:0s;}
+  .camp .s2{bottom:10px;right:10px;animation-delay:.7s;}
+  .camp .s3{top:30%;right:14px;animation-delay:1.3s;font-size:12px;}
+
+  @media(min-width:720px){
+    .camp-grid{gap:18px;}
+    .camp{padding:22px 20px;}
+    .camp-price{font-size:26px;}
   }
 
   /* ============ Contact Panel Styles ============ */
@@ -630,36 +695,96 @@
     </div>
 
     <div class="price-card">
-      <div class="price-head">
-        <div class="price-logo">π</div>
-        <div style="flex:1;">
-          <h3>Pi Network</h3>
-          <div class="pair">PI / USD · PI / CNY</div>
+      <div class="camp-grid">
+
+        <!-- 阵营 1: GCV 价格 -->
+        <div class="camp camp-gcv" data-camp="gcv">
+          <div class="sparkle s1">✨</div>
+          <div class="sparkle s2">💫</div>
+          <div class="sparkle s3">⭐</div>
+          <div class="camp-head">
+            <div class="camp-emoji">🏛️</div>
+            <div>
+              <div class="camp-title">GCV 价格</div>
+              <div class="camp-slogan">全球共识 · 生态统一基准</div>
+            </div>
+          </div>
+          <div class="camp-price">$314,159
+            <small>￥2,200,000 / Pi</small>
+          </div>
+          <div class="camp-supporters">👥 支持人数 <span class="num" data-base="85247">85,247</span> 人</div>
+          <div class="camp-vote">
+            <button class="vote-btn like" type="button">👍 支持 <span class="count">68,421</span></button>
+            <button class="vote-btn dislike" type="button">👎 反对 <span class="count">16,826</span></button>
+          </div>
         </div>
-      </div>
 
-      <div style="margin-bottom:18px;">
-        <span class="price-big">$ 0.00</span>
-        <span class="price-change">+ 0.00%</span>
-      </div>
-      <div style="margin-bottom:18px;">
-        <span class="price-big" style="font-size:24px;">¥ 0.00</span>
-        <span class="price-change">+ 0.00%</span>
-      </div>
+        <!-- 阵营 2: 交易所价格 -->
+        <div class="camp camp-ex" data-camp="ex">
+          <div class="sparkle s1">📈</div>
+          <div class="sparkle s2">💹</div>
+          <div class="sparkle s3">🚀</div>
+          <div class="camp-head">
+            <div class="camp-emoji">🏦</div>
+            <div>
+              <div class="camp-title">交易所价格</div>
+              <div class="camp-slogan">市场交易 · 实时行情波动</div>
+            </div>
+          </div>
+          <div class="camp-price">$45 ~ $380
+            <small>￥320 ~ ￥2,660 / Pi</small>
+          </div>
+          <div class="camp-supporters">👥 支持人数 <span class="num" data-base="62318">62,318</span> 人</div>
+          <div class="camp-vote">
+            <button class="vote-btn like" type="button">👍 支持 <span class="count">42,856</span></button>
+            <button class="vote-btn dislike" type="button">👎 反对 <span class="count">19,462</span></button>
+          </div>
+        </div>
 
-      <div class="price-grid">
-        <div class="price-item"><div class="label">24h 最高</div><div class="val up">$ --</div></div>
-        <div class="price-item"><div class="label">24h 最低</div><div class="val down">$ --</div></div>
-        <div class="price-item"><div class="label">24h 成交量</div><div class="val">$ --</div></div>
-        <div class="price-item"><div class="label">24h 成交额</div><div class="val">$ --</div></div>
-        <div class="price-item"><div class="label">流通市值</div><div class="val">$ --</div></div>
-        <div class="price-item"><div class="label">总市值</div><div class="val">$ --</div></div>
-        <div class="price-item"><div class="label">流通量</div><div class="val">-- Pi</div></div>
-        <div class="price-item"><div class="label">总量</div><div class="val">-- Pi</div></div>
-      </div>
+        <!-- 阵营 3: 归零者 -->
+        <div class="camp camp-zero" data-camp="zero">
+          <div class="sparkle s1">🌫️</div>
+          <div class="sparkle s2">⚫</div>
+          <div class="sparkle s3">💀</div>
+          <div class="camp-head">
+            <div class="camp-emoji">🕳️</div>
+            <div>
+              <div class="camp-title">归零者</div>
+              <div class="camp-slogan">虚无主义 · 一文不值派</div>
+            </div>
+          </div>
+          <div class="camp-price">$0.00
+            <small>￥0.00 / Pi · 价值归于零</small>
+          </div>
+          <div class="camp-supporters">👥 支持人数 <span class="num" data-base="28914">28,914</span> 人</div>
+          <div class="camp-vote">
+            <button class="vote-btn like" type="button">👍 支持 <span class="count">18,743</span></button>
+            <button class="vote-btn dislike" type="button">👎 反对 <span class="count">10,171</span></button>
+          </div>
+        </div>
 
-      <div class="price-note">
-        <strong>💡 数据说明：</strong>以上价格为生态参考展示数据，并非真实行情。Pi Network 尚未公开上线主网交易，实际价格请以官方公告为准。投资有风险，入场需谨慎。
+        <!-- 阵营 4: 变现者 -->
+        <div class="camp camp-cash" data-camp="cash">
+          <div class="sparkle s1">💰</div>
+          <div class="sparkle s2">💎</div>
+          <div class="sparkle s3">🤑</div>
+          <div class="camp-head">
+            <div class="camp-emoji">💸</div>
+            <div>
+              <div class="camp-title">变现者</div>
+              <div class="camp-slogan">落袋为安 · 快速变现通道</div>
+            </div>
+          </div>
+          <div class="camp-price">$0.10 ~ $25
+            <small>￥0.70 ~ ￥175 / Pi</small>
+          </div>
+          <div class="camp-supporters">👥 支持人数 <span class="num" data-base="53762">53,762</span> 人</div>
+          <div class="camp-vote">
+            <button class="vote-btn like" type="button">👍 支持 <span class="count">38,204</span></button>
+            <button class="vote-btn dislike" type="button">👎 反对 <span class="count">15,558</span></button>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -749,6 +874,48 @@
       const cat = tab.dataset.rank;
       rankTabs.forEach(t => t.classList.toggle('active', t === tab));
       rankSections.forEach(s => s.classList.toggle('active', s.dataset.cat === cat));
+    });
+  });
+
+  // ============ Price panel: 4-camp voting ============
+  const camps = document.querySelectorAll('.camp');
+  camps.forEach(camp => {
+    const likeBtn = camp.querySelector('.vote-btn.like');
+    const dislikeBtn = camp.querySelector('.vote-btn.dislike');
+    const likeCount = likeBtn.querySelector('.count');
+    const dislikeCount = dislikeBtn.querySelector('.count');
+    const supporterNum = camp.querySelector('.camp-supporters .num');
+    let likes = parseInt(likeCount.textContent.replace(/,/g, '')) || 0;
+    let dislikes = parseInt(dislikeCount.textContent.replace(/,/g, '')) || 0;
+    let baseSupporters = parseInt(supporterNum.dataset.base) || likes;
+    let state = 'none'; // 'none' | 'like' | 'dislike'
+
+    function formatNum(n){ return n.toLocaleString('en-US'); }
+    function refresh(){
+      likeCount.textContent = formatNum(likes);
+      dislikeCount.textContent = formatNum(dislikes);
+      supporterNum.textContent = formatNum(baseSupporters + likes);
+      likeBtn.classList.toggle('liked', state === 'like');
+      dislikeBtn.classList.toggle('disliked', state === 'dislike');
+    }
+    likeBtn.addEventListener('click', () => {
+      if (state === 'like') { likes--; state = 'none'; }
+      else {
+        if (state === 'dislike') dislikes--;
+        likes++; state = 'like';
+        // flash effect
+        camp.style.transform = 'translateY(-3px) scale(1.02)';
+        setTimeout(() => camp.style.transform = '', 250);
+      }
+      refresh();
+    });
+    dislikeBtn.addEventListener('click', () => {
+      if (state === 'dislike') { dislikes--; state = 'none'; }
+      else {
+        if (state === 'like') likes--;
+        dislikes++; state = 'dislike';
+      }
+      refresh();
     });
   });
 </script>
