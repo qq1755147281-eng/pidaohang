@@ -15,19 +15,30 @@
     --pi-card:#ffffff;
     --pi-border:#ece3f5;
     --pi-accent:#ffc629;
+    --header-h:128px;
+    --bottom-h:92px;
   }
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-  html,body{background:var(--pi-bg);color:var(--pi-text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif;line-height:1.5;}
+  html,body{height:100%;}
+  body{
+    background:var(--pi-bg);
+    color:var(--pi-text);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue",Arial,sans-serif;
+    line-height:1.55;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+  }
   a{color:inherit;text-decoration:none;}
-  img{max-width:100%;display:block;}
 
-  /* ============ Header ============ */
+  /* ============ Fixed Header ============ */
   .header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
     background:linear-gradient(135deg,var(--pi-purple) 0%,var(--pi-purple-deep) 100%);
     color:#fff;
-    padding:28px 24px 36px;
-    position:relative;
+    padding:22px 24px 26px;
+    position:fixed;
     overflow:hidden;
+    box-shadow:0 2px 14px rgba(108,43,158,.2);
   }
   .header::after{
     content:"";
@@ -40,28 +51,47 @@
   .header-inner{
     display:flex;align-items:center;gap:14px;
     position:relative;z-index:1;
+    max-width:900px;margin:0 auto;
   }
   .pi-logo{
-    width:48px;height:48px;border-radius:50%;
+    width:44px;height:44px;border-radius:50%;
     background:#fff;color:var(--pi-purple);
     display:flex;align-items:center;justify-content:center;
-    font-size:26px;font-weight:700;
+    font-size:24px;font-weight:700;
     box-shadow:0 4px 14px rgba(0,0,0,.15);
     border:2px solid var(--pi-accent);
+    flex-shrink:0;
   }
-  .brand h1{font-size:22px;font-weight:700;letter-spacing:.5px;}
-  .brand p{font-size:13px;opacity:.85;margin-top:2px;}
+  .brand h1{font-size:20px;font-weight:700;letter-spacing:.5px;}
+  .brand p{font-size:12px;opacity:.88;margin-top:2px;}
+
+  /* ============ Main Scrollable Area ============ */
+  .main{
+    flex:1;
+    overflow-y:auto;
+    overflow-x:hidden;
+    padding-top:var(--header-h);
+    padding-bottom:var(--bottom-h);
+    -webkit-overflow-scrolling:touch;
+  }
+
+  /* Content panels (switched by bottom buttons) */
+  .panel{display:none;animation:fadeIn .3s ease;}
+  .panel.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
 
   /* ============ Hero ============ */
   .hero{
-    margin:-20px 16px 0;
+    margin:18px 16px 0;
     background:var(--pi-card);
     border-radius:18px;
-    padding:22px 20px;
+    padding:20px;
     box-shadow:0 10px 30px rgba(108,43,158,.08);
-    position:relative;z-index:2;
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
   }
-  .hero h2{font-size:18px;color:var(--pi-purple);margin-bottom:6px;}
+  .hero h2{font-size:17px;color:var(--pi-purple);margin-bottom:6px;}
   .hero p{font-size:13px;color:var(--pi-muted);}
   .hero-badge{
     display:inline-block;margin-top:12px;
@@ -77,6 +107,9 @@
     border-radius:18px;
     padding:16px 16px 4px;
     box-shadow:0 6px 20px rgba(108,43,158,.06);
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
   }
   .tabs-title{
     display:flex;align-items:center;justify-content:space-between;
@@ -93,11 +126,11 @@
   .tabs::-webkit-scrollbar{display:none;}
   .tab{
     flex:0 0 auto;
-    padding:8px 16px;
-    border-radius:20px;
+    padding:7px 14px;
+    border-radius:18px;
     background:var(--pi-bg);
     color:var(--pi-text);
-    font-size:13px;cursor:pointer;
+    font-size:12.5px;cursor:pointer;
     border:1px solid var(--pi-border);
     transition:all .2s ease;
     white-space:nowrap;
@@ -110,8 +143,7 @@
 
   /* ============ Category Sections ============ */
   .category-section{display:none;}
-  .category-section.active{display:block;animation:fadeIn .3s ease;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  .category-section.active{display:block;animation:fadeIn .25s ease;}
 
   .category-heading{
     font-size:13px;color:var(--pi-muted);
@@ -132,36 +164,35 @@
   }
   .app-item:hover{transform:translateY(-2px);}
   .app-icon{
-    width:64px;height:64px;border-radius:18px;
+    width:60px;height:60px;border-radius:18px;
     background:linear-gradient(135deg,#fff 0%,#f6edff 100%);
     border:1.5px solid var(--pi-purple-light);
     display:flex;align-items:center;justify-content:center;
-    color:var(--pi-purple);font-size:26px;font-weight:700;
+    color:var(--pi-purple);font-size:24px;font-weight:700;
     box-shadow:0 2px 8px rgba(108,43,158,.08);
   }
-  .app-icon .pi{font-size:22px;}
+  .app-icon .pi{font-size:20px;}
   .app-item:nth-child(odd) .app-icon{background:linear-gradient(135deg,#fff 0%,#fff3e0 100%);}
-  .app-name{font-size:12px;color:var(--pi-text);text-align:center;line-height:1.25;max-width:78px;}
+  .app-name{font-size:11.5px;color:var(--pi-text);text-align:center;line-height:1.25;max-width:76px;}
 
-  /* ============ Bottom Buttons ============ */
+  /* ============ Fixed Bottom Bar ============ */
   .bottom-bar{
-    position:sticky;bottom:0;
+    position:fixed;bottom:0;left:0;right:0;z-index:50;
     background:#fff;
     border-top:1px solid var(--pi-border);
-    padding:14px 16px calc(14px + env(safe-area-inset-bottom));
-    margin-top:30px;
-    box-shadow:0 -6px 20px rgba(108,43,158,.06);
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+    box-shadow:0 -6px 20px rgba(108,43,158,.08);
   }
   .bottom-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
-    max-width:680px;margin:0 auto;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+    max-width:600px;margin:0 auto;
   }
   .btn{
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:4px;padding:12px 6px;
-    border-radius:14px;border:1.5px solid var(--pi-border);
+    gap:3px;padding:8px 4px;
+    border-radius:12px;border:1.5px solid var(--pi-border);
     background:#fff;color:var(--pi-text);
-    font-size:12px;cursor:pointer;
+    font-size:11.5px;cursor:pointer;
     transition:all .2s ease;
     font-family:inherit;
   }
@@ -169,59 +200,184 @@
     border-color:var(--pi-purple);
     background:var(--pi-bg);
     transform:translateY(-2px);
-    box-shadow:0 4px 12px rgba(108,43,158,.12);
+    box-shadow:0 4px 10px rgba(108,43,158,.1);
+  }
+  .btn.active{
+    border-color:var(--pi-purple);
+    background:var(--pi-bg);
   }
   .btn.primary{
     background:linear-gradient(135deg,var(--pi-purple),var(--pi-purple-deep));
     color:#fff;border-color:transparent;
   }
-  .btn.primary:hover{box-shadow:0 6px 18px rgba(108,43,158,.3);}
-  .btn-icon{font-size:20px;line-height:1;}
+  .btn.primary:hover{box-shadow:0 6px 14px rgba(108,43,158,.28);}
+  .btn-icon{font-size:18px;line-height:1;}
 
-  /* ============ Modal (Pi Price) ============ */
-  .modal-mask{
-    display:none;position:fixed;inset:0;
-    background:rgba(43,26,63,.55);
-    z-index:100;align-items:center;justify-content:center;
-    padding:20px;backdrop-filter:blur(4px);
+  /* ============ Ranking Panel Styles ============ */
+  .rank-tabs{
+    display:flex;gap:8px;padding:18px 4px 10px;
+    flex-wrap:wrap;
   }
-  .modal-mask.show{display:flex;animation:fadeIn .2s ease;}
-  .modal{
-    background:#fff;border-radius:20px;
-    padding:24px;width:100%;max-width:380px;
-    box-shadow:0 20px 60px rgba(0,0,0,.25);
+  .rank-tab{
+    padding:8px 18px;border-radius:18px;
+    background:var(--pi-bg);border:1px solid var(--pi-border);
+    font-size:13px;cursor:pointer;color:var(--pi-text);
+    transition:all .2s ease;
   }
-  .modal h3{color:var(--pi-purple);font-size:18px;margin-bottom:14px;}
-  .price-row{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:12px 0;border-bottom:1px solid var(--pi-border);
-    font-size:14px;
+  .rank-tab:hover{border-color:var(--pi-purple-light);}
+  .rank-tab.active{
+    background:var(--pi-purple);color:#fff;border-color:var(--pi-purple);
+    box-shadow:0 4px 12px rgba(108,43,158,.3);
   }
-  .price-row:last-child{border-bottom:none;}
-  .price-row .label{color:var(--pi-muted);}
-  .price-row .value{color:var(--pi-purple);font-weight:600;font-size:15px;}
-  .price-row .value.up{color:#2e8b57;}
-  .modal-close{
-    margin-top:16px;width:100%;padding:12px;
-    background:var(--pi-purple);color:#fff;border:none;
-    border-radius:12px;font-size:14px;cursor:pointer;font-family:inherit;
+  .rank-list{
+    padding:6px 4px 24px;
   }
-  .modal-close:hover{background:var(--pi-purple-deep);}
+  .rank-item{
+    display:flex;align-items:center;gap:14px;
+    padding:14px;background:var(--pi-card);
+    border-radius:14px;margin-bottom:10px;
+    box-shadow:0 4px 14px rgba(108,43,158,.06);
+    transition:all .2s ease;cursor:pointer;
+    border:1px solid transparent;
+  }
+  .rank-item:hover{transform:translateY(-2px);border-color:var(--pi-purple-light);}
+  .rank-no{
+    width:36px;height:36px;border-radius:50%;
+    background:linear-gradient(135deg,var(--pi-purple),var(--pi-purple-light));
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:15px;flex-shrink:0;
+  }
+  .rank-item:nth-child(1) .rank-no{background:linear-gradient(135deg,#f5b301,#e88a1a);}
+  .rank-item:nth-child(2) .rank-no{background:linear-gradient(135deg,#c0c0c0,#8a8a8a);}
+  .rank-item:nth-child(3) .rank-no{background:linear-gradient(135deg,#cd7f32,#a0522d);}
+  .rank-icon{
+    width:48px;height:48px;border-radius:14px;
+    background:linear-gradient(135deg,#fff 0%,#f6edff 100%);
+    border:1.5px solid var(--pi-purple-light);
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;flex-shrink:0;
+  }
+  .rank-info{flex:1;min-width:0;}
+  .rank-info h4{font-size:15px;color:var(--pi-text);margin-bottom:4px;}
+  .rank-info p{font-size:12px;color:var(--pi-muted);}
+  .rank-score{
+    font-size:14px;color:var(--pi-purple);font-weight:700;
+    flex-shrink:0;
+  }
+  .rank-score .stars{color:var(--pi-accent);font-size:12px;display:block;margin-top:2px;}
 
-  /* ============ Contact Modal ============ */
+  /* ============ Price Panel Styles ============ */
+  .price-card{
+    margin:20px 16px 0;
+    background:var(--pi-card);
+    border-radius:18px;
+    padding:24px 20px;
+    box-shadow:0 6px 20px rgba(108,43,158,.08);
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .price-head{
+    display:flex;align-items:center;gap:14px;margin-bottom:18px;
+    padding-bottom:18px;border-bottom:1px solid var(--pi-border);
+  }
+  .price-logo{
+    width:56px;height:56px;border-radius:50%;
+    background:linear-gradient(135deg,var(--pi-purple),var(--pi-purple-light));
+    color:#fff;display:flex;align-items:center;justify-content:center;
+    font-size:28px;font-weight:700;flex-shrink:0;
+  }
+  .price-head h3{font-size:18px;color:var(--pi-text);}
+  .price-head .pair{font-size:12px;color:var(--pi-muted);margin-top:4px;}
+  .price-big{
+    font-size:32px;font-weight:700;color:var(--pi-purple);
+    letter-spacing:.5px;
+  }
+  .price-change{
+    display:inline-block;margin-left:10px;
+    padding:4px 10px;border-radius:8px;
+    background:#e8f5e9;color:#2e8b57;
+    font-size:13px;font-weight:600;
+  }
+  .price-change.down{background:#fdecea;color:#d32f2f;}
+  .price-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:14px;
+    margin-top:10px;
+  }
+  .price-item{
+    padding:14px;border-radius:12px;background:var(--pi-bg);
+  }
+  .price-item .label{font-size:12px;color:var(--pi-muted);margin-bottom:6px;}
+  .price-item .val{font-size:15px;color:var(--pi-text);font-weight:600;}
+  .price-item .val.up{color:#2e8b57;}
+  .price-item .val.down{color:#d32f2f;}
+  .price-note{
+    margin-top:18px;padding:12px;
+    background:#fff8e1;border-left:3px solid var(--pi-accent);
+    border-radius:6px;font-size:12px;color:#8a6d00;line-height:1.6;
+  }
+
+  /* ============ Contact Panel Styles ============ */
+  .contact-card{
+    margin:20px 16px 0;
+    background:var(--pi-card);
+    border-radius:18px;
+    padding:24px 20px;
+    box-shadow:0 6px 20px rgba(108,43,158,.08);
+    max-width:900px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .contact-card h3{
+    font-size:17px;color:var(--pi-purple);margin-bottom:14px;
+  }
+  .contact-list{list-style:none;}
   .contact-list li{
-    list-style:none;padding:10px 0;border-bottom:1px solid var(--pi-border);
-    font-size:13px;display:flex;justify-content:space-between;
+    display:flex;align-items:center;gap:14px;
+    padding:14px 0;border-bottom:1px solid var(--pi-border);
   }
   .contact-list li:last-child{border-bottom:none;}
-  .contact-list .v{color:var(--pi-purple);font-weight:500;}
+  .contact-ico{
+    width:38px;height:38px;border-radius:10px;
+    background:linear-gradient(135deg,var(--pi-bg),#f1e9f8);
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;flex-shrink:0;
+    border:1px solid var(--pi-border);
+  }
+  .contact-label{font-size:13px;color:var(--pi-muted);flex:1;}
+  .contact-value{font-size:13.5px;color:var(--pi-purple);font-weight:600;}
+  .contact-form{
+    margin-top:22px;padding-top:22px;border-top:1px solid var(--pi-border);
+  }
+  .contact-form label{
+    display:block;font-size:12.5px;color:var(--pi-muted);
+    margin-bottom:6px;
+  }
+  .contact-form input,.contact-form textarea{
+    width:100%;padding:10px 12px;border:1.5px solid var(--pi-border);
+    border-radius:10px;font-size:13.5px;background:#faf7ff;
+    font-family:inherit;color:var(--pi-text);margin-bottom:12px;
+    outline:none;transition:border-color .2s ease;
+  }
+  .contact-form input:focus,.contact-form textarea:focus{
+    border-color:var(--pi-purple-light);background:#fff;
+  }
+  .contact-form textarea{resize:vertical;min-height:80px;}
+  .submit-btn{
+    width:100%;padding:12px;
+    background:linear-gradient(135deg,var(--pi-purple),var(--pi-purple-deep));
+    color:#fff;border:none;border-radius:12px;
+    font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
+    transition:all .2s ease;
+  }
+  .submit-btn:hover{box-shadow:0 6px 16px rgba(108,43,158,.3);}
 
+  /* ============ Responsive ============ */
   @media(min-width:720px){
+    :root{--header-h:120px;--bottom-h:88px;}
     .app-grid{grid-template-columns:repeat(6,1fr);}
-    .header-inner{max-width:880px;margin:0 auto;}
-    .hero,.tabs-wrap{max-width:880px;margin-left:auto;margin-right:auto;}
-    .hero{margin-top:-20px;}
-    .tabs-wrap{margin-top:20px;}
+    .price-grid{grid-template-columns:repeat(4,1fr);}
+    .bottom-grid{max-width:680px;gap:10px;}
   }
   @media(min-width:1080px){
     .app-grid{grid-template-columns:repeat(8,1fr);}
@@ -230,7 +386,7 @@
 </head>
 <body>
 
-<!-- Header -->
+<!-- ========== FIXED HEADER ========== -->
 <header class="header">
   <div class="header-inner">
     <div class="pi-logo">π</div>
@@ -241,235 +397,369 @@
   </div>
 </header>
 
-<!-- Hero -->
-<section class="hero">
-  <h2>Core Team Apps & 社区生态</h2>
-  <p>精选 50+ 派生态应用，点击图标即可跳转至对应应用</p>
-  <span class="hero-badge">★ PiApp.Link 官方生态导航</span>
-</section>
+<!-- ========== SCROLLABLE MAIN AREA ========== -->
+<main class="main">
 
-<!-- Tabs + Content -->
-<section class="tabs-wrap">
-  <div class="tabs-title">
-    <h3>生态分类导航</h3>
-    <span>← 左右滑动查看更多 →</span>
-  </div>
+  <!-- ========== PANEL 1: HOME / ECOSYSTEM ========== -->
+  <section class="panel active" data-panel="home">
 
-  <nav class="tabs" id="tabs">
-    <div class="tab active" data-cat="core">核心应用</div>
-    <div class="tab" data-cat="social">社交聊天</div>
-    <div class="tab" data-cat="game">游戏娱乐</div>
-    <div class="tab" data-cat="mall">商城购物</div>
-    <div class="tab" data-cat="finance">金融工具</div>
-    <div class="tab" data-cat="tool">工具导航</div>
-    <div class="tab" data-cat="news">资讯社区</div>
-    <div class="tab" data-cat="ai">AI 应用</div>
-  </nav>
-
-  <!-- 核心应用 -->
-  <div class="category-section active" data-cat="core">
-    <div class="category-heading">Core Team Apps · 官方核心应用</div>
-    <div class="app-grid">
-      <a class="app-item" href="https://mine.pi" target="_blank" rel="noopener"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Home 首页</div></a>
-      <a class="app-item" href="https://fireside.pi" target="_blank" rel="noopener"><div class="app-icon">🔥</div><div class="app-name">Fireside</div></a>
-      <a class="app-item" href="https://wallet.pi" target="_blank" rel="noopener"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Wallet 钱包</div></a>
-      <a class="app-item" href="https://brainstorm.pi" target="_blank" rel="noopener"><div class="app-icon">💡</div><div class="app-name">Brainstorm</div></a>
-      <a class="app-item" href="https://mine.pi/earn" target="_blank" rel="noopener"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Mine 挖矿</div></a>
-      <a class="app-item" href="https://blockchain.pi" target="_blank" rel="noopener"><div class="app-icon">⛓️</div><div class="app-name">Blockchain</div></a>
-      <a class="app-item" href="https://develop.pi" target="_blank" rel="noopener"><div class="app-icon">🖥️</div><div class="app-name">Develop</div></a>
-      <a class="app-item" href="https://kyc.pi" target="_blank" rel="noopener"><div class="app-icon">🪪</div><div class="app-name">KYC 认证</div></a>
-      <a class="app-item" href="https://chat.pi" target="_blank" rel="noopener"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Chat 聊天</div></a>
-      <a class="app-item" href="https://profile.pi" target="_blank" rel="noopener"><div class="app-icon">👤</div><div class="app-name">Profiles</div></a>
-      <a class="app-item" href="https://domains.pi" target="_blank" rel="noopener"><div class="app-icon">.pi</div><div class="app-name">Domains</div></a>
-      <a class="app-item" href="https://ai.pi" target="_blank" rel="noopener"><div class="app-icon">✨AI</div><div class="app-name">App AI</div></a>
-      <a class="app-item" href="https://launchpad.pi" target="_blank" rel="noopener"><div class="app-icon">🚀</div><div class="app-name">Launchpad</div></a>
-      <a class="app-item" href="https://pibrowser.com" target="_blank" rel="noopener"><div class="app-icon">🌐</div><div class="app-name">Pi Browser</div></a>
-      <a class="app-item" href="https://pi.app" target="_blank" rel="noopener"><div class="app-icon">📱</div><div class="app-name">Pi App</div></a>
-      <a class="app-item" href="https://stake.pi" target="_blank" rel="noopener"><div class="app-icon">⚡</div><div class="app-name">Stake 质押</div></a>
+    <div class="hero">
+      <h2>Core Team Apps & 社区生态</h2>
+      <p>精选 60+ 派生态应用，点击图标即可跳转至对应应用</p>
+      <span class="hero-badge">★ PiApp.Link 官方生态导航</span>
     </div>
-  </div>
 
-  <!-- 社交聊天 -->
-  <div class="category-section" data-cat="social">
-    <div class="category-heading">社交聊天 · Social & Chat</div>
-    <div class="app-grid">
-      <a class="app-item" href="https://pibbs.chat" target="_blank" rel="noopener"><div class="app-icon">💬</div><div class="app-name">PIBBS.CHAT</div></a>
-      <a class="app-item" href="https://pitantan.pi" target="_blank" rel="noopener"><div class="app-icon">👁️</div><div class="app-name">PiTanTan 派探探</div></a>
-      <a class="app-item" href="https://pidiscuss.pi" target="_blank" rel="noopener"><div class="app-icon">🗨️</div><div class="app-name">PiDiscuss</div></a>
-      <a class="app-item" href="https://pitok.pi" target="_blank" rel="noopener"><div class="app-icon">🎵</div><div class="app-name">PiTok 短视频</div></a>
-      <a class="app-item" href="https://pibook.pi" target="_blank" rel="noopener"><div class="app-icon">📚</div><div class="app-name">PiBook 书友</div></a>
-      <a class="app-item" href="https://picircle.pi" target="_blank" rel="noopener"><div class="app-icon">👥</div><div class="app-name">PiCircle 圈子</div></a>
-      <a class="app-item" href="https://pidating.pi" target="_blank" rel="noopener"><div class="app-icon">💕</div><div class="app-name">PiDating</div></a>
-      <a class="app-item" href="https://piforum.pi" target="_blank" rel="noopener"><div class="app-icon">📝</div><div class="app-name">PiForum 论坛</div></a>
+    <div class="tabs-wrap">
+      <div class="tabs-title">
+        <h3>生态分类导航</h3>
+        <span>← 左右滑动查看更多 →</span>
+      </div>
+
+      <nav class="tabs" id="tabs">
+        <div class="tab active" data-cat="core">核心应用</div>
+        <div class="tab" data-cat="social">社交聊天</div>
+        <div class="tab" data-cat="game">游戏娱乐</div>
+        <div class="tab" data-cat="mall">商城购物</div>
+        <div class="tab" data-cat="finance">金融工具</div>
+        <div class="tab" data-cat="tool">工具导航</div>
+        <div class="tab" data-cat="news">资讯社区</div>
+        <div class="tab" data-cat="ai">AI 应用</div>
+      </nav>
+
+      <!-- 核心应用 -->
+      <div class="category-section active" data-cat="core">
+        <div class="category-heading">Core Team Apps · 官方核心应用</div>
+        <div class="app-grid">
+          <a class="app-item" href="https://mine.pi" target="_blank" rel="noopener"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Home 首页</div></a>
+          <a class="app-item" href="https://fireside.pi" target="_blank" rel="noopener"><div class="app-icon">🔥</div><div class="app-name">Fireside</div></a>
+          <a class="app-item" href="https://wallet.pi" target="_blank" rel="noopener"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Wallet 钱包</div></a>
+          <a class="app-item" href="https://brainstorm.pi" target="_blank" rel="noopener"><div class="app-icon">💡</div><div class="app-name">Brainstorm</div></a>
+          <a class="app-item" href="https://mine.pi/earn" target="_blank" rel="noopener"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Mine 挖矿</div></a>
+          <a class="app-item" href="https://blockchain.pi" target="_blank" rel="noopener"><div class="app-icon">⛓️</div><div class="app-name">Blockchain</div></a>
+          <a class="app-item" href="https://develop.pi" target="_blank" rel="noopener"><div class="app-icon">🖥️</div><div class="app-name">Develop</div></a>
+          <a class="app-item" href="https://kyc.pi" target="_blank" rel="noopener"><div class="app-icon">🪪</div><div class="app-name">KYC 认证</div></a>
+          <a class="app-item" href="https://chat.pi" target="_blank" rel="noopener"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Chat 聊天</div></a>
+          <a class="app-item" href="https://profile.pi" target="_blank" rel="noopener"><div class="app-icon">👤</div><div class="app-name">Profiles</div></a>
+          <a class="app-item" href="https://domains.pi" target="_blank" rel="noopener"><div class="app-icon">.pi</div><div class="app-name">Domains</div></a>
+          <a class="app-item" href="https://ai.pi" target="_blank" rel="noopener"><div class="app-icon">✨AI</div><div class="app-name">App AI</div></a>
+          <a class="app-item" href="https://launchpad.pi" target="_blank" rel="noopener"><div class="app-icon">🚀</div><div class="app-name">Launchpad</div></a>
+          <a class="app-item" href="https://pibrowser.com" target="_blank" rel="noopener"><div class="app-icon">🌐</div><div class="app-name">Pi Browser</div></a>
+          <a class="app-item" href="https://pi.app" target="_blank" rel="noopener"><div class="app-icon">📱</div><div class="app-name">Pi App</div></a>
+          <a class="app-item" href="https://stake.pi" target="_blank" rel="noopener"><div class="app-icon">⚡</div><div class="app-name">Stake 质押</div></a>
+        </div>
+      </div>
+
+      <!-- 社交聊天 -->
+      <div class="category-section" data-cat="social">
+        <div class="category-heading">社交聊天 · Social & Chat</div>
+        <div class="app-grid">
+          <a class="app-item" href="https://pibbs.chat" target="_blank" rel="noopener"><div class="app-icon">💬</div><div class="app-name">PIBBS.CHAT</div></a>
+          <a class="app-item" href="https://pitantan.pi" target="_blank" rel="noopener"><div class="app-icon">👁️</div><div class="app-name">PiTanTan 派探探</div></a>
+          <a class="app-item" href="https://pidiscuss.pi" target="_blank" rel="noopener"><div class="app-icon">🗨️</div><div class="app-name">PiDiscuss</div></a>
+          <a class="app-item" href="https://pitok.pi" target="_blank" rel="noopener"><div class="app-icon">🎵</div><div class="app-name">PiTok 短视频</div></a>
+          <a class="app-item" href="https://pibook.pi" target="_blank" rel="noopener"><div class="app-icon">📚</div><div class="app-name">PiBook 书友</div></a>
+          <a class="app-item" href="https://picircle.pi" target="_blank" rel="noopener"><div class="app-icon">👥</div><div class="app-name">PiCircle 圈子</div></a>
+          <a class="app-item" href="https://pidating.pi" target="_blank" rel="noopener"><div class="app-icon">💕</div><div class="app-name">PiDating</div></a>
+          <a class="app-item" href="https://piforum.pi" target="_blank" rel="noopener"><div class="app-icon">📝</div><div class="app-name">PiForum 论坛</div></a>
+        </div>
+      </div>
+
+      <!-- 游戏娱乐 -->
+      <div class="category-section" data-cat="game">
+        <div class="category-heading">游戏娱乐 · Games</div>
+        <div class="app-grid">
+          <a class="app-item" href="https://tictactoe.pi" target="_blank" rel="noopener"><div class="app-icon">⭕</div><div class="app-name">Tic Tac Toe</div></a>
+          <a class="app-item" href="https://pifarm.pi" target="_blank" rel="noopener"><div class="app-icon">🌾</div><div class="app-name">PiFarm 农场</div></a>
+          <a class="app-item" href="https://pichess.pi" target="_blank" rel="noopener"><div class="app-icon">♟️</div><div class="app-name">PiChess 象棋</div></a>
+          <a class="app-item" href="https://piquiz.pi" target="_blank" rel="noopener"><div class="app-icon">❓</div><div class="app-name">PiQuiz 问答</div></a>
+          <a class="app-item" href="https://picasino.pi" target="_blank" rel="noopener"><div class="app-icon">🎰</div><div class="app-name">PiCasino</div></a>
+          <a class="app-item" href="https://pirun.pi" target="_blank" rel="noopener"><div class="app-icon">🏃</div><div class="app-name">PiRun 跑酷</div></a>
+          <a class="app-item" href="https://pimatch.pi" target="_blank" rel="noopener"><div class="app-icon">🧩</div><div class="app-name">PiMatch 消消乐</div></a>
+          <a class="app-item" href="https://pilottery.pi" target="_blank" rel="noopener"><div class="app-icon">🎫</div><div class="app-name">PiLottery</div></a>
+          <a class="app-item" href="https://pizone.pi" target="_blank" rel="noopener"><div class="app-icon">🎮</div><div class="app-name">PiZone 游戏厅</div></a>
+          <a class="app-item" href="https://pingame.pi" target="_blank" rel="noopener"><div class="app-icon">🎯</div><div class="app-name">PinGame 合集</div></a>
+        </div>
+      </div>
+
+      <!-- 商城购物 -->
+      <div class="category-section" data-cat="mall">
+        <div class="category-heading">商城购物 · Shopping</div>
+        <div class="app-grid">
+          <a class="app-item" href="https://3141.mall" target="_blank" rel="noopener"><div class="app-icon">🐉</div><div class="app-name">3141 商城</div></a>
+          <a class="app-item" href="https://pibuy.pi" target="_blank" rel="noopener"><div class="app-icon">🛍️</div><div class="app-name">PiBuy 购物</div></a>
+          <a class="app-item" href="https://pimall.pi" target="_blank" rel="noopener"><div class="app-icon">🏪</div><div class="app-name">PiMall 商城</div></a>
+          <a class="app-item" href="https://pishop.pi" target="_blank" rel="noopener"><div class="app-icon">🏬</div><div class="app-name">PiShop 商店</div></a>
+          <a class="app-item" href="https://pimarket.pi" target="_blank" rel="noopener"><div class="app-icon">🛒</div><div class="app-name">PiMarket</div></a>
+          <a class="app-item" href="https://pifood.pi" target="_blank" rel="noopener"><div class="app-icon">🍜</div><div class="app-name">PiFood 外卖</div></a>
+          <a class="app-item" href="https://pitrip.pi" target="_blank" rel="noopener"><div class="app-icon">✈️</div><div class="app-name">PiTrip 旅行</div></a>
+          <a class="app-item" href="https://pihotel.pi" target="_blank" rel="noopener"><div class="app-icon">🏨</div><div class="app-name">PiHotel 酒店</div></a>
+          <a class="app-item" href="https://piapple.pi" target="_blank" rel="noopener"><div class="app-icon">🍎</div><div class="app-name">PiFresh 生鲜</div></a>
+        </div>
+      </div>
+
+      <!-- 金融工具 -->
+      <div class="category-section" data-cat="finance">
+        <div class="category-heading">金融工具 · Finance</div>
+        <div class="app-grid">
+          <a class="app-item" href="https://piexchange.pi" target="_blank" rel="noopener"><div class="app-icon">💹</div><div class="app-name">PiExchange</div></a>
+          <a class="app-item" href="https://piswap.pi" target="_blank" rel="noopener"><div class="app-icon">🔄</div><div class="app-name">PiSwap 兑换</div></a>
+          <a class="app-item" href="https://pilend.pi" target="_blank" rel="noopener"><div class="app-icon">🏦</div><div class="app-name">PiLend 借贷</div></a>
+          <a class="app-item" href="https://piearn.pi" target="_blank" rel="noopener"><div class="app-icon">💰</div><div class="app-name">PiEarn 理财</div></a>
+          <a class="app-item" href="https://pipay.pi" target="_blank" rel="noopener"><div class="app-icon">💳</div><div class="app-name">PiPay 支付</div></a>
+          <a class="app-item" href="https://pinsure.pi" target="_blank" rel="noopener"><div class="app-icon">🛡️</div><div class="app-name">PiInsure</div></a>
+          <a class="app-item" href="https://pifund.pi" target="_blank" rel="noopener"><div class="app-icon">📊</div><div class="app-name">PiFund 基金</div></a>
+          <a class="app-item" href="https://pibond.pi" target="_blank" rel="noopener"><div class="app-icon">📜</div><div class="app-name">PiBond</div></a>
+        </div>
+      </div>
+
+      <!-- 工具导航 -->
+      <div class="category-section" data-cat="tool">
+        <div class="category-heading">工具导航 · Tools</div>
+        <div class="app-grid">
+          <a class="app-item" href="https://pihub.pi" target="_blank" rel="noopener"><div class="app-icon">🧭</div><div class="app-name">派导航 PiHub</div></a>
+          <a class="app-item" href="https://piapp.link" target="_blank" rel="noopener"><div class="app-icon">🔗</div><div class="app-name">PiApp.Link</div></a>
+          <a class="app-item" href="https://piscan.pi" target="_blank" rel="noopener"><div class="app-icon">🔍</div><div class="app-name">PiScan 扫描</div></a>
+          <a class="app-item" href="https://pitranslate.pi" target="_blank" rel="noopener"><div class="app-icon">🌏</div><div class="app-name">PiTranslate</div></a>
+          <a class="app-item" href="https://picalc.pi" target="_blank" rel="noopener"><div class="app-icon">🧮</div><div class="app-name">PiCalc 计算</div></a>
+          <a class="app-item" href="https://pifile.pi" target="_blank" rel="noopener"><div class="app-icon">📁</div><div class="app-name">PiFile 云盘</div></a>
+          <a class="app-item" href="https://pinet.pi" target="_blank" rel="noopener"><div class="app-icon">📡</div><div class="app-name">PiNet 节点</div></a>
+          <a class="app-item" href="https://pivpn.pi" target="_blank" rel="noopener"><div class="app-icon">🔐</div><div class="app-name">PiVPN</div></a>
+          <a class="app-item" href="https://pibuilder.pi" target="_blank" rel="noopener"><div class="app-icon">🛠️</div><div class="app-name">PiBuilder</div></a>
+          <a class="app-item" href="https://pinode.pi" target="_blank" rel="noopener"><div class="app-icon">🖲️</div><div class="app-name">PiNode 节点</div></a>
+        </div>
+      </div>
+
+      <!-- 资讯社区 -->
+      <div class="category-section" data-cat="news">
+        <div class="category-heading">资讯社区 · News & Community</div>
+        <div class="app-grid">
+          <a class="app-item" href="https://pinews.pi" target="_blank" rel="noopener"><div class="app-icon">📰</div><div class="app-name">PiNews 资讯</div></a>
+          <a class="app-item" href="https://piarticle.pi" target="_blank" rel="noopener"><div class="app-icon">📖</div><div class="app-name">PiArticle</div></a>
+          <a class="app-item" href="https://pipedia.pi" target="_blank" rel="noopener"><div class="app-icon">🔤</div><div class="app-name">PiPedia 百科</div></a>
+          <a class="app-item" href="https://pivideo.pi" target="_blank" rel="noopener"><div class="app-icon">🎬</div><div class="app-name">PiVideo 视频</div></a>
+          <a class="app-item" href="https://picircle2.pi" target="_blank" rel="noopener"><div class="app-icon">🧑‍🤝‍🧑</div><div class="app-name">Pi 派友圈</div></a>
+          <a class="app-item" href="https://piblog.pi" target="_blank" rel="noopener"><div class="app-icon">✍️</div><div class="app-name">PiBlog 博客</div></a>
+          <a class="app-item" href="https://pirank.pi" target="_blank" rel="noopener"><div class="app-icon">🏆</div><div class="app-name">PiRank 榜单</div></a>
+          <a class="app-item" href="https://piedu.pi" target="_blank" rel="noopener"><div class="app-icon">🎓</div><div class="app-name">PiEdu 学堂</div></a>
+        </div>
+      </div>
+
+      <!-- AI 应用 -->
+      <div class="category-section" data-cat="ai">
+        <div class="category-heading">AI 应用 · Artificial Intelligence</div>
+        <div class="app-grid">
+          <a class="app-item" href="https://piai.pi" target="_blank" rel="noopener"><div class="app-icon">🤖</div><div class="app-name">PiAI 智能</div></a>
+          <a class="app-item" href="https://piassistant.pi" target="_blank" rel="noopener"><div class="app-icon">✨</div><div class="app-name">PiAssistant</div></a>
+          <a class="app-item" href="https://piart.pi" target="_blank" rel="noopener"><div class="app-icon">🎨</div><div class="app-name">PiArt 绘画</div></a>
+          <a class="app-item" href="https://pichatgpt.pi" target="_blank" rel="noopener"><div class="app-icon">💭</div><div class="app-name">PiChat AI</div></a>
+          <a class="app-item" href="https://pitransai.pi" target="_blank" rel="noopener"><div class="app-icon">🗣️</div><div class="app-name">PiTrans AI</div></a>
+          <a class="app-item" href="https://pibot.pi" target="_blank" rel="noopener"><div class="app-icon">🤖</div><div class="app-name">PiBot 机器人</div></a>
+          <a class="app-item" href="https://picopilot.pi" target="_blank" rel="noopener"><div class="app-icon">🧠</div><div class="app-name">PiCopilot</div></a>
+          <a class="app-item" href="https://piagent.pi" target="_blank" rel="noopener"><div class="app-icon">🕵️</div><div class="app-name">PiAgent 智能体</div></a>
+        </div>
+      </div>
+
+    </div><!--/.tabs-wrap-->
+  </section>
+
+  <!-- ========== PANEL 2: RANKING ========== -->
+  <section class="panel" data-panel="rank">
+    <div class="hero">
+      <h2>🏆 生态排行榜</h2>
+      <p>Pi 生态热门应用实时排名，按类别切换查看</p>
     </div>
-  </div>
 
-  <!-- 游戏娱乐 -->
-  <div class="category-section" data-cat="game">
-    <div class="category-heading">游戏娱乐 · Games</div>
-    <div class="app-grid">
-      <a class="app-item" href="https://tictactoe.pi" target="_blank" rel="noopener"><div class="app-icon">⭕</div><div class="app-name">Tic Tac Toe</div></a>
-      <a class="app-item" href="https://pifarm.pi" target="_blank" rel="noopener"><div class="app-icon">🌾</div><div class="app-name">PiFarm 农场</div></a>
-      <a class="app-item" href="https://pichess.pi" target="_blank" rel="noopener"><div class="app-icon">♟️</div><div class="app-name">PiChess 象棋</div></a>
-      <a class="app-item" href="https://piquiz.pi" target="_blank" rel="noopener"><div class="app-icon">❓</div><div class="app-name">PiQuiz 问答</div></a>
-      <a class="app-item" href="https://picasino.pi" target="_blank" rel="noopener"><div class="app-icon">🎰</div><div class="app-name">PiCasino</div></a>
-      <a class="app-item" href="https://pirun.pi" target="_blank" rel="noopener"><div class="app-icon">🏃</div><div class="app-name">PiRun 跑酷</div></a>
-      <a class="app-item" href="https://pimatch.pi" target="_blank" rel="noopener"><div class="app-icon">🧩</div><div class="app-name">PiMatch 消消乐</div></a>
-      <a class="app-item" href="https://pilottery.pi" target="_blank" rel="noopener"><div class="app-icon">🎫</div><div class="app-name">PiLottery</div></a>
-      <a class="app-item" href="https://pizone.pi" target="_blank" rel="noopener"><div class="app-icon">🎮</div><div class="app-name">PiZone 游戏厅</div></a>
-      <a class="app-item" href="https://pingame.pi" target="_blank" rel="noopener"><div class="app-icon">🎯</div><div class="app-name">PinGame 合集</div></a>
+    <div class="tabs-wrap">
+      <div class="rank-tabs" id="rankTabs">
+        <div class="rank-tab active" data-rank="hot">🔥 热门榜</div>
+        <div class="rank-tab" data-rank="active">⚡ 活跃榜</div>
+        <div class="rank-tab" data-rank="new">✨ 新锐榜</div>
+      </div>
+
+      <!-- 热门榜 -->
+      <div class="category-section active" data-cat="hot">
+        <div class="category-heading">热门应用 Top 10</div>
+        <div class="rank-list" id="rank-hot">
+          <div class="rank-item"><div class="rank-no">1</div><div class="rank-icon">🎮</div><div class="rank-info"><h4>Tic Tac Toe</h4><p>游戏 · 经典井字棋对战</p></div><div class="rank-score">98<span class="stars">★★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">2</div><div class="rank-icon">💬</div><div class="rank-info"><h4>PIBBS.CHAT</h4><p>社交 · 派友在线交流</p></div><div class="rank-score">95<span class="stars">★★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">3</div><div class="rank-icon">👁️</div><div class="rank-info"><h4>PiTanTan 派探探</h4><p>社交 · 兴趣配对平台</p></div><div class="rank-score">92<span class="stars">★★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">4</div><div class="rank-icon">🌾</div><div class="rank-info"><h4>PiFarm 农场</h4><p>游戏 · 种植与经营</p></div><div class="rank-score">90<span class="stars">★★★★☆</span></div></div>
+          <div class="rank-item"><div class="rank-no">5</div><div class="rank-icon">🐉</div><div class="rank-info"><h4>3141 商城</h4><p>商城 · Pi 支付购物</p></div><div class="rank-score">88<span class="stars">★★★★☆</span></div></div>
+          <div class="rank-item"><div class="rank-no">6</div><div class="rank-icon">💹</div><div class="rank-info"><h4>PiExchange</h4><p>金融 · 兑换与交易</p></div><div class="rank-score">85<span class="stars">★★★★☆</span></div></div>
+          <div class="rank-item"><div class="rank-no">7</div><div class="rank-icon">🧭</div><div class="rank-info"><h4>派导航 PiHub</h4><p>工具 · 生态入口导航</p></div><div class="rank-score">82<span class="stars">★★★★☆</span></div></div>
+          <div class="rank-item"><div class="rank-no">8</div><div class="rank-icon">📰</div><div class="rank-info"><h4>PiNews 资讯</h4><p>资讯 · 派生态每日动态</p></div><div class="rank-score">80<span class="stars">★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">9</div><div class="rank-icon">🤖</div><div class="rank-info"><h4>PiAI 智能</h4><p>AI · 智能对话助手</p></div><div class="rank-score">78<span class="stars">★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">10</div><div class="rank-icon">🎨</div><div class="rank-info"><h4>PiArt 绘画</h4><p>AI · AI 艺术创作</p></div><div class="rank-score">75<span class="stars">★★★★</span></div></div>
+        </div>
+      </div>
+
+      <!-- 活跃榜 -->
+      <div class="category-section" data-cat="active">
+        <div class="category-heading">活跃应用 Top 10</div>
+        <div class="rank-list">
+          <div class="rank-item"><div class="rank-no">1</div><div class="rank-icon">💬</div><div class="rank-info"><h4>Chat 聊天</h4><p>社交 · 官方即时通讯</p></div><div class="rank-score">99<span class="stars">★★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">2</div><div class="rank-icon">🔥</div><div class="rank-info"><h4>Fireside</h4><p>社交 · 派友社区论坛</p></div><div class="rank-score">96<span class="stars">★★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">3</div><div class="rank-icon">💡</div><div class="rank-info"><h4>Brainstorm</h4><p>工具 · 生态创意投票</p></div><div class="rank-score">93<span class="stars">★★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">4</div><div class="rank-icon">🖥️</div><div class="rank-info"><h4>Develop</h4><p>工具 · 开发者中心</p></div><div class="rank-score">91<span class="stars">★★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">5</div><div class="rank-icon">🎮</div><div class="rank-info"><h4>PiZone 游戏厅</h4><p>游戏 · 综合游戏平台</p></div><div class="rank-score">87<span class="stars">★★★★☆</span></div></div>
+          <div class="rank-item"><div class="rank-no">6</div><div class="rank-icon">🛍️</div><div class="rank-info"><h4>PiBuy 购物</h4><p>商城 · 在线购物平台</p></div><div class="rank-score">84<span class="stars">★★★★☆</span></div></div>
+          <div class="rank-item"><div class="rank-no">7</div><div class="rank-icon">🍜</div><div class="rank-info"><h4>PiFood 外卖</h4><p>商城 · 本地外卖服务</p></div><div class="rank-score">81<span class="stars">★★★★☆</span></div></div>
+          <div class="rank-item"><div class="rank-no">8</div><div class="rank-icon">👥</div><div class="rank-info"><h4>PiCircle 圈子</h4><p>社交 · 兴趣小组平台</p></div><div class="rank-score">79<span class="stars">★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">9</div><div class="rank-icon">🧑‍🤝‍🧑</div><div class="rank-info"><h4>Pi 派友圈</h4><p>资讯 · 社交动态分享</p></div><div class="rank-score">77<span class="stars">★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">10</div><div class="rank-icon">📖</div><div class="rank-info"><h4>PiArticle</h4><p>资讯 · 长文阅读分享</p></div><div class="rank-score">74<span class="stars">★★★★</span></div></div>
+        </div>
+      </div>
+
+      <!-- 新锐榜 -->
+      <div class="category-section" data-cat="new">
+        <div class="category-heading">新锐应用 Top 10</div>
+        <div class="rank-list">
+          <div class="rank-item"><div class="rank-no">1</div><div class="rank-icon">✨</div><div class="rank-info"><h4>PiAssistant</h4><p>AI · 全新智能助理</p></div><div class="rank-score">97<span class="stars">★★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">2</div><div class="rank-icon">🧠</div><div class="rank-info"><h4>PiCopilot</h4><p>AI · 开发智能副驾</p></div><div class="rank-score">94<span class="stars">★★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">3</div><div class="rank-icon">🕵️</div><div class="rank-info"><h4>PiAgent 智能体</h4><p>AI · 自主智能代理</p></div><div class="rank-score">91<span class="stars">★★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">4</div><div class="rank-icon">💭</div><div class="rank-info"><h4>PiChat AI</h4><p>AI · AI 聊天引擎</p></div><div class="rank-score">89<span class="stars">★★★★☆</span></div></div>
+          <div class="rank-item"><div class="rank-no">5</div><div class="rank-icon">📊</div><div class="rank-info"><h4>PiFund 基金</h4><p>金融 · 新基金产品</p></div><div class="rank-score">86<span class="stars">★★★★☆</span></div></div>
+          <div class="rank-item"><div class="rank-no">6</div><div class="rank-icon">🛠️</div><div class="rank-info"><h4>PiBuilder</h4><p>工具 · 应用构建平台</p></div><div class="rank-score">83<span class="stars">★★★★☆</span></div></div>
+          <div class="rank-item"><div class="rank-no">7</div><div class="rank-icon">✈️</div><div class="rank-info"><h4>PiTrip 旅行</h4><p>商城 · 旅行预订应用</p></div><div class="rank-score">80<span class="stars">★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">8</div><div class="rank-icon">🏃</div><div class="rank-info"><h4>PiRun 跑酷</h4><p>游戏 · 休闲跑酷新品</p></div><div class="rank-score">77<span class="stars">★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">9</div><div class="rank-icon">🎫</div><div class="rank-info"><h4>PiLottery</h4><p>游戏 · 抽奖娱乐应用</p></div><div class="rank-score">74<span class="stars">★★★★</span></div></div>
+          <div class="rank-item"><div class="rank-no">10</div><div class="rank-icon">🏨</div><div class="rank-info"><h4>PiHotel 酒店</h4><p>商城 · 酒店预订服务</p></div><div class="rank-score">71<span class="stars">★★★★</span></div></div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- 商城购物 -->
-  <div class="category-section" data-cat="mall">
-    <div class="category-heading">商城购物 · Shopping</div>
-    <div class="app-grid">
-      <a class="app-item" href="https://3141.mall" target="_blank" rel="noopener"><div class="app-icon">🐉</div><div class="app-name">3141 商城</div></a>
-      <a class="app-item" href="https://pibuy.pi" target="_blank" rel="noopener"><div class="app-icon">🛍️</div><div class="app-name">PiBuy 购物</div></a>
-      <a class="app-item" href="https="https://pimall.pi" target="_blank" rel="noopener"><div class="app-icon">🏪</div><div class="app-name">PiMall 商城</div></a>
-      <a class="app-item" href="https://pishop.pi" target="_blank" rel="noopener"><div class="app-icon">🏬</div><div class="app-name">PiShop 商店</div></a>
-      <a class="app-item" href="https://pimarket.pi" target="_blank" rel="noopener"><div class="app-icon">🛒</div><div class="app-name">PiMarket</div></a>
-      <a class="app-item" href="https://pifood.pi" target="_blank" rel="noopener"><div class="app-icon">🍜</div><div class="app-name">PiFood 外卖</div></a>
-      <a class="app-item" href="https://pitrip.pi" target="_blank" rel="noopener"><div class="app-icon">✈️</div><div class="app-name">PiTrip 旅行</div></a>
-      <a class="app-item" href="https://pihotel.pi" target="_blank" rel="noopener"><div class="app-icon">🏨</div><div class="app-name">PiHotel 酒店</div></a>
-      <a class="app-item" href="https://piapple.pi" target="_blank" rel="noopener"><div class="app-icon">🍎</div><div class="app-name">PiFresh 生鲜</div></a>
+  <!-- ========== PANEL 3: PRICE ========== -->
+  <section class="panel" data-panel="price">
+    <div class="hero">
+      <h2>💰 派的价格 · Pi Price</h2>
+      <p>Pi 币实时参考价格，仅供参考</p>
     </div>
-  </div>
 
-  <!-- 金融工具 -->
-  <div class="category-section" data-cat="finance">
-    <div class="category-heading">金融工具 · Finance</div>
-    <div class="app-grid">
-      <a class="app-item" href="https://piexchange.pi" target="_blank" rel="noopener"><div class="app-icon">💹</div><div class="app-name">PiExchange</div></a>
-      <a class="app-item" href="https://piswap.pi" target="_blank" rel="noopener"><div class="app-icon">🔄</div><div class="app-name">PiSwap 兑换</div></a>
-      <a class="app-item" href="https://pilend.pi" target="_blank" rel="noopener"><div class="app-icon">🏦</div><div class="app-name">PiLend 借贷</div></a>
-      <a class="app-item" href="https="https://piearn.pi" target="_blank" rel="noopener"><div class="app-icon">💰</div><div class="app-name">PiEarn 理财</div></a>
-      <a class="app-item" href="https://pipay.pi" target="_blank" rel="noopener"><div class="app-icon">💳</div><div class="app-name">PiPay 支付</div></a>
-      <a class="app-item" href="https://pinsure.pi" target="_blank" rel="noopener"><div class="app-icon">🛡️</div><div class="app-name">PiInsure</div></a>
-      <a class="app-item" href="https="https://pifund.pi" target="_blank" rel="noopener"><div class="app-icon">📊</div><div class="app-name">PiFund 基金</div></a>
-      <a class="app-item" href="https="https="https="https://pibond.pi" target="_blank" rel="noopener"><div class="app-icon">📜</div><div class="app-name">PiBond</div></a>
+    <div class="price-card">
+      <div class="price-head">
+        <div class="price-logo">π</div>
+        <div style="flex:1;">
+          <h3>Pi Network</h3>
+          <div class="pair">PI / USD · PI / CNY</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <span class="price-big">$ 0.00</span>
+        <span class="price-change">+ 0.00%</span>
+      </div>
+      <div style="margin-bottom:18px;">
+        <span class="price-big" style="font-size:24px;">¥ 0.00</span>
+        <span class="price-change">+ 0.00%</span>
+      </div>
+
+      <div class="price-grid">
+        <div class="price-item"><div class="label">24h 最高</div><div class="val up">$ --</div></div>
+        <div class="price-item"><div class="label">24h 最低</div><div class="val down">$ --</div></div>
+        <div class="price-item"><div class="label">24h 成交量</div><div class="val">$ --</div></div>
+        <div class="price-item"><div class="label">24h 成交额</div><div class="val">$ --</div></div>
+        <div class="price-item"><div class="label">流通市值</div><div class="val">$ --</div></div>
+        <div class="price-item"><div class="label">总市值</div><div class="val">$ --</div></div>
+        <div class="price-item"><div class="label">流通量</div><div class="val">-- Pi</div></div>
+        <div class="price-item"><div class="label">总量</div><div class="val">-- Pi</div></div>
+      </div>
+
+      <div class="price-note">
+        <strong>💡 数据说明：</strong>以上价格为生态参考展示数据，并非真实行情。Pi Network 尚未公开上线主网交易，实际价格请以官方公告为准。投资有风险，入场需谨慎。
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- 工具导航 -->
-  <div class="category-section" data-cat="tool">
-    <div class="category-heading">工具导航 · Tools</div>
-    <div class="app-grid">
-      <a class="app-item" href="https://pihub.pi" target="_blank" rel="noopener"><div class="app-icon">🧭</div><div class="app-name">派导航 PiHub</div></a>
-      <a class="app-item" href="https://piapp.link" target="_blank" rel="noopener"><div class="app-icon">🔗</div><div class="app-name">PiApp.Link</div></a>
-      <a class="app-item" href="https://piscan.pi" target="_blank" rel="noopener"><div class="app-icon">🔍</div><div class="app-name">PiScan 扫描</div></a>
-      <a class="app-item" href="https="https="https="https://pitranslate.pi" target="_blank" rel="noopener"><div class="app-icon">🌏</div><div class="app-name">PiTranslate</div></a>
-      <a class="app-item" href="https="https://picalc.pi" target="_blank" rel="noopener"><div class="app-icon">🧮</div><div class="app-name">PiCalc 计算</div></a>
-      <a class="app-item" href="https://pifile.pi" target="_blank" rel="noopener"><div class="app-icon">📁</div><div class="app-name">PiFile 云盘</div></a>
-      <a class="app-item" href="https="https="https://pinet.pi" target="_blank" rel="noopener"><div class="app-icon">📡</div><div class="app-name">PiNet 节点</div></a>
-      <a class="app-item" href="https="https="https="https="https="https="https="https://pivpn.pi" target="_blank" rel="noopener"><div class="app-icon">🔐</div><div class="app-name">PiVPN</div></a>
-      <a class="app-item" href="https="https://pibuilder.pi" target="_blank" rel="noopener"><div class="app-icon">🛠️</div><div class="app-name">PiBuilder</div></a>
-      <a class="app-item" href="https="https="https="https="https="https="https="https="https="https="https="https://pinode.pi" target="_blank" rel="noopener"><div class="app-icon">🖲️</div><div class="app-name">PiNode 节点</div></a>
+  <!-- ========== PANEL 4: CONTACT ========== -->
+  <section class="panel" data-panel="contact">
+    <div class="hero">
+      <h2>✉️ 联系我们 · Contact Us</h2>
+      <p>欢迎通过以下方式与 Pi 生态团队取得联系</p>
     </div>
-  </div>
 
-  <!-- 资讯社区 -->
-  <div class="category-section" data-cat="news">
-    <div class="category-heading">资讯社区 · News & Community</div>
-    <div class="app-grid">
-      <a class="app-item" href="https://pinews.pi" target="_blank" rel="noopener"><div class="app-icon">📰</div><div class="app-name">PiNews 资讯</div></a>
-      <a class="app-item" href="https="https="https="https="https="https://piarticle.pi" target="_blank" rel="noopener"><div class="app-icon">📖</div><div class="app-name">PiArticle</div></a>
-      <a class="app-item" href="https="https://pipedia.pi" target="_blank" rel="noopener"><div class="app-icon">🔤</div><div class="app-name">PiPedia 百科</div></a>
-      <a class="app-item" href="https="https="https="https="https="https="https="https="https://pivideo.pi" target="_blank" rel="noopener"><div class="app-icon">🎬</div><div class="app-name">PiVideo 视频</div></a>
-      <a class="app-item" href="https="https="https://picircle2.pi" target="_blank" rel="noopener"><div class="app-icon">🧑‍🤝‍🧑</div><div class="app-name">Pi 派友圈</div></a>
-      <a class="app-item" href="https="https="https="https="https="https="https="https="https="https://piblog.pi" target="_blank" rel="noopener"><div class="app-icon">✍️</div><div class="app-name">PiBlog 博客</div></a>
-      <a class="app-item" href="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https://pirank.pi" target="_blank" rel="noopener"><div class="app-icon">🏆</div><div class="app-name">PiRank 榜单</div></a>
-      <a class="app-item" href="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https://piedu.pi" target="_blank" rel="noopener"><div class="app-icon">🎓</div><div class="app-name">PiEdu 学堂</div></a>
+    <div class="contact-card">
+      <h3>联系方式</h3>
+      <ul class="contact-list">
+        <li><div class="contact-ico">📧</div><div class="contact-label">官方邮箱</div><div class="contact-value">contact@pi.app</div></li>
+        <li><div class="contact-ico">💬</div><div class="contact-label">微信 / WeChat</div><div class="contact-value">PiEcosystem</div></li>
+        <li><div class="contact-ico">✈️</div><div class="contact-label">Telegram</div><div class="contact-value">@PiEco</div></li>
+        <li><div class="contact-ico">🐦</div><div class="contact-label">Twitter / X</div><div class="contact-value">@PiCoreTeam</div></li>
+        <li><div class="contact-ico">🌐</div><div class="contact-label">官方网站</div><div class="contact-value">minepi.com</div></li>
+        <li><div class="contact-ico">📱</div><div class="contact-label">PiApp.Link</div><div class="contact-value">piapp.link</div></li>
+      </ul>
+
+      <form class="contact-form" onsubmit="event.preventDefault(); alert('感谢您的留言，我们会尽快与您联系！');">
+        <label for="c-name">您的称呼</label>
+        <input id="c-name" type="text" placeholder="请输入您的姓名或昵称" required>
+        <label for="c-contact">联系方式（邮箱或电话）</label>
+        <input id="c-contact" type="text" placeholder="example@pi.app" required>
+        <label for="c-msg">留言内容</label>
+        <textarea id="c-msg" placeholder="请输入您想告诉我们的内容..." required></textarea>
+        <button type="submit" class="submit-btn">📨 提交留言</button>
+      </form>
     </div>
-  </div>
+  </section>
 
-  <!-- AI 应用 -->
-  <div class="category-section" data-cat="ai">
-    <div class="category-heading">AI 应用 · Artificial Intelligence</div>
-    <div class="app-grid">
-      <a class="app-item" href="https://piai.pi" target="_blank" rel="noopener"><div class="app-icon">🤖</div><div class="app-name">PiAI 智能</div></a>
-      <a class="app-item" href="https://piassistant.pi" target="_blank" rel="noopener"><div class="app-icon">✨</div><div class="app-name">PiAssistant</div></a>
-      <a class="app-item" href="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https://piart.pi" target="_blank" rel="noopener"><div class="app-icon">🎨</div><div class="app-name">PiArt 绘画</div></a>
-      <a class="app-item" href="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https://pichatgpt.pi" target="_blank" rel="noopener"><div class="app-icon">💭</div><div class="app-name">PiChat AI</div></a>
-      <a class="app-item" href="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https://pitranslateai.pi" target="_blank" rel="noopener"><div class="app-icon">🗣️</div><div class="app-name">PiTrans AI</div></a>
-      <a class="app-item" href="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https="https://pibot.pi" target="_blank" rel="noopener"><div class="app-icon">🤖</div><div class="app-name">PiBot 机器人</div></a>
-      <a class="app-item" href="https://picopilot.pi" target="_blank" rel="noopener"><div class="app-icon">🧠</div><div class="app-name">PiCopilot</div></a>
-      <a class="app-item" href="https="piagent.pi" target="_blank" rel="noopener"><div class="app-icon">🕵️</div><div class="app-name">PiAgent 智能体</div></a>
-    </div>
-  </div>
-</section>
+</main>
 
-<!-- Bottom Bar -->
+<!-- ========== FIXED BOTTOM BAR ========== -->
 <nav class="bottom-bar">
   <div class="bottom-grid">
-    <a class="btn primary" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <button class="btn primary active" type="button" data-target="home">
       <div class="btn-icon">🏠</div>首页
-    </a>
-    <a class="btn" href="https://pibiapp.link/ranking" target="_blank" rel="noopener">
+    </button>
+    <button class="btn" type="button" data-target="rank">
       <div class="btn-icon">🏆</div>生态排行榜
-    </a>
-    <button class="btn" type="button" id="btnPrice">
+    </button>
+    <button class="btn" type="button" data-target="price">
       <div class="btn-icon">💰</div>派的价格
     </button>
-    <button class="btn" type="button" id="btnContact">
+    <button class="btn" type="button" data-target="contact">
       <div class="btn-icon">✉️</div>联系我们
     </button>
   </div>
 </nav>
 
-<!-- Price Modal -->
-<div class="modal-mask" id="priceModal">
-  <div class="modal">
-    <h3>💰 派 (Pi) 的实时参考价格</h3>
-    <div class="price-row"><span class="label">Pi / USD</span><span class="value up">$ 0.00 (示例)</span></div>
-    <div class="price-row"><span class="label">Pi / CNY</span><span class="value up">¥ 0.00 (示例)</span></div>
-    <div class="price-row"><span class="label">24h 涨跌</span><span class="value">+0.00%</span></div>
-    <div class="price-row"><span class="label">24h 成交额</span><span class="value">$ --</span></div>
-    <div class="price-row"><span class="label">流通市值</span><span class="value">$ --</span></div>
-    <div class="price-row"><span class="label">数据来源</span><span class="value">Pi Ecosystem</span></div>
-    <button class="modal-close" type="button" onclick="document.getElementById('priceModal').classList.remove('show')">关闭</button>
-  </div>
-</div>
-
-<!-- Contact Modal -->
-<div class="modal-mask" id="contactModal">
-  <div class="modal">
-    <h3>✉️ 联系我们</h3>
-    <ul class="contact-list">
-      <li><span>官方邮箱</span><span class="v">contact@pi.app</span></li>
-      <li><span>微信 / WeChat</span><span class="v">PiEcosystem</span></li>
-      <li><span>Telegram</span><span class="v">@PiEco</span></li>
-      <li><span>Twitter / X</span><span class="v">@PiCoreTeam</span></li>
-      <li><span>官方网站</span><span class="v">minepi.com</span></li>
-    </ul>
-    <button class="modal-close" type="button" onclick="document.getElementById('contactModal').classList.remove('show')">关闭</button>
-  </div>
-</div>
-
 <script>
-  // Tab switching
-  const tabs = document.querySelectorAll('.tab');
-  const sections = document.querySelectorAll('.category-section');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const cat = tab.dataset.cat;
-      tabs.forEach(t => t.classList.toggle('active', t === tab));
-      sections.forEach(s => s.classList.toggle('active', s.dataset.cat === cat));
+  // ============ Bottom bar: switch middle panel ============
+  const bottomBtns = document.querySelectorAll('.bottom-bar .btn');
+  const panels = document.querySelectorAll('.panel');
+  const main = document.querySelector('.main');
+
+  bottomBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.target;
+      bottomBtns.forEach(b => {
+        b.classList.toggle('active', b === btn);
+        b.classList.toggle('primary', b === btn);
+      });
+      panels.forEach(p => p.classList.toggle('active', p.dataset.panel === target));
+      // scroll to top of main area
+      main.scrollTo({top:0, behavior:'smooth'});
     });
   });
 
-  // Modal: Pi price
-  document.getElementById('btnPrice').addEventListener('click', () => {
-    document.getElementById('priceModal').classList.add('show');
+  // ============ Category tabs inside HOME panel ============
+  const catTabs = document.querySelectorAll('#tabs .tab');
+  const catSections = document.querySelectorAll('.panel[data-panel="home"] .category-section');
+  catTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const cat = tab.dataset.cat;
+      catTabs.forEach(t => t.classList.toggle('active', t === tab));
+      catSections.forEach(s => s.classList.toggle('active', s.dataset.cat === cat));
+    });
   });
-  // Modal: Contact
-  document.getElementById('btnContact').addEventListener('click', () => {
-    document.getElementById('contactModal').classList.add('show');
-  });
-  // Click mask to close
-  document.querySelectorAll('.modal-mask').forEach(m => {
-    m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); });
+
+  // ============ Ranking sub-tabs inside RANK panel ============
+  const rankTabs = document.querySelectorAll('#rankTabs .rank-tab');
+  const rankSections = document.querySelectorAll('.panel[data-panel="rank"] .category-section');
+  rankTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const cat = tab.dataset.rank;
+      rankTabs.forEach(t => t.classList.toggle('active', t === tab));
+      rankSections.forEach(s => s.classList.toggle('active', s.dataset.cat === cat));
+    });
   });
 </script>
 
