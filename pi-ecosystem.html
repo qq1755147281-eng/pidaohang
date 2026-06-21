@@ -1162,10 +1162,22 @@
   const ecoBack = document.getElementById('ecoModalBack');
   const ecoClose = document.getElementById('ecoModalClose');
   let currentEcoUrl = '';
-  document.querySelectorAll('.app-item').forEach(item => {
+  document.querySelectorAll('.app-item').forEach((item, idx) => {
     item.addEventListener('click', () => {
       const icon = item.dataset.icon || '';
       const isComingSoon = item.dataset.comingsoon === 'true';
+      // === 添加点击音效：前8个正式项用"进入"音，其余用"敬请期待"提示音 ===
+      if (isComingSoon){
+        // 低频下潜 + 微颤 → "咚咚"提示音
+        playTone(360, {duration:0.12, type:'triangle', volume:0.18, sweepTo:200});
+        setTimeout(()=>playTone(240, {duration:0.18, type:'sine', volume:0.14, sweepTo:160}), 70);
+      } else {
+        // 高频上行 + 清脆尾音 → "叮咚"欢迎音（每个图标频率略有差异）
+        const freqs = [880, 960, 1040, 1120, 1200, 1280, 1360, 1440];
+        const f = freqs[idx % freqs.length];
+        playTone(f, {duration:0.08, type:'sine', volume:0.22});
+        setTimeout(()=>playTone(f * 1.5, {duration:0.12, type:'triangle', volume:0.18}), 55);
+      }
       ecoIcon.textContent = icon;
       ecoIcon.className = 'eco-modal-icon' + (icon === 'π' ? ' has-pi' : '');
       ecoTitle.textContent = item.dataset.eco || '';
@@ -1200,10 +1212,19 @@
   if (ecoEnter) ecoEnter.addEventListener('click', () => {
     const modal = document.querySelector('.eco-modal');
     if (modal && modal.classList.contains('coming-soon')) return;
+    // "进入生态"：清脆上行三连音
+    playTone(1040, {duration:0.07, type:'sine', volume:0.22});
+    setTimeout(()=>playTone(1320, {duration:0.08, type:'triangle', volume:0.20}), 50);
+    setTimeout(()=>playTone(1760, {duration:0.14, type:'sine', volume:0.18}), 110);
     if (currentEcoUrl && currentEcoUrl !== '#') window.open(currentEcoUrl, '_blank');
-    hideEcoModal();
+    setTimeout(hideEcoModal, 160);
   });
-  if (ecoBack) ecoBack.addEventListener('click', () => { hideEcoModal(); goHomePanel(); });
+  if (ecoBack) ecoBack.addEventListener('click', () => {
+    // "返回首页"：柔和下行双音
+    playTone(520, {duration:0.10, type:'sine', volume:0.18});
+    setTimeout(()=>playTone(360, {duration:0.14, type:'triangle', volume:0.15}), 70);
+    setTimeout(()=>{ hideEcoModal(); goHomePanel(); }, 120);
+  });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && ecoMask.classList.contains('active')) hideEcoModal(); });
 
   // ============ Price panel: 4-camp voting ============
