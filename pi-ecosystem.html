@@ -1183,10 +1183,19 @@
     });
   });
   function hideEcoModal(){ ecoMask.classList.remove('active'); }
+  function goHomePanel(){
+    // 切换到底部导航的首页面板
+    const panels = document.querySelectorAll('.panel');
+    panels.forEach(p => p.classList.toggle('active', p.dataset.panel === 'home'));
+    const homeBtn = document.querySelector('.bottom-nav button[data-target="home"]');
+    document.querySelectorAll('.bottom-nav button').forEach(b => b.classList.toggle('primary', b === homeBtn));
+    const main = document.querySelector('.main');
+    if (main) main.scrollTo({top:0, behavior:'smooth'});
+  }
   if (ecoClose) ecoClose.addEventListener('click', hideEcoModal);
   if (ecoMask) ecoMask.addEventListener('click', (e) => { if (e.target === ecoMask) hideEcoModal(); });
   if (ecoEnter) ecoEnter.addEventListener('click', () => { if (currentEcoUrl) window.open(currentEcoUrl, '_blank'); hideEcoModal(); });
-  if (ecoBack) ecoBack.addEventListener('click', hideEcoModal);
+  if (ecoBack) ecoBack.addEventListener('click', () => { hideEcoModal(); goHomePanel(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && ecoMask.classList.contains('active')) hideEcoModal(); });
 
   // ============ Price panel: 6-camp voting ============
