@@ -1216,7 +1216,15 @@
     playTone(1040, {duration:0.07, type:'sine', volume:0.22});
     setTimeout(()=>playTone(1320, {duration:0.08, type:'triangle', volume:0.20}), 50);
     setTimeout(()=>playTone(1760, {duration:0.14, type:'sine', volume:0.18}), 110);
-    if (currentEcoUrl && currentEcoUrl !== '#') window.open(currentEcoUrl, '_blank');
+    // 确保跳转：验证 URL 有效性
+    if (currentEcoUrl && currentEcoUrl !== '#' && currentEcoUrl.startsWith('http')) {
+      try {
+        const url = new URL(currentEcoUrl);
+        window.open(url.toString(), '_blank', 'noopener,noreferrer');
+      } catch(e) {
+        console.warn('Invalid URL:', currentEcoUrl);
+      }
+    }
     setTimeout(hideEcoModal, 160);
   });
   if (ecoBack) ecoBack.addEventListener('click', () => {
