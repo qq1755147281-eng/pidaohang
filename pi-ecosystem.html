@@ -1105,6 +1105,7 @@
 </nav>
 
 <script>
+  document.addEventListener('DOMContentLoaded', () => {
   // ============ Bottom bar: switch middle panel ============
   const bottomBtns = document.querySelectorAll('.bottom-bar .btn');
   const panels = document.querySelectorAll('.panel');
@@ -1118,7 +1119,6 @@
         b.classList.toggle('primary', b === btn);
       });
       panels.forEach(p => p.classList.toggle('active', p.dataset.panel === target));
-      // scroll to top of main area
       main.scrollTo({top:0, behavior:'smooth'});
     });
   });
@@ -1322,6 +1322,7 @@
       refresh();
     });
   });
+});
 </script>
 
   <!-- ============ Eco Modal (black / dark-blue tech-style square) ============ -->
