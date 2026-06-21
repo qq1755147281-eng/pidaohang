@@ -1166,35 +1166,42 @@
     item.addEventListener('click', () => {
       const icon = item.dataset.icon || '';
       const isComingSoon = item.dataset.comingsoon === 'true';
+      const url = item.dataset.url || '#';
       // === 添加点击音效：前8个正式项用"进入"音，其余用"敬请期待"提示音 ===
       if (isComingSoon){
         // 低频下潜 + 微颤 → "咚咚"提示音
         playTone(360, {duration:0.12, type:'triangle', volume:0.18, sweepTo:200});
         setTimeout(()=>playTone(240, {duration:0.18, type:'sine', volume:0.14, sweepTo:160}), 70);
+        // 显示敬请期待弹窗
+        ecoIcon.textContent = icon;
+        ecoIcon.className = 'eco-modal-icon' + (icon === 'π' ? ' has-pi' : '');
+        ecoTitle.textContent = item.dataset.eco || '';
+        ecoDesc1.textContent = item.dataset.desc1 || '';
+        ecoDesc2.textContent = item.dataset.desc2 || '';
+        ecoCode.textContent = '敬请期待';
+        ecoCode.classList.add('none');
+        currentEcoUrl = url;
+        const modal = document.querySelector('.eco-modal');
+        if (modal) modal.classList.add('coming-soon');
+        ecoMask.classList.add('active');
       } else {
         // 高频上行 + 清脆尾音 → "叮咚"欢迎音（每个图标频率略有差异）
         const freqs = [880, 960, 1040, 1120, 1200, 1280, 1360, 1440];
         const f = freqs[idx % freqs.length];
         playTone(f, {duration:0.08, type:'sine', volume:0.22});
         setTimeout(()=>playTone(f * 1.5, {duration:0.12, type:'triangle', volume:0.18}), 55);
+        // === 前8个有真实链接的生态：直接跳转，不弹窗 ===
+        if (url && url !== '#' && url.startsWith('http')) {
+          try {
+            const validUrl = new URL(url);
+            setTimeout(() => {
+              window.open(validUrl.toString(), '_blank', 'noopener,noreferrer');
+            }, 80); // 稍等音效播放后再跳转
+          } catch(e) {
+            console.warn('Invalid URL:', url);
+          }
+        }
       }
-      ecoIcon.textContent = icon;
-      ecoIcon.className = 'eco-modal-icon' + (icon === 'π' ? ' has-pi' : '');
-      ecoTitle.textContent = item.dataset.eco || '';
-      ecoDesc1.textContent = item.dataset.desc1 || '';
-      ecoDesc2.textContent = item.dataset.desc2 || '';
-      const code = item.dataset.code || '';
-      if (code && code.toLowerCase() !== 'none' && code.toLowerCase() !== '暂无') {
-        ecoCode.textContent = code;
-        ecoCode.classList.remove('none');
-      } else {
-        ecoCode.textContent = '暂无';
-        ecoCode.classList.add('none');
-      }
-      currentEcoUrl = item.dataset.url || '#';
-      const modal = document.querySelector('.eco-modal');
-      if (modal) modal.classList.toggle('coming-soon', isComingSoon);
-      ecoMask.classList.add('active');
     });
   });
   function hideEcoModal(){ ecoMask.classList.remove('active'); }
