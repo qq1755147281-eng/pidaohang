@@ -299,6 +299,35 @@
   .btn-icon{font-size:16px;line-height:1;}
 
   /* ============ Home Panel: 41 Apps Flat Grid (compact) ============ */
+  .home-grid-section{
+    margin-bottom:8px;
+  }
+  .section-header{
+    display:flex;align-items:center;gap:12px;
+    padding:8px 20px 4px;
+    margin-bottom:4px;
+  }
+  .section-icon{
+    width:36px;height:36px;border-radius:10px;
+    background:linear-gradient(135deg,#6c2b9e 0%,#9c4dcc 100%);
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;color:#fff;
+    box-shadow:0 2px 8px rgba(108,43,158,.3);
+  }
+  .section-info h3{
+    font-size:14px;font-weight:600;color:#1a1a1a;margin:0;
+  }
+  .section-info p{
+    font-size:11px;color:#888;margin:2px 0 0;
+  }
+  .section-count{
+    margin-left:auto;
+    width:28px;height:28px;border-radius:8px;
+    background:linear-gradient(135deg,#f5f0ff 0%,#e9d8ff 100%);
+    border:1px solid rgba(108,43,158,.2);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:600;color:#6c2b9e;
+  }
   .home-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -324,6 +353,48 @@
   .app-icon .pi{font-size:18px;}
   .app-item:nth-child(odd) .app-icon{background:linear-gradient(135deg,#fff 0%,#fff3e0 100%);}
   .app-name{font-size:11px;color:var(--pi-text);text-align:center;line-height:1.2;max-width:70px;}
+
+  /* ============ Purple Glow Divider (breathing effect) ============ */
+  .divider-glow{
+    position:relative;
+    height:40px;
+    display:flex;align-items:center;justify-content:center;
+    margin:8px 0;
+  }
+  .divider-line{
+    position:absolute;
+    left:10%;right:10%;
+    height:1px;
+    background:linear-gradient(90deg,
+      transparent 0%,
+      rgba(108,43,158,.3) 20%,
+      rgba(165,94,234,.5) 50%,
+      rgba(108,43,158,.3) 80%,
+      transparent 100%
+    );
+    animation:divider-glow 2.5s ease-in-out infinite;
+  }
+  @keyframes divider-glow{
+    0%,100%{opacity:.4;box-shadow:0 0 10px rgba(165,94,234,.2);}
+    50%{opacity:1;box-shadow:0 0 25px rgba(165,94,234,.5),0 0 40px rgba(108,43,158,.3);}
+  }
+  .divider-dots{
+    position:relative;
+    display:flex;gap:10px;
+    z-index:1;
+  }
+  .divider-dots .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:linear-gradient(135deg,#a55eea 0%,#6c2b9e 100%);
+    animation:dot-pulse 2.5s ease-in-out infinite;
+    box-shadow:0 0 10px rgba(165,94,234,.5);
+  }
+  .divider-dots .dot:nth-child(2){animation-delay:.4s;}
+  .divider-dots .dot:nth-child(3){animation-delay:.8s;}
+  @keyframes dot-pulse{
+    0%,100%{transform:scale(.6);opacity:.5;}
+    50%{transform:scale(1);opacity:1;}
+  }
 
   /* ============ Eco Modal (black / dark-blue tech-style square) ============ */
   .eco-modal-mask{
@@ -865,63 +936,88 @@
 
     <!-- Section title -->
     <div class="home-title">
-      <h3>精选 51 个派生态应用</h3>
+      <h3>精选 41 个派生态应用</h3>
       <p>点击图标即可跳转至对应应用 · 覆盖官方核心、社交、金融、商城、资讯、AI 全品类</p>
     </div>
 
-    <div class="home-grid">
-      <div class="app-item" data-eco="派孵化器" data-url="https://startpi.app" data-icon="🐣" data-desc1="派项目孵化器平台" data-desc2="孵化优秀派生态项目、扶持创新团队" data-code="START8821"><div class="app-icon">🐣</div><div class="app-name">派孵化器</div></div>
-      <div class="app-item" data-eco="哈西派" data-url="https://hashpi.app" data-icon="🔗" data-desc1="哈希派生态应用" data-desc2="基于哈希的派生态分布式服务" data-code="HASH2281"><div class="app-icon">🔗</div><div class="app-name">哈西派</div></div>
-      <div class="app-item" data-eco="派对元宇宙土地" data-url="https://piday.world/zh-CN?ic=MGV2PG" data-icon="🏠" data-desc1="派元宇宙虚拟土地" data-desc2="购买、建设、交易您的派虚拟领地" data-code="MGV2PG"><div class="app-icon">🏠</div><div class="app-name">派对元宇宙土地</div></div>
-      <div class="app-item" data-eco="派众筹生态" data-url="https://crowdfundpi.com" data-icon="🎯" data-desc1="派生态众筹平台" data-desc2="支持派项目募资与早期先锋参与" data-code="CROWD8821"><div class="app-icon">🎯</div><div class="app-name">派众筹生态</div></div>
-      <div class="app-item" data-eco="派宠物" data-url="https://pipet.me/#/pages/login/login?invite=419296" data-icon="🐾" data-desc1="派宠物养成游戏" data-desc2="领养您的虚拟派宠物、培养互动" data-code="419296"><div class="app-icon">🐾</div><div class="app-name">派宠物</div></div>
-      <div class="app-item" data-eco="CIDI游戏" data-url="https://app.cidi.games" data-icon="🎲" data-desc1="CIDI 游戏生态" data-desc2="多款派币游戏合集平台" data-code="CIDI8821"><div class="app-icon">🎲</div><div class="app-name">CIDI游戏</div></div>
-      <div class="app-item" data-eco="月光宝盒" data-url="https://openbox.world?referral_code=15536455536" data-icon="🎁" data-desc1="神秘宝箱开盒玩法" data-desc2="限时开盒获取稀缺奖励" data-code="15536455536"><div class="app-icon">🎁</div><div class="app-name">月光宝盒</div></div>
-      <div class="app-item" data-eco="斗地主" data-url="https://doudizhu-e62.pages.dev/" data-icon="🀄" data-desc1="派生态斗地主游戏" data-desc2="经典斗地主 · 派友实时对战" data-code="DOUDIZHU"><div class="app-icon">🀄</div><div class="app-name">斗地主</div></div>
-      <div class="app-item" data-eco="Fireside" data-url="#" data-icon="🔥" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🔥</div><div class="app-name">Fireside</div></div>
-      <div class="app-item" data-eco="Wallet 钱包" data-url="#" data-icon="π" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Wallet 钱包</div></div>
-      <div class="app-item" data-eco="Brainstorm" data-url="#" data-icon="💡" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💡</div><div class="app-name">Brainstorm</div></div>
-      <div class="app-item" data-eco="Mine 挖矿" data-url="#" data-icon="π" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Mine 挖矿</div></div>
-      <div class="app-item" data-eco="Blockchain" data-url="#" data-icon="⛓️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">⛓️</div><div class="app-name">Blockchain</div></div>
-      <div class="app-item" data-eco="Develop 开发者" data-url="#" data-icon="🖥️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🖥️</div><div class="app-name">Develop 开发者</div></div>
-      <div class="app-item" data-eco="KYC 认证" data-url="#" data-icon="🪪" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🪪</div><div class="app-name">KYC 认证</div></div>
-      <div class="app-item" data-eco="Chat 聊天" data-url="#" data-icon="π" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Chat 聊天</div></div>
-      <div class="app-item" data-eco="Profiles" data-url="#" data-icon="👤" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">👤</div><div class="app-name">Profiles</div></div>
-      <div class="app-item" data-eco="Domains" data-url="#" data-icon=".pi" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">.pi</div><div class="app-name">Domains</div></div>
-      <div class="app-item" data-eco="App AI" data-url="#" data-icon="✨AI" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">✨AI</div><div class="app-name">App AI</div></div>
-      <div class="app-item" data-eco="Launchpad" data-url="#" data-icon="🚀" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🚀</div><div class="app-name">Launchpad</div></div>
-      <div class="app-item" data-eco="Pi Browser" data-url="#" data-icon="🌐" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🌐</div><div class="app-name">Pi Browser</div></div>
-      <div class="app-item" data-eco="Pi App" data-url="#" data-icon="📱" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">📱</div><div class="app-name">Pi App</div></div>
-      <div class="app-item" data-eco="Stake 质押" data-url="#" data-icon="⚡" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">⚡</div><div class="app-name">Stake 质押</div></div>
-      <div class="app-item" data-eco="PIBBS.CHAT" data-url="#" data-icon="💬" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💬</div><div class="app-name">PIBBS.CHAT</div></div>
-      <div class="app-item" data-eco="PiTanTan 派探探" data-url="#" data-icon="👁️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">👁️</div><div class="app-name">PiTanTan 派探探</div></div>
-      <div class="app-item" data-eco="PiTok 短视频" data-url="#" data-icon="🎵" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🎵</div><div class="app-name">PiTok 短视频</div></div>
-      <div class="app-item" data-eco="PiDating" data-url="#" data-icon="💕" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💕</div><div class="app-name">PiDating</div></div>
-      <div class="app-item" data-eco="PiCircle 圈子" data-url="#" data-icon="👥" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">👥</div><div class="app-name">PiCircle 圈子</div></div>
-      <div class="app-item" data-eco="Tic Tac Toe" data-url="#" data-icon="⭕" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">⭕</div><div class="app-name">Tic Tac Toe</div></div>
-      <div class="app-item" data-eco="PiFarm 农场" data-url="#" data-icon="🌾" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🌾</div><div class="app-name">PiFarm 农场</div></div>
-      <div class="app-item" data-eco="PiChess 象棋" data-url="#" data-icon="♟️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">♟️</div><div class="app-name">PiChess 象棋</div></div>
-      <div class="app-item" data-eco="PiMatch 消消乐" data-url="#" data-icon="🧩" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🧩</div><div class="app-name">PiMatch 消消乐</div></div>
-      <div class="app-item" data-eco="PiZone 游戏厅" data-url="#" data-icon="🎮" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🎮</div><div class="app-name">PiZone 游戏厅</div></div>
-      <div class="app-item" data-eco="3141 商城" data-url="#" data-icon="🐉" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🐉</div><div class="app-name">3141 商城</div></div>
-      <div class="app-item" data-eco="PiBuy 购物" data-url="#" data-icon="🛍️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🛍️</div><div class="app-name">PiBuy 购物</div></div>
-      <div class="app-item" data-eco="PiMall 商城" data-url="#" data-icon="🏪" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🏪</div><div class="app-name">PiMall 商城</div></div>
-      <div class="app-item" data-eco="PiShop 商店" data-url="#" data-icon="🏬" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🏬</div><div class="app-name">PiShop 商店</div></div>
-      <div class="app-item" data-eco="PiFood 外卖" data-url="#" data-icon="🍜" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🍜</div><div class="app-name">PiFood 外卖</div></div>
-      <div class="app-item" data-eco="PiExchange" data-url="#" data-icon="💹" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💹</div><div class="app-name">PiExchange</div></div>
-      <div class="app-item" data-eco="PiSwap 兑换" data-url="#" data-icon="🔄" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🔄</div><div class="app-name">PiSwap 兑换</div></div>
-      <div class="app-item" data-eco="PiEarn 理财" data-url="#" data-icon="💰" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💰</div><div class="app-name">PiEarn 理财</div></div>
-      <div class="app-item" data-eco="PiPay 支付" data-url="#" data-icon="💳" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💳</div><div class="app-name">PiPay 支付</div></div>
-      <div class="app-item" data-eco="派导航 PiHub" data-url="#" data-icon="🧭" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🧭</div><div class="app-name">派导航 PiHub</div></div>
-      <div class="app-item" data-eco="PiApp.Link" data-url="#" data-icon="🔗" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🔗</div><div class="app-name">PiApp.Link</div></div>
-      <div class="app-item" data-eco="PiNews 资讯" data-url="#" data-icon="📰" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">📰</div><div class="app-name">PiNews 资讯</div></div>
-      <div class="app-item" data-eco="PiBlog 博客" data-url="#" data-icon="✍️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">✍️</div><div class="app-name">PiBlog 博客</div></div>
-      <div class="app-item" data-eco="PiAI 智能" data-url="#" data-icon="🤖" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🤖</div><div class="app-name">PiAI 智能</div></div>
-      <div class="app-item" data-eco="PiAssistant" data-url="#" data-icon="✨" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">✨</div><div class="app-name">PiAssistant</div></div>
-      <div class="app-item" data-eco="PiLand 派土地" data-url="#" data-icon="🏞️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🏞️</div><div class="app-name">PiLand 派土地</div></div>
-      <div class="app-item" data-eco="PiTravel 派旅行" data-url="#" data-icon="✈️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">✈️</div><div class="app-name">PiTravel 派旅行</div></div>
-      <div class="app-item" data-eco="PiCar 派车" data-url="#" data-icon="🚗" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🚗</div><div class="app-name">PiCar 派车</div></div>
+    <div class="home-grid-section">
+      <div class="section-header">
+        <div class="section-icon">🌐</div>
+        <div class="section-info">
+          <h3>Pi 浏览器直达应用</h3>
+          <p>可直接在 Pi Browser 中打开使用</p>
+        </div>
+        <div class="section-count">20</div>
+      </div>
+      <div class="home-grid">
+        <div class="app-item" data-eco="派孵化器" data-url="https://startpi.app" data-icon="🐣" data-desc1="派项目孵化器平台" data-desc2="孵化优秀派生态项目、扶持创新团队" data-code="START8821"><div class="app-icon">🐣</div><div class="app-name">派孵化器</div></div>
+        <div class="app-item" data-eco="哈西派" data-url="https://hashpi.app" data-icon="🔗" data-desc1="哈希派生态应用" data-desc2="基于哈希的派生态分布式服务" data-code="HASH2281"><div class="app-icon">🔗</div><div class="app-name">哈西派</div></div>
+        <div class="app-item" data-eco="派对元宇宙土地" data-url="https://piday.world/zh-CN?ic=MGV2PG" data-icon="🏠" data-desc1="派元宇宙虚拟土地" data-desc2="购买、建设、交易您的派虚拟领地" data-code="MGV2PG"><div class="app-icon">🏠</div><div class="app-name">派对元宇宙土地</div></div>
+        <div class="app-item" data-eco="派众筹生态" data-url="https://crowdfundpi.com" data-icon="🎯" data-desc1="派生态众筹平台" data-desc2="支持派项目募资与早期先锋参与" data-code="CROWD8821"><div class="app-icon">🎯</div><div class="app-name">派众筹生态</div></div>
+        <div class="app-item" data-eco="派宠物" data-url="https://pipet.me/#/pages/login/login?invite=419296" data-icon="🐾" data-desc1="派宠物养成游戏" data-desc2="领养您的虚拟派宠物、培养互动" data-code="419296"><div class="app-icon">🐾</div><div class="app-name">派宠物</div></div>
+        <div class="app-item" data-eco="CIDI游戏" data-url="https://app.cidi.games" data-icon="🎲" data-desc1="CIDI 游戏生态" data-desc2="多款派币游戏合集平台" data-code="CIDI8821"><div class="app-icon">🎲</div><div class="app-name">CIDI游戏</div></div>
+        <div class="app-item" data-eco="月光宝盒" data-url="https://openbox.world?referral_code=15536455536" data-icon="🎁" data-desc1="神秘宝箱开盒玩法" data-desc2="限时开盒获取稀缺奖励" data-code="15536455536"><div class="app-icon">🎁</div><div class="app-name">月光宝盒</div></div>
+        <div class="app-item" data-eco="斗地主" data-url="https://doudizhu-e62.pages.dev/" data-icon="🀄" data-desc1="派生态斗地主游戏" data-desc2="经典斗地主 · 派友实时对战" data-code="DOUDIZHU"><div class="app-icon">🀄</div><div class="app-name">斗地主</div></div>
+        <div class="app-item" data-eco="Fireside" data-url="#" data-icon="🔥" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🔥</div><div class="app-name">Fireside</div></div>
+        <div class="app-item" data-eco="Wallet 钱包" data-url="#" data-icon="π" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Wallet 钱包</div></div>
+        <div class="app-item" data-eco="Brainstorm" data-url="#" data-icon="💡" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💡</div><div class="app-name">Brainstorm</div></div>
+        <div class="app-item" data-eco="Mine 挖矿" data-url="#" data-icon="π" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Mine 挖矿</div></div>
+        <div class="app-item" data-eco="Blockchain" data-url="#" data-icon="⛓️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">⛓️</div><div class="app-name">Blockchain</div></div>
+        <div class="app-item" data-eco="Develop 开发者" data-url="#" data-icon="🖥️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🖥️</div><div class="app-name">Develop 开发者</div></div>
+        <div class="app-item" data-eco="KYC 认证" data-url="#" data-icon="🪪" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🪪</div><div class="app-name">KYC 认证</div></div>
+        <div class="app-item" data-eco="Chat 聊天" data-url="#" data-icon="π" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Chat 聊天</div></div>
+        <div class="app-item" data-eco="Profiles" data-url="#" data-icon="👤" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">👤</div><div class="app-name">Profiles</div></div>
+        <div class="app-item" data-eco="Domains" data-url="#" data-icon=".pi" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">.pi</div><div class="app-name">Domains</div></div>
+        <div class="app-item" data-eco="App AI" data-url="#" data-icon="✨AI" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">✨AI</div><div class="app-name">App AI</div></div>
+        <div class="app-item" data-eco="Launchpad" data-url="#" data-icon="🚀" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🚀</div><div class="app-name">Launchpad</div></div>
+      </div>
     </div>
+
+    <!-- 紫色呼吸灯分割线 -->
+    <div class="divider-glow">
+      <div class="divider-line"></div>
+      <div class="divider-dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <div class="home-grid-section">
+      <div class="section-header">
+        <div class="section-icon">📱</div>
+        <div class="section-info">
+          <h3>需下载 APP 的应用</h3>
+          <p>需下载独立 APP 客户端使用</p>
+        </div>
+        <div class="section-count">21</div>
+      </div>
+      <div class="home-grid">
+        <div class="app-item" data-eco="Pi Browser" data-url="#" data-icon="🌐" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🌐</div><div class="app-name">Pi Browser</div></div>
+        <div class="app-item" data-eco="Pi App" data-url="#" data-icon="📱" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">📱</div><div class="app-name">Pi App</div></div>
+        <div class="app-item" data-eco="Stake 质押" data-url="#" data-icon="⚡" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">⚡</div><div class="app-name">Stake 质押</div></div>
+        <div class="app-item" data-eco="PIBBS.CHAT" data-url="#" data-icon="💬" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💬</div><div class="app-name">PIBBS.CHAT</div></div>
+        <div class="app-item" data-eco="PiTanTan 派探探" data-url="#" data-icon="👁️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">👁️</div><div class="app-name">PiTanTan 派探探</div></div>
+        <div class="app-item" data-eco="PiTok 短视频" data-url="#" data-icon="🎵" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🎵</div><div class="app-name">PiTok 短视频</div></div>
+        <div class="app-item" data-eco="PiDating" data-url="#" data-icon="💕" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💕</div><div class="app-name">PiDating</div></div>
+        <div class="app-item" data-eco="PiCircle 圈子" data-url="#" data-icon="👥" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">👥</div><div class="app-name">PiCircle 圈子</div></div>
+        <div class="app-item" data-eco="Tic Tac Toe" data-url="#" data-icon="⭕" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">⭕</div><div class="app-name">Tic Tac Toe</div></div>
+        <div class="app-item" data-eco="PiFarm 农场" data-url="#" data-icon="🌾" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🌾</div><div class="app-name">PiFarm 农场</div></div>
+        <div class="app-item" data-eco="PiChess 象棋" data-url="#" data-icon="♟️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">♟️</div><div class="app-name">PiChess 象棋</div></div>
+        <div class="app-item" data-eco="PiMatch 消消乐" data-url="#" data-icon="🧩" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🧩</div><div class="app-name">PiMatch 消消乐</div></div>
+        <div class="app-item" data-eco="PiZone 游戏厅" data-url="#" data-icon="🎮" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🎮</div><div class="app-name">PiZone 游戏厅</div></div>
+        <div class="app-item" data-eco="3141 商城" data-url="#" data-icon="🐉" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🐉</div><div class="app-name">3141 商城</div></div>
+        <div class="app-item" data-eco="PiBuy 购物" data-url="#" data-icon="🛍️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🛍️</div><div class="app-name">PiBuy 购物</div></div>
+        <div class="app-item" data-eco="PiMall 商城" data-url="#" data-icon="🏪" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🏪</div><div class="app-name">PiMall 商城</div></div>
+        <div class="app-item" data-eco="PiShop 商店" data-url="#" data-icon="🏬" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🏬</div><div class="app-name">PiShop 商店</div></div>
+        <div class="app-item" data-eco="PiFood 外卖" data-url="#" data-icon="🍜" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🍜</div><div class="app-name">PiFood 外卖</div></div>
+        <div class="app-item" data-eco="PiExchange" data-url="#" data-icon="💹" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💹</div><div class="app-name">PiExchange</div></div>
+        <div class="app-item" data-eco="PiSwap 兑换" data-url="#" data-icon="🔄" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🔄</div><div class="app-name">PiSwap 兑换</div></div>
+        <div class="app-item" data-eco="PiEarn 理财" data-url="#" data-icon="💰" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💰</div><div class="app-name">PiEarn 理财</div></div>
+      </div>
+    </div>
+
+    <!-- 移除原有的多余应用（原第42-51个），保持总数量41个 -->
   </section>
 
   <!-- ========== PANEL 2: RANKING ========== -->
