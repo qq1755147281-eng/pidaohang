@@ -650,7 +650,141 @@
     }
   }
 
-  /* ============ Price Panel Styles (6 Vertical Camps) ============ */
+  /* ============ Price Panel Styles (Tech-style) ============ */
+  .price-tech{
+    margin:12px 16px 20px;
+    max-width:800px;
+    margin-left:auto;
+    margin-right:auto;
+    background:
+      linear-gradient(135deg,#0a0a18 0%,#120a24 50%,#0a0a18 100%);
+    border-radius:20px;
+    padding:20px;
+    position:relative;
+    overflow:hidden;
+    border:1.5px solid transparent;
+    background-clip:padding-box;
+    box-shadow:
+      0 0 40px rgba(108,43,158,.3),
+      0 0 80px rgba(165,94,234,.15),
+      inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .price-tech::before{
+    content:"";
+    position:absolute;
+    inset:-1.5px;
+    border-radius:20px;
+    padding:1.5px;
+    background:linear-gradient(135deg,#6c2b9e 0%,#a55eea 30%,#00f5d4 60%,#ffc629 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    pointer-events:none;
+    animation:tech-border 4s ease-in-out infinite;
+  }
+  @keyframes tech-border{
+    0%,100%{opacity:.6;}
+    50%{opacity:1;}
+  }
+  .price-tech::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(108,43,158,.06) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,245,212,.04) 1px,transparent 1px);
+    background-size:20px 20px;
+    pointer-events:none;
+    opacity:.5;
+  }
+  .price-line{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:12px 14px;
+    margin-bottom:10px;
+    background:linear-gradient(135deg,rgba(255,255,255,.04) 0%,rgba(108,43,158,.08) 100%);
+    border-radius:12px;
+    border:1px solid rgba(108,43,158,.2);
+    transition:all .3s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .price-line:last-child{margin-bottom:0;}
+  .price-line:hover{
+    background:linear-gradient(135deg,rgba(108,43,158,.15) 0%,rgba(165,94,234,.1) 100%);
+    border-color:rgba(165,94,234,.4);
+    transform:translateX(4px);
+    box-shadow:0 0 20px rgba(108,43,158,.2);
+  }
+  .line-icon{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    flex-shrink:0;
+    background:linear-gradient(135deg,rgba(108,43,158,.3) 0%,rgba(165,94,234,.2) 100%);
+    border:1px solid rgba(165,94,234,.3);
+    box-shadow:0 0 10px rgba(108,43,158,.2);
+  }
+  .line-text{
+    flex:1;
+    font-size:13px;
+    color:#e8e6f0;
+    line-height:1.5;
+    position:relative;
+    z-index:1;
+    letter-spacing:.3px;
+  }
+  .line-tag{
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.5px;
+    flex-shrink:0;
+    position:relative;
+    z-index:1;
+    background:linear-gradient(135deg,rgba(108,43,158,.4) 0%,rgba(165,94,234,.3) 100%);
+    border:1px solid rgba(165,94,234,.4);
+    color:#c9c3ff;
+  }
+  .line-tag.gcv{
+    background:linear-gradient(135deg,#6c2b9e 0%,#9c4dcc 100%);
+    border-color:#a55eea;
+    color:#fff;
+    box-shadow:0 0 12px rgba(165,94,234,.4);
+  }
+  .line-tag.ex{
+    background:linear-gradient(135deg,#00b894 0%,#00cec9 100%);
+    border-color:#00f5d4;
+    color:#fff;
+    box-shadow:0 0 12px rgba(0,245,212,.35);
+  }
+  .line-tag.cash{
+    background:linear-gradient(135deg,#fdcb6e 0%,#ffd93d 100%);
+    border-color:#ffc629;
+    color:#5a3f00;
+    box-shadow:0 0 12px rgba(255,198,41,.35);
+  }
+  .line-tag.node{
+    background:linear-gradient(135deg,#fd79a8 0%,#fdcb6e 100%);
+    border-color:#ff7675;
+    color:#5a1f30;
+    box-shadow:0 0 12px rgba(253,121,168,.3);
+  }
+  .line-tag.eco{
+    background:linear-gradient(135deg,#a29bfe 0%,#6c5ce7 100%);
+    border-color:#7c4dff;
+    color:#fff;
+    box-shadow:0 0 12px rgba(162,155,254,.4);
+  }
+
+  /* ============ Old Price Panel Styles (6 Vertical Camps) ============ */
   .price-card{
     margin:14px 16px 0;
     max-width:800px;
@@ -1049,119 +1183,31 @@
       <p>Pi 币实时参考价格，仅供参考</p>
     </div>
 
-    <div class="price-card">
-      <div class="camp-grid">
-
-        <!-- 阵营 1: GCV 价格 -->
-        <div class="camp camp-gcv" data-camp="gcv">
-          <div class="sparkle s1">✨</div>
-          <div class="sparkle s2">💫</div>
-          <div class="sparkle s3">⭐</div>
-          <div class="camp-inner">
-            <div class="camp-emoji">🏛️</div>
-            <div class="camp-center">
-              <div class="camp-title">GCV 价格</div>
-              <div class="camp-desc">根据全球GCV贸易价格定为314159美元</div>
-              <div class="camp-price">$314,159 <small>≈ ￥2,200,000 / Pi</small></div>
-            </div>
-            <div class="camp-right">
-              <div class="camp-supporters">👥 <span class="num" data-base="85247">85,247</span> 人</div>
-              <div class="camp-vote">
-                <button class="vote-btn like" type="button">👍 <span class="count">68,421</span></button>
-                <button class="vote-btn dislike" type="button">👎 <span class="count">16,826</span></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 阵营 2: 交易所价格 -->
-        <div class="camp camp-ex" data-camp="ex">
-          <div class="sparkle s1">📈</div>
-          <div class="sparkle s2">💹</div>
-          <div class="sparkle s3">🚀</div>
-          <div class="camp-inner">
-            <div class="camp-emoji">🏦</div>
-            <div class="camp-center">
-              <div class="camp-title">交易所价格</div>
-              <div class="camp-desc">根据全球实时交易所价格产生</div>
-              <div class="camp-price">$0.13 ~ $31 <small>≈ ￥0.91 ~ ￥217 / Pi</small></div>
-            </div>
-            <div class="camp-right">
-              <div class="camp-supporters">👥 <span class="num" data-base="62318">62,318</span> 人</div>
-              <div class="camp-vote">
-                <button class="vote-btn like" type="button">👍 <span class="count">42,856</span></button>
-                <button class="vote-btn dislike" type="button">👎 <span class="count">19,462</span></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 阵营 3: 变现者 -->
-        <div class="camp camp-cash" data-camp="cash">
-          <div class="sparkle s1">💰</div>
-          <div class="sparkle s2">💎</div>
-          <div class="sparkle s3">🤑</div>
-          <div class="camp-inner">
-            <div class="camp-emoji">💸</div>
-            <div class="camp-center">
-              <div class="camp-title">变现者</div>
-              <div class="camp-desc">根据国家监管政策，去香港变现，按国家规定直接兑换变现</div>
-              <div class="camp-price">$314,159 <small>≈ ￥20,000,000 / Pi</small></div>
-            </div>
-            <div class="camp-right">
-              <div class="camp-supporters">👥 <span class="num" data-base="53762">53,762</span> 人</div>
-              <div class="camp-vote">
-                <button class="vote-btn like" type="button">👍 <span class="count">38,204</span></button>
-                <button class="vote-btn dislike" type="button">👎 <span class="count">15,558</span></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 阵营 4: 节点者 -->
-        <div class="camp camp-node" data-camp="node">
-          <div class="sparkle s1">⚡</div>
-          <div class="sparkle s2">🖥️</div>
-          <div class="sparkle s3">🔥</div>
-          <div class="camp-inner">
-            <div class="camp-emoji">🛰️</div>
-            <div class="camp-center">
-              <div class="camp-title">节点者</div>
-              <div class="camp-desc">手机挖矿已淘汰，进入电脑挖矿时代，电脑节点将成为下一批红利，节点不看价格，币多为王</div>
-              <div class="camp-price">$3 ~ $314,159 <small>≈ ￥21 ~ ￥2,200,000 / Pi</small></div>
-            </div>
-            <div class="camp-right">
-              <div class="camp-supporters">👥 <span class="num" data-base="47693">47,693</span> 人</div>
-              <div class="camp-vote">
-                <button class="vote-btn like" type="button">👍 <span class="count">35,418</span></button>
-                <button class="vote-btn dislike" type="button">👎 <span class="count">12,275</span></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 阵营 5: 生态者 -->
-        <div class="camp camp-eco" data-camp="eco">
-          <div class="sparkle s1">🌿</div>
-          <div class="sparkle s2">🌐</div>
-          <div class="sparkle s3">💚</div>
-          <div class="camp-inner">
-            <div class="camp-emoji">🌍</div>
-            <div class="camp-center">
-              <div class="camp-title">生态者</div>
-              <div class="camp-desc">跟随项目方响应号召，参与、加入、入股生态，成为生态参与者与分红者，生态内不看派币价格，只看持有数量</div>
-              <div class="camp-price">$3 ~ $314,159 <small>≈ ￥21 ~ ￥2,200,000 / Pi</small></div>
-            </div>
-            <div class="camp-right">
-              <div class="camp-supporters">👥 <span class="num" data-base="38926">38,926</span> 人</div>
-              <div class="camp-vote">
-                <button class="vote-btn like" type="button">👍 <span class="count">29,142</span></button>
-                <button class="vote-btn dislike" type="button">👎 <span class="count">9,784</span></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
+    <div class="price-tech">
+      <div class="price-line">
+        <div class="line-icon">🏛️</div>
+        <div class="line-text">GCV 价格：全球 GCV 共识价格 $314,159（≈ ￥220万）</div>
+        <div class="line-tag gcv">共识价值</div>
+      </div>
+      <div class="price-line">
+        <div class="line-icon">🏦</div>
+        <div class="line-text">交易所价格：全球实时 $0.13 ~ $31（≈ ￥0.91 ~ ￥217）</div>
+        <div class="line-tag ex">市场行情</div>
+      </div>
+      <div class="price-line">
+        <div class="line-icon">💸</div>
+        <div class="line-text">变现者：按国家监管政策，去香港合规兑换变现</div>
+        <div class="line-tag cash">落袋为安</div>
+      </div>
+      <div class="price-line">
+        <div class="line-icon">🛰️</div>
+        <div class="line-text">节点者：手机挖矿已淘汰，电脑节点将成下一批红利</div>
+        <div class="line-tag node">算力时代</div>
+      </div>
+      <div class="price-line">
+        <div class="line-icon">🌍</div>
+        <div class="line-text">生态者：跟随项目方参与生态，成为红利分享者</div>
+        <div class="line-tag eco">共建生态</div>
       </div>
     </div>
   </section>
