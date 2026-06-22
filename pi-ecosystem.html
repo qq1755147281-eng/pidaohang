@@ -560,6 +560,29 @@
   .eco-modal.coming-soon .eco-modal-desc p{color:#ffd89b;font-size:13px;letter-spacing:.5px;}
 
   /* ============ Ranking Panel Styles (TOP 20) ============ */
+  .rank-tip{
+    display:flex;align-items:flex-start;gap:10px;
+    margin:10px 16px 14px;
+    padding:14px 16px;
+    background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);
+    border-radius:12px;
+    border-left:4px solid #f59e0b;
+    max-width:780px;
+    margin-left:auto;
+    margin-right:auto;
+    box-shadow:0 2px 8px rgba(245,158,11,.15);
+  }
+  .rank-tip-icon{
+    font-size:20px;
+    flex-shrink:0;
+    margin-top:-2px;
+  }
+  .rank-tip-text{
+    font-size:13px;
+    color:#92400e;
+    line-height:1.55;
+    font-weight:500;
+  }
   .rank-top-list{
     padding:6px 12px 22px;
     max-width:780px;margin:0 auto;
@@ -1217,6 +1240,11 @@
     <div class="hero">
       <h2>🏆 派生态实时热度排名</h2>
       <p>如需进入生态，请点击首页跳转对应生态</p>
+    </div>
+
+    <div class="rank-tip">
+      <div class="rank-tip-icon">📊</div>
+      <div class="rank-tip-text">本榜单仅统计目前最火的已认可超级生态，前20名Pi生态仅供参考</div>
     </div>
 
     <div class="rank-top-list">
