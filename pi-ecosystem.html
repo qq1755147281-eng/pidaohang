@@ -1499,44 +1499,40 @@
       const icon = item.dataset.icon || '';
       const isComingSoon = item.dataset.comingsoon === 'true';
       const url = item.dataset.url || '#';
-      // === 添加点击音效：前8个正式项用"进入"音，其余用"敬请期待"提示音 ===
-      if (isComingSoon){
+      
+      // === 添加点击音效 ===
+      if (isComingSoon) {
         // 低频下潜 + 微颤 → "咚咚"提示音
         playTone(360, {duration:0.12, type:'triangle', volume:0.18, sweepTo:200});
         setTimeout(()=>playTone(240, {duration:0.18, type:'sine', volume:0.14, sweepTo:160}), 70);
-        // 显示敬请期待弹窗
-        ecoIcon.textContent = icon;
-        ecoIcon.className = 'eco-modal-icon' + (icon === 'π' ? ' has-pi' : '');
-        ecoTitle.textContent = item.dataset.eco || '';
-        ecoDesc1.textContent = item.dataset.desc1 || '';
-        ecoDesc2.textContent = item.dataset.desc2 || '';
-        ecoDesc3.textContent = item.dataset.desc3 || '';
-        ecoCode.textContent = '敬请期待';
-        ecoCode.classList.add('none');
-        currentEcoUrl = url;
-        const modal = document.querySelector('.eco-modal');
-        if (modal) modal.classList.add('coming-soon');
-        ecoMask.classList.add('active');
       } else {
-        // 高频上行 + 清脆尾音 → "叮咚"欢迎音（每个图标频率略有差异）
+        // 高频上行 + 清脆尾音 → "叮咚"欢迎音
         const freqs = [880, 960, 1040, 1120, 1200, 1280, 1360, 1440];
         const f = freqs[idx % freqs.length];
         playTone(f, {duration:0.08, type:'sine', volume:0.22});
         setTimeout(()=>playTone(f * 1.5, {duration:0.12, type:'triangle', volume:0.18}), 55);
-        // === 显示弹窗，点击"进入生态"按钮再跳转 ===
-        ecoIcon.textContent = icon;
-        ecoIcon.className = 'eco-modal-icon' + (icon === 'π' ? ' has-pi' : '');
-        ecoTitle.textContent = item.dataset.eco || '';
-        ecoDesc1.textContent = item.dataset.desc1 || '';
-        ecoDesc2.textContent = item.dataset.desc2 || '';
-        ecoDesc3.textContent = item.dataset.desc3 || '';
+      }
+      
+      // === 显示弹窗 ===
+      ecoIcon.textContent = icon;
+      ecoIcon.className = 'eco-modal-icon' + (icon === 'π' ? ' has-pi' : '');
+      ecoTitle.textContent = item.dataset.eco || '';
+      ecoDesc1.textContent = item.dataset.desc1 || '';
+      ecoDesc2.textContent = item.dataset.desc2 || '';
+      
+      const modal = document.querySelector('.eco-modal');
+      if (isComingSoon) {
+        ecoCode.textContent = '敬请期待';
+        ecoCode.classList.add('none');
+        currentEcoUrl = '#';
+        if (modal) modal.classList.add('coming-soon');
+      } else {
         ecoCode.textContent = item.dataset.code || '暂无';
         ecoCode.classList.toggle('none', !item.dataset.code || item.dataset.code === '敬请期待');
         currentEcoUrl = url;
-        const modal = document.querySelector('.eco-modal');
         if (modal) modal.classList.remove('coming-soon');
-        ecoMask.classList.add('active');
       }
+      ecoMask.classList.add('active');
     });
   });
   function hideEcoModal(){ ecoMask.classList.remove('active'); }
@@ -1729,7 +1725,6 @@
       <div class="eco-modal-desc">
         <p id="ecoModalDesc1">生态功能介绍第一行</p>
         <p id="ecoModalDesc2">生态功能介绍第二行</p>
-        <p id="ecoModalDesc3">生态功能介绍第三行</p>
       </div>
       <div class="eco-code-box">
         <div class="eco-code-label">邀请码</div>
