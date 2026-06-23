@@ -1599,7 +1599,7 @@
     // "返回首页"：柔和下行双音
     playTone(520, {duration:0.10, type:'sine', volume:0.18});
     setTimeout(()=>playTone(360, {duration:0.14, type:'triangle', volume:0.15}), 70);
-    setTimeout(()=>{ hideEcoModal(); goHomePanel(); }, 120);
+    setTimeout(hideEcoModal, 120);
   });
   if (ecoCopyBtn) ecoCopyBtn.addEventListener('click', () => {
     const code = ecoCode.textContent;
