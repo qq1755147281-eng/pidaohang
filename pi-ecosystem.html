@@ -29,6 +29,95 @@
     overflow:hidden;
   }
   a{color:inherit;text-decoration:none;}
+  
+  /* ============ Loading Screen ============ */
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #6c2b9e 0%, #a855f7 50%, #fbbf24 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .loading-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .loading-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 24px;
+    padding: 40px 50px;
+    box-shadow: 0 20px 60px rgba(108, 43, 158, 0.3);
+    text-align: center;
+    animation: card-float 2s ease-in-out infinite;
+  }
+  
+  @keyframes card-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .loading-title {
+    font-size: 28px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #6c2b9e 0%, #a855f7 50%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+    letter-spacing: 4px;
+  }
+  
+  .loading-subtitle {
+    font-size: 14px;
+    color: #8a7aa3;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+  }
+  
+  .loading-progress-container {
+    width: 200px;
+    height: 8px;
+    background: rgba(108, 43, 158, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  .loading-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #6c2b9e 0%, #a855f7 50%, #fbbf24 100%);
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+  }
+  
+  .loading-percent {
+    font-size: 14px;
+    color: #6c2b9e;
+    margin-top: 12px;
+    font-weight: 600;
+  }
+  
+  .loading-pi-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    animation: pi-spin 3s linear infinite;
+  }
+  
+  @keyframes pi-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
 
   /* ============ Fixed Header ============ */
   .header{
@@ -1329,6 +1418,19 @@
 </head>
 <body>
 
+<!-- ========== LOADING SCREEN ========== -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-card">
+    <div class="loading-pi-icon">π</div>
+    <div class="loading-title">派友千千万</div>
+    <div class="loading-subtitle">生态万万千</div>
+    <div class="loading-progress-container">
+      <div class="loading-progress-bar" id="loadingProgress"></div>
+    </div>
+    <div class="loading-percent" id="loadingPercent">0%</div>
+  </div>
+</div>
+
 <!-- ========== FIXED HEADER ========== -->
 <header class="header">
   <div class="header-inner">
@@ -1678,6 +1780,39 @@
 </nav>
 
 <script>
+  // ============ Loading Screen ============
+  function showLoadingScreen(duration = 2000) {
+    const overlay = document.getElementById('loadingOverlay');
+    const progressBar = document.getElementById('loadingProgress');
+    const percentText = document.getElementById('loadingPercent');
+    
+    overlay.classList.remove('hidden');
+    progressBar.style.width = '0%';
+    percentText.textContent = '0%';
+    
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(100, (elapsed / duration) * 100);
+      
+      progressBar.style.width = progress + '%';
+      percentText.textContent = Math.round(progress) + '%';
+      
+      if (elapsed >= duration) {
+        clearInterval(interval);
+        setTimeout(() => {
+          overlay.classList.add('hidden');
+        }, 300);
+      }
+    }, 20);
+  }
+  
+  function triggerLoadingScreen(duration = 1000) {
+    showLoadingScreen(duration);
+  }
+  
+  showLoadingScreen(2000);
+  
   document.addEventListener('DOMContentLoaded', () => {
   // ============ Bottom bar: switch middle panel ============
   const bottomBtns = document.querySelectorAll('.bottom-bar .btn');
@@ -1767,6 +1902,11 @@
       
       createFireworks(x, y);
       playCardSound();
+      
+      const isComingSoon = this.dataset.comingsoon === 'true';
+      if (!isComingSoon) {
+        triggerLoadingScreen(1000);
+      }
     });
   });
   
