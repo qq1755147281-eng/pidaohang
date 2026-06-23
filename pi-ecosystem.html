@@ -500,24 +500,31 @@
     position:relative;z-index:2;
   }
   .eco-modal-desc p{font-size:12px;}
-  .eco-code-row{
-    display:flex;align-items:center;gap:10px;
-    background:linear-gradient(135deg,rgba(0,0,0,.5),rgba(108,43,158,.25));
-    border:1px solid rgba(255,198,41,.35);
-    padding:8px 12px;border-radius:10px;
+  .eco-code-box{
+    background:#1a1a2e;
+    border:2px solid #ffc629;
+    border-radius:12px;
+    padding:12px 16px;
     margin-bottom:10px;
     position:relative;z-index:2;
+    box-shadow:
+      0 0 20px rgba(255,198,41,.25),
+      inset 0 0 15px rgba(255,198,41,.08);
   }
   .eco-code-label{
-    font-size:11px;color:#ffc629;font-weight:600;
-    letter-spacing:.5px;flex-shrink:0;
+    font-size:10px;color:#ffc629;font-weight:600;
+    letter-spacing:.8px;text-align:center;
+    margin-bottom:6px;
+    text-transform:uppercase;
   }
   .eco-code-value{
-    font-size:13px;color:#fff;font-weight:700;
-    letter-spacing:1.5px;flex:1;
-    text-align:center;
+    font-size:15px;color:#ffc629;font-weight:800;
+    letter-spacing:2px;text-align:center;
     font-family:"Courier New",monospace;
-    text-shadow:0 0 8px rgba(255,198,41,.45);
+    text-shadow:0 0 12px rgba(255,198,41,.6);
+    background:rgba(255,198,41,.1);
+    padding:8px 12px;border-radius:8px;
+    border:1px solid rgba(255,198,41,.4);
   }
   .eco-code-value.none{
     color:#8888aa;
@@ -553,7 +560,7 @@
   .eco-btn:active{transform:translateY(0);}
   /* === Coming soon state === */
   .eco-modal.coming-soon .eco-modal-icon{filter:grayscale(.65) opacity(.85);}
-  .eco-modal.coming-soon .eco-code-row,
+  .eco-modal.coming-soon .eco-code-box,
   .eco-modal.coming-soon .eco-btn.enter{display:none;}
   .eco-modal.coming-soon .eco-btn.back{flex:1;}
   .eco-modal.coming-soon .eco-modal-desc{background:linear-gradient(135deg,rgba(255,200,80,.12),rgba(165,94,234,.12));border:1px solid rgba(255,200,80,.35);}
@@ -1173,14 +1180,14 @@
         <div class="section-count">20</div>
       </div>
       <div class="home-grid">
-        <div class="app-item" data-eco="派孵化器" data-url="https://startpi.app" data-icon="🐣" data-desc1="派项目孵化器平台" data-desc2="孵化优秀派生态项目、扶持创新团队" data-code="START8821"><div class="app-icon">🐣</div><div class="app-name">派孵化器</div></div>
-        <div class="app-item" data-eco="哈西派" data-url="https://hashpi.app" data-icon="🔗" data-desc1="哈希派生态应用" data-desc2="基于哈希的派生态分布式服务" data-code="HASH2281"><div class="app-icon">🔗</div><div class="app-name">哈西派</div></div>
-        <div class="app-item" data-eco="派对元宇宙土地" data-url="https://piday.world/zh-CN?ic=MGV2PG" data-icon="🏠" data-desc1="派元宇宙虚拟土地" data-desc2="购买、建设、交易您的派虚拟领地" data-code="MGV2PG"><div class="app-icon">🏠</div><div class="app-name">派对元宇宙土地</div></div>
-        <div class="app-item" data-eco="派众筹生态" data-url="https://crowdfundpi.com" data-icon="🎯" data-desc1="派生态众筹平台" data-desc2="支持派项目募资与早期先锋参与" data-code="CROWD8821"><div class="app-icon">🎯</div><div class="app-name">派众筹生态</div></div>
-        <div class="app-item" data-eco="派宠物" data-url="https://pipet.me/#/pages/login/login?invite=419296" data-icon="🐾" data-desc1="派宠物养成游戏" data-desc2="领养您的虚拟派宠物、培养互动" data-code="419296"><div class="app-icon">🐾</div><div class="app-name">派宠物</div></div>
-        <div class="app-item" data-eco="CIDI游戏" data-url="https://app.cidi.games" data-icon="🎲" data-desc1="CIDI 游戏生态" data-desc2="多款派币游戏合集平台" data-code="CIDI8821"><div class="app-icon">🎲</div><div class="app-name">CIDI游戏</div></div>
-        <div class="app-item" data-eco="月光宝盒" data-url="https://openbox.world?referral_code=15536455536" data-icon="🎁" data-desc1="神秘宝箱开盒玩法" data-desc2="限时开盒获取稀缺奖励" data-code="15536455536"><div class="app-icon">🎁</div><div class="app-name">月光宝盒</div></div>
-        <div class="app-item" data-eco="斗地主" data-url="https://doudizhu-e62.pages.dev/" data-icon="🀄" data-desc1="派生态斗地主游戏" data-desc2="经典斗地主 · 派友实时对战" data-code="DOUDIZHU"><div class="app-icon">🀄</div><div class="app-name">斗地主</div></div>
+        <div class="app-item" data-eco="派孵化器" data-url="https://startpi.app" data-icon="🐣" data-desc1="派项目孵化器平台" data-desc2="孵化优秀派生态项目、扶持创新团队" data-desc3="为先锋提供项目启动支持与资源对接" data-code="START8821"><div class="app-icon">🐣</div><div class="app-name">派孵化器</div></div>
+        <div class="app-item" data-eco="哈西派" data-url="https://hashpi.app" data-icon="🔗" data-desc1="哈希派生态应用" data-desc2="基于哈希的派生态分布式服务" data-desc3="去中心化数据存储与验证解决方案" data-code="HASH2281"><div class="app-icon">🔗</div><div class="app-name">哈西派</div></div>
+        <div class="app-item" data-eco="派对元宇宙土地" data-url="https://piday.world/zh-CN?ic=MGV2PG" data-icon="🏠" data-desc1="派元宇宙虚拟土地" data-desc2="购买、建设、交易您的派虚拟领地" data-desc3="打造属于你的派元宇宙家园" data-code="MGV2PG"><div class="app-icon">🏠</div><div class="app-name">派对元宇宙土地</div></div>
+        <div class="app-item" data-eco="派众筹生态" data-url="https://crowdfundpi.com" data-icon="🎯" data-desc1="派生态众筹平台" data-desc2="支持派项目募资与早期先锋参与" data-desc3="共同支持优质派生态项目成长" data-code="CROWD8821"><div class="app-icon">🎯</div><div class="app-name">派众筹生态</div></div>
+        <div class="app-item" data-eco="派宠物" data-url="https://pipet.me/#/pages/login/login?invite=419296" data-icon="🐾" data-desc1="派宠物养成游戏" data-desc2="领养您的虚拟派宠物、培养互动" data-desc3="宠物成长、繁殖、交易一体化" data-code="419296"><div class="app-icon">🐾</div><div class="app-name">派宠物</div></div>
+        <div class="app-item" data-eco="CIDI游戏" data-url="https://app.cidi.games" data-icon="🎲" data-desc1="CIDI 游戏生态" data-desc2="多款派币游戏合集平台" data-desc3="边玩边赚，派币奖励不停" data-code="CIDI8821"><div class="app-icon">🎲</div><div class="app-name">CIDI游戏</div></div>
+        <div class="app-item" data-eco="月光宝盒" data-url="https://openbox.world?referral_code=15536455536" data-icon="🎁" data-desc1="神秘宝箱开盒玩法" data-desc2="限时开盒获取稀缺奖励" data-desc3="惊喜不断，超值福利等你来开" data-code="15536455536"><div class="app-icon">🎁</div><div class="app-name">月光宝盒</div></div>
+        <div class="app-item" data-eco="斗地主" data-url="https://doudizhu-e62.pages.dev/" data-icon="🀄" data-desc1="派生态斗地主游戏" data-desc2="经典斗地主 · 派友实时对战" data-desc3="派币奖励，欢乐竞技" data-code="DOUDIZHU"><div class="app-icon">🀄</div><div class="app-name">斗地主</div></div>
         <div class="app-item" data-eco="Fireside" data-url="#" data-icon="🔥" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🔥</div><div class="app-name">Fireside</div></div>
         <div class="app-item" data-eco="Wallet 钱包" data-url="#" data-icon="π" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Wallet 钱包</div></div>
         <div class="app-item" data-eco="Brainstorm" data-url="#" data-icon="💡" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💡</div><div class="app-name">Brainstorm</div></div>
@@ -1503,6 +1510,7 @@
         ecoTitle.textContent = item.dataset.eco || '';
         ecoDesc1.textContent = item.dataset.desc1 || '';
         ecoDesc2.textContent = item.dataset.desc2 || '';
+        ecoDesc3.textContent = item.dataset.desc3 || '';
         ecoCode.textContent = '敬请期待';
         ecoCode.classList.add('none');
         currentEcoUrl = url;
@@ -1515,17 +1523,19 @@
         const f = freqs[idx % freqs.length];
         playTone(f, {duration:0.08, type:'sine', volume:0.22});
         setTimeout(()=>playTone(f * 1.5, {duration:0.12, type:'triangle', volume:0.18}), 55);
-        // === 前8个有真实链接的生态：直接跳转，不弹窗 ===
-        if (url && url !== '#' && url.startsWith('http')) {
-          try {
-            const validUrl = new URL(url);
-            setTimeout(() => {
-              window.open(validUrl.toString(), '_blank', 'noopener,noreferrer');
-            }, 80); // 稍等音效播放后再跳转
-          } catch(e) {
-            console.warn('Invalid URL:', url);
-          }
-        }
+        // === 显示弹窗，点击"进入生态"按钮再跳转 ===
+        ecoIcon.textContent = icon;
+        ecoIcon.className = 'eco-modal-icon' + (icon === 'π' ? ' has-pi' : '');
+        ecoTitle.textContent = item.dataset.eco || '';
+        ecoDesc1.textContent = item.dataset.desc1 || '';
+        ecoDesc2.textContent = item.dataset.desc2 || '';
+        ecoDesc3.textContent = item.dataset.desc3 || '';
+        ecoCode.textContent = item.dataset.code || '暂无';
+        ecoCode.classList.toggle('none', !item.dataset.code || item.dataset.code === '敬请期待');
+        currentEcoUrl = url;
+        const modal = document.querySelector('.eco-modal');
+        if (modal) modal.classList.remove('coming-soon');
+        ecoMask.classList.add('active');
       }
     });
   });
@@ -1719,8 +1729,9 @@
       <div class="eco-modal-desc">
         <p id="ecoModalDesc1">生态功能介绍第一行</p>
         <p id="ecoModalDesc2">生态功能介绍第二行</p>
+        <p id="ecoModalDesc3">生态功能介绍第三行</p>
       </div>
-      <div class="eco-code-row">
+      <div class="eco-code-box">
         <div class="eco-code-label">邀请码</div>
         <div class="eco-code-value" id="ecoModalCode">PICO2026</div>
       </div>
