@@ -738,6 +738,27 @@
   }
   .rank-vote-btn .vote-count{font-size:9px;opacity:.7;margin-left:1px;}
 
+  @keyframes firework{
+    0%{
+      transform:scale(0) translateY(0) rotate(var(--rot,0deg));
+      opacity:1;
+    }
+    25%{
+      opacity:1;
+    }
+    100%{
+      transform:scale(1.8) translateY(var(--ty,-50px)) translateX(var(--tx,0));
+      opacity:0;
+    }
+  }
+  .firework{
+    position:absolute;width:8px;height:8px;border-radius:50%;
+    pointer-events:none;animation:firework .7s ease-out forwards;
+    z-index:9999;
+    box-shadow:0 0 8px currentColor,0 0 16px currentColor;
+    --tx:0;--ty:-50px;--rot:0deg;
+  }
+
   /* ============ Price Panel Styles (Compact Card Design) ============ */
   .price-card{
     margin:10px 14px 16px;
@@ -1507,6 +1528,40 @@
       });
       panels.forEach(p => p.classList.toggle('active', p.dataset.panel === 'contact'));
       main.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+  
+  function createFireworks(x, y, colors = ['#a855f7', '#c084fc', '#fbbf24', '#f59e0b']) {
+    const container = document.body;
+    for(let i = 0; i < 12; i++) {
+      const fw = document.createElement('div');
+      fw.className = 'firework';
+      fw.style.left = x + 'px';
+      fw.style.top = y + 'px';
+      fw.style.background = colors[i % colors.length];
+      fw.style.animationDelay = (i * 0.04) + 's';
+      fw.style.transform = `scale(${0.5 + Math.random() * 0.5}) translateY(0) rotate(${i * 30}deg)`;
+      fw.style.setProperty('--tx', (Math.random() - 0.5) * 80 + 'px');
+      fw.style.setProperty('--ty', -40 - Math.random() * 40 + 'px');
+      container.appendChild(fw);
+      setTimeout(() => fw.remove(), 800);
+    }
+  }
+  
+  function playCardSound() {
+    playTone(520, {duration:0.08, type:'sine', volume:0.18});
+    setTimeout(() => playTone(660, {duration:0.1, type:'triangle', volume:0.15}), 50);
+    setTimeout(() => playTone(880, {duration:0.12, type:'sine', volume:0.12}), 100);
+  }
+  
+  document.querySelectorAll('.app-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      
+      createFireworks(x, y);
+      playCardSound();
     });
   });
 
