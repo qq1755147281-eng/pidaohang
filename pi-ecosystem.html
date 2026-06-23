@@ -803,28 +803,38 @@
   .camp-desc{font-size:11px;color:var(--pi-muted);line-height:1.4;margin-bottom:2px;}
   .camp-desc2{font-size:10px;color:var(--pi-muted);opacity:.8;line-height:1.4;margin-bottom:4px;}
   .camp-price{
-    font-size:15px;font-weight:700;letter-spacing:.2px;
+    font-size:12px;font-weight:700;letter-spacing:.1px;
     background:linear-gradient(135deg,var(--camp-c1) 0%,var(--camp-c2) 100%);
     -webkit-background-clip:text;background-clip:text;
     -webkit-text-fill-color:transparent;
+    white-space:nowrap;
   }
-  .camp-cny{font-size:10px;color:var(--pi-muted);opacity:.85;margin-top:1px;}
+  .camp-cny{font-size:9px;color:var(--pi-muted);opacity:.8;margin-top:1px;white-space:nowrap;}
 
   .camp-right{
-    display:flex;flex-direction:column;align-items:flex-end;gap:6px;
-    flex-shrink:0;min-width:90px;
+    display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+    flex-shrink:0;min-width:100px;
   }
+  .camp-supporters{
+    display:flex;align-items:center;gap:4px;
+    font-size:11px;color:var(--pi-muted);
+    background:rgba(255,255,255,.8);padding:4px 10px;border-radius:14px;
+    border:1px solid rgba(108,43,158,.1);
+    box-shadow:0 1px 3px rgba(0,0,0,.03);
+  }
+  .camp-supporters .num{font-weight:700;color:var(--camp-c2);font-size:12px;}
+  .camp-supporters .label{font-size:9px;opacity:.8;}
   .camp-vote{display:flex;gap:5px;}
   .vote-btn{
-    padding:5px 10px;border-radius:8px;
+    padding:4px 9px;border-radius:7px;
     border:1px solid rgba(108,43,158,.12);background:#fff;
-    font-size:10px;font-weight:600;cursor:pointer;
-    display:flex;align-items:center;gap:3px;
+    font-size:9px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;gap:2px;
     transition:all .2s ease;font-family:inherit;color:var(--pi-text);
     white-space:nowrap;
-    box-shadow:0 1px 4px rgba(0,0,0,.04);
+    box-shadow:0 1px 3px rgba(0,0,0,.03);
   }
-  .vote-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.06);}
+  .vote-btn:hover{transform:translateY(-1px);box-shadow:0 3px 6px rgba(0,0,0,.06);}
   .vote-btn:active{transform:translateY(-1px);}
   .vote-btn.like:hover{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border-color:#4ade80;color:#166534;}
   .vote-btn.dislike:hover{background:linear-gradient(135deg,#fee2e2,#fecaca);border-color:#f87171;color:#991b1b;}
@@ -1280,6 +1290,7 @@
               <div class="camp-cny">≈ ￥220万</div>
             </div>
             <div class="camp-right">
+              <div class="camp-supporters"><span class="num" data-base="20000000">2000万</span><span class="label">支持者</span></div>
               <div class="camp-vote">
                 <button class="vote-btn like" data-action="like" data-camp="gcv">👍<span class="count">89k</span></button>
                 <button class="vote-btn dislike" data-action="dislike" data-camp="gcv">👎<span class="count">3k</span></button>
@@ -1299,6 +1310,7 @@
               <div class="camp-cny">≈ ￥0.91 ~ ￥217</div>
             </div>
             <div class="camp-right">
+              <div class="camp-supporters"><span class="num" data-base="23000000">2300万</span><span class="label">支持者</span></div>
               <div class="camp-vote">
                 <button class="vote-btn like" data-action="like" data-camp="ex">👍<span class="count">45k</span></button>
                 <button class="vote-btn dislike" data-action="dislike" data-camp="ex">👎<span class="count">8k</span></button>
@@ -1318,6 +1330,7 @@
               <div class="camp-cny">≈ ￥22 ~ ￥220万</div>
             </div>
             <div class="camp-right">
+              <div class="camp-supporters"><span class="num" data-base="12000000">1200万</span><span class="label">支持者</span></div>
               <div class="camp-vote">
                 <button class="vote-btn like" data-action="like" data-camp="cash">👍<span class="count">67k</span></button>
                 <button class="vote-btn dislike" data-action="dislike" data-camp="cash">👎<span class="count">5k</span></button>
@@ -1337,6 +1350,7 @@
               <div class="camp-cny">≈ ￥21 ~ ￥220万</div>
             </div>
             <div class="camp-right">
+              <div class="camp-supporters"><span class="num" data-base="2000000">200万</span><span class="label">支持者</span></div>
               <div class="camp-vote">
                 <button class="vote-btn like" data-action="like" data-camp="node">👍<span class="count">43k</span></button>
                 <button class="vote-btn dislike" data-action="dislike" data-camp="node">👎<span class="count">4k</span></button>
@@ -1356,28 +1370,10 @@
               <div class="camp-cny">≈ ￥21 ~ ￥220万</div>
             </div>
             <div class="camp-right">
+              <div class="camp-supporters"><span class="num" data-base="32000000">3200万</span><span class="label">支持者</span></div>
               <div class="camp-vote">
                 <button class="vote-btn like" data-action="like" data-camp="eco">👍<span class="count">56k</span></button>
                 <button class="vote-btn dislike" data-action="dislike" data-camp="eco">👎<span class="count">6k</span></button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="camp camp-zero" data-camp="zero">
-          <div class="camp-inner">
-            <div class="camp-emoji">💀</div>
-            <div class="camp-center">
-              <div class="camp-title">归零者 <span class="camp-tag">谨慎观望</span></div>
-              <div class="camp-desc">认为派币终将归零</div>
-              <div class="camp-desc2">暂不参与任何生态</div>
-              <div class="camp-price">$3.14 ~ $314,159</div>
-              <div class="camp-cny">≈ ￥22 ~ ￥220万</div>
-            </div>
-            <div class="camp-right">
-              <div class="camp-vote">
-                <button class="vote-btn like" data-action="like" data-camp="zero">👍<span class="count">12k</span></button>
-                <button class="vote-btn dislike" data-action="dislike" data-camp="zero">👎<span class="count">45k</span></button>
               </div>
             </div>
           </div>
@@ -1616,7 +1612,11 @@
     let baseSupporters = parseInt(supporterNum.dataset.base) || likes;
     let state = 'none'; // 'none' | 'like' | 'dislike'
 
-    function formatNum(n){ return n.toLocaleString('en-US'); }
+    function formatNum(n){ 
+      if (n >= 100000000) return (n / 100000000).toFixed(1) + '亿';
+      if (n >= 10000) return (n / 10000).toFixed(0) + '万';
+      return n.toLocaleString('en-US'); 
+    }
     function flashCard(){
       camp.classList.remove('flash');
       // force reflow to restart animation
