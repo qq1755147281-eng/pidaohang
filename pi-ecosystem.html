@@ -738,6 +738,111 @@
   }
   .rank-vote-btn .vote-count{font-size:9px;opacity:.7;margin-left:1px;}
 
+  /* ============ Pi Rotating Cards Animation ============ */
+  .pi-rotating-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 160px;
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(108, 43, 158, 0.05) 0%, rgba(168, 85, 247, 0.05) 50%, rgba(251, 191, 36, 0.05) 100%);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  .pi-center-card {
+    position: absolute;
+    width: 120px;
+    height: 45px;
+    background: linear-gradient(135deg, #a855f7 0%, #6c2b9e 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+    animation: breathing-float 3s ease-in-out infinite;
+    z-index: 2;
+  }
+  
+  @keyframes breathing-float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
+    }
+    50% {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
+    }
+  }
+  
+  .pi-orbit-card {
+    position: absolute;
+    width: 80px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 1;
+  }
+  
+  .pi-orbit-left {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: #fff;
+    box-shadow: 0 3px 15px rgba(251, 191, 36, 0.4);
+    animation: orbit-left 8s ease-in-out infinite;
+  }
+  
+  .pi-orbit-right {
+    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+    color: #fff;
+    box-shadow: 0 3px 15px rgba(236, 72, 153, 0.4);
+    animation: orbit-right 10s ease-in-out infinite;
+  }
+  
+  @keyframes orbit-left {
+    0% {
+      transform: rotate(0deg) translateX(-80px) rotate(0deg);
+    }
+    25% {
+      transform: rotate(90deg) translateX(-90px) rotate(-90deg);
+    }
+    50% {
+      transform: rotate(180deg) translateX(-80px) rotate(-180deg);
+    }
+    75% {
+      transform: rotate(270deg) translateX(-70px) rotate(-270deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(-80px) rotate(-360deg);
+    }
+  }
+  
+  @keyframes orbit-right {
+    0% {
+      transform: rotate(0deg) translateX(80px) rotate(0deg);
+    }
+    25% {
+      transform: rotate(-90deg) translateX(90px) rotate(90deg);
+    }
+    50% {
+      transform: rotate(-180deg) translateX(80px) rotate(180deg);
+    }
+    75% {
+      transform: rotate(-270deg) translateX(70px) rotate(270deg);
+    }
+    100% {
+      transform: rotate(-360deg) translateX(80px) rotate(360deg);
+    }
+  }
+
   @keyframes firework{
     0%{
       transform:scale(0) translateY(0) rotate(var(--rot,0deg));
@@ -1274,6 +1379,12 @@
     </div>
 
     <!-- 移除原有的多余应用（原第42-51个），保持总数量41个 -->
+    
+    <div class="pi-rotating-container">
+      <div class="pi-center-card">派币</div>
+      <div class="pi-orbit-card pi-orbit-left" data-name="尼古拉斯">尼古拉斯</div>
+      <div class="pi-orbit-card pi-orbit-right" data-name="范成雕">范成雕</div>
+    </div>
 
   </section>
 
