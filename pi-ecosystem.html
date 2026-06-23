@@ -797,13 +797,13 @@
   
   .pi-orbit-card {
     position: absolute;
-    width: 70px;
-    height: 70px;
+    width: 85px;
+    height: 85px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    font-size: 11px;
+    border-radius: 14px;
+    font-size: 14px;
     font-weight: bold;
     z-index: 1;
     cursor: grab;
@@ -812,6 +812,8 @@
     text-align: center;
     padding: 4px;
     box-sizing: border-box;
+    background-size: 200% 200%;
+    animation: breathing-glow 2.5s ease-in-out infinite;
   }
   
   .pi-orbit-card:active {
@@ -821,19 +823,80 @@
   
   .pi-orbit-left {
     background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-    color: #fff;
-    box-shadow: 0 3px 15px rgba(251, 191, 36, 0.4);
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 10px rgba(251, 191, 36, 0.8);
+    box-shadow: 0 3px 20px rgba(251, 191, 36, 0.5);
+    border: 2px solid rgba(251, 191, 36, 0.6);
   }
   
   .pi-orbit-right {
-    background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
-    color: #fff;
-    box-shadow: 0 3px 15px rgba(236, 72, 153, 0.4);
+    background: linear-gradient(135deg, #ec4899 0%, #db2777 50%, #be185d 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.8);
+    box-shadow: 0 3px 20px rgba(236, 72, 153, 0.5);
+    border: 2px solid rgba(236, 72, 153, 0.6);
   }
   
   .pi-orbit-card.dragging {
     z-index: 10;
-    box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
+    box-shadow: 0 10px 40px rgba(168, 85, 247, 0.8);
+    animation: none;
+  }
+  
+  @keyframes breathing-glow {
+    0%, 100% {
+      box-shadow: 0 3px 15px rgba(168, 85, 247, 0.3);
+      filter: brightness(1);
+    }
+    50% {
+      box-shadow: 0 6px 30px rgba(168, 85, 247, 0.6);
+      filter: brightness(1.15);
+    }
+  }
+  
+  .pi-orbit-left::before,
+  .pi-orbit-right::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 16px;
+    background: linear-gradient(45deg, #fff 0%, #1f2937 50%, #6c2b9e 100%);
+    z-index: -1;
+    opacity: 0.5;
+    animation: border-glow 2.5s ease-in-out infinite;
+  }
+  
+  .pi-orbit-left::after,
+  .pi-orbit-right::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  @keyframes border-glow {
+    0%, 100% {
+      opacity: 0.3;
+      filter: blur(8px);
+    }
+    50% {
+      opacity: 0.6;
+      filter: blur(12px);
+    }
   }
 
   @keyframes firework{
@@ -1795,6 +1858,9 @@
     }
     
     animate() {
+      const halfWidth = 42.5;
+      const halfHeight = 42.5;
+      
       this.cards.forEach((card, index) => {
         if (!card.isDragging) {
           if (card.returnProgress < 1) {
@@ -1803,8 +1869,8 @@
             const currentLeft = parseFloat(card.element.style.left) || 0;
             const currentTop = parseFloat(card.element.style.top) || 0;
             
-            const targetX = this.centerX - 35 + Math.cos(card.angle) * (this.orbitRadius + card.offsetRadius);
-            const targetY = this.centerY - 35 + Math.sin(card.angle) * (this.orbitRadius + card.offsetRadius) * 0.4;
+            const targetX = this.centerX - halfWidth + Math.cos(card.angle) * (this.orbitRadius + card.offsetRadius);
+            const targetY = this.centerY - halfHeight + Math.sin(card.angle) * (this.orbitRadius + card.offsetRadius) * 0.4;
             
             const easeProgress = 1 - Math.pow(1 - card.returnProgress, 3);
             const x = currentLeft + (targetX - currentLeft) * easeProgress;
@@ -1821,8 +1887,8 @@
             
             card.offsetRadius = Math.sin(Date.now() * 0.002 + index) * 15;
             
-            const x = this.centerX - 35 + Math.cos(card.angle) * (this.orbitRadius + card.offsetRadius);
-            const y = this.centerY - 35 + Math.sin(card.angle) * (this.orbitRadius + card.offsetRadius) * 0.4;
+            const x = this.centerX - halfWidth + Math.cos(card.angle) * (this.orbitRadius + card.offsetRadius);
+            const y = this.centerY - halfHeight + Math.sin(card.angle) * (this.orbitRadius + card.offsetRadius) * 0.4;
             
             card.element.style.left = x + 'px';
             card.element.style.top = y + 'px';
@@ -1851,26 +1917,23 @@
     playOrbitSound(index) {
       if (this.cards[index].isDragging) return;
       
+      const cardWidth = 85;
+      const cardHeight = 85;
+      const centerX = parseFloat(this.cards[index].element.style.left) + cardWidth / 2;
+      const centerY = parseFloat(this.cards[index].element.style.top) + cardHeight / 2;
+      
       if (index === 0) {
         playTone(520, { duration: 0.08, type: 'triangle', volume: 0.2 });
         setTimeout(() => playTone(659, { duration: 0.1, type: 'sine', volume: 0.18 }), 60);
         setTimeout(() => playTone(784, { duration: 0.12, type: 'triangle', volume: 0.15 }), 120);
         
-        createFireworks(
-          parseFloat(this.cards[index].element.style.left) + 35,
-          parseFloat(this.cards[index].element.style.top) + 35,
-          ['#fbbf24', '#f59e0b', '#fcd34d']
-        );
+        createFireworks(centerX, centerY, ['#fbbf24', '#f59e0b', '#fcd34d']);
       } else {
         playTone(659, { duration: 0.08, type: 'sawtooth', volume: 0.22 });
         setTimeout(() => playTone(880, { duration: 0.1, type: 'sine', volume: 0.18 }), 60);
         setTimeout(() => playTone(1047, { duration: 0.14, type: 'sine', volume: 0.14 }), 120);
         
-        createFireworks(
-          parseFloat(this.cards[index].element.style.left) + 35,
-          parseFloat(this.cards[index].element.style.top) + 35,
-          ['#ec4899', '#db2777', '#f472b6']
-        );
+        createFireworks(centerX, centerY, ['#ec4899', '#db2777', '#f472b6']);
       }
     }
   }
