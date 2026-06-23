@@ -118,8 +118,8 @@
   }
   .carousel-slide.s1{background:linear-gradient(120deg,#6c2b9e 0%,#ffc629 100%);}
   .carousel-slide.s2{background:linear-gradient(120deg,#5a1f87 0%,#ff6b9d 100%);}
-  .carousel-slide.s3{background:linear-gradient(120deg,#0077b6 0%,#00f5d4 100%);}
-  .carousel-slide.s4{background:linear-gradient(120deg,#f77f00 0%,#d62828 100%);}
+  .carousel-slide.s3, .carousel-slide.did-card{background:linear-gradient(120deg,#0ea5e9 0%,#0284c7 50%,#0369a1 100%);}
+  .carousel-slide.s4, .carousel-slide.digital-rmb{background:linear-gradient(120deg,#dc2626 0%,#b91c1c 50%,#991b1b 100%);}
   .carousel-content{
     position:relative;z-index:2;
     text-align:left;
@@ -134,6 +134,15 @@
     font-size:22px;font-weight:800;letter-spacing:.5px;
     margin-bottom:6px;
     text-shadow:0 2px 8px rgba(0,0,0,.2);
+  }
+  .carousel-tag{
+    display:inline-block;
+    font-size:10px;font-weight:700;letter-spacing:1px;
+    padding:3px 10px;border-radius:12px;
+    background:rgba(255,255,255,.25);
+    color:#fff;
+    margin-bottom:8px;
+    backdrop-filter:blur(4px);
   }
   .carousel-sub{font-size:13px;opacity:.95;margin-bottom:10px;}
   .carousel-btn{
@@ -1189,18 +1198,19 @@
             <a class="carousel-btn" href="https://wallet.pi" target="_blank" rel="noopener">打开钱包 →</a>
           </div>
         </div>
-        <div class="carousel-slide s3">
+        <div class="carousel-slide s3 did-card">
           <div class="carousel-content">
-            <div class="carousel-title">Fireside · 派友社区论坛</div>
-            <div class="carousel-sub">每日活跃超百万派友，分享观点与机会</div>
-            <a class="carousel-btn" href="https://fireside.pi" target="_blank" rel="noopener">进入论坛 →</a>
+            <div class="carousel-title">实名 DID 数字身份凭证</div>
+            <div class="carousel-tag">国家信息中心主导</div>
+            <div class="carousel-sub">让14亿人都拥有自己的匿名数字身份凭证。可联系我们申领。</div>
+            <a class="carousel-btn" href="#" target="_blank" rel="noopener">联系申领 →</a>
           </div>
         </div>
-        <div class="carousel-slide s4">
+        <div class="carousel-slide s4 digital-rmb">
           <div class="carousel-content">
-            <div class="carousel-title">3141 商城 · 派币直接购物</div>
-            <div class="carousel-sub">万件商品支持 Pi 支付 · 商家实时入驻</div>
-            <a class="carousel-btn" href="https://3141.mall" target="_blank" rel="noopener">逛一逛 →</a>
+            <div class="carousel-title">数字人民币推广</div>
+            <div class="carousel-sub">联系我们，对接全国各省份数字人民币落地推广，免费招募推广员，可获得现金奖励或商家流水</div>
+            <a class="carousel-btn" href="#" target="_blank" rel="noopener">联系我们 →</a>
           </div>
         </div>
       </div>
