@@ -1193,9 +1193,9 @@
         </div>
         <div class="carousel-slide s2">
           <div class="carousel-content">
-            <div class="carousel-title">Pi 钱包 · 安全管理派资产</div>
-            <div class="carousel-sub">支持 Pi 币收支 · 生态应用快捷支付</div>
-            <a class="carousel-btn" href="https://wallet.pi" target="_blank" rel="noopener">打开钱包 →</a>
+            <div class="carousel-title">Pi 生态导航 · 精选优质应用</div>
+            <div class="carousel-sub">本生态将集合所有经过筛选的、正能量且可落地的 Pi 币生态进行展示。当前展示的所有生态均由生态团队组织创建，目前免费且无盈利。</div>
+            <a class="carousel-btn" href="#" target="_blank" rel="noopener">了解更多 →</a>
           </div>
         </div>
         <div class="carousel-slide s3 did-card">
@@ -1203,14 +1203,14 @@
             <div class="carousel-title">实名 DID 数字身份凭证</div>
             <div class="carousel-tag">国家信息中心主导</div>
             <div class="carousel-sub">让14亿人都拥有自己的匿名数字身份凭证。可联系我们申领。</div>
-            <a class="carousel-btn" href="#" target="_blank" rel="noopener">联系申领 →</a>
+            <a class="carousel-btn contact-link" href="#contact">联系申领 →</a>
           </div>
         </div>
         <div class="carousel-slide s4 digital-rmb">
           <div class="carousel-content">
             <div class="carousel-title">数字人民币推广</div>
             <div class="carousel-sub">联系我们，对接全国各省份数字人民币落地推广，免费招募推广员，可获得现金奖励或商家流水</div>
-            <a class="carousel-btn" href="#" target="_blank" rel="noopener">联系我们 →</a>
+            <a class="carousel-btn contact-link" href="#contact">联系我们 →</a>
           </div>
         </div>
       </div>
@@ -1557,6 +1557,18 @@
   });
   let carTimer = setInterval(() => goCarousel(carIdx + 1), 2000);
   function resetCarTimer(){ clearInterval(carTimer); carTimer = setInterval(() => goCarousel(carIdx + 1), 2000); }
+  
+  document.querySelectorAll('.contact-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      bottomBtns.forEach(b => {
+        b.classList.toggle('active', b.dataset.target === 'contact');
+        b.classList.toggle('primary', b.dataset.target === 'contact');
+      });
+      panels.forEach(p => p.classList.toggle('active', p.dataset.panel === 'contact'));
+      main.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
 
   // ============ Eco Modal (black / dark-blue tech-style) ============
   const ecoMask = document.getElementById('ecoModalMask');
