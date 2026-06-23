@@ -118,8 +118,8 @@
   }
   .carousel-slide.s1{background:linear-gradient(120deg,#6c2b9e 0%,#ffc629 100%);}
   .carousel-slide.s2{background:linear-gradient(120deg,#5a1f87 0%,#ff6b9d 100%);}
-  .carousel-slide.s3{background:linear-gradient(120deg,#0077b6 0%,#00f5d4 100%);}
-  .carousel-slide.s4{background:linear-gradient(120deg,#f77f00 0%,#d62828 100%);}
+  .carousel-slide.s3, .carousel-slide.did-card{background:linear-gradient(120deg,#0ea5e9 0%,#0284c7 50%,#0369a1 100%);}
+  .carousel-slide.s4, .carousel-slide.digital-rmb{background:linear-gradient(120deg,#dc2626 0%,#b91c1c 50%,#991b1b 100%);}
   .carousel-content{
     position:relative;z-index:2;
     text-align:left;
@@ -134,6 +134,15 @@
     font-size:22px;font-weight:800;letter-spacing:.5px;
     margin-bottom:6px;
     text-shadow:0 2px 8px rgba(0,0,0,.2);
+  }
+  .carousel-tag{
+    display:inline-block;
+    font-size:10px;font-weight:700;letter-spacing:1px;
+    padding:3px 10px;border-radius:12px;
+    background:rgba(255,255,255,.25);
+    color:#fff;
+    margin-bottom:8px;
+    backdrop-filter:blur(4px);
   }
   .carousel-sub{font-size:13px;opacity:.95;margin-bottom:10px;}
   .carousel-btn{
@@ -299,6 +308,35 @@
   .btn-icon{font-size:16px;line-height:1;}
 
   /* ============ Home Panel: 41 Apps Flat Grid (compact) ============ */
+  .home-grid-section{
+    margin-bottom:8px;
+  }
+  .section-header{
+    display:flex;align-items:center;gap:12px;
+    padding:8px 20px 4px;
+    margin-bottom:4px;
+  }
+  .section-icon{
+    width:36px;height:36px;border-radius:10px;
+    background:linear-gradient(135deg,#6c2b9e 0%,#9c4dcc 100%);
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;color:#fff;
+    box-shadow:0 2px 8px rgba(108,43,158,.3);
+  }
+  .section-info h3{
+    font-size:14px;font-weight:600;color:#1a1a1a;margin:0;
+  }
+  .section-info p{
+    font-size:11px;color:#888;margin:2px 0 0;
+  }
+  .section-count{
+    margin-left:auto;
+    width:28px;height:28px;border-radius:8px;
+    background:linear-gradient(135deg,#f5f0ff 0%,#e9d8ff 100%);
+    border:1px solid rgba(108,43,158,.2);
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:600;color:#6c2b9e;
+  }
   .home-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
@@ -324,6 +362,48 @@
   .app-icon .pi{font-size:18px;}
   .app-item:nth-child(odd) .app-icon{background:linear-gradient(135deg,#fff 0%,#fff3e0 100%);}
   .app-name{font-size:11px;color:var(--pi-text);text-align:center;line-height:1.2;max-width:70px;}
+
+  /* ============ Purple Glow Divider (breathing effect) ============ */
+  .divider-glow{
+    position:relative;
+    height:40px;
+    display:flex;align-items:center;justify-content:center;
+    margin:8px 0;
+  }
+  .divider-line{
+    position:absolute;
+    left:10%;right:10%;
+    height:1px;
+    background:linear-gradient(90deg,
+      transparent 0%,
+      rgba(108,43,158,.3) 20%,
+      rgba(165,94,234,.5) 50%,
+      rgba(108,43,158,.3) 80%,
+      transparent 100%
+    );
+    animation:divider-glow 2.5s ease-in-out infinite;
+  }
+  @keyframes divider-glow{
+    0%,100%{opacity:.4;box-shadow:0 0 10px rgba(165,94,234,.2);}
+    50%{opacity:1;box-shadow:0 0 25px rgba(165,94,234,.5),0 0 40px rgba(108,43,158,.3);}
+  }
+  .divider-dots{
+    position:relative;
+    display:flex;gap:10px;
+    z-index:1;
+  }
+  .divider-dots .dot{
+    width:8px;height:8px;border-radius:50%;
+    background:linear-gradient(135deg,#a55eea 0%,#6c2b9e 100%);
+    animation:dot-pulse 2.5s ease-in-out infinite;
+    box-shadow:0 0 10px rgba(165,94,234,.5);
+  }
+  .divider-dots .dot:nth-child(2){animation-delay:.4s;}
+  .divider-dots .dot:nth-child(3){animation-delay:.8s;}
+  @keyframes dot-pulse{
+    0%,100%{transform:scale(.6);opacity:.5;}
+    50%{transform:scale(1);opacity:1;}
+  }
 
   /* ============ Eco Modal (black / dark-blue tech-style square) ============ */
   .eco-modal-mask{
@@ -429,30 +509,53 @@
     position:relative;z-index:2;
   }
   .eco-modal-desc p{font-size:12px;}
-  .eco-code-row{
-    display:flex;align-items:center;gap:10px;
-    background:linear-gradient(135deg,rgba(0,0,0,.5),rgba(108,43,158,.25));
-    border:1px solid rgba(255,198,41,.35);
-    padding:8px 12px;border-radius:10px;
+  .eco-code-box{
+    display:flex;align-items:center;gap:8px;
+    background:rgba(255,198,41,.08);
+    border:1px solid rgba(255,198,41,.3);
+    border-radius:8px;
+    padding:6px 10px;
     margin-bottom:10px;
     position:relative;z-index:2;
   }
   .eco-code-label{
-    font-size:11px;color:#ffc629;font-weight:600;
+    font-size:10px;color:#ffc629;font-weight:600;
     letter-spacing:.5px;flex-shrink:0;
+    text-transform:uppercase;
+    min-width:45px;
   }
   .eco-code-value{
-    font-size:13px;color:#fff;font-weight:700;
-    letter-spacing:1.5px;flex:1;
-    text-align:center;
+    flex:1;
+    font-size:12px;color:#ffc629;font-weight:700;
+    letter-spacing:1.5px;
     font-family:"Courier New",monospace;
-    text-shadow:0 0 8px rgba(255,198,41,.45);
+    text-shadow:0 0 8px rgba(255,198,41,.4);
+    background:rgba(255,198,41,.1);
+    padding:4px 8px;border-radius:6px;
+    border:1px solid rgba(255,198,41,.3);
+    text-align:center;
   }
   .eco-code-value.none{
     color:#8888aa;
     text-shadow:none;
     font-weight:500;
     letter-spacing:1px;
+  }
+  .eco-copy-btn{
+    padding:4px 8px;border-radius:6px;
+    background:linear-gradient(135deg,#6c2b9e 0%,#8b5cf6 100%);
+    border:none;color:#fff;font-size:10px;font-weight:600;
+    cursor:pointer;transition:all .2s ease;
+    flex-shrink:0;
+    box-shadow:0 2px 8px rgba(108,43,158,.3);
+  }
+  .eco-copy-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 4px 12px rgba(108,43,158,.4);
+  }
+  .eco-copy-btn:active{transform:translateY(0);}
+  .eco-copy-btn.copied{
+    background:linear-gradient(135deg,#10b981 0%,#059669 100%);
   }
   .eco-btn-row{
     display:flex;gap:8px;position:relative;z-index:2;
@@ -482,13 +585,36 @@
   .eco-btn:active{transform:translateY(0);}
   /* === Coming soon state === */
   .eco-modal.coming-soon .eco-modal-icon{filter:grayscale(.65) opacity(.85);}
-  .eco-modal.coming-soon .eco-code-row,
+  .eco-modal.coming-soon .eco-code-box,
   .eco-modal.coming-soon .eco-btn.enter{display:none;}
   .eco-modal.coming-soon .eco-btn.back{flex:1;}
   .eco-modal.coming-soon .eco-modal-desc{background:linear-gradient(135deg,rgba(255,200,80,.12),rgba(165,94,234,.12));border:1px solid rgba(255,200,80,.35);}
   .eco-modal.coming-soon .eco-modal-desc p{color:#ffd89b;font-size:13px;letter-spacing:.5px;}
 
   /* ============ Ranking Panel Styles (TOP 20) ============ */
+  .rank-tip{
+    display:flex;align-items:flex-start;gap:10px;
+    margin:10px 16px 14px;
+    padding:14px 16px;
+    background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);
+    border-radius:12px;
+    border-left:4px solid #f59e0b;
+    max-width:780px;
+    margin-left:auto;
+    margin-right:auto;
+    box-shadow:0 2px 8px rgba(245,158,11,.15);
+  }
+  .rank-tip-icon{
+    font-size:20px;
+    flex-shrink:0;
+    margin-top:-2px;
+  }
+  .rank-tip-text{
+    font-size:13px;
+    color:#92400e;
+    line-height:1.55;
+    font-weight:500;
+  }
   .rank-top-list{
     padding:6px 12px 22px;
     max-width:780px;margin:0 auto;
@@ -579,7 +705,381 @@
     }
   }
 
-  /* ============ Price Panel Styles (6 Vertical Camps) ============ */
+  .rank-vote{
+    display:flex;gap:5px;
+  }
+  .rank-vote-btn{
+    padding:4px 9px;border-radius:7px;
+    border:1.5px solid rgba(108,43,158,.12);background:#fff;
+    font-size:10px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;gap:3px;
+    transition:all .2s ease;font-family:inherit;color:var(--pi-text);
+    white-space:nowrap;
+    box-shadow:0 1px 3px rgba(0,0,0,.03);
+    flex-shrink:0;
+  }
+  .rank-vote-btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+  }
+  .rank-vote-btn.like:hover{
+    background:#dcfce7;border-color:#4ade80;color:#166534;
+  }
+  .rank-vote-btn.dislike:hover{
+    background:#fee2e2;border-color:#f87171;color:#991b1b;
+  }
+  .rank-vote-btn.liked{
+    background:#dcfce7;border-color:#4ade80;color:#166534;
+    box-shadow:0 2px 6px rgba(74,222,128,.25);
+  }
+  .rank-vote-btn.disliked{
+    background:#fee2e2;border-color:#f87171;color:#991b1b;
+    box-shadow:0 2px 6px rgba(248,113,113,.25);
+  }
+  .rank-vote-btn .vote-count{font-size:9px;opacity:.7;margin-left:1px;}
+
+  /* ============ Pi Rotating Cards Animation ============ */
+  .pi-rotating-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(108, 43, 158, 0.05) 0%, rgba(168, 85, 247, 0.05) 50%, rgba(251, 191, 36, 0.05) 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: grab;
+  }
+  
+  .pi-rotating-container:active {
+    cursor: grabbing;
+  }
+  
+  .pi-center-card {
+    position: absolute;
+    width: 70px;
+    height: 40px;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.5);
+    animation: breathing-float 3s ease-in-out infinite;
+    z-index: 2;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    border: 2px solid rgba(34, 197, 94, 0.8);
+  }
+  
+  .pi-center-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .pi-center-card:active {
+    transform: scale(0.95);
+  }
+  
+  @keyframes breathing-float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.5);
+    }
+    50% {
+      transform: translateY(-12px) scale(1.05);
+      box-shadow: 0 8px 30px rgba(34, 197, 94, 0.7);
+    }
+  }
+  
+  .pi-orbit-card {
+    position: absolute;
+    width: 85px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: bold;
+    z-index: 1;
+    cursor: grab;
+    transition: box-shadow 0.2s ease;
+    user-select: none;
+    text-align: center;
+    padding: 4px;
+    box-sizing: border-box;
+    animation: breathing-glow 2.5s ease-in-out infinite;
+    background: rgba(20, 20, 30, 0.8);
+  }
+  
+  .pi-orbit-card:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+  }
+  
+  .pi-orbit-left {
+    border: 3px solid #fbbf24;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.6), 0 0 40px rgba(251, 191, 36, 0.3), inset 0 0 15px rgba(251, 191, 36, 0.1);
+    color: transparent;
+    background: linear-gradient(135deg, #fff 0%, #1f2937 50%, #6c2b9e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  .pi-orbit-right {
+    border: 3px solid #ec4899;
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 40px rgba(236, 72, 153, 0.3), inset 0 0 15px rgba(236, 72, 153, 0.1);
+    color: transparent;
+    background: linear-gradient(135deg, #fff 0%, #1f2937 50%, #6c2b9e 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  .pi-orbit-card.dragging {
+    z-index: 10;
+    animation: none;
+  }
+  
+  .pi-orbit-left.dragging {
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.8), 0 0 60px rgba(251, 191, 36, 0.4);
+  }
+  
+  .pi-orbit-right.dragging {
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.8), 0 0 60px rgba(236, 72, 153, 0.4);
+  }
+  
+  @keyframes breathing-glow {
+    0%, 100% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.15);
+    }
+  }
+  
+  .pi-orbit-left::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 18px;
+    background: linear-gradient(45deg, #fbbf24 0%, #f59e0b 50%, #fbbf24 100%);
+    z-index: -2;
+    opacity: 0.5;
+    animation: yellow-border-glow 2.5s ease-in-out infinite;
+  }
+  
+  .pi-orbit-right::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 18px;
+    background: linear-gradient(45deg, #ec4899 0%, #db2777 50%, #ec4899 100%);
+    z-index: -2;
+    opacity: 0.5;
+    animation: pink-border-glow 2.5s ease-in-out infinite;
+  }
+  
+  @keyframes yellow-border-glow {
+    0%, 100% {
+      opacity: 0.4;
+      filter: blur(8px);
+    }
+    50% {
+      opacity: 0.7;
+      filter: blur(14px);
+    }
+  }
+  
+  @keyframes pink-border-glow {
+    0%, 100% {
+      opacity: 0.4;
+      filter: blur(8px);
+    }
+    50% {
+      opacity: 0.7;
+      filter: blur(14px);
+    }
+  }
+
+  @keyframes firework{
+    0%{
+      transform:scale(0) translateY(0) rotate(var(--rot,0deg));
+      opacity:1;
+    }
+    25%{
+      opacity:1;
+    }
+    100%{
+      transform:scale(1.8) translateY(var(--ty,-50px)) translateX(var(--tx,0));
+      opacity:0;
+    }
+  }
+  .firework{
+    position:absolute;width:8px;height:8px;border-radius:50%;
+    pointer-events:none;animation:firework .7s ease-out forwards;
+    z-index:9999;
+    box-shadow:0 0 8px currentColor,0 0 16px currentColor;
+    --tx:0;--ty:-50px;--rot:0deg;
+  }
+
+  /* ============ Price Panel Styles (Compact Card Design) ============ */
+  .price-card{
+    margin:10px 14px 16px;
+    max-width:720px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .camp-grid{
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .camp{
+    background:linear-gradient(135deg,#fff 0%,#faf5ff 100%);
+    border-radius:14px;
+    padding:12px 16px;
+    box-shadow:0 2px 12px rgba(108,43,158,.06);
+    position:relative;overflow:hidden;
+    border:1px solid rgba(108,43,158,.1);
+    transition:all .25s ease;
+  }
+  .camp::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--camp-c1) 0%,var(--camp-c2) 100%);
+    opacity:.6;
+  }
+  .camp:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(108,43,158,.12);
+    border-color:var(--camp-c1);
+  }
+  .camp-inner{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:12px;
+    align-items:center;
+    position:relative;z-index:1;
+  }
+
+  .camp-gcv{--camp-c1:#8b5cf6;--camp-c2:#6c2b9e;}
+  .camp-ex{--camp-c1:#10b981;--camp-c2:#065f46;}
+  .camp-cash{--camp-c1:#f59e0b;--camp-c2:#d97706;}
+  .camp-node{--camp-c1:#f43f5e;--camp-c2:#be185d;}
+  .camp-eco{--camp-c1:#06b6d4;--camp-c2:#0891b2;}
+  .camp-zero{--camp-c1:#6b7280;--camp-c2:#4b5563;}
+
+  .camp-emoji{
+    width:40px;height:40px;border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;flex-shrink:0;
+    background:#fff;border:1.5px solid var(--camp-c1);
+    box-shadow:0 2px 8px rgba(0,0,0,.04);
+  }
+  .camp-gcv .camp-emoji{background:#f5f3ff;color:#6c2b9e;border-color:#a78bfa;}
+  .camp-cash .camp-emoji{background:#fffbeb;color:#d97706;border-color:#fbbf24;}
+  .camp-ex .camp-emoji{background:#ecfdf5;color:#065f46;border-color:#34d399;}
+  .camp-node .camp-emoji{background:#fdf2f8;color:#be185d;border-color:#f9a8d4;}
+  .camp-eco .camp-emoji{background:#ecfeff;color:#0891b2;border-color:#22d3ee;}
+  .camp-zero .camp-emoji{background:#f3f4f6;color:#4b5563;border-color:#9ca3af;}
+
+  .camp-center{min-width:0;}
+  .camp-title{
+    font-size:13px;font-weight:700;color:var(--pi-text);margin-bottom:3px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .camp-tag{
+    font-size:8.5px;font-weight:600;padding:2px 7px;border-radius:6px;
+    background:rgba(108,43,158,.08);color:var(--pi-purple);
+  }
+  .camp-gcv .camp-tag{background:rgba(139,92,246,.15);color:#6d28d9;}
+  .camp-cash .camp-tag{background:rgba(245,158,11,.15);color:#d97706;}
+  .camp-ex .camp-tag{background:rgba(16,185,129,.15);color:#065f46;}
+  .camp-node .camp-tag{background:rgba(244,63,94,.15);color:#be185d;}
+  .camp-eco .camp-tag{background:rgba(6,182,212,.15);color:#0891b2;}
+  .camp-zero .camp-tag{background:rgba(107,114,128,.15);color:#4b5563;}
+  .camp-desc{font-size:11px;color:var(--pi-muted);line-height:1.4;margin-bottom:2px;}
+  .camp-desc2{font-size:10px;color:var(--pi-muted);opacity:.8;line-height:1.4;margin-bottom:4px;}
+  .camp-price{
+    font-size:12px;font-weight:700;letter-spacing:.1px;
+    background:linear-gradient(135deg,var(--camp-c1) 0%,var(--camp-c2) 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    white-space:nowrap;
+  }
+  .camp-cny{font-size:9px;color:var(--pi-muted);opacity:.8;margin-top:1px;white-space:nowrap;}
+
+  .camp-right{
+    display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+    flex-shrink:0;min-width:100px;
+  }
+  .camp-supporters{
+    display:flex;align-items:center;gap:4px;
+    font-size:11px;color:var(--pi-muted);
+    background:rgba(255,255,255,.8);padding:4px 10px;border-radius:14px;
+    border:1px solid rgba(108,43,158,.1);
+    box-shadow:0 1px 3px rgba(0,0,0,.03);
+  }
+  .camp-supporters .num{font-weight:700;color:var(--camp-c2);font-size:12px;}
+  .camp-supporters .label{font-size:9px;opacity:.8;}
+  .camp-vote{display:flex;gap:5px;}
+  .vote-btn{
+    padding:4px 9px;border-radius:7px;
+    border:1px solid rgba(108,43,158,.12);background:#fff;
+    font-size:9px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;gap:2px;
+    transition:all .2s ease;font-family:inherit;color:var(--pi-text);
+    white-space:nowrap;
+    box-shadow:0 1px 3px rgba(0,0,0,.03);
+  }
+  .vote-btn:hover{transform:translateY(-1px);box-shadow:0 3px 6px rgba(0,0,0,.06);}
+  .vote-btn:active{transform:translateY(-1px);}
+  .vote-btn.like:hover{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border-color:#4ade80;color:#166534;}
+  .vote-btn.dislike:hover{background:linear-gradient(135deg,#fee2e2,#fecaca);border-color:#f87171;color:#991b1b;}
+  .vote-btn.liked{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border-color:#4ade80;color:#166534;box-shadow:0 3px 10px rgba(74,222,128,.25);}
+  .vote-btn.disliked{background:linear-gradient(135deg,#fee2e2,#fecaca);border-color:#f87171;color:#991b1b;box-shadow:0 3px 10px rgba(248,113,113,.25);}
+  .vote-btn .count{font-size:12px;opacity:.8;font-weight:700;}
+  .vote-btn.liked .count, .vote-btn.disliked .count{opacity:1;}
+
+  @keyframes sparkle{
+    0%,100%{opacity:0;transform:scale(.4) rotate(0deg);}
+    50%{opacity:1;transform:scale(1.4) rotate(180deg);}
+  }
+  .camp .sparkle{
+    position:absolute;font-size:14px;opacity:0;pointer-events:none;
+    animation:sparkle 3s ease-in-out infinite;
+    z-index:1;
+  }
+  .camp:hover .sparkle{opacity:.7;}
+  .camp .s1{top:10px;right:20px;animation-delay:0s;}
+  .camp .s2{bottom:14px;left:45%;animation-delay:1s;font-size:12px;}
+  .camp .s3{top:40%;right:25%;animation-delay:2s;font-size:12px;}
+
+  @keyframes camp-flash{
+    0%{box-shadow:0 0 0 0 rgba(139,92,246,.3),0 4px 20px rgba(108,43,158,.08);}
+    40%{box-shadow:0 0 0 16px rgba(139,92,246,.0),0 4px 20px rgba(108,43,158,.15);}
+    100%{box-shadow:0 4px 20px rgba(108,43,158,.08);}
+  }
+  .camp.flash{animation:camp-flash .6s ease-out;}
+
+  @media(min-width:720px){
+    .camp{padding:22px 26px;}
+    .camp-price{font-size:24px;}
+    .camp-right{min-width:180px;}
+    .camp-emoji{width:60px;height:60px;font-size:30px;}
+    .camp-title{font-size:17px;}
+    .camp-desc{font-size:13px;}
+  }
+
+  /* ============ Old Price Panel Styles (Vertical Camps) ============ */
   .price-card{
     margin:14px 16px 0;
     max-width:800px;
@@ -731,6 +1231,31 @@
     100%{box-shadow:0 4px 18px rgba(108,43,158,.08);}
   }
   .camp.flash{animation:camp-flash .55s ease-out;}
+  
+  @keyframes camp-float-left {
+    0%{transform:translate(0,0) rotate(0deg);}
+    25%{transform:translate(-8px,-5px) rotate(-3deg);}
+    50%{transform:translate(5px,-8px) rotate(2deg);}
+    75%{transform:translate(-3px,3px) rotate(-1deg);}
+    100%{transform:translate(0,0) rotate(0deg);}
+  }
+  
+  @keyframes camp-float-right {
+    0%{transform:translate(0,0) rotate(0deg);}
+    25%{transform:translate(8px,-5px) rotate(3deg);}
+    50%{transform:translate(-5px,-8px) rotate(-2deg);}
+    75%{transform:translate(3px,3px) rotate(1deg);}
+    100%{transform:translate(0,0) rotate(0deg);}
+  }
+  
+  .camp.float-left{animation:camp-float-left 0.8s ease-out;}
+  .camp.float-right{animation:camp-float-right 0.8s ease-out;}
+  
+  .camp-click-particle{
+    position:absolute;width:6px;height:6px;border-radius:50%;
+    pointer-events:none;z-index:100;
+    box-shadow:0 0 6px currentColor;
+  }
 
   @media(min-width:720px){
     .camp{padding:16px 22px;}
@@ -809,7 +1334,7 @@
   <div class="header-inner">
     <div class="pi-logo">π</div>
     <div class="brand">
-      <h1>Pi Ecosystem · 派生态导航</h1>
+      <h1>Pi Ecosystem · 更多派币生态</h1>
       <p>Welcome to the Pi Ecosystem — 一站式探索全球派生态应用</p>
     </div>
   </div>
@@ -826,30 +1351,31 @@
       <div class="carousel-track" id="carouselTrack">
         <div class="carousel-slide s1">
           <div class="carousel-content">
-            <div class="carousel-title">Pi App · 全球派生态导航</div>
+            <div class="carousel-title">Pi App · 更多派币生态</div>
             <div class="carousel-sub">一站式探索 51+ 派生态应用</div>
             <a class="carousel-btn" href="https://pi.app" target="_blank" rel="noopener">立即探索 →</a>
           </div>
         </div>
         <div class="carousel-slide s2">
           <div class="carousel-content">
-            <div class="carousel-title">Pi 钱包 · 安全管理派资产</div>
-            <div class="carousel-sub">支持 Pi 币收支 · 生态应用快捷支付</div>
-            <a class="carousel-btn" href="https://wallet.pi" target="_blank" rel="noopener">打开钱包 →</a>
+            <div class="carousel-title">Pi 生态导航 · 精选优质应用</div>
+            <div class="carousel-sub">本生态将集合所有经过筛选的、正能量且可落地的 Pi 币生态进行展示。当前展示的所有生态均由生态团队组织创建，目前免费且无盈利。</div>
+            <a class="carousel-btn explore-btn" href="#" target="_blank" rel="noopener">了解更多 →</a>
           </div>
         </div>
-        <div class="carousel-slide s3">
+        <div class="carousel-slide s3 did-card">
           <div class="carousel-content">
-            <div class="carousel-title">Fireside · 派友社区论坛</div>
-            <div class="carousel-sub">每日活跃超百万派友，分享观点与机会</div>
-            <a class="carousel-btn" href="https://fireside.pi" target="_blank" rel="noopener">进入论坛 →</a>
+            <div class="carousel-title">实名 DID 数字身份凭证</div>
+            <div class="carousel-tag">国家信息中心主导</div>
+            <div class="carousel-sub">让14亿人都拥有自己的匿名数字身份凭证。可联系我们申领。</div>
+            <a class="carousel-btn contact-link" href="#contact">联系申领 →</a>
           </div>
         </div>
-        <div class="carousel-slide s4">
+        <div class="carousel-slide s4 digital-rmb">
           <div class="carousel-content">
-            <div class="carousel-title">3141 商城 · 派币直接购物</div>
-            <div class="carousel-sub">万件商品支持 Pi 支付 · 商家实时入驻</div>
-            <a class="carousel-btn" href="https://3141.mall" target="_blank" rel="noopener">逛一逛 →</a>
+            <div class="carousel-title">数字人民币推广</div>
+            <div class="carousel-sub">联系我们，对接全国各省份数字人民币落地推广，免费招募推广员，可获得现金奖励或商家流水</div>
+            <a class="carousel-btn contact-link" href="#contact">联系我们 →</a>
           </div>
         </div>
       </div>
@@ -865,93 +1391,130 @@
 
     <!-- Section title -->
     <div class="home-title">
-      <h3>精选 51 个派生态应用</h3>
+      <h3>精选 45 个派生态应用</h3>
       <p>点击图标即可跳转至对应应用 · 覆盖官方核心、社交、金融、商城、资讯、AI 全品类</p>
     </div>
 
-    <div class="home-grid">
-      <div class="app-item" data-eco="派孵化器" data-url="https://startpi.app" data-icon="🐣" data-desc1="派项目孵化器平台" data-desc2="孵化优秀派生态项目、扶持创新团队" data-code="START8821"><div class="app-icon">🐣</div><div class="app-name">派孵化器</div></div>
-      <div class="app-item" data-eco="哈西派" data-url="https://hashpi.app" data-icon="🔗" data-desc1="哈希派生态应用" data-desc2="基于哈希的派生态分布式服务" data-code="HASH2281"><div class="app-icon">🔗</div><div class="app-name">哈西派</div></div>
-      <div class="app-item" data-eco="派对元宇宙土地" data-url="https://piday.world/zh-CN?ic=MGV2PG" data-icon="🏠" data-desc1="派元宇宙虚拟土地" data-desc2="购买、建设、交易您的派虚拟领地" data-code="MGV2PG"><div class="app-icon">🏠</div><div class="app-name">派对元宇宙土地</div></div>
-      <div class="app-item" data-eco="派众筹生态" data-url="https://crowdfundpi.com" data-icon="🎯" data-desc1="派生态众筹平台" data-desc2="支持派项目募资与早期先锋参与" data-code="CROWD8821"><div class="app-icon">🎯</div><div class="app-name">派众筹生态</div></div>
-      <div class="app-item" data-eco="派宠物" data-url="https://pipet.me/#/pages/login/login?invite=419296" data-icon="🐾" data-desc1="派宠物养成游戏" data-desc2="领养您的虚拟派宠物、培养互动" data-code="419296"><div class="app-icon">🐾</div><div class="app-name">派宠物</div></div>
-      <div class="app-item" data-eco="CIDI游戏" data-url="https://app.cidi.games" data-icon="🎲" data-desc1="CIDI 游戏生态" data-desc2="多款派币游戏合集平台" data-code="CIDI8821"><div class="app-icon">🎲</div><div class="app-name">CIDI游戏</div></div>
-      <div class="app-item" data-eco="月光宝盒" data-url="https://openbox.world?referral_code=15536455536" data-icon="🎁" data-desc1="神秘宝箱开盒玩法" data-desc2="限时开盒获取稀缺奖励" data-code="15536455536"><div class="app-icon">🎁</div><div class="app-name">月光宝盒</div></div>
-      <div class="app-item" data-eco="斗地主" data-url="https://doudizhu-e62.pages.dev/" data-icon="🀄" data-desc1="派生态斗地主游戏" data-desc2="经典斗地主 · 派友实时对战" data-code="DOUDIZHU"><div class="app-icon">🀄</div><div class="app-name">斗地主</div></div>
-      <div class="app-item" data-eco="Fireside" data-url="#" data-icon="🔥" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🔥</div><div class="app-name">Fireside</div></div>
-      <div class="app-item" data-eco="Wallet 钱包" data-url="#" data-icon="π" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Wallet 钱包</div></div>
-      <div class="app-item" data-eco="Brainstorm" data-url="#" data-icon="💡" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💡</div><div class="app-name">Brainstorm</div></div>
-      <div class="app-item" data-eco="Mine 挖矿" data-url="#" data-icon="π" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Mine 挖矿</div></div>
-      <div class="app-item" data-eco="Blockchain" data-url="#" data-icon="⛓️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">⛓️</div><div class="app-name">Blockchain</div></div>
-      <div class="app-item" data-eco="Develop 开发者" data-url="#" data-icon="🖥️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🖥️</div><div class="app-name">Develop 开发者</div></div>
-      <div class="app-item" data-eco="KYC 认证" data-url="#" data-icon="🪪" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🪪</div><div class="app-name">KYC 认证</div></div>
-      <div class="app-item" data-eco="Chat 聊天" data-url="#" data-icon="π" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">Chat 聊天</div></div>
-      <div class="app-item" data-eco="Profiles" data-url="#" data-icon="👤" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">👤</div><div class="app-name">Profiles</div></div>
-      <div class="app-item" data-eco="Domains" data-url="#" data-icon=".pi" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">.pi</div><div class="app-name">Domains</div></div>
-      <div class="app-item" data-eco="App AI" data-url="#" data-icon="✨AI" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">✨AI</div><div class="app-name">App AI</div></div>
-      <div class="app-item" data-eco="Launchpad" data-url="#" data-icon="🚀" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🚀</div><div class="app-name">Launchpad</div></div>
-      <div class="app-item" data-eco="Pi Browser" data-url="#" data-icon="🌐" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🌐</div><div class="app-name">Pi Browser</div></div>
-      <div class="app-item" data-eco="Pi App" data-url="#" data-icon="📱" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">📱</div><div class="app-name">Pi App</div></div>
-      <div class="app-item" data-eco="Stake 质押" data-url="#" data-icon="⚡" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">⚡</div><div class="app-name">Stake 质押</div></div>
-      <div class="app-item" data-eco="PIBBS.CHAT" data-url="#" data-icon="💬" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💬</div><div class="app-name">PIBBS.CHAT</div></div>
-      <div class="app-item" data-eco="PiTanTan 派探探" data-url="#" data-icon="👁️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">👁️</div><div class="app-name">PiTanTan 派探探</div></div>
-      <div class="app-item" data-eco="PiTok 短视频" data-url="#" data-icon="🎵" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🎵</div><div class="app-name">PiTok 短视频</div></div>
-      <div class="app-item" data-eco="PiDating" data-url="#" data-icon="💕" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💕</div><div class="app-name">PiDating</div></div>
-      <div class="app-item" data-eco="PiCircle 圈子" data-url="#" data-icon="👥" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">👥</div><div class="app-name">PiCircle 圈子</div></div>
-      <div class="app-item" data-eco="Tic Tac Toe" data-url="#" data-icon="⭕" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">⭕</div><div class="app-name">Tic Tac Toe</div></div>
-      <div class="app-item" data-eco="PiFarm 农场" data-url="#" data-icon="🌾" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🌾</div><div class="app-name">PiFarm 农场</div></div>
-      <div class="app-item" data-eco="PiChess 象棋" data-url="#" data-icon="♟️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">♟️</div><div class="app-name">PiChess 象棋</div></div>
-      <div class="app-item" data-eco="PiMatch 消消乐" data-url="#" data-icon="🧩" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🧩</div><div class="app-name">PiMatch 消消乐</div></div>
-      <div class="app-item" data-eco="PiZone 游戏厅" data-url="#" data-icon="🎮" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🎮</div><div class="app-name">PiZone 游戏厅</div></div>
-      <div class="app-item" data-eco="3141 商城" data-url="#" data-icon="🐉" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🐉</div><div class="app-name">3141 商城</div></div>
-      <div class="app-item" data-eco="PiBuy 购物" data-url="#" data-icon="🛍️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🛍️</div><div class="app-name">PiBuy 购物</div></div>
-      <div class="app-item" data-eco="PiMall 商城" data-url="#" data-icon="🏪" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🏪</div><div class="app-name">PiMall 商城</div></div>
-      <div class="app-item" data-eco="PiShop 商店" data-url="#" data-icon="🏬" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🏬</div><div class="app-name">PiShop 商店</div></div>
-      <div class="app-item" data-eco="PiFood 外卖" data-url="#" data-icon="🍜" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🍜</div><div class="app-name">PiFood 外卖</div></div>
-      <div class="app-item" data-eco="PiExchange" data-url="#" data-icon="💹" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💹</div><div class="app-name">PiExchange</div></div>
-      <div class="app-item" data-eco="PiSwap 兑换" data-url="#" data-icon="🔄" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🔄</div><div class="app-name">PiSwap 兑换</div></div>
-      <div class="app-item" data-eco="PiEarn 理财" data-url="#" data-icon="💰" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💰</div><div class="app-name">PiEarn 理财</div></div>
-      <div class="app-item" data-eco="PiPay 支付" data-url="#" data-icon="💳" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">💳</div><div class="app-name">PiPay 支付</div></div>
-      <div class="app-item" data-eco="派导航 PiHub" data-url="#" data-icon="🧭" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🧭</div><div class="app-name">派导航 PiHub</div></div>
-      <div class="app-item" data-eco="PiApp.Link" data-url="#" data-icon="🔗" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🔗</div><div class="app-name">PiApp.Link</div></div>
-      <div class="app-item" data-eco="PiNews 资讯" data-url="#" data-icon="📰" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">📰</div><div class="app-name">PiNews 资讯</div></div>
-      <div class="app-item" data-eco="PiBlog 博客" data-url="#" data-icon="✍️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">✍️</div><div class="app-name">PiBlog 博客</div></div>
-      <div class="app-item" data-eco="PiAI 智能" data-url="#" data-icon="🤖" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🤖</div><div class="app-name">PiAI 智能</div></div>
-      <div class="app-item" data-eco="PiAssistant" data-url="#" data-icon="✨" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">✨</div><div class="app-name">PiAssistant</div></div>
-      <div class="app-item" data-eco="PiLand 派土地" data-url="#" data-icon="🏞️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🏞️</div><div class="app-name">PiLand 派土地</div></div>
-      <div class="app-item" data-eco="PiTravel 派旅行" data-url="#" data-icon="✈️" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">✈️</div><div class="app-name">PiTravel 派旅行</div></div>
-      <div class="app-item" data-eco="PiCar 派车" data-url="#" data-icon="🚗" data-desc1="生态正在对接中" data-desc2="敬请期待" data-code="敬请期待" data-comingsoon="true"><div class="app-icon">🚗</div><div class="app-name">PiCar 派车</div></div>
+    <div class="home-grid-section">
+      <div class="section-header">
+          <div class="section-icon">🌐</div>
+          <div class="section-info">
+            <h3>Pi 浏览器直达应用</h3>
+            <p>可直接在 Pi Browser 中打开使用</p>
+          </div>
+          <div class="section-count">23</div>
+        </div>
+      <div class="home-grid">
+        <div class="app-item" data-eco="派元宇宙土地" data-url="https://piday.world/zh-CN?ic=MGV2PG" data-icon="🏠" data-desc1="派元宇宙虚拟土地" data-desc2="购买、建设、交易您的派虚拟领地" data-desc3="打造属于你的派元宇宙家园" data-code="MGV2PG"><div class="app-icon">🏠</div><div class="app-name">派元宇宙土地</div></div>
+        <div class="app-item" data-eco="派孵化器" data-url="https://startpi.app" data-icon="🐣" data-desc1="派项目孵化器平台" data-desc2="孵化优秀派生态项目、扶持创新团队" data-desc3="为先锋提供项目启动支持与资源对接" data-code="15536455536"><div class="app-icon">🐣</div><div class="app-name">派孵化器</div></div>
+        <div class="app-item" data-eco="派众筹生态" data-url="https://crowdfundpi.com" data-icon="🎯" data-desc1="派生态众筹平台" data-desc2="支持派项目募资与早期先锋参与" data-desc3="共同支持优质派生态项目成长" data-code="FiA5y5HE"><div class="app-icon">🎯</div><div class="app-name">派众筹生态</div></div>
+        <div class="app-item" data-eco="哈希派" data-url="https://hashpi.app" data-icon="🔗" data-desc1="哈希派生态应用" data-desc2="基于哈希的派生态分布式服务" data-desc3="去中心化数据存储与验证解决方案" data-code="15536455536"><div class="app-icon">🔗</div><div class="app-name">哈希派</div></div>
+        <div class="app-item" data-eco="派宠物" data-url="https://pipet.me/#/pages/login/login?invite=419296" data-icon="🐾" data-desc1="派宠物养成游戏" data-desc2="领养您的虚拟派宠物、培养互动" data-desc3="宠物成长、繁殖、交易一体化" data-code="419296"><div class="app-icon">🐾</div><div class="app-name">派宠物</div></div>
+        <div class="app-item" data-eco="Pi Box" data-url="https://pibox.art" data-icon="📦" data-desc1="Pi Box数字藏品" data-desc2="派生态NFT平台" data-code="107060"><div class="app-icon">📦</div><div class="app-name">Pi Box</div></div>
+        <div class="app-item" data-eco="派之声" data-url="https://applink.pinet.com/detail/63be907c18bca2002feefcc0?from=rank_trending" data-icon="🔊" data-desc1="派之声社区" data-desc2="派生态热门话题讨论" data-code="无"><div class="app-icon">🔊</div><div class="app-name">派之声</div></div>
+        <div class="app-item" data-eco="米洛斯卡牌" data-url="https://www.miloscard.com/" data-icon="🃏" data-desc1="米洛斯卡牌游戏" data-desc2="卡牌对战派币奖励" data-code="B1000003949"><div class="app-icon">🃏</div><div class="app-name">米洛斯卡牌</div></div>
+        <div class="app-item" data-eco="CIDI游戏" data-url="https://app.cidi.games" data-icon="🎲" data-desc1="CIDI游戏生态" data-desc2="多款派币游戏合集" data-desc3="派币奖励不停" data-code="无需邀请码"><div class="app-icon">🎲</div><div class="app-name">CIDI游戏</div></div>
+        <div class="app-item" data-eco="MEMO DID" data-url="https://datadidpi.memolabs.net/home" data-icon="🔐" data-desc1="MEMO DID身份" data-desc2="去中心化身份认证" data-code="BzOgU1"><div class="app-icon">🔐</div><div class="app-name">MEMO DID</div></div>
+        <div class="app-item" data-eco="月光宝盒" data-url="https://openbox.world?referral_code=15536455536" data-icon="🎁" data-desc1="神秘宝箱开盒玩法" data-desc2="限时开盒获取稀缺奖励" data-desc3="惊喜不断，超值福利等你来开" data-code="15536455536"><div class="app-icon">🎁</div><div class="app-name">月光宝盒</div></div>
+        <div class="app-item" data-eco="水果游戏" data-url="https://fruitypi.pinet.com" data-icon="🍎" data-desc1="水果游戏" data-desc2="休闲益智派币奖励" data-code="无"><div class="app-icon">🍎</div><div class="app-name">水果游戏</div></div>
+        <div class="app-item" data-eco="GCV 价格" data-url="https://110.com" data-icon="💰" data-desc1="GCV价格查询" data-desc2="派币价格参考" data-code="110"><div class="app-icon">💰</div><div class="app-name">GCV 价格</div></div>
+        <div class="app-item" data-eco="派友农场" data-url="https://farm.piapp.art" data-icon="🌾" data-desc1="派友农场游戏" data-desc2="种植收获派币" data-code="无需邀请码"><div class="app-icon">🌾</div><div class="app-name">派友农场</div></div>
+        <div class="app-item" data-eco="派链国际" data-url="https://pipcm.com/index.html" data-icon="⛓️" data-desc1="派链国际" data-desc2="跨境支付结算" data-code="无"><div class="app-icon">⛓️</div><div class="app-name">派链国际</div></div>
+        <div class="app-item" data-eco="共帮国际善道" data-url="https://www.gbgjsc.com/" data-icon="🤝" data-desc1="共帮国际善道" data-desc2="公益慈善平台" data-code="无"><div class="app-icon">🤝</div><div class="app-name">共帮国际善道</div></div>
+        <div class="app-item" data-eco="TanTan派探探" data-url="https://tantanpi8793.pinet.com/?utm_source=piapp_link&from=piapp.link/?utm_source=piapp_link&from=piapp.link" data-icon="💕" data-desc1="派探探社交" data-desc2="派友交友平台" data-code="无"><div class="app-icon">💕</div><div class="app-name">TanTan派探探</div></div>
+        <div class="app-item" data-eco="PIBBS论坛" data-url="https://www.bbspi.chat/subPack1/user/piBrowserLogin" data-icon="💬" data-desc1="派论坛社区" data-desc2="派友交流讨论" data-code="无"><div class="app-icon">💬</div><div class="app-name">PIBBS论坛</div></div>
+        <div class="app-item" data-eco="派同城购物" data-url="https://citypi.net/addons/weliam_smartcity/h5" data-icon="🏙️" data-desc1="派同城购物" data-desc2="本地生活服务" data-code="MID:48849"><div class="app-icon">🏙️</div><div class="app-name">派同城购物</div></div>
+        <div class="app-item" data-eco="来购酷买" data-url="https://lgkm.app" data-icon="🛒" data-desc1="来购酷买商城" data-desc2="派币购物消费" data-code="853133"><div class="app-icon">🛒</div><div class="app-name">来购酷买</div></div>
+        <div class="app-item" data-eco="314159商城" data-url="https://314159u.com/" data-icon="🏪" data-desc1="314159商城" data-desc2="派生态综合商城" data-code="无"><div class="app-icon">🏪</div><div class="app-name">314159商城</div></div>
+        <div class="app-item" data-eco="YouPi优派商城" data-url="https://youpi.im/" data-icon="🛍️" data-desc1="优派商城" data-desc2="派币电商平台" data-code="ID号124436"><div class="app-icon">🛍️</div><div class="app-name">YouPi优派商城</div></div>
+        <div class="app-item" data-eco="派" data-url="https://piapp.link?r=15536455536" data-icon="π" data-desc1="派生态入口" data-desc2="探索更多派应用" data-desc3="发现派生态精彩" data-code="15536455536"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">派</div></div>
+        <div class="app-item" data-eco="更多生态" data-url="https://pinets.app/" data-icon="✨" data-desc1="派生态导航" data-desc2="发现更多派应用" data-code="无"><div class="app-icon">✨</div><div class="app-name">更多生态</div></div>
+      </div>
     </div>
+
+    <!-- 紫色呼吸灯分割线 -->
+    <div class="divider-glow">
+      <div class="divider-line"></div>
+      <div class="divider-dots">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <div class="home-grid-section">
+      <div class="section-header">
+          <div class="section-icon">📱</div>
+          <div class="section-info">
+            <h3>需下载 APP 的应用</h3>
+            <p>需下载独立 APP 客户端使用</p>
+          </div>
+          <div class="section-count">17</div>
+        </div>
+      <div class="home-grid">
+        <div class="app-item" data-eco="Pi App" data-url="https://share.feijipan.com/s/rB3w9JF3" data-icon="📱" data-desc1="派主应用" data-desc2="派网络核心入口" data-code="无需邀请码"><div class="app-icon">📱</div><div class="app-name">Pi App</div></div>
+        <div class="app-item" data-eco="Pi Browser" data-url="https://share.feijipan.com/s/rB3w9JF3" data-icon="🌐" data-desc1="派官方浏览器" data-desc2="专为派生态打造的浏览器" data-code="无需邀请码"><div class="app-icon">🌐</div><div class="app-name">Pi Browser</div></div>
+        <div class="app-item" data-eco="加速器下载" data-url="https://share.feijipan.com/s/C84YBszt" data-icon="⚡" data-desc1="网络加速器" data-desc2="加速派生态访问" data-code="无需邀请码"><div class="app-icon">⚡</div><div class="app-name">加速器下载</div></div>
+        <div class="app-item" data-eco="派插件下载" data-url="120" data-icon="🔌" data-desc1="派浏览器插件" data-desc2="扩展派生态功能" data-code="无需邀请码"><div class="app-icon">🔌</div><div class="app-name">派插件下载</div></div>
+        <div class="app-item" data-eco="TELTLK" data-url="https://www.teltlk.com/#/register?invite=sss444" data-icon="📞" data-desc1="派通讯工具" data-desc2="派友即时通讯" data-code="sss444"><div class="app-icon">📞</div><div class="app-name">TELTLK</div></div>
+        <div class="app-item" data-eco="DOPAI元宇宙" data-url="https://www.dopaimeta.net/#/pages/login/register/?uid=OKCfsi" data-icon="🎯" data-desc1="DOPAI元宇宙" data-desc2="派生态去中心化应用" data-code="OKCfsi"><div class="app-icon">🎯</div><div class="app-name">DOPAI元宇宙</div></div>
+        <div class="app-item" data-eco="VCITY第五城" data-url="#" data-icon="🏙️" data-desc1="元宇宙城市" data-desc2="虚拟城市生活空间" data-code="VCITY8888" data-comingsoon="true"><div class="app-icon">🏙️</div><div class="app-name">VCITY第五城</div></div>
+        <div class="app-item" data-eco="PCM派链国际" data-url="#" data-icon="⛓️" data-desc1="派链国际" data-desc2="跨境支付结算" data-code="PCM31415" data-comingsoon="true"><div class="app-icon">⛓️</div><div class="app-name">PCM派链国际</div></div>
+        <div class="app-item" data-eco="spacepi" data-url="https://spacepi333.pages.dev/" data-icon="🚀" data-desc1="太空探索" data-desc2="虚拟太空冒险" data-code="无需邀请码"><div class="app-icon">🚀</div><div class="app-name">spacepi</div></div>
+        <div class="app-item" data-eco="PIX派信娱乐" data-url="https://pixinyule333.pages.dev/" data-icon="🎮" data-desc1="娱乐平台" data-desc2="派币游戏娱乐" data-code="无需邀请码"><div class="app-icon">🎮</div><div class="app-name">PIX派信娱乐</div></div>
+        <div class="app-item" data-eco="锚豆" data-url="#" data-icon="⚓" data-desc1="锚豆应用" data-desc2="派生态稳定币" data-code="MAODOU314" data-comingsoon="true"><div class="app-icon">⚓</div><div class="app-name">锚豆</div></div>
+        <div class="app-item" data-eco="淘派" data-url="#" data-icon="🛒" data-desc1="淘派商城" data-desc2="派币购物平台" data-code="TAOPAI2024" data-comingsoon="true"><div class="app-icon">🛒</div><div class="app-name">淘派</div></div>
+        <div class="app-item" data-eco="派购国际" data-url="#" data-icon="🌍" data-desc1="国际购物" data-desc2="跨境派币消费" data-code="PGINT314" data-comingsoon="true"><div class="app-icon">🌍</div><div class="app-name">派购国际</div></div>
+        <div class="app-item" data-eco="Weswap" data-url="#" data-icon="🔄" data-desc1="Weswap兑换" data-desc2="数字资产兑换" data-code="WESWAP314" data-comingsoon="true"><div class="app-icon">🔄</div><div class="app-name">Weswap</div></div>
+        <div class="app-item" data-eco="Umap地图" data-url="#" data-icon="🗺️" data-desc1="Umap地图" data-desc2="去中心化地图服务" data-code="UMAP2024" data-comingsoon="true"><div class="app-icon">🗺️</div><div class="app-name">Umap地图</div></div>
+        <div class="app-item" data-eco="Pi加速器" data-url="#" data-icon="🚀" data-desc1="派加速器" data-desc2="加速派网络连接" data-code="PIACCEL314" data-comingsoon="true"><div class="app-icon">🚀</div><div class="app-name">Pi加速器</div></div>
+        <div class="app-item" data-eco="对接中" data-url="#" data-icon="🔄" data-desc1="生态对接中" data-desc2="敬请期待" data-code="COMING314" data-comingsoon="true"><div class="app-icon">🔄</div><div class="app-name">对接中</div></div>
+      </div>
+    </div>
+
+    <!-- 移除原有的多余应用（原第42-51个），保持总数量41个 -->
+    
+    <div class="pi-rotating-container">
+      <div class="pi-center-card">派币</div>
+      <div class="pi-orbit-card pi-orbit-left" data-name="尼古拉斯">尼古拉斯</div>
+      <div class="pi-orbit-card pi-orbit-right" data-name="范成雕">范成雕</div>
+    </div>
+
   </section>
 
   <!-- ========== PANEL 2: RANKING ========== -->
   <section class="panel" data-panel="rank">
     <div class="hero">
-      <h2>🏆 派生态实时热度排名</h2>
+      <h2>🏆 更多派币生态实时热度排名</h2>
       <p>如需进入生态，请点击首页跳转对应生态</p>
     </div>
 
+    <div class="rank-tip">
+      <div class="rank-tip-icon">📊</div>
+      <div class="rank-tip-text">本榜单仅统计目前最火的已认可超级生态，前20名Pi生态仅供参考</div>
+    </div>
+
     <div class="rank-top-list">
-      <div class="rank-top-item"><div class="rank-top-no">01</div><div class="rank-top-icon">🔥</div><div class="rank-top-info"><h4>Fireside</h4><p>派友社区论坛 · 每日活跃用户超万人</p><p class="sub">官方核心 · 社交内容平台</p></div><div class="rank-top-meta"><div class="heat">862 万 热度</div><div class="score">98</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">02</div><div class="rank-top-icon">💬</div><div class="rank-top-info"><h4>PIBBS.CHAT</h4><p>派友在线交流 · 全球首家生态论坛</p><p class="sub">开放发帖 · 即时讨论区</p></div><div class="rank-top-meta"><div class="heat">728 万 热度</div><div class="score">95</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">03</div><div class="rank-top-icon">🏪</div><div class="rank-top-info"><h4>3141 商城</h4><p>Pi 支付购物 · 支持派币直接结算</p><p class="sub">电商购物 · 万件商品支持 Pi</p></div><div class="rank-top-meta"><div class="heat">620 万 热度</div><div class="score">92</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">04</div><div class="rank-top-icon">👁️</div><div class="rank-top-info"><h4>PiTanTan 派探探</h4><p>兴趣配对平台 · 派友社交新玩法</p><p class="sub">社交 · 兴趣标签匹配</p></div><div class="rank-top-meta"><div class="heat">586 万 热度</div><div class="score">90</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">05</div><div class="rank-top-icon">🎵</div><div class="rank-top-info"><h4>PiTok 短视频</h4><p>短视频创作平台 · 派友原创内容社区</p><p class="sub">视频 · 打赏收益全 Pi 结算</p></div><div class="rank-top-meta"><div class="heat">512 万 热度</div><div class="score">88</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">06</div><div class="rank-top-icon">💹</div><div class="rank-top-info"><h4>PiExchange</h4><p>兑换与交易平台 · 生态内价值流转</p><p class="sub">金融 · 实时汇率撮合交易</p></div><div class="rank-top-meta"><div class="heat">458 万 热度</div><div class="score">87</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">07</div><div class="rank-top-icon">🧭</div><div class="rank-top-info"><h4>派导航 PiHub</h4><p>生态入口导航 · 一站式发现所有派应用</p><p class="sub">工具 · 分类索引 + 搜索</p></div><div class="rank-top-meta"><div class="heat">412 万 热度</div><div class="score">86</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">08</div><div class="rank-top-icon">🌾</div><div class="rank-top-info"><h4>PiFarm 农场</h4><p>种植与经营 · 休闲游戏人气最高</p><p class="sub">游戏娱乐 · 轻量养成游戏</p></div><div class="rank-top-meta"><div class="heat">386 万 热度</div><div class="score">84</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">09</div><div class="rank-top-icon">🤖</div><div class="rank-top-info"><h4>PiAI 智能</h4><p>智能对话助手 · 派生态 AI 入口</p><p class="sub">AI · 多轮对话 + 创作工具</p></div><div class="rank-top-meta"><div class="heat">348 万 热度</div><div class="score">83</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">10</div><div class="rank-top-icon">🎮</div><div class="rank-top-info"><h4>PiZone 游戏厅</h4><p>综合游戏平台 · 集合数十款派生态游戏</p><p class="sub">游戏娱乐 · 多人在线对战</p></div><div class="rank-top-meta"><div class="heat">312 万 热度</div><div class="score">81</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">11</div><div class="rank-top-icon">🎨</div><div class="rank-top-info"><h4>PiArt 绘画</h4><p>AI 艺术创作 · 一句话生成精美画作</p><p class="sub">AI · 图像生成与编辑</p></div><div class="rank-top-meta"><div class="heat">286 万 热度</div><div class="score">80</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">12</div><div class="rank-top-icon">📰</div><div class="rank-top-info"><h4>PiNews 资讯</h4><p>派生态每日动态 · 官方消息第一时间推送</p><p class="sub">资讯 · 全球行情 + 社区</p></div><div class="rank-top-meta"><div class="heat">254 万 热度</div><div class="score">79</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">13</div><div class="rank-top-icon">💰</div><div class="rank-top-info"><h4>PiEarn 理财</h4><p>生态理财工具 · 稳定收益派币存款</p><p class="sub">金融 · 低门槛活期存款</p></div><div class="rank-top-meta"><div class="heat">228 万 热度</div><div class="score">77</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">14</div><div class="rank-top-icon">🛍️</div><div class="rank-top-info"><h4>PiBuy 购物</h4><p>在线购物平台 · 生态商家直接入驻</p><p class="sub">商城购物 · 日用百货齐全</p></div><div class="rank-top-meta"><div class="heat">208 万 热度</div><div class="score">76</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">15</div><div class="rank-top-icon">🍜</div><div class="rank-top-info"><h4>PiFood 外卖</h4><p>本地外卖服务 · 派友专享折扣配送</p><p class="sub">商城 · 本地商家外卖订单</p></div><div class="rank-top-meta"><div class="heat">186 万 热度</div><div class="score">74</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">16</div><div class="rank-top-icon">🧩</div><div class="rank-top-info"><h4>PiMatch 消消乐</h4><p>休闲三消游戏 · 通关赢 Pi 奖励</p><p class="sub">游戏娱乐 · 轻度休闲玩法</p></div><div class="rank-top-meta"><div class="heat">162 万 热度</div><div class="score">73</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">17</div><div class="rank-top-icon">👥</div><div class="rank-top-info"><h4>PiCircle 圈子</h4><p>兴趣小组平台 · 同好派友共同话题交流</p><p class="sub">社交 · 各类兴趣社群</p></div><div class="rank-top-meta"><div class="heat">148 万 热度</div><div class="score">71</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">18</div><div class="rank-top-icon">✍️</div><div class="rank-top-info"><h4>PiBlog 博客</h4><p>长文创作分享 · 派友深度文章交流平台</p><p class="sub">资讯社区 · 原创长文</p></div><div class="rank-top-meta"><div class="heat">128 万 热度</div><div class="score">70</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">19</div><div class="rank-top-icon">💳</div><div class="rank-top-info"><h4>PiPay 支付</h4><p>线上线下支付工具 · 商家收款派币首选</p><p class="sub">金融 · 支付接入 SDK</p></div><div class="rank-top-meta"><div class="heat">112 万 热度</div><div class="score">68</div></div></div>
-      <div class="rank-top-item"><div class="rank-top-no">20</div><div class="rank-top-icon">🔗</div><div class="rank-top-info"><h4>PiApp.Link</h4><p>派生态官方链接聚合 · 快速跳转全站应用</p><p class="sub">工具导航 · 统一生态入口</p></div><div class="rank-top-meta"><div class="heat">102 万 热度</div><div class="score">66</div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">01</div><div class="rank-top-icon">🏠</div><div class="rank-top-info"><h4>派元宇宙土地</h4><p>虚拟土地购买与建设 · 打造派元宇宙家园</p><p class="sub">元宇宙 · 虚拟地产交易</p></div><div class="rank-top-meta"><div class="heat">862 万 热度</div><div class="score">98</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="1">👍<span class="vote-count">12,345</span></button><button class="rank-vote-btn dislike" data-rank="1">👎<span class="vote-count">123</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">02</div><div class="rank-top-icon">🐣</div><div class="rank-top-info"><h4>派孵化器</h4><p>项目孵化与资源对接 · 支持派生态创新</p><p class="sub">创业孵化 · 项目加速器</p></div><div class="rank-top-meta"><div class="heat">728 万 热度</div><div class="score">95</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="2">👍<span class="vote-count">10,234</span></button><button class="rank-vote-btn dislike" data-rank="2">👎<span class="vote-count">234</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">03</div><div class="rank-top-icon">🎯</div><div class="rank-top-info"><h4>派众筹生态</h4><p>项目募资平台 · 派友参与早期项目</p><p class="sub">众筹 · 早期投资机会</p></div><div class="rank-top-meta"><div class="heat">620 万 热度</div><div class="score">92</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="3">👍<span class="vote-count">8,765</span></button><button class="rank-vote-btn dislike" data-rank="3">👎<span class="vote-count">345</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">04</div><div class="rank-top-icon">🔗</div><div class="rank-top-info"><h4>哈希派</h4><p>去中心化数据存储 · 分布式服务平台</p><p class="sub">技术服务 · 数据验证</p></div><div class="rank-top-meta"><div class="heat">586 万 热度</div><div class="score">90</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="4">👍<span class="vote-count">7,654</span></button><button class="rank-vote-btn dislike" data-rank="4">👎<span class="vote-count">456</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">05</div><div class="rank-top-icon">🐾</div><div class="rank-top-info"><h4>派宠物</h4><p>虚拟宠物养成 · 繁殖交易一体化</p><p class="sub">游戏娱乐 · 宠物养成</p></div><div class="rank-top-meta"><div class="heat">512 万 热度</div><div class="score">88</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="5">👍<span class="vote-count">6,543</span></button><button class="rank-vote-btn dislike" data-rank="5">👎<span class="vote-count">567</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">06</div><div class="rank-top-icon">🔊</div><div class="rank-top-info"><h4>派之声</h4><p>派生态热门话题 · 社区交流平台</p><p class="sub">社交 · 话题讨论</p></div><div class="rank-top-meta"><div class="heat">458 万 热度</div><div class="score">87</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="6">👍<span class="vote-count">5,432</span></button><button class="rank-vote-btn dislike" data-rank="6">👎<span class="vote-count">678</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">07</div><div class="rank-top-icon">📦</div><div class="rank-top-info"><h4>Pi Box</h4><p>数字藏品平台 · NFT 交易市场</p><p class="sub">NFT · 数字艺术收藏</p></div><div class="rank-top-meta"><div class="heat">412 万 热度</div><div class="score">86</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="7">👍<span class="vote-count">4,321</span></button><button class="rank-vote-btn dislike" data-rank="7">👎<span class="vote-count">789</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">08</div><div class="rank-top-icon">🎁</div><div class="rank-top-info"><h4>月光宝盒</h4><p>神秘宝箱开盒 · 稀缺奖励获取</p><p class="sub">游戏娱乐 · 开盒玩法</p></div><div class="rank-top-meta"><div class="heat">386 万 热度</div><div class="score">84</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="8">👍<span class="vote-count">3,210</span></button><button class="rank-vote-btn dislike" data-rank="8">👎<span class="vote-count">890</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">09</div><div class="rank-top-icon">🍎</div><div class="rank-top-info"><h4>水果游戏</h4><p>休闲益智游戏 · 派币奖励机制</p><p class="sub">游戏娱乐 · 轻度休闲</p></div><div class="rank-top-meta"><div class="heat">348 万 热度</div><div class="score">83</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="9">👍<span class="vote-count">2,109</span></button><button class="rank-vote-btn dislike" data-rank="9">👎<span class="vote-count">901</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">10</div><div class="rank-top-icon">🌾</div><div class="rank-top-info"><h4>派友农场</h4><p>种植经营游戏 · 收获派币奖励</p><p class="sub">游戏娱乐 · 农场养成</p></div><div class="rank-top-meta"><div class="heat">312 万 热度</div><div class="score">81</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="10">👍<span class="vote-count">1,987</span></button><button class="rank-vote-btn dislike" data-rank="10">👎<span class="vote-count">102</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">11</div><div class="rank-top-icon">💕</div><div class="rank-top-info"><h4>派探探</h4><p>派友社交配对 · 兴趣标签匹配</p><p class="sub">社交 · 交友平台</p></div><div class="rank-top-meta"><div class="heat">286 万 热度</div><div class="score">80</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="11">👍<span class="vote-count">1,876</span></button><button class="rank-vote-btn dislike" data-rank="11">👎<span class="vote-count">113</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">12</div><div class="rank-top-icon">🃏</div><div class="rank-top-info"><h4>米洛斯卡牌</h4><p>卡牌对战游戏 · 派币奖励</p><p class="sub">游戏娱乐 · 策略卡牌</p></div><div class="rank-top-meta"><div class="heat">254 万 热度</div><div class="score">79</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="12">👍<span class="vote-count">1,765</span></button><button class="rank-vote-btn dislike" data-rank="12">👎<span class="vote-count">124</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">13</div><div class="rank-top-icon">🎲</div><div class="rank-top-info"><h4>CIDI游戏</h4><p>派币游戏合集 · 多款游戏体验</p><p class="sub">游戏娱乐 · 合集平台</p></div><div class="rank-top-meta"><div class="heat">228 万 热度</div><div class="score">77</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="13">👍<span class="vote-count">1,654</span></button><button class="rank-vote-btn dislike" data-rank="13">👎<span class="vote-count">135</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">14</div><div class="rank-top-icon">🔐</div><div class="rank-top-info"><h4>MEMO DID</h4><p>去中心化身份认证 · 数字身份管理</p><p class="sub">工具 · 身份验证</p></div><div class="rank-top-meta"><div class="heat">208 万 热度</div><div class="score">76</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="14">👍<span class="vote-count">1,543</span></button><button class="rank-vote-btn dislike" data-rank="14">👎<span class="vote-count">146</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">15</div><div class="rank-top-icon">🔥</div><div class="rank-top-info"><h4>Fireside</h4><p>派友社区论坛 · 每日活跃用户超万人</p><p class="sub">社交 · 内容社区</p></div><div class="rank-top-meta"><div class="heat">186 万 热度</div><div class="score">74</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="15">👍<span class="vote-count">1,432</span></button><button class="rank-vote-btn dislike" data-rank="15">👎<span class="vote-count">157</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">16</div><div class="rank-top-icon">💬</div><div class="rank-top-info"><h4>PIBBS论坛</h4><p>派友在线交流 · 全球首家生态论坛</p><p class="sub">社交 · 讨论区</p></div><div class="rank-top-meta"><div class="heat">162 万 热度</div><div class="score">73</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="16">👍<span class="vote-count">1,321</span></button><button class="rank-vote-btn dislike" data-rank="16">👎<span class="vote-count">168</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">17</div><div class="rank-top-icon">🏪</div><div class="rank-top-info"><h4>314159商城</h4><p>派币购物商城 · 万件商品支持 Pi</p><p class="sub">商城 · 电商购物</p></div><div class="rank-top-meta"><div class="heat">148 万 热度</div><div class="score">71</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="17">👍<span class="vote-count">1,210</span></button><button class="rank-vote-btn dislike" data-rank="17">👎<span class="vote-count">179</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">18</div><div class="rank-top-icon">🛒</div><div class="rank-top-info"><h4>来购酷买</h4><p>派币购物消费 · 商城购物体验</p><p class="sub">商城 · 购物消费</p></div><div class="rank-top-meta"><div class="heat">128 万 热度</div><div class="score">70</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="18">👍<span class="vote-count">1,109</span></button><button class="rank-vote-btn dislike" data-rank="18">👎<span class="vote-count">180</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">19</div><div class="rank-top-icon">🛍️</div><div class="rank-top-info"><h4>YouPi优派商城</h4><p>派币电商平台 · 优派商城购物</p><p class="sub">商城 · 电商平台</p></div><div class="rank-top-meta"><div class="heat">112 万 热度</div><div class="score">68</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="19">👍<span class="vote-count">1,008</span></button><button class="rank-vote-btn dislike" data-rank="19">👎<span class="vote-count">191</span></button></div></div></div>
+      <div class="rank-top-item"><div class="rank-top-no">20</div><div class="rank-top-icon">🏙️</div><div class="rank-top-info"><h4>派同城购物</h4><p>本地生活服务 · 同城购物体验</p><p class="sub">本地服务 · 购物平台</p></div><div class="rank-top-meta"><div class="heat">102 万 热度</div><div class="score">66</div><div class="rank-vote"><button class="rank-vote-btn like" data-rank="20">👍<span class="vote-count">907</span></button><button class="rank-vote-btn dislike" data-rank="20">👎<span class="vote-count">202</span></button></div></div></div>
     </div>
   </section>
 
@@ -964,117 +1527,105 @@
 
     <div class="price-card">
       <div class="camp-grid">
-
-        <!-- 阵营 1: GCV 价格 -->
         <div class="camp camp-gcv" data-camp="gcv">
-          <div class="sparkle s1">✨</div>
-          <div class="sparkle s2">💫</div>
-          <div class="sparkle s3">⭐</div>
           <div class="camp-inner">
             <div class="camp-emoji">🏛️</div>
             <div class="camp-center">
-              <div class="camp-title">GCV 价格</div>
-              <div class="camp-desc">根据全球GCV贸易价格定为314159美元</div>
-              <div class="camp-price">$314,159 <small>≈ ￥2,200,000 / Pi</small></div>
+              <div class="camp-title">GCV 价格 <span class="camp-tag">共识价值</span></div>
+              <div class="camp-desc">根据全球 GCV 贸易价格</div>
+              <div class="camp-desc2">达成全球共识价值</div>
+              <div class="camp-price">$314,159</div>
+              <div class="camp-cny">≈ ￥220万</div>
             </div>
             <div class="camp-right">
-              <div class="camp-supporters">👥 <span class="num" data-base="85247">85,247</span> 人</div>
+              <div class="camp-supporters"><span class="num" data-base="20000000">2000万</span><span class="label">支持者</span></div>
               <div class="camp-vote">
-                <button class="vote-btn like" type="button">👍 <span class="count">68,421</span></button>
-                <button class="vote-btn dislike" type="button">👎 <span class="count">16,826</span></button>
+                <button class="vote-btn like" data-action="like" data-camp="gcv">👍<span class="count">89k</span></button>
+                <button class="vote-btn dislike" data-action="dislike" data-camp="gcv">👎<span class="count">3k</span></button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 阵营 2: 交易所价格 -->
         <div class="camp camp-ex" data-camp="ex">
-          <div class="sparkle s1">📈</div>
-          <div class="sparkle s2">💹</div>
-          <div class="sparkle s3">🚀</div>
           <div class="camp-inner">
             <div class="camp-emoji">🏦</div>
             <div class="camp-center">
-              <div class="camp-title">交易所价格</div>
-              <div class="camp-desc">根据全球实时交易所价格产生</div>
-              <div class="camp-price">$0.13 ~ $31 <small>≈ ￥0.91 ~ ￥217 / Pi</small></div>
+              <div class="camp-title">交易所价格 <span class="camp-tag">市场行情</span></div>
+              <div class="camp-desc">全球实时交易所价格</div>
+              <div class="camp-desc2">浮动区间较大仅供参考</div>
+              <div class="camp-price">$0.13 ~ $31</div>
+              <div class="camp-cny">≈ ￥0.91 ~ ￥217</div>
             </div>
             <div class="camp-right">
-              <div class="camp-supporters">👥 <span class="num" data-base="62318">62,318</span> 人</div>
+              <div class="camp-supporters"><span class="num" data-base="23000000">2300万</span><span class="label">支持者</span></div>
               <div class="camp-vote">
-                <button class="vote-btn like" type="button">👍 <span class="count">42,856</span></button>
-                <button class="vote-btn dislike" type="button">👎 <span class="count">19,462</span></button>
+                <button class="vote-btn like" data-action="like" data-camp="ex">👍<span class="count">45k</span></button>
+                <button class="vote-btn dislike" data-action="dislike" data-camp="ex">👎<span class="count">8k</span></button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 阵营 3: 变现者 -->
         <div class="camp camp-cash" data-camp="cash">
-          <div class="sparkle s1">💰</div>
-          <div class="sparkle s2">💎</div>
-          <div class="sparkle s3">🤑</div>
           <div class="camp-inner">
             <div class="camp-emoji">💸</div>
             <div class="camp-center">
-              <div class="camp-title">变现者</div>
-              <div class="camp-desc">根据国家监管政策，去香港变现，按国家规定直接兑换变现</div>
-              <div class="camp-price">$314,159 <small>≈ ￥20,000,000 / Pi</small></div>
+              <div class="camp-title">变现者 <span class="camp-tag">落袋为安</span></div>
+              <div class="camp-desc">按国家监管政策</div>
+              <div class="camp-desc2">去香港合规兑换变现</div>
+              <div class="camp-price">$3.14 ~ $314,159</div>
+              <div class="camp-cny">≈ ￥22 ~ ￥220万</div>
             </div>
             <div class="camp-right">
-              <div class="camp-supporters">👥 <span class="num" data-base="53762">53,762</span> 人</div>
+              <div class="camp-supporters"><span class="num" data-base="12000000">1200万</span><span class="label">支持者</span></div>
               <div class="camp-vote">
-                <button class="vote-btn like" type="button">👍 <span class="count">38,204</span></button>
-                <button class="vote-btn dislike" type="button">👎 <span class="count">15,558</span></button>
+                <button class="vote-btn like" data-action="like" data-camp="cash">👍<span class="count">67k</span></button>
+                <button class="vote-btn dislike" data-action="dislike" data-camp="cash">👎<span class="count">5k</span></button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 阵营 4: 节点者 -->
         <div class="camp camp-node" data-camp="node">
-          <div class="sparkle s1">⚡</div>
-          <div class="sparkle s2">🖥️</div>
-          <div class="sparkle s3">🔥</div>
           <div class="camp-inner">
             <div class="camp-emoji">🛰️</div>
             <div class="camp-center">
-              <div class="camp-title">节点者</div>
-              <div class="camp-desc">手机挖矿已淘汰，进入电脑挖矿时代，电脑节点将成为下一批红利，节点不看价格，币多为王</div>
-              <div class="camp-price">$3 ~ $314,159 <small>≈ ￥21 ~ ￥2,200,000 / Pi</small></div>
+              <div class="camp-title">节点者 <span class="camp-tag">算力时代</span></div>
+              <div class="camp-desc">手机挖矿已淘汰</div>
+              <div class="camp-desc2">电脑节点成下批红利</div>
+              <div class="camp-price">$3 ~ $314,159</div>
+              <div class="camp-cny">≈ ￥21 ~ ￥220万</div>
             </div>
             <div class="camp-right">
-              <div class="camp-supporters">👥 <span class="num" data-base="47693">47,693</span> 人</div>
+              <div class="camp-supporters"><span class="num" data-base="2000000">200万</span><span class="label">支持者</span></div>
               <div class="camp-vote">
-                <button class="vote-btn like" type="button">👍 <span class="count">35,418</span></button>
-                <button class="vote-btn dislike" type="button">👎 <span class="count">12,275</span></button>
+                <button class="vote-btn like" data-action="like" data-camp="node">👍<span class="count">43k</span></button>
+                <button class="vote-btn dislike" data-action="dislike" data-camp="node">👎<span class="count">4k</span></button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- 阵营 5: 生态者 -->
         <div class="camp camp-eco" data-camp="eco">
-          <div class="sparkle s1">🌿</div>
-          <div class="sparkle s2">🌐</div>
-          <div class="sparkle s3">💚</div>
           <div class="camp-inner">
             <div class="camp-emoji">🌍</div>
             <div class="camp-center">
-              <div class="camp-title">生态者</div>
-              <div class="camp-desc">跟随项目方响应号召，参与、加入、入股生态，成为生态参与者与分红者，生态内不看派币价格，只看持有数量</div>
-              <div class="camp-price">$3 ~ $314,159 <small>≈ ￥21 ~ ￥2,200,000 / Pi</small></div>
+              <div class="camp-title">生态者 <span class="camp-tag">共建生态</span></div>
+              <div class="camp-desc">跟随项目方参与生态</div>
+              <div class="camp-desc2">成为红利分享者</div>
+              <div class="camp-price">$3 ~ $314,159</div>
+              <div class="camp-cny">≈ ￥21 ~ ￥220万</div>
             </div>
             <div class="camp-right">
-              <div class="camp-supporters">👥 <span class="num" data-base="38926">38,926</span> 人</div>
+              <div class="camp-supporters"><span class="num" data-base="32000000">3200万</span><span class="label">支持者</span></div>
               <div class="camp-vote">
-                <button class="vote-btn like" type="button">👍 <span class="count">29,142</span></button>
-                <button class="vote-btn dislike" type="button">👎 <span class="count">9,784</span></button>
+                <button class="vote-btn like" data-action="like" data-camp="eco">👍<span class="count">56k</span></button>
+                <button class="vote-btn dislike" data-action="dislike" data-camp="eco">👎<span class="count">6k</span></button>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -1089,11 +1640,11 @@
     <div class="contact-card">
       <h3>联系方式</h3>
       <ul class="contact-list">
-        <li><div class="contact-ico">📱</div><div class="contact-label">手机号 1</div><div class="contact-value">138-0000-0001</div></li>
-        <li><div class="contact-ico">📱</div><div class="contact-label">手机号 2</div><div class="contact-value">138-0000-0002</div></li>
-        <li><div class="contact-ico">💬</div><div class="contact-label">微信号</div><div class="contact-value">PiEco-2026</div></li>
-        <li><div class="contact-ico">🐧</div><div class="contact-label">QQ 号</div><div class="contact-value">123456789</div></li>
-        <li><div class="contact-ico">📧</div><div class="contact-label">官方邮箱</div><div class="contact-value">contact@pi.app</div></li>
+        <li><div class="contact-ico">📱</div><div class="contact-label">手机号 1</div><div class="contact-value">15536455536</div></li>
+        <li><div class="contact-ico">📱</div><div class="contact-label">手机号 2</div><div class="contact-value">15232125536</div></li>
+        <li><div class="contact-ico">💬</div><div class="contact-label">微信号</div><div class="contact-value">15536455536天空之城</div></li>
+        <li><div class="contact-ico">🐧</div><div class="contact-label">QQ 号</div><div class="contact-value">1844187773令移阁</div></li>
+        <li><div class="contact-ico">📧</div><div class="contact-label">官方邮箱</div><div class="contact-value">1844187773@qq.com</div></li>
       </ul>
 
       <div class="contact-tip">
@@ -1108,7 +1659,7 @@
 
 </main>
 
-<!-- ========== FIXED BOTTOM BAR ========== -->
+<!-- ========== Fixed Bottom Bar ========== -->
 <nav class="bottom-bar">
   <div class="bottom-grid">
     <button class="btn primary active" type="button" data-target="home">
@@ -1172,6 +1723,327 @@
   });
   let carTimer = setInterval(() => goCarousel(carIdx + 1), 2000);
   function resetCarTimer(){ clearInterval(carTimer); carTimer = setInterval(() => goCarousel(carIdx + 1), 2000); }
+  
+  document.querySelectorAll('.contact-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      bottomBtns.forEach(b => {
+        b.classList.toggle('active', b.dataset.target === 'contact');
+        b.classList.toggle('primary', b.dataset.target === 'contact');
+      });
+      panels.forEach(p => p.classList.toggle('active', p.dataset.panel === 'contact'));
+      main.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+  
+  function createFireworks(x, y, colors = ['#a855f7', '#c084fc', '#fbbf24', '#f59e0b']) {
+    const container = document.body;
+    for(let i = 0; i < 12; i++) {
+      const fw = document.createElement('div');
+      fw.className = 'firework';
+      fw.style.left = x + 'px';
+      fw.style.top = y + 'px';
+      fw.style.background = colors[i % colors.length];
+      fw.style.animationDelay = (i * 0.04) + 's';
+      fw.style.transform = `scale(${0.5 + Math.random() * 0.5}) translateY(0) rotate(${i * 30}deg)`;
+      fw.style.setProperty('--tx', (Math.random() - 0.5) * 80 + 'px');
+      fw.style.setProperty('--ty', -40 - Math.random() * 40 + 'px');
+      container.appendChild(fw);
+      setTimeout(() => fw.remove(), 800);
+    }
+  }
+  
+  function playCardSound() {
+    playTone(520, {duration:0.08, type:'sine', volume:0.18});
+    setTimeout(() => playTone(660, {duration:0.1, type:'triangle', volume:0.15}), 50);
+    setTimeout(() => playTone(880, {duration:0.12, type:'sine', volume:0.12}), 100);
+  }
+  
+  document.querySelectorAll('.app-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      
+      createFireworks(x, y);
+      playCardSound();
+    });
+  });
+  
+  // ============ Pi Rotating Cards Interactions ============
+  class PiRotatingCards {
+    constructor() {
+      this.container = document.querySelector('.pi-rotating-container');
+      this.centerCard = document.querySelector('.pi-center-card');
+      this.orbitCards = document.querySelectorAll('.pi-orbit-card');
+      
+      this.centerX = 0;
+      this.centerY = 0;
+      this.orbitRadius = 90;
+      
+      this.cards = [
+        {
+          element: this.orbitCards[0],
+          angle: 0,
+          speed: 0.015 + Math.random() * 0.01,
+          baseSpeed: 0.015,
+          offsetRadius: 0,
+          isDragging: false,
+          startX: 0,
+          startY: 0,
+          dragOffsetX: 0,
+          dragOffsetY: 0,
+          returnProgress: 0
+        },
+        {
+          element: this.orbitCards[1],
+          angle: Math.PI,
+          speed: -(0.012 + Math.random() * 0.01),
+          baseSpeed: -0.012,
+          offsetRadius: 0,
+          isDragging: false,
+          startX: 0,
+          startY: 0,
+          dragOffsetX: 0,
+          dragOffsetY: 0,
+          returnProgress: 0
+        }
+      ];
+      
+      this.init();
+    }
+    
+    init() {
+      this.updateCenter();
+      this.setupEventListeners();
+      this.animate();
+    }
+    
+    updateCenter() {
+      const rect = this.container.getBoundingClientRect();
+      this.centerX = rect.width / 2;
+      this.centerY = rect.height / 2;
+    }
+    
+    setupEventListeners() {
+      this.centerCard.addEventListener('click', () => this.playCenterSound());
+      
+      this.cards.forEach((card, index) => {
+        card.element.addEventListener('mousedown', (e) => this.onDragStart(e, index));
+        card.element.addEventListener('touchstart', (e) => this.onTouchStart(e, index), { passive: true });
+      });
+      
+      document.addEventListener('mousemove', (e) => this.onDragMove(e));
+      document.addEventListener('mouseup', () => this.onDragEnd());
+      document.addEventListener('touchmove', (e) => this.onTouchMove(e), { passive: true });
+      document.addEventListener('touchend', () => this.onDragEnd());
+      
+      window.addEventListener('resize', () => this.updateCenter());
+      
+      this.cards.forEach((card, index) => {
+        card.element.addEventListener('click', () => this.playOrbitSound(index));
+      });
+    }
+    
+    onDragStart(e, index) {
+      const card = this.cards[index];
+      if (card.isDragging) return;
+      
+      card.isDragging = true;
+      card.element.classList.add('dragging');
+      
+      const rect = this.container.getBoundingClientRect();
+      card.startX = e.clientX - rect.left;
+      card.startY = e.clientY - rect.top;
+      
+      const currentStyle = window.getComputedStyle(card.element);
+      card.dragOffsetX = parseFloat(currentStyle.left) || 0;
+      card.dragOffsetY = parseFloat(currentStyle.top) || 0;
+    }
+    
+    onTouchStart(e, index) {
+      const touch = e.touches[0];
+      this.onDragStart({ clientX: touch.clientX, clientY: touch.clientY }, index);
+    }
+    
+    onDragMove(e) {
+      this.cards.forEach(card => {
+        if (card.isDragging) {
+          const rect = this.container.getBoundingClientRect();
+          const x = e.clientX - rect.left - card.startX + card.dragOffsetX;
+          const y = e.clientY - rect.top - card.startY + card.dragOffsetY;
+          
+          card.element.style.left = x + 'px';
+          card.element.style.top = y + 'px';
+          card.element.style.transform = 'scale(1.1)';
+        }
+      });
+    }
+    
+    onTouchMove(e) {
+      const touch = e.touches[0];
+      this.onDragMove({ clientX: touch.clientX, clientY: touch.clientY });
+    }
+    
+    onDragEnd() {
+      this.cards.forEach(card => {
+        if (card.isDragging) {
+          card.isDragging = false;
+          card.element.classList.remove('dragging');
+          card.returnProgress = 0;
+        }
+      });
+    }
+    
+    animate() {
+      const halfWidth = 42.5;
+      const halfHeight = 42.5;
+      
+      this.cards.forEach((card, index) => {
+        if (!card.isDragging) {
+          if (card.returnProgress < 1) {
+            card.returnProgress += 0.08;
+            
+            const currentLeft = parseFloat(card.element.style.left) || 0;
+            const currentTop = parseFloat(card.element.style.top) || 0;
+            
+            const targetX = this.centerX - halfWidth + Math.cos(card.angle) * (this.orbitRadius + card.offsetRadius);
+            const targetY = this.centerY - halfHeight + Math.sin(card.angle) * (this.orbitRadius + card.offsetRadius) * 0.4;
+            
+            const easeProgress = 1 - Math.pow(1 - card.returnProgress, 3);
+            const x = currentLeft + (targetX - currentLeft) * easeProgress;
+            const y = currentTop + (targetY - currentTop) * easeProgress;
+            
+            card.element.style.left = x + 'px';
+            card.element.style.top = y + 'px';
+            card.element.style.transform = `scale(${1 + (1 - easeProgress) * 0.1})`;
+          } else {
+            card.angle += card.speed;
+            
+            card.speed += (Math.random() - 0.5) * 0.002;
+            card.speed = Math.max(-0.03, Math.min(0.03, card.speed));
+            
+            card.offsetRadius = Math.sin(Date.now() * 0.002 + index) * 15;
+            
+            const x = this.centerX - halfWidth + Math.cos(card.angle) * (this.orbitRadius + card.offsetRadius);
+            const y = this.centerY - halfHeight + Math.sin(card.angle) * (this.orbitRadius + card.offsetRadius) * 0.4;
+            
+            card.element.style.left = x + 'px';
+            card.element.style.top = y + 'px';
+            card.element.style.transform = 'scale(1)';
+          }
+        }
+      });
+      
+      requestAnimationFrame(() => this.animate());
+    }
+    
+    playCenterSound() {
+      playTone(880, { duration: 0.1, type: 'sine', volume: 0.2 });
+      setTimeout(() => playTone(1100, { duration: 0.12, type: 'sine', volume: 0.18 }), 80);
+      setTimeout(() => playTone(1320, { duration: 0.15, type: 'triangle', volume: 0.15 }), 160);
+      
+      const rect = this.centerCard.getBoundingClientRect();
+      const containerRect = this.container.getBoundingClientRect();
+      createFireworks(
+        rect.left - containerRect.left + rect.width / 2,
+        rect.top - containerRect.top + rect.height / 2,
+        ['#a855f7', '#c084fc', '#6c2b9e']
+      );
+    }
+    
+    playOrbitSound(index) {
+      if (this.cards[index].isDragging) return;
+      
+      const cardWidth = 85;
+      const cardHeight = 85;
+      const centerX = parseFloat(this.cards[index].element.style.left) + cardWidth / 2;
+      const centerY = parseFloat(this.cards[index].element.style.top) + cardHeight / 2;
+      
+      if (index === 0) {
+        playTone(520, { duration: 0.08, type: 'triangle', volume: 0.2 });
+        setTimeout(() => playTone(659, { duration: 0.1, type: 'sine', volume: 0.18 }), 60);
+        setTimeout(() => playTone(784, { duration: 0.12, type: 'triangle', volume: 0.15 }), 120);
+        
+        createFireworks(centerX, centerY, ['#fbbf24', '#f59e0b', '#fcd34d']);
+      } else {
+        playTone(659, { duration: 0.08, type: 'sawtooth', volume: 0.22 });
+        setTimeout(() => playTone(880, { duration: 0.1, type: 'sine', volume: 0.18 }), 60);
+        setTimeout(() => playTone(1047, { duration: 0.14, type: 'sine', volume: 0.14 }), 120);
+        
+        createFireworks(centerX, centerY, ['#ec4899', '#db2777', '#f472b6']);
+      }
+    }
+  }
+  
+  setTimeout(() => {
+    new PiRotatingCards();
+  }, 500);
+  
+  // ============ Camp Cards Click Effects ============
+  document.querySelectorAll('.camp').forEach((camp, index) => {
+    camp.addEventListener('click', function(e) {
+      const rect = this.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      const isClockwise = index % 2 === 0;
+      this.classList.add(isClockwise ? 'float-right' : 'float-left');
+      
+      setTimeout(() => {
+        this.classList.remove('float-right', 'float-left');
+      }, 800);
+      
+      createCampExplosion(centerX, centerY, index);
+      playCampSound(index);
+    });
+  });
+  
+  function createCampExplosion(x, y, campIndex) {
+    const colors = [
+      ['#a855f7', '#c084fc', '#6c2b9e'],
+      ['#22c55e', '#4ade80', '#16a34a'],
+      ['#fbbf24', '#f59e0b', '#fcd34d'],
+      ['#f43f5e', '#f97316', '#fb923c']
+    ];
+    
+    const colorSet = colors[campIndex % colors.length];
+    const container = document.body;
+    
+    for(let i = 0; i < 10; i++) {
+      const angle = (i / 10) * Math.PI * 2;
+      const length = 30 + Math.random() * 40;
+      const particle = document.createElement('div');
+      particle.className = 'camp-click-particle';
+      particle.style.left = x + 'px';
+      particle.style.top = y + 'px';
+      particle.style.background = colorSet[i % colorSet.length];
+      particle.style.setProperty('--angle', angle + 'rad');
+      particle.style.setProperty('--length', length + 'px');
+      particle.style.transform = `translate(${Math.cos(angle) * length}px, ${Math.sin(angle) * length}px) scale(0)`;
+      particle.style.transition = 'transform 0.6s ease-out, opacity 0.6s ease-out';
+      particle.style.opacity = '1';
+      
+      container.appendChild(particle);
+      
+      requestAnimationFrame(() => {
+        particle.style.transform = `translate(${Math.cos(angle) * length}px, ${Math.sin(angle) * length}px) scale(1)`;
+        particle.style.opacity = '0';
+      });
+      
+      setTimeout(() => particle.remove(), 700);
+    }
+  }
+  
+  function playCampSound(index) {
+    const sounds = [
+      () => { playTone(660, {duration:0.08, type:'sine', volume:0.2}); setTimeout(() => playTone(880, {duration:0.1, type:'sine', volume:0.18}), 60); setTimeout(() => playTone(1100, {duration:0.12, type:'triangle', volume:0.15}), 120); },
+      () => { playTone(520, {duration:0.08, type:'triangle', volume:0.2}); setTimeout(() => playTone(659, {duration:0.1, type:'sine', volume:0.18}), 50); setTimeout(() => playTone(784, {duration:0.12, type:'triangle', volume:0.15}), 100); },
+      () => { playTone(440, {duration:0.08, type:'sawtooth', volume:0.22}); setTimeout(() => playTone(554, {duration:0.1, type:'sine', volume:0.18}), 50); setTimeout(() => playTone(659, {duration:0.12, type:'sine', volume:0.15}), 100); },
+      () => { playTone(659, {duration:0.08, type:'sine', volume:0.2}); setTimeout(() => playTone(880, {duration:0.1, type:'triangle', volume:0.18}), 60); setTimeout(() => playTone(1047, {duration:0.14, type:'sine', volume:0.14}), 120); }
+    ];
+    sounds[index % sounds.length]();
+  }
 
   // ============ Eco Modal (black / dark-blue tech-style) ============
   const ecoMask = document.getElementById('ecoModalMask');
@@ -1183,47 +2055,47 @@
   const ecoEnter = document.getElementById('ecoModalEnter');
   const ecoBack = document.getElementById('ecoModalBack');
   const ecoClose = document.getElementById('ecoModalClose');
+  const ecoCopyBtn = document.getElementById('ecoCopyBtn');
   let currentEcoUrl = '';
   document.querySelectorAll('.app-item').forEach((item, idx) => {
     item.addEventListener('click', () => {
       const icon = item.dataset.icon || '';
       const isComingSoon = item.dataset.comingsoon === 'true';
       const url = item.dataset.url || '#';
-      // === 添加点击音效：前8个正式项用"进入"音，其余用"敬请期待"提示音 ===
-      if (isComingSoon){
+      
+      // === 添加点击音效 ===
+      if (isComingSoon) {
         // 低频下潜 + 微颤 → "咚咚"提示音
         playTone(360, {duration:0.12, type:'triangle', volume:0.18, sweepTo:200});
         setTimeout(()=>playTone(240, {duration:0.18, type:'sine', volume:0.14, sweepTo:160}), 70);
-        // 显示敬请期待弹窗
-        ecoIcon.textContent = icon;
-        ecoIcon.className = 'eco-modal-icon' + (icon === 'π' ? ' has-pi' : '');
-        ecoTitle.textContent = item.dataset.eco || '';
-        ecoDesc1.textContent = item.dataset.desc1 || '';
-        ecoDesc2.textContent = item.dataset.desc2 || '';
-        ecoCode.textContent = '敬请期待';
-        ecoCode.classList.add('none');
-        currentEcoUrl = url;
-        const modal = document.querySelector('.eco-modal');
-        if (modal) modal.classList.add('coming-soon');
-        ecoMask.classList.add('active');
       } else {
-        // 高频上行 + 清脆尾音 → "叮咚"欢迎音（每个图标频率略有差异）
+        // 高频上行 + 清脆尾音 → "叮咚"欢迎音
         const freqs = [880, 960, 1040, 1120, 1200, 1280, 1360, 1440];
         const f = freqs[idx % freqs.length];
         playTone(f, {duration:0.08, type:'sine', volume:0.22});
         setTimeout(()=>playTone(f * 1.5, {duration:0.12, type:'triangle', volume:0.18}), 55);
-        // === 前8个有真实链接的生态：直接跳转，不弹窗 ===
-        if (url && url !== '#' && url.startsWith('http')) {
-          try {
-            const validUrl = new URL(url);
-            setTimeout(() => {
-              window.open(validUrl.toString(), '_blank', 'noopener,noreferrer');
-            }, 80); // 稍等音效播放后再跳转
-          } catch(e) {
-            console.warn('Invalid URL:', url);
-          }
-        }
       }
+      
+      // === 显示弹窗 ===
+      ecoIcon.textContent = icon;
+      ecoIcon.className = 'eco-modal-icon' + (icon === 'π' ? ' has-pi' : '');
+      ecoTitle.textContent = item.dataset.eco || '';
+      ecoDesc1.textContent = item.dataset.desc1 || '';
+      ecoDesc2.textContent = item.dataset.desc2 || '';
+      
+      const modal = document.querySelector('.eco-modal');
+      if (isComingSoon) {
+        ecoCode.textContent = '敬请期待';
+        ecoCode.classList.add('none');
+        currentEcoUrl = '#';
+        if (modal) modal.classList.add('coming-soon');
+      } else {
+        ecoCode.textContent = item.dataset.code || '暂无';
+        ecoCode.classList.toggle('none', !item.dataset.code || item.dataset.code === '敬请期待');
+        currentEcoUrl = url;
+        if (modal) modal.classList.remove('coming-soon');
+      }
+      ecoMask.classList.add('active');
     });
   });
   function hideEcoModal(){ ecoMask.classList.remove('active'); }
@@ -1260,7 +2132,24 @@
     // "返回首页"：柔和下行双音
     playTone(520, {duration:0.10, type:'sine', volume:0.18});
     setTimeout(()=>playTone(360, {duration:0.14, type:'triangle', volume:0.15}), 70);
-    setTimeout(()=>{ hideEcoModal(); goHomePanel(); }, 120);
+    setTimeout(hideEcoModal, 120);
+  });
+  if (ecoCopyBtn) ecoCopyBtn.addEventListener('click', () => {
+    const code = ecoCode.textContent;
+    if (code && code !== '敬请期待' && code !== '暂无') {
+      navigator.clipboard.writeText(code).then(() => {
+        playTone(880, {duration:0.06, type:'sine', volume:0.2});
+        setTimeout(()=>playTone(1100, {duration:0.08, type:'sine', volume:0.18}), 50);
+        ecoCopyBtn.textContent = '已复制';
+        ecoCopyBtn.classList.add('copied');
+        setTimeout(() => {
+          ecoCopyBtn.textContent = '复制';
+          ecoCopyBtn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        console.warn('Failed to copy');
+      });
+    }
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && ecoMask.classList.contains('active')) hideEcoModal(); });
 
@@ -1309,7 +2198,11 @@
     let baseSupporters = parseInt(supporterNum.dataset.base) || likes;
     let state = 'none'; // 'none' | 'like' | 'dislike'
 
-    function formatNum(n){ return n.toLocaleString('en-US'); }
+    function formatNum(n){ 
+      if (n >= 100000000) return (n / 100000000).toFixed(1) + '亿';
+      if (n >= 10000) return (n / 10000).toFixed(0) + '万';
+      return n.toLocaleString('en-US'); 
+    }
     function flashCard(){
       camp.classList.remove('flash');
       // force reflow to restart animation
@@ -1344,6 +2237,43 @@
       refresh();
     });
   });
+
+  const rankVoteBtns = document.querySelectorAll('.rank-vote-btn');
+  rankVoteBtns.forEach(btn => {
+    btn.addEventListener('click', function(e){
+      const isLike = this.classList.contains('like');
+      const countEl = this.querySelector('.vote-count');
+      const item = this.closest('.rank-top-item');
+      const rect = this.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+
+      if (isLike){
+        playLikeSound();
+        createFireworks(x, y, true);
+        if (navigator.vibrate) navigator.vibrate(30);
+        this.classList.toggle('liked');
+        if (this.classList.contains('liked')){
+          countEl.textContent = (parseInt(countEl.textContent.replace(/,/g,'')) + 1).toLocaleString();
+        } else {
+          countEl.textContent = (parseInt(countEl.textContent.replace(/,/g,'')) - 1).toLocaleString();
+        }
+      } else {
+        playDislikeSound();
+        createFireworks(x, y, false);
+        if (navigator.vibrate) navigator.vibrate([20, 10, 20]);
+        this.classList.toggle('disliked');
+        if (this.classList.contains('disliked')){
+          countEl.textContent = (parseInt(countEl.textContent.replace(/,/g,'')) + 1).toLocaleString();
+        } else {
+          countEl.textContent = (parseInt(countEl.textContent.replace(/,/g,'')) - 1).toLocaleString();
+        }
+      }
+
+      item.style.transform = 'scale(1.02)';
+      setTimeout(()=>item.style.transform='', 200);
+    });
+  });
 });
 </script>
 
@@ -1352,14 +2282,15 @@
     <div class="eco-modal">
       <button class="eco-close" id="ecoModalClose">✕</button>
       <div class="eco-modal-icon" id="ecoModalIcon">π</div>
-      <div class="eco-modal-title" id="ecoModalTitle">派生态应用</div>
+      <div class="eco-modal-title" id="ecoModalTitle">更多派币生态应用</div>
       <div class="eco-modal-desc">
         <p id="ecoModalDesc1">生态功能介绍第一行</p>
         <p id="ecoModalDesc2">生态功能介绍第二行</p>
       </div>
-      <div class="eco-code-row">
+      <div class="eco-code-box">
         <div class="eco-code-label">邀请码</div>
         <div class="eco-code-value" id="ecoModalCode">PICO2026</div>
+        <button class="eco-copy-btn" id="ecoCopyBtn">复制</button>
       </div>
       <div class="eco-btn-row">
         <button class="eco-btn enter" id="ecoModalEnter">进入生态</button>
