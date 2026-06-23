@@ -727,69 +727,39 @@
     --tx:0;--ty:-50px;--rot:0deg;
   }
 
-  /* ============ Price Panel Styles (Premium Card Design) ============ */
+  /* ============ Price Panel Styles (Compact Card Design) ============ */
   .price-card{
-    margin:12px 16px 20px;
-    max-width:850px;
+    margin:10px 14px 16px;
+    max-width:720px;
     margin-left:auto;
     margin-right:auto;
   }
   .camp-grid{
-    display:flex;flex-direction:column;gap:14px;
+    display:flex;flex-direction:column;gap:10px;
   }
   .camp{
-    background:
-      linear-gradient(135deg,rgba(255,255,255,.98) 0%,rgba(250,247,255,.95) 100%),
-      linear-gradient(135deg,#fff 0%,#faf5ff 100%);
-    border-radius:20px;
-    padding:18px 20px;
-    box-shadow:
-      0 4px 20px rgba(108,43,158,.08),
-      0 1px 2px rgba(0,0,0,.03),
-      inset 0 1px 0 rgba(255,255,255,.95);
+    background:linear-gradient(135deg,#fff 0%,#faf5ff 100%);
+    border-radius:14px;
+    padding:12px 16px;
+    box-shadow:0 2px 12px rgba(108,43,158,.06);
     position:relative;overflow:hidden;
-    border:1.5px solid transparent;
-    background-clip:padding-box;
-    transition:all .35s cubic-bezier(.2,.8,.2,1);
+    border:1px solid rgba(108,43,158,.1);
+    transition:all .25s ease;
   }
   .camp::before{
-    content:"";
-    position:absolute;top:0;left:0;right:0;bottom:0;
-    border-radius:20px;
-    padding:1.5px;
-    background:linear-gradient(135deg,var(--camp-c1) 0%,var(--camp-c2) 100%);
-    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-    mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-    -webkit-mask-composite:xor;
-    mask-composite:exclude;
-    pointer-events:none;
-    opacity:.5;
-    animation:camp-border 3s ease-in-out infinite;
-  }
-  @keyframes camp-border{
-    0%,100%{opacity:.5;}
-    50%{opacity:.9;}
-  }
-  .camp::after{
-    content:"";
-    position:absolute;top:-80px;right:-80px;
-    width:200px;height:200px;border-radius:50%;
-    background:radial-gradient(circle,var(--camp-c1) 0%,transparent 55%);
-    opacity:.08;filter:blur(12px);
-    pointer-events:none;
+    content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--camp-c1) 0%,var(--camp-c2) 100%);
+    opacity:.6;
   }
   .camp:hover{
-    transform:translateY(-4px) scale(1.005);
-    box-shadow:
-      0 16px 40px rgba(108,43,158,.18),
-      0 2px 8px rgba(0,0,0,.04),
-      inset 0 1px 0 rgba(255,255,255,.95);
+    transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(108,43,158,.12);
+    border-color:var(--camp-c1);
   }
-  .camp:hover::before{opacity:1;}
   .camp-inner{
     display:grid;
     grid-template-columns:auto 1fr auto;
-    gap:16px;
+    gap:12px;
     align-items:center;
     position:relative;z-index:1;
   }
@@ -801,36 +771,25 @@
   .camp-eco{--camp-c1:#06b6d4;--camp-c2:#0891b2;}
 
   .camp-emoji{
-    width:56px;height:56px;border-radius:16px;
+    width:40px;height:40px;border-radius:12px;
     display:flex;align-items:center;justify-content:center;
-    font-size:28px;flex-shrink:0;
-    background:linear-gradient(135deg,#fff 0%,#f6edff 100%);
-    border:1.5px solid var(--camp-c1);
-    box-shadow:
-      0 4px 12px rgba(0,0,0,.06),
-      inset 0 1px 0 rgba(255,255,255,.8);
-    position:relative;
+    font-size:20px;flex-shrink:0;
+    background:#fff;border:1.5px solid var(--camp-c1);
+    box-shadow:0 2px 8px rgba(0,0,0,.04);
   }
-  .camp-emoji::before{
-    content:"";
-    position:absolute;inset:2px;border-radius:14px;
-    background:linear-gradient(135deg,rgba(255,255,255,.6),transparent);
-    pointer-events:none;
-  }
-  .camp-gcv .camp-emoji{background:linear-gradient(135deg,#f5f3ff,#ede9fe);color:#6c2b9e;border-color:#a78bfa;box-shadow:0 4px 14px rgba(139,92,246,.25);}
-  .camp-cash .camp-emoji{background:linear-gradient(135deg,#fffbeb,#fef3c7);color:#d97706;border-color:#fbbf24;box-shadow:0 4px 14px rgba(245,158,11,.25);}
-  .camp-ex .camp-emoji{background:linear-gradient(135deg,#ecfdf5,#d1fae5);color:#065f46;border-color:#34d399;box-shadow:0 4px 14px rgba(16,185,129,.25);}
-  .camp-node .camp-emoji{background:linear-gradient(135deg,#fdf2f8,#fce7f3);color:#be185d;border-color:#f9a8d4;box-shadow:0 4px 14px rgba(244,63,94,.25);}
-  .camp-eco .camp-emoji{background:linear-gradient(135deg,#ecfeff,#cffafe);color:#0891b2;border-color:#22d3ee;box-shadow:0 4px 14px rgba(6,182,212,.25);}
+  .camp-gcv .camp-emoji{background:#f5f3ff;color:#6c2b9e;border-color:#a78bfa;}
+  .camp-cash .camp-emoji{background:#fffbeb;color:#d97706;border-color:#fbbf24;}
+  .camp-ex .camp-emoji{background:#ecfdf5;color:#065f46;border-color:#34d399;}
+  .camp-node .camp-emoji{background:#fdf2f8;color:#be185d;border-color:#f9a8d4;}
+  .camp-eco .camp-emoji{background:#ecfeff;color:#0891b2;border-color:#22d3ee;}
 
   .camp-center{min-width:0;}
   .camp-title{
-    font-size:16px;font-weight:700;color:var(--pi-text);margin-bottom:5px;
-    letter-spacing:.3px;
-    display:flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:700;color:var(--pi-text);margin-bottom:3px;
+    display:flex;align-items:center;gap:6px;
   }
   .camp-tag{
-    font-size:10px;font-weight:600;padding:3px 9px;border-radius:8px;
+    font-size:8.5px;font-weight:600;padding:2px 7px;border-radius:6px;
     background:rgba(108,43,158,.08);color:var(--pi-purple);
   }
   .camp-gcv .camp-tag{background:rgba(139,92,246,.15);color:#6d28d9;}
@@ -838,58 +797,31 @@
   .camp-ex .camp-tag{background:rgba(16,185,129,.15);color:#065f46;}
   .camp-node .camp-tag{background:rgba(244,63,94,.15);color:#be185d;}
   .camp-eco .camp-tag{background:rgba(6,182,212,.15);color:#0891b2;}
-  .camp-desc{font-size:12px;color:var(--pi-muted);line-height:1.55;margin-bottom:7px;}
+  .camp-desc{font-size:11px;color:var(--pi-muted);line-height:1.4;margin-bottom:2px;}
+  .camp-desc2{font-size:10px;color:var(--pi-muted);opacity:.8;line-height:1.4;margin-bottom:4px;}
   .camp-price{
-    font-size:20px;font-weight:800;letter-spacing:.3px;
-    display:inline-flex;align-items:baseline;gap:6px;
+    font-size:15px;font-weight:700;letter-spacing:.2px;
     background:linear-gradient(135deg,var(--camp-c1) 0%,var(--camp-c2) 100%);
-    -webkit-background-clip:text;
-    background-clip:text;
+    -webkit-background-clip:text;background-clip:text;
     -webkit-text-fill-color:transparent;
-    text-shadow:0 0 20px rgba(139,92,246,.3);
   }
-  .camp-price small{font-size:12px;font-weight:500;color:var(--pi-muted);margin-left:4px;-webkit-text-fill-color:var(--pi-muted);}
+  .camp-cny{font-size:10px;color:var(--pi-muted);opacity:.85;margin-top:1px;}
 
   .camp-right{
-    display:flex;flex-direction:column;align-items:flex-end;gap:10px;
-    flex-shrink:0;min-width:160px;
+    display:flex;flex-direction:column;align-items:flex-end;gap:6px;
+    flex-shrink:0;min-width:90px;
   }
-  .camp-supporters{
-    display:flex;align-items:center;gap:6px;
-    font-size:12px;color:var(--pi-muted);
-    background:rgba(255,255,255,.8);padding:6px 12px;border-radius:22px;
-    border:1px solid rgba(108,43,158,.15);
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.9),
-      0 1px 3px rgba(0,0,0,.04);
-    position:relative;
-  }
-  .camp-supporters::before{
-    content:"";position:absolute;top:0;left:0;right:0;height:1px;
-    background:linear-gradient(90deg,transparent,var(--camp-c1),transparent);
-    opacity:.3;
-  }
-  .camp-supporters .num{font-weight:700;color:var(--camp-c2);font-size:13.5px;}
-  .camp-supporters .label{font-size:11px;}
-
-  .camp-vote{display:flex;gap:8px;}
+  .camp-vote{display:flex;gap:5px;}
   .vote-btn{
-    padding:8px 14px;border-radius:12px;
-    border:1.5px solid rgba(108,43,158,.15);background:#fff;
-    font-size:12px;font-weight:600;cursor:pointer;
-    display:flex;align-items:center;gap:5px;
-    transition:all .25s cubic-bezier(.2,.8,.2,1);font-family:inherit;color:var(--pi-text);
+    padding:5px 10px;border-radius:8px;
+    border:1px solid rgba(108,43,158,.12);background:#fff;
+    font-size:10px;font-weight:600;cursor:pointer;
+    display:flex;align-items:center;gap:3px;
+    transition:all .2s ease;font-family:inherit;color:var(--pi-text);
     white-space:nowrap;
-    box-shadow:
-      0 2px 8px rgba(0,0,0,.05),
-      inset 0 1px 0 rgba(255,255,255,.8);
-    position:relative;
-    overflow:hidden;
+    box-shadow:0 1px 4px rgba(0,0,0,.04);
   }
-  .vote-btn::before{
-    content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.5),transparent);pointer-events:none;
-  }
-  .vote-btn:hover{transform:translateY(-2px);box-shadow:0 5px 14px rgba(0,0,0,.08);}
+  .vote-btn:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.06);}
   .vote-btn:active{transform:translateY(-1px);}
   .vote-btn.like:hover{background:linear-gradient(135deg,#dcfce7,#bbf7d0);border-color:#4ade80;color:#166534;}
   .vote-btn.dislike:hover{background:linear-gradient(135deg,#fee2e2,#fecaca);border-color:#f87171;color:#991b1b;}
@@ -1335,105 +1267,95 @@
     <div class="price-card">
       <div class="camp-grid">
         <div class="camp camp-gcv" data-camp="gcv">
-          <div class="sparkle s1">✨</div>
-          <div class="sparkle s2">⭐</div>
-          <div class="sparkle s3">💎</div>
           <div class="camp-inner">
             <div class="camp-emoji">🏛️</div>
             <div class="camp-center">
               <div class="camp-title">GCV 价格 <span class="camp-tag">共识价值</span></div>
-              <div class="camp-desc">根据全球 GCV 贸易价格达成共识价值</div>
-              <div class="camp-price">$314,159 <small>≈ ￥220万</small></div>
+              <div class="camp-desc">根据全球 GCV 贸易价格</div>
+              <div class="camp-desc2">达成全球共识价值</div>
+              <div class="camp-price">$314,159</div>
+              <div class="camp-cny">≈ ￥220万</div>
             </div>
             <div class="camp-right">
-              <div class="camp-supporters"><span class="num" data-base="39222">128,456</span><span class="label">支持者</span></div>
               <div class="camp-vote">
-                <button class="vote-btn like" data-action="like" data-camp="gcv">👍<span class="count">89,234</span></button>
-                <button class="vote-btn dislike" data-action="dislike" data-camp="gcv">👎<span class="count">3,456</span></button>
+                <button class="vote-btn like" data-action="like" data-camp="gcv">👍<span class="count">89k</span></button>
+                <button class="vote-btn dislike" data-action="dislike" data-camp="gcv">👎<span class="count">3k</span></button>
               </div>
             </div>
           </div>
         </div>
 
         <div class="camp camp-ex" data-camp="ex">
-          <div class="sparkle s1">✨</div>
-          <div class="sparkle s2">⭐</div>
-          <div class="sparkle s3">💎</div>
           <div class="camp-inner">
             <div class="camp-emoji">🏦</div>
             <div class="camp-center">
               <div class="camp-title">交易所价格 <span class="camp-tag">市场行情</span></div>
-              <div class="camp-desc">全球实时交易所价格参考，浮动区间较大</div>
-              <div class="camp-price">$0.13 ~ $31 <small>≈ ￥0.91 ~ ￥217</small></div>
+              <div class="camp-desc">全球实时交易所价格</div>
+              <div class="camp-desc2">浮动区间较大仅供参考</div>
+              <div class="camp-price">$0.13 ~ $31</div>
+              <div class="camp-cny">≈ ￥0.91 ~ ￥217</div>
             </div>
             <div class="camp-right">
-              <div class="camp-supporters"><span class="num" data-base="22212">67,890</span><span class="label">支持者</span></div>
               <div class="camp-vote">
-                <button class="vote-btn like" data-action="like" data-camp="ex">👍<span class="count">45,678</span></button>
-                <button class="vote-btn dislike" data-action="dislike" data-camp="ex">👎<span class="count">8,901</span></button>
+                <button class="vote-btn like" data-action="like" data-camp="ex">👍<span class="count">45k</span></button>
+                <button class="vote-btn dislike" data-action="dislike" data-camp="ex">👎<span class="count">8k</span></button>
               </div>
             </div>
           </div>
         </div>
 
         <div class="camp camp-cash" data-camp="cash">
-          <div class="sparkle s1">✨</div>
-          <div class="sparkle s2">⭐</div>
-          <div class="sparkle s3">💎</div>
           <div class="camp-inner">
             <div class="camp-emoji">💸</div>
             <div class="camp-center">
               <div class="camp-title">变现者 <span class="camp-tag">落袋为安</span></div>
-              <div class="camp-desc">按国家监管政策，去香港合规兑换变现</div>
-              <div class="camp-price">$314,159 <small>≈ ￥220万</small></div>
+              <div class="camp-desc">按国家监管政策</div>
+              <div class="camp-desc2">去香港合规兑换变现</div>
+              <div class="camp-price">$314,159</div>
+              <div class="camp-cny">≈ ￥220万</div>
             </div>
             <div class="camp-right">
-              <div class="camp-supporters"><span class="num" data-base="21344">89,234</span><span class="label">支持者</span></div>
               <div class="camp-vote">
-                <button class="vote-btn like" data-action="like" data-camp="cash">👍<span class="count">67,890</span></button>
-                <button class="vote-btn dislike" data-action="dislike" data-camp="cash">👎<span class="count">5,678</span></button>
+                <button class="vote-btn like" data-action="like" data-camp="cash">👍<span class="count">67k</span></button>
+                <button class="vote-btn dislike" data-action="dislike" data-camp="cash">👎<span class="count">5k</span></button>
               </div>
             </div>
           </div>
         </div>
 
         <div class="camp camp-node" data-camp="node">
-          <div class="sparkle s1">✨</div>
-          <div class="sparkle s2">⭐</div>
-          <div class="sparkle s3">💎</div>
           <div class="camp-inner">
             <div class="camp-emoji">🛰️</div>
             <div class="camp-center">
               <div class="camp-title">节点者 <span class="camp-tag">算力时代</span></div>
-              <div class="camp-desc">手机挖矿已淘汰，电脑节点将成下一批红利</div>
-              <div class="camp-price">$3 ~ $314,159 <small>区间</small></div>
+              <div class="camp-desc">手机挖矿已淘汰</div>
+              <div class="camp-desc2">电脑节点成下批红利</div>
+              <div class="camp-price">$3 ~ $314,159</div>
+              <div class="camp-cny">区间参考</div>
             </div>
             <div class="camp-right">
-              <div class="camp-supporters"><span class="num" data-base="13579">56,789</span><span class="label">支持者</span></div>
               <div class="camp-vote">
-                <button class="vote-btn like" data-action="like" data-camp="node">👍<span class="count">43,210</span></button>
-                <button class="vote-btn dislike" data-action="dislike" data-camp="node">👎<span class="count">4,321</span></button>
+                <button class="vote-btn like" data-action="like" data-camp="node">👍<span class="count">43k</span></button>
+                <button class="vote-btn dislike" data-action="dislike" data-camp="node">👎<span class="count">4k</span></button>
               </div>
             </div>
           </div>
         </div>
 
         <div class="camp camp-eco" data-camp="eco">
-          <div class="sparkle s1">✨</div>
-          <div class="sparkle s2">⭐</div>
-          <div class="sparkle s3">💎</div>
           <div class="camp-inner">
             <div class="camp-emoji">🌍</div>
             <div class="camp-center">
               <div class="camp-title">生态者 <span class="camp-tag">共建生态</span></div>
-              <div class="camp-desc">跟随项目方参与生态，成为红利分享者</div>
-              <div class="camp-price">$3 ~ $314,159 <small>区间</small></div>
+              <div class="camp-desc">跟随项目方参与生态</div>
+              <div class="camp-desc2">成为红利分享者</div>
+              <div class="camp-price">$3 ~ $314,159</div>
+              <div class="camp-cny">区间参考</div>
             </div>
             <div class="camp-right">
-              <div class="camp-supporters"><span class="num" data-base="22112">78,901</span><span class="label">支持者</span></div>
               <div class="camp-vote">
-                <button class="vote-btn like" data-action="like" data-camp="eco">👍<span class="count">56,789</span></button>
-                <button class="vote-btn dislike" data-action="dislike" data-camp="eco">👎<span class="count">6,789</span></button>
+                <button class="vote-btn like" data-action="like" data-camp="eco">👍<span class="count">56k</span></button>
+                <button class="vote-btn dislike" data-action="dislike" data-camp="eco">👎<span class="count">6k</span></button>
               </div>
             </div>
           </div>
