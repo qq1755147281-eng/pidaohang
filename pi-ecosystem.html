@@ -744,29 +744,44 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 160px;
+    height: 200px;
     margin-top: 20px;
     padding: 20px;
     background: linear-gradient(135deg, rgba(108, 43, 158, 0.05) 0%, rgba(168, 85, 247, 0.05) 50%, rgba(251, 191, 36, 0.05) 100%);
     border-radius: 20px;
     overflow: hidden;
+    cursor: grab;
+  }
+  
+  .pi-rotating-container:active {
+    cursor: grabbing;
   }
   
   .pi-center-card {
     position: absolute;
-    width: 120px;
-    height: 45px;
+    width: 80px;
+    height: 80px;
     background: linear-gradient(135deg, #a855f7 0%, #6c2b9e 100%);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    font-size: 18px;
+    border-radius: 16px;
+    font-size: 20px;
     font-weight: bold;
     box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
     animation: breathing-float 3s ease-in-out infinite;
     z-index: 2;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .pi-center-card:hover {
+    transform: scale(1.1);
+  }
+  
+  .pi-center-card:active {
+    transform: scale(0.95);
   }
   
   @keyframes breathing-float {
@@ -775,72 +790,50 @@
       box-shadow: 0 4px 20px rgba(168, 85, 247, 0.4);
     }
     50% {
-      transform: translateY(-10px) scale(1.05);
+      transform: translateY(-12px) scale(1.05);
       box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
     }
   }
   
   .pi-orbit-card {
     position: absolute;
-    width: 80px;
-    height: 35px;
+    width: 70px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
-    font-size: 12px;
+    border-radius: 12px;
+    font-size: 11px;
     font-weight: bold;
     z-index: 1;
+    cursor: grab;
+    transition: box-shadow 0.2s ease;
+    user-select: none;
+    text-align: center;
+    padding: 4px;
+    box-sizing: border-box;
+  }
+  
+  .pi-orbit-card:active {
+    cursor: grabbing;
+    transform: scale(1.1);
   }
   
   .pi-orbit-left {
     background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
     color: #fff;
     box-shadow: 0 3px 15px rgba(251, 191, 36, 0.4);
-    animation: orbit-left 8s ease-in-out infinite;
   }
   
   .pi-orbit-right {
     background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
     color: #fff;
     box-shadow: 0 3px 15px rgba(236, 72, 153, 0.4);
-    animation: orbit-right 10s ease-in-out infinite;
   }
   
-  @keyframes orbit-left {
-    0% {
-      transform: rotate(0deg) translateX(-80px) rotate(0deg);
-    }
-    25% {
-      transform: rotate(90deg) translateX(-90px) rotate(-90deg);
-    }
-    50% {
-      transform: rotate(180deg) translateX(-80px) rotate(-180deg);
-    }
-    75% {
-      transform: rotate(270deg) translateX(-70px) rotate(-270deg);
-    }
-    100% {
-      transform: rotate(360deg) translateX(-80px) rotate(-360deg);
-    }
-  }
-  
-  @keyframes orbit-right {
-    0% {
-      transform: rotate(0deg) translateX(80px) rotate(0deg);
-    }
-    25% {
-      transform: rotate(-90deg) translateX(90px) rotate(90deg);
-    }
-    50% {
-      transform: rotate(-180deg) translateX(80px) rotate(180deg);
-    }
-    75% {
-      transform: rotate(-270deg) translateX(70px) rotate(270deg);
-    }
-    100% {
-      transform: rotate(-360deg) translateX(80px) rotate(360deg);
-    }
+  .pi-orbit-card.dragging {
+    z-index: 10;
+    box-shadow: 0 8px 30px rgba(168, 85, 247, 0.6);
   }
 
   @keyframes firework{
@@ -1675,6 +1668,216 @@
       playCardSound();
     });
   });
+  
+  // ============ Pi Rotating Cards Interactions ============
+  class PiRotatingCards {
+    constructor() {
+      this.container = document.querySelector('.pi-rotating-container');
+      this.centerCard = document.querySelector('.pi-center-card');
+      this.orbitCards = document.querySelectorAll('.pi-orbit-card');
+      
+      this.centerX = 0;
+      this.centerY = 0;
+      this.orbitRadius = 90;
+      
+      this.cards = [
+        {
+          element: this.orbitCards[0],
+          angle: 0,
+          speed: 0.015 + Math.random() * 0.01,
+          baseSpeed: 0.015,
+          offsetRadius: 0,
+          isDragging: false,
+          startX: 0,
+          startY: 0,
+          dragOffsetX: 0,
+          dragOffsetY: 0,
+          returnProgress: 0
+        },
+        {
+          element: this.orbitCards[1],
+          angle: Math.PI,
+          speed: -(0.012 + Math.random() * 0.01),
+          baseSpeed: -0.012,
+          offsetRadius: 0,
+          isDragging: false,
+          startX: 0,
+          startY: 0,
+          dragOffsetX: 0,
+          dragOffsetY: 0,
+          returnProgress: 0
+        }
+      ];
+      
+      this.init();
+    }
+    
+    init() {
+      this.updateCenter();
+      this.setupEventListeners();
+      this.animate();
+    }
+    
+    updateCenter() {
+      const rect = this.container.getBoundingClientRect();
+      this.centerX = rect.width / 2;
+      this.centerY = rect.height / 2;
+    }
+    
+    setupEventListeners() {
+      this.centerCard.addEventListener('click', () => this.playCenterSound());
+      
+      this.cards.forEach((card, index) => {
+        card.element.addEventListener('mousedown', (e) => this.onDragStart(e, index));
+        card.element.addEventListener('touchstart', (e) => this.onTouchStart(e, index), { passive: true });
+      });
+      
+      document.addEventListener('mousemove', (e) => this.onDragMove(e));
+      document.addEventListener('mouseup', () => this.onDragEnd());
+      document.addEventListener('touchmove', (e) => this.onTouchMove(e), { passive: true });
+      document.addEventListener('touchend', () => this.onDragEnd());
+      
+      window.addEventListener('resize', () => this.updateCenter());
+      
+      this.cards.forEach((card, index) => {
+        card.element.addEventListener('click', () => this.playOrbitSound(index));
+      });
+    }
+    
+    onDragStart(e, index) {
+      const card = this.cards[index];
+      if (card.isDragging) return;
+      
+      card.isDragging = true;
+      card.element.classList.add('dragging');
+      
+      const rect = this.container.getBoundingClientRect();
+      card.startX = e.clientX - rect.left;
+      card.startY = e.clientY - rect.top;
+      
+      const currentStyle = window.getComputedStyle(card.element);
+      card.dragOffsetX = parseFloat(currentStyle.left) || 0;
+      card.dragOffsetY = parseFloat(currentStyle.top) || 0;
+    }
+    
+    onTouchStart(e, index) {
+      const touch = e.touches[0];
+      this.onDragStart({ clientX: touch.clientX, clientY: touch.clientY }, index);
+    }
+    
+    onDragMove(e) {
+      this.cards.forEach(card => {
+        if (card.isDragging) {
+          const rect = this.container.getBoundingClientRect();
+          const x = e.clientX - rect.left - card.startX + card.dragOffsetX;
+          const y = e.clientY - rect.top - card.startY + card.dragOffsetY;
+          
+          card.element.style.left = x + 'px';
+          card.element.style.top = y + 'px';
+          card.element.style.transform = 'scale(1.1)';
+        }
+      });
+    }
+    
+    onTouchMove(e) {
+      const touch = e.touches[0];
+      this.onDragMove({ clientX: touch.clientX, clientY: touch.clientY });
+    }
+    
+    onDragEnd() {
+      this.cards.forEach(card => {
+        if (card.isDragging) {
+          card.isDragging = false;
+          card.element.classList.remove('dragging');
+          card.returnProgress = 0;
+        }
+      });
+    }
+    
+    animate() {
+      this.cards.forEach((card, index) => {
+        if (!card.isDragging) {
+          if (card.returnProgress < 1) {
+            card.returnProgress += 0.08;
+            
+            const currentLeft = parseFloat(card.element.style.left) || 0;
+            const currentTop = parseFloat(card.element.style.top) || 0;
+            
+            const targetX = this.centerX - 35 + Math.cos(card.angle) * (this.orbitRadius + card.offsetRadius);
+            const targetY = this.centerY - 35 + Math.sin(card.angle) * (this.orbitRadius + card.offsetRadius) * 0.4;
+            
+            const easeProgress = 1 - Math.pow(1 - card.returnProgress, 3);
+            const x = currentLeft + (targetX - currentLeft) * easeProgress;
+            const y = currentTop + (targetY - currentTop) * easeProgress;
+            
+            card.element.style.left = x + 'px';
+            card.element.style.top = y + 'px';
+            card.element.style.transform = `scale(${1 + (1 - easeProgress) * 0.1})`;
+          } else {
+            card.angle += card.speed;
+            
+            card.speed += (Math.random() - 0.5) * 0.002;
+            card.speed = Math.max(-0.03, Math.min(0.03, card.speed));
+            
+            card.offsetRadius = Math.sin(Date.now() * 0.002 + index) * 15;
+            
+            const x = this.centerX - 35 + Math.cos(card.angle) * (this.orbitRadius + card.offsetRadius);
+            const y = this.centerY - 35 + Math.sin(card.angle) * (this.orbitRadius + card.offsetRadius) * 0.4;
+            
+            card.element.style.left = x + 'px';
+            card.element.style.top = y + 'px';
+            card.element.style.transform = 'scale(1)';
+          }
+        }
+      });
+      
+      requestAnimationFrame(() => this.animate());
+    }
+    
+    playCenterSound() {
+      playTone(880, { duration: 0.1, type: 'sine', volume: 0.2 });
+      setTimeout(() => playTone(1100, { duration: 0.12, type: 'sine', volume: 0.18 }), 80);
+      setTimeout(() => playTone(1320, { duration: 0.15, type: 'triangle', volume: 0.15 }), 160);
+      
+      const rect = this.centerCard.getBoundingClientRect();
+      const containerRect = this.container.getBoundingClientRect();
+      createFireworks(
+        rect.left - containerRect.left + rect.width / 2,
+        rect.top - containerRect.top + rect.height / 2,
+        ['#a855f7', '#c084fc', '#6c2b9e']
+      );
+    }
+    
+    playOrbitSound(index) {
+      if (this.cards[index].isDragging) return;
+      
+      if (index === 0) {
+        playTone(520, { duration: 0.08, type: 'triangle', volume: 0.2 });
+        setTimeout(() => playTone(659, { duration: 0.1, type: 'sine', volume: 0.18 }), 60);
+        setTimeout(() => playTone(784, { duration: 0.12, type: 'triangle', volume: 0.15 }), 120);
+        
+        createFireworks(
+          parseFloat(this.cards[index].element.style.left) + 35,
+          parseFloat(this.cards[index].element.style.top) + 35,
+          ['#fbbf24', '#f59e0b', '#fcd34d']
+        );
+      } else {
+        playTone(659, { duration: 0.08, type: 'sawtooth', volume: 0.22 });
+        setTimeout(() => playTone(880, { duration: 0.1, type: 'sine', volume: 0.18 }), 60);
+        setTimeout(() => playTone(1047, { duration: 0.14, type: 'sine', volume: 0.14 }), 120);
+        
+        createFireworks(
+          parseFloat(this.cards[index].element.style.left) + 35,
+          parseFloat(this.cards[index].element.style.top) + 35,
+          ['#ec4899', '#db2777', '#f472b6']
+        );
+      }
+    }
+  }
+  
+  setTimeout(() => {
+    new PiRotatingCards();
+  }, 500);
 
   // ============ Eco Modal (black / dark-blue tech-style) ============
   const ecoMask = document.getElementById('ecoModalMask');
