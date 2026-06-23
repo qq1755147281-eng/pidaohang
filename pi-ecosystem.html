@@ -755,36 +755,6 @@
     cursor: grabbing;
   }
   
-  .pi-3d-controls {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-  }
-  
-  .control-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #6c2b9e 0%, #a855f7 100%);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 15px rgba(108, 43, 158, 0.3);
-  }
-  
-  .control-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(108, 43, 158, 0.4);
-  }
-  
-  .control-btn:active {
-    transform: translateY(0);
-  }
-  
   .pi-3d-hint {
     font-size: 12px;
     color: #9ca3af;
@@ -1331,12 +1301,7 @@
     
     <div class="pi-3d-container">
       <canvas id="pi3DCanvas"></canvas>
-      <div class="pi-3d-controls">
-        <div class="control-btn" id="zoomIn">🔍+</div>
-        <div class="control-btn" id="zoomOut">🔍-</div>
-        <div class="control-btn" id="resetView">🔄</div>
-      </div>
-      <div class="pi-3d-hint">拖动旋转 · 滚轮缩放 · 点击小球</div>
+      <div class="pi-3d-hint">点击小球触发特效</div>
     </div>
 
   </section>
@@ -1805,82 +1770,25 @@
       this.canvas.width = this.width;
       this.canvas.height = this.height;
       
-      this.rotationX = 0.3;
-      this.rotationY = 0;
-      this.targetRotationX = 0.3;
-      this.targetRotationY = 0;
-      this.scale = 1;
-      this.targetScale = 1;
-      
-      this.isDragging = false;
-      this.lastX = 0;
-      this.lastY = 0;
-      
       this.rings = [
-        { radius: 80, color: '#fbbf24', speed: 0.008, phase: 0 },
-        { radius: 95, color: '#a855f7', speed: -0.006, phase: Math.PI }
+        { radius: 80, color: '#fbbf24', speed: 0.02, phase: 0 },
+        { radius: 95, color: '#a855f7', speed: -0.025, phase: Math.PI }
       ];
       
       this.balls = [
-        { angle: 0, radius: 60, color: '#fbbf24', size: 18, speed: 0.02, floatSpeed: 0.03, floatAmplitude: 8 },
-        { angle: 2.094, radius: 60, color: '#a855f7', size: 16, speed: 0.025, floatSpeed: 0.04, floatAmplitude: 10 },
-        { angle: 4.188, radius: 60, color: '#ec4899', size: 17, speed: 0.018, floatSpeed: 0.035, floatAmplitude: 9 }
+        { x: 120, y: 120, vx: 0.3, vy: 0.4, color: '#fbbf24', size: 20, wobbleSpeed: 0.02, wobbleAmplitude: 3 },
+        { x: 200, y: 180, vx: -0.25, vy: -0.35, color: '#a855f7', size: 18, wobbleSpeed: 0.025, wobbleAmplitude: 4 },
+        { x: 280, y: 140, vx: 0.35, vy: -0.28, color: '#ec4899', size: 19, wobbleSpeed: 0.03, wobbleAmplitude: 3.5 }
       ];
+      
+      this.boundaryPadding = 30;
       
       this.init();
     }
     
     init() {
-      this.canvas.addEventListener('mousedown', this.onMouseDown.bind(this));
-      this.canvas.addEventListener('mousemove', this.onMouseMove.bind(this));
-      this.canvas.addEventListener('mouseup', this.onMouseUp.bind(this));
-      this.canvas.addEventListener('mouseleave', this.onMouseUp.bind(this));
-      this.canvas.addEventListener('wheel', this.onWheel.bind(this), { passive: false });
-      
-      document.getElementById('zoomIn').addEventListener('click', () => {
-        this.targetScale = Math.min(this.targetScale * 1.2, 2);
-      });
-      document.getElementById('zoomOut').addEventListener('click', () => {
-        this.targetScale = Math.max(this.targetScale / 1.2, 0.5);
-      });
-      document.getElementById('resetView').addEventListener('click', () => {
-        this.targetRotationX = 0.3;
-        this.targetRotationY = 0;
-        this.targetScale = 1;
-      });
-      
       this.canvas.addEventListener('click', this.onClick.bind(this));
-      
       this.animate();
-    }
-    
-    onMouseDown(e) {
-      this.isDragging = true;
-      this.lastX = e.clientX;
-      this.lastY = e.clientY;
-    }
-    
-    onMouseMove(e) {
-      if (!this.isDragging) return;
-      const deltaX = e.clientX - this.lastX;
-      const deltaY = e.clientY - this.lastY;
-      
-      this.targetRotationY += deltaX * 0.01;
-      this.targetRotationX += deltaY * 0.01;
-      this.targetRotationX = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, this.targetRotationX));
-      
-      this.lastX = e.clientX;
-      this.lastY = e.clientY;
-    }
-    
-    onMouseUp() {
-      this.isDragging = false;
-    }
-    
-    onWheel(e) {
-      e.preventDefault();
-      this.targetScale += e.deltaY * -0.001;
-      this.targetScale = Math.max(0.5, Math.min(2, this.targetScale));
     }
     
     onClick(e) {
@@ -1888,51 +1796,18 @@
       const x = (e.clientX - rect.left) * (this.width / rect.width);
       const y = (e.clientY - rect.top) * (this.height / rect.height);
       
-      const centerX = this.width / 2;
-      const centerY = this.height / 2;
-      
       for (let i = 0; i < this.balls.length; i++) {
         const ball = this.balls[i];
-        const floatOffset = Math.sin(ball.angle * ball.floatSpeed * Date.now() * 0.001) * ball.floatAmplitude;
-        
-        const worldX = Math.cos(ball.angle) * ball.radius;
-        const worldY = floatOffset;
-        const worldZ = Math.sin(ball.angle) * ball.radius;
-        
-        const projected = this.project(worldX, worldY, worldZ);
-        
-        const dx = projected.x - x;
-        const dy = projected.y - y;
+        const dx = ball.x - x;
+        const dy = ball.y - y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < ball.size * this.scale) {
+        if (distance < ball.size) {
           this.playBallSound(i);
-          this.createClickEffect(projected.x, projected.y);
+          this.createClickEffect(ball.x, ball.y, i);
           break;
         }
       }
-    }
-    
-    project(x, y, z) {
-      const cosX = Math.cos(this.rotationX);
-      const sinX = Math.sin(this.rotationX);
-      const cosY = Math.cos(this.rotationY);
-      const sinY = Math.sin(this.rotationY);
-      
-      const rotatedX = x * cosY - z * sinY;
-      const rotatedZ = x * sinY + z * cosY;
-      const rotatedY = y * cosX - rotatedZ * sinX;
-      const finalZ = y * sinX + rotatedZ * cosX;
-      
-      const fov = 250;
-      const scale = fov / (fov + finalZ);
-      
-      return {
-        x: this.width / 2 + rotatedX * scale * this.scale,
-        y: this.height / 2 - rotatedY * scale * this.scale,
-        z: finalZ,
-        scale: scale * this.scale
-      };
     }
     
     drawRing(ring) {
@@ -1940,46 +1815,42 @@
       const centerY = this.height / 2;
       
       this.ctx.beginPath();
-      this.ctx.arc(centerX, centerY, ring.radius * this.scale, 0, Math.PI * 2);
+      this.ctx.arc(centerX, centerY, ring.radius, 0, Math.PI * 2);
       this.ctx.strokeStyle = ring.color;
-      this.ctx.lineWidth = 3 * this.scale;
+      this.ctx.lineWidth = 3;
       this.ctx.shadowColor = ring.color;
       this.ctx.shadowBlur = 15;
       this.ctx.stroke();
       this.ctx.shadowBlur = 0;
       
       this.ctx.beginPath();
-      this.ctx.arc(centerX, centerY, ring.radius * this.scale, 0, Math.PI * 2);
+      this.ctx.arc(centerX, centerY, ring.radius, 0, Math.PI * 2);
       this.ctx.strokeStyle = ring.color + '40';
-      this.ctx.lineWidth = 8 * this.scale;
+      this.ctx.lineWidth = 8;
       this.ctx.stroke();
     }
     
-    drawBall(ball) {
-      const floatOffset = Math.sin(ball.angle * ball.floatSpeed * Date.now() * 0.001) * ball.floatAmplitude;
+    drawBall(ball, time) {
+      const wobbleX = Math.sin(time * ball.wobbleSpeed) * ball.wobbleAmplitude;
+      const wobbleY = Math.cos(time * ball.wobbleSpeed * 1.3) * ball.wobbleAmplitude;
       
-      const worldX = Math.cos(ball.angle) * ball.radius;
-      const worldY = floatOffset;
-      const worldZ = Math.sin(ball.angle) * ball.radius;
-      
-      const projected = this.project(worldX, worldY, worldZ);
-      
-      if (projected.z < -50) return;
+      const drawX = ball.x + wobbleX;
+      const drawY = ball.y + wobbleY;
       
       const gradient = this.ctx.createRadialGradient(
-        projected.x - ball.size * projected.scale * 0.3,
-        projected.y - ball.size * projected.scale * 0.3,
+        drawX - ball.size * 0.3,
+        drawY - ball.size * 0.3,
         0,
-        projected.x,
-        projected.y,
-        ball.size * projected.scale
+        drawX,
+        drawY,
+        ball.size
       );
       gradient.addColorStop(0, '#ffffff');
       gradient.addColorStop(0.3, ball.color);
       gradient.addColorStop(1, ball.color + '80');
       
       this.ctx.beginPath();
-      this.ctx.arc(projected.x, projected.y, ball.size * projected.scale, 0, Math.PI * 2);
+      this.ctx.arc(drawX, drawY, ball.size, 0, Math.PI * 2);
       this.ctx.fillStyle = gradient;
       this.ctx.shadowColor = ball.color;
       this.ctx.shadowBlur = 20;
@@ -1987,43 +1858,104 @@
       this.ctx.shadowBlur = 0;
       
       this.ctx.fillStyle = '#1f2937';
-      this.ctx.font = `bold ${ball.size * 0.7 * projected.scale}px Arial`;
+      this.ctx.font = `bold ${ball.size * 0.7}px Arial`;
       this.ctx.textAlign = 'center';
       this.ctx.textBaseline = 'middle';
-      this.ctx.fillText('π', projected.x, projected.y);
+      this.ctx.fillText('π', drawX, drawY);
       
-      return projected;
+      return { x: drawX, y: drawY };
     }
     
-    createClickEffect(x, y) {
-      for (let i = 0; i < 12; i++) {
-        const angle = (i / 12) * Math.PI * 2;
-        const length = 30 + Math.random() * 20;
+    createClickEffect(x, y, ballIndex) {
+      const effects = [
+        { colors: ['#fbbf24', '#f59e0b', '#fcd34d', '#fde68a'], particles: 15, spread: 45 },
+        { colors: ['#a855f7', '#7c3aed', '#c084fc', '#ddd6fe'], particles: 12, spread: 35 },
+        { colors: ['#ec4899', '#db2777', '#f472b6', '#fbcfe8'], particles: 18, spread: 50 }
+      ];
+      
+      const effect = effects[ballIndex];
+      
+      for (let i = 0; i < effect.particles; i++) {
+        const angle = (i / effect.particles) * Math.PI * 2 + Math.random() * 0.5;
+        const length = 30 + Math.random() * effect.spread;
+        const color = effect.colors[i % effect.colors.length];
+        const delay = i * 20;
         
         setTimeout(() => {
           this.ctx.beginPath();
           this.ctx.moveTo(x, y);
           this.ctx.lineTo(
-            x + Math.cos(angle) * length * this.scale,
-            y + Math.sin(angle) * length * this.scale
+            x + Math.cos(angle) * length,
+            y + Math.sin(angle) * length
           );
-          this.ctx.strokeStyle = '#fbbf24';
-          this.ctx.lineWidth = 2 * this.scale;
-          this.ctx.shadowColor = '#fbbf24';
+          this.ctx.strokeStyle = color;
+          this.ctx.lineWidth = 2;
+          this.ctx.shadowColor = color;
           this.ctx.shadowBlur = 10;
           this.ctx.stroke();
           this.ctx.shadowBlur = 0;
-        }, i * 30);
+        }, delay);
       }
       
-      setTimeout(() => this.clear(), 500);
+      for (let i = 0; i < 8; i++) {
+        const particle = {
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.5) * 8,
+          size: 3 + Math.random() * 4,
+          color: effect.colors[i % effect.colors.length],
+          life: 1
+        };
+        
+        setTimeout(() => {
+          let step = 0;
+          const animateParticle = () => {
+            this.ctx.beginPath();
+            this.ctx.arc(particle.x, particle.y, particle.size * particle.life, 0, Math.PI * 2);
+            this.ctx.fillStyle = particle.color;
+            this.ctx.shadowColor = particle.color;
+            this.ctx.shadowBlur = 15;
+            this.ctx.fill();
+            this.ctx.shadowBlur = 0;
+            
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            particle.vy += 0.15;
+            particle.vx *= 0.98;
+            particle.vy *= 0.98;
+            particle.life -= 0.05;
+            
+            if (particle.life > 0) {
+              requestAnimationFrame(animateParticle);
+            }
+          };
+          animateParticle();
+        }, i * 15);
+      }
+      
+      setTimeout(() => this.clear(), 800);
     }
     
     playBallSound(index) {
       const sounds = [
-        () => { playTone(523.25, {duration:0.15, type:'sine', volume:0.25}); setTimeout(()=>playTone(659.25, {duration:0.15, type:'sine', volume:0.2}), 80); },
-        () => { playTone(659.25, {duration:0.15, type:'triangle', volume:0.25}); setTimeout(()=>playTone(783.99, {duration:0.15, type:'triangle', volume:0.2}), 80); },
-        () => { playTone(783.99, {duration:0.15, type:'sawtooth', volume:0.25}); setTimeout(()=>playTone(1046.50, {duration:0.15, type:'sawtooth', volume:0.2}), 80); }
+        () => {
+          playTone(523.25, {duration:0.1, type:'sine', volume:0.3});
+          setTimeout(() => playTone(659.25, {duration:0.12, type:'sine', volume:0.25}), 60);
+          setTimeout(() => playTone(783.99, {duration:0.15, type:'triangle', volume:0.2}), 120);
+        },
+        () => {
+          playTone(440, {duration:0.08, type:'triangle', volume:0.28});
+          setTimeout(() => playTone(554.37, {duration:0.1, type:'triangle', volume:0.24}), 50);
+          setTimeout(() => playTone(659.25, {duration:0.12, type:'sine', volume:0.2}), 100);
+          setTimeout(() => playTone(880, {duration:0.15, type:'sine', volume:0.18}), 160);
+        },
+        () => {
+          playTone(659.25, {duration:0.08, type:'sawtooth', volume:0.3});
+          setTimeout(() => playTone(880, {duration:0.1, type:'sawtooth', volume:0.26}), 60);
+          setTimeout(() => playTone(1046.50, {duration:0.12, type:'sine', volume:0.22}), 120);
+          setTimeout(() => playTone(1318.51, {duration:0.18, type:'sine', volume:0.15}), 180);
+        }
       ];
       sounds[index]();
     }
@@ -2035,30 +1967,43 @@
     animate() {
       this.clear();
       
-      this.rotationX += (this.targetRotationX - this.rotationX) * 0.1;
-      this.rotationY += (this.targetRotationY - this.rotationY) * 0.1;
-      this.scale += (this.targetScale - this.scale) * 0.1;
-      
       this.rings.forEach(ring => {
         ring.phase += ring.speed;
       });
       
-      this.balls.forEach(ball => {
-        ball.angle += ball.speed;
-      });
+      const time = Date.now();
       
-      const projectedBalls = this.balls.map(ball => this.drawBall(ball));
-      projectedBalls.sort((a, b) => (a.z || 0) - (b.z || 0));
+      this.balls.forEach(ball => {
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+        
+        if (ball.x < ball.size + this.boundaryPadding || ball.x > this.width - ball.size - this.boundaryPadding) {
+          ball.vx *= -1;
+          ball.x = Math.max(ball.size + this.boundaryPadding, Math.min(this.width - ball.size - this.boundaryPadding, ball.x));
+        }
+        if (ball.y < ball.size + this.boundaryPadding || ball.y > this.height - ball.size - this.boundaryPadding) {
+          ball.vy *= -1;
+          ball.y = Math.max(ball.size + this.boundaryPadding, Math.min(this.height - ball.size - this.boundaryPadding, ball.y));
+        }
+        
+        ball.vx += (Math.random() - 0.5) * 0.05;
+        ball.vy += (Math.random() - 0.5) * 0.05;
+        
+        ball.vx = Math.max(-0.8, Math.min(0.8, ball.vx));
+        ball.vy = Math.max(-0.8, Math.min(0.8, ball.vy));
+      });
       
       this.rings.forEach(ring => this.drawRing(ring));
       
-      this.rings.forEach((ring, i) => {
+      this.balls.forEach(ball => this.drawBall(ball, time));
+      
+      this.rings.forEach((ring) => {
         const angle = ring.phase;
-        const x = this.width / 2 + Math.cos(angle) * ring.radius * this.scale;
-        const y = this.height / 2 + Math.sin(angle) * ring.radius * 0.3 * this.scale;
+        const x = this.width / 2 + Math.cos(angle) * ring.radius;
+        const y = this.height / 2 + Math.sin(angle) * ring.radius * 0.3;
         
         this.ctx.beginPath();
-        this.ctx.arc(x, y, 4 * this.scale, 0, Math.PI * 2);
+        this.ctx.arc(x, y, 4, 0, Math.PI * 2);
         this.ctx.fillStyle = ring.color;
         this.ctx.shadowColor = ring.color;
         this.ctx.shadowBlur = 10;
