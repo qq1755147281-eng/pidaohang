@@ -1195,7 +1195,7 @@
           <div class="carousel-content">
             <div class="carousel-title">Pi 生态导航 · 精选优质应用</div>
             <div class="carousel-sub">本生态将集合所有经过筛选的、正能量且可落地的 Pi 币生态进行展示。当前展示的所有生态均由生态团队组织创建，目前免费且无盈利。</div>
-            <a class="carousel-btn" href="#" target="_blank" rel="noopener">了解更多 →</a>
+            <a class="carousel-btn explore-btn" href="#" target="_blank" rel="noopener">了解更多 →</a>
           </div>
         </div>
         <div class="carousel-slide s3 did-card">
@@ -1569,6 +1569,43 @@
       main.scrollTo({top:0, behavior:'smooth'});
     });
   });
+  
+  document.querySelector('.explore-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const rect = this.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    
+    createExploreFireworks(x, y);
+    playExploreSound();
+  });
+  
+  function createExploreFireworks(x, y) {
+    const colors = ['#6c2b9e', '#a855f7', '#c084fc', '#fbbf24', '#f59e0b'];
+    const container = document.querySelector('.home-carousel') || document.body;
+    
+    for(let i = 0; i < 15; i++) {
+      const fw = document.createElement('div');
+      fw.className = 'firework';
+      fw.style.left = x + 'px';
+      fw.style.top = y + 'px';
+      fw.style.background = colors[i % colors.length];
+      fw.style.animationDelay = (i * 0.04) + 's';
+      fw.style.transform = `scale(${0.6 + Math.random() * 0.4}) translateY(0) rotate(${i * 24}deg)`;
+      fw.style.setProperty('--tx', (Math.random() - 0.5) * 100 + 'px');
+      fw.style.setProperty('--ty', -50 - Math.random() * 50 + 'px');
+      container.appendChild(fw);
+      setTimeout(() => fw.remove(), 900);
+    }
+  }
+  
+  function playExploreSound() {
+    playTone(660, {duration:0.08, type:'sine', volume:0.25});
+    setTimeout(() => playTone(880, {duration:0.1, type:'triangle', volume:0.22}), 50);
+    setTimeout(() => playTone(1100, {duration:0.12, type:'sine', volume:0.2}), 100);
+    setTimeout(() => playTone(1320, {duration:0.15, type:'triangle', volume:0.18}), 160);
+  }
 
   // ============ Eco Modal (black / dark-blue tech-style) ============
   const ecoMask = document.getElementById('ecoModalMask');
