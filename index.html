@@ -307,7 +307,7 @@
   .btn.primary:hover{box-shadow:0 4px 12px rgba(108,43,158,.25);}
   .btn-icon{font-size:16px;line-height:1;}
 
-  /* ============ Home Panel: 41 Apps Flat Grid (compact) ============ */
+  /* ============ Home Panel: 16 Apps Grid (Pi 浏览器直达应用) ============ */
   .home-grid-section{
     margin-bottom:8px;
   }
@@ -340,28 +340,174 @@
   .home-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:18px 6px;
+    gap:14px 8px;
     padding:10px 20px 24px;
     max-width:900px;margin:0 auto;
   }
   .app-item{
-    display:flex;flex-direction:column;align-items:center;gap:6px;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
     cursor:pointer;
     transition:transform .15s ease;
     text-decoration:none;color:inherit;
   }
   .app-item:hover{transform:translateY(-2px);}
   .app-icon{
-    width:50px;height:50px;border-radius:14px;
-    background:linear-gradient(135deg,#fff 0%,#f6edff 100%);
+    width:76px;height:76px;
+    aspect-ratio:1/1;
+    flex-shrink:0;
+    flex-grow:0;
+    border-radius:20px;
+    background:linear-gradient(135deg,#ffffff 0%,#f6edff 100%);
     border:1.5px solid var(--pi-purple-light);
     display:flex;align-items:center;justify-content:center;
-    color:var(--pi-purple);font-size:20px;font-weight:700;
-    box-shadow:0 2px 8px rgba(108,43,158,.08);
+    color:var(--pi-purple);font-size:32px;font-weight:700;
+    box-shadow:0 4px 14px rgba(108,43,158,.12);
+    text-shadow:0 1px 2px rgba(0,0,0,.06);
+    overflow:hidden;
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+    vertical-align:top;
   }
-  .app-icon .pi{font-size:18px;}
+  .app-icon .pi{font-size:24px;}
+  .app-icon img{
+    width:100%!important;height:100%!important;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    object-position:center;
+    border-radius:14px;
+    display:block;
+    margin:0;padding:0;
+    box-sizing:border-box;
+  }
   .app-item:nth-child(odd) .app-icon{background:linear-gradient(135deg,#fff 0%,#fff3e0 100%);}
-  .app-name{font-size:11px;color:var(--pi-text);text-align:center;line-height:1.2;max-width:70px;}
+  .app-name{font-size:11.5px;color:var(--pi-text);text-align:center;line-height:1.25;max-width:80px;font-weight:500;}
+
+  /* ============ 精选第一行（无需签到应用·白色加大字体） ============ */
+  .featured-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    padding:14px 20px 18px;
+    max-width:900px;
+    margin:0 auto;
+  }
+  .featured-card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    padding:18px 10px 14px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#4c1d95 0%,#7c2d12 100%);
+    box-shadow:0 6px 18px rgba(76,29,149,.35), inset 0 1px 0 rgba(255,255,255,.15);
+    border:1.5px solid rgba(255,255,255,.18);
+    cursor:pointer;
+    transition:transform .2s ease, box-shadow .2s ease;
+    overflow:hidden;
+  }
+  .featured-card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 50% 0%, rgba(251,191,36,.18), transparent 60%);
+    pointer-events:none;
+  }
+  .featured-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(76,29,149,.45), inset 0 1px 0 rgba(255,255,255,.2);}
+  .featured-card .app-icon{
+    width:88px;height:88px;
+    border-radius:18px;
+    box-shadow:0 6px 16px rgba(0,0,0,.35);
+  }
+  .featured-card .app-icon svg{
+    width:88px!important;
+    height:88px!important;
+  }
+  .featured-card .app-name{
+    color:#ffffff;
+    font-size:16px;
+    font-weight:800;
+    letter-spacing:.8px;
+    text-shadow:0 2px 4px rgba(0,0,0,.6);
+    max-width:none;
+  }
+  .featured-card .featured-tag{
+    position:absolute;
+    top:6px;right:6px;
+    font-size:10px;
+    color:#fff5f5;
+    background:linear-gradient(135deg,#dc2626 0%,#991b1b 100%);
+    padding:3px 8px;
+    border-radius:7px;
+    font-weight:700;
+    letter-spacing:.4px;
+    box-shadow:0 2px 5px rgba(220,38,38,.5);
+    white-space:nowrap;
+    border:1px solid rgba(255,255,255,.25);
+  }
+
+  /* ============ 强制统一所有16个图标大小为正方形 ============ */
+  .home-grid .app-icon,
+  .home-grid-section .app-icon,
+  [class*="grid"] .app-icon,
+  .app-item > .app-icon,
+  .app-icon{
+    width:76px!important;
+    height:76px!important;
+    min-width:76px!important;
+    min-height:76px!important;
+    max-width:76px!important;
+    max-height:76px!important;
+    aspect-ratio:1/1!important;
+    flex:0 0 76px!important;
+  }
+  .home-grid .app-icon img,
+  .home-grid-section .app-icon img,
+  [class*="grid"] .app-icon img,
+  .app-item > .app-icon img,
+  .app-icon img{
+    width:76px!important;
+    height:76px!important;
+    aspect-ratio:1/1!important;
+    object-fit:cover!important;
+    object-position:center!important;
+  }
+  /* ============ SVG 内嵌图标支持（纯代码永久图标） ============ */
+  .app-icon svg{
+    width:76px!important;
+    height:76px!important;
+    aspect-ratio:1/1!important;
+    display:block!important;
+    border-radius:14px;
+  }
+  .app-icon > *{
+    width:100%!important;
+    height:100%!important;
+  }
+  /* ============ Dark Mode (Auto) ============ */
+  @media (prefers-color-scheme: dark){
+    :root{
+      --pi-bg:#0d0820;
+      --pi-text:#ece6ff;
+      --pi-muted:#a89bc4;
+      --pi-card:#1a1138;
+      --pi-border:#2d2058;
+    }
+    body{background:var(--pi-bg);color:var(--pi-text);}
+    .section-info h3{color:var(--pi-text);}
+    .section-info p{color:var(--pi-muted);}
+    .section-count{background:linear-gradient(135deg,#2d2058 0%,#3a2864 100%);border-color:rgba(168,125,199,.35);color:#c9b6e8;}
+    .home-grid-section .app-icon{
+      background:linear-gradient(135deg,#1f1542 0%,#2d2058 100%) !important;
+      border-color:rgba(168,125,199,.4);
+      box-shadow:0 4px 18px rgba(0,0,0,.55), 0 0 0 1px rgba(168,125,199,.12) inset;
+      color:#f0e6ff;
+      text-shadow:0 0 12px rgba(255,255,255,.18), 0 1px 3px rgba(0,0,0,.4);
+    }
+    .app-item:nth-child(odd) .home-grid-section .app-icon{background:linear-gradient(135deg,#2a1a3a 0%,#3a2a55 100%) !important;}
+    .app-name{color:#d8c9f0;}
+  }
 
   /* ============ Purple Glow Divider (breathing effect) ============ */
   .divider-glow{
@@ -557,6 +703,68 @@
   .eco-copy-btn.copied{
     background:linear-gradient(135deg,#10b981 0%,#059669 100%);
   }
+  /* === 长方形图片（扫码图）替代邀请码 === */
+  .eco-image-box{
+    margin-bottom:10px;
+    position:relative;z-index:2;
+  }
+  .eco-rect-card{
+    display:flex;
+    align-items:stretch;
+    width:100%;
+    height:130px;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 4px 14px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.15);
+    animation: eco-rect-glow 2.4s ease-in-out infinite;
+  }
+  .eco-rect-umap{ background:#22c55e; }
+  .eco-rect-party{ background:linear-gradient(135deg,#ef4444 0%,#dc2626 50%,#b91c1c 100%); }
+  @keyframes eco-rect-glow{
+    0%,100%{ box-shadow:0 4px 14px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.15), 0 0 0 rgba(255,255,255,0); }
+    50%{ box-shadow:0 4px 14px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.25), 0 0 18px rgba(255,255,255,.18); }
+  }
+  .eco-rect-text{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    color:#fff;
+    font-weight:900;
+    text-shadow:0 1px 2px rgba(0,0,0,.2);
+    padding:8px 6px;
+  }
+  .eco-rect-line{
+    font-size:18px;
+    line-height:1.15;
+    letter-spacing:2px;
+  }
+  .eco-rect-qr{
+    width:130px;height:130px;
+    background:#fff;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+  .eco-rect-qr canvas{
+    width:130px!important;
+    height:130px!important;
+    display:block;
+  }
+  .eco-rect-qr img.eco-qr-img{
+    width:130px!important;
+    height:130px!important;
+    display:block;
+    object-fit:contain;
+    background:#fff;
+  }
+  .eco-qr-svg{
+    width:100%;height:100%;
+    display:block;
+  }
   .eco-btn-row{
     display:flex;gap:8px;position:relative;z-index:2;
   }
@@ -587,6 +795,13 @@
   .eco-modal.coming-soon .eco-modal-icon{filter:grayscale(.65) opacity(.85);}
   .eco-modal.coming-soon .eco-code-box,
   .eco-modal.coming-soon .eco-btn.enter{display:none;}
+  /* === 显示二维码时只保留"返回"按钮，隐藏"进入生态" === */
+  .eco-modal.show-qr .eco-btn.enter{display:none;}
+  .eco-modal.show-qr .eco-btn-row .eco-btn.back{flex:1;}
+  .eco-modal.show-qr .eco-code-box{display:none;}
+  /* === 永久二维码SVG样式 === */
+  .eco-qr-svg{width:100%;height:100%;display:block;}
+  .eco-qr-svg rect{fill:#000;}
   .eco-modal.coming-soon .eco-btn.back{flex:1;}
   .eco-modal.coming-soon .eco-modal-desc{background:linear-gradient(135deg,rgba(255,200,80,.12),rgba(165,94,234,.12));border:1px solid rgba(255,200,80,.35);}
   .eco-modal.coming-soon .eco-modal-desc p{color:#ffd89b;font-size:13px;letter-spacing:.5px;}
@@ -759,22 +974,23 @@
   
   .pi-center-card {
     position: absolute;
-    width: 70px;
-    height: 40px;
-    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    width: 56px;
+    height: 56px;
+    background: radial-gradient(circle at 35% 30%, #4ade80 0%, #22c55e 45%, #15803d 100%);
     color: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 50%;
     font-size: 16px;
     font-weight: bold;
-    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.5);
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.5), inset 0 -4px 8px rgba(0, 0, 0, 0.15), inset 0 4px 8px rgba(255, 255, 255, 0.25);
     animation: breathing-float 3s ease-in-out infinite;
     z-index: 2;
     cursor: pointer;
     transition: transform 0.2s ease;
-    border: 2px solid rgba(34, 197, 94, 0.8);
+    border: 2px solid rgba(74, 222, 128, 0.7);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   }
   
   .pi-center-card:hover {
@@ -783,6 +999,55 @@
   
   .pi-center-card:active {
     transform: scale(0.95);
+  }
+  
+  /* 派币点击反馈：放大 → 变矩形 → 消失 → 恢复圆圈 */
+  .pi-center-card.click-burst {
+    animation: pi-coin-burst 1.2s ease-in-out forwards;
+  }
+  @keyframes pi-coin-burst {
+    0% {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      opacity: 1;
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.5), inset 0 -4px 8px rgba(0, 0, 0, 0.15), inset 0 4px 8px rgba(255, 255, 255, 0.25);
+    }
+    20% {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      opacity: 1;
+      box-shadow: 0 8px 32px rgba(74, 222, 128, 0.85), inset 0 -5px 10px rgba(0, 0, 0, 0.15), inset 0 5px 10px rgba(255, 255, 255, 0.35);
+    }
+    45% {
+      width: 96px;
+      height: 50px;
+      border-radius: 12px;
+      opacity: 1;
+      box-shadow: 0 6px 26px rgba(74, 222, 128, 0.7), inset 0 -3px 6px rgba(0, 0, 0, 0.15), inset 0 3px 6px rgba(255, 255, 255, 0.3);
+    }
+    70% {
+      width: 110px;
+      height: 28px;
+      border-radius: 6px;
+      opacity: 0;
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.0);
+    }
+    85% {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      opacity: 0;
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.0);
+    }
+    100% {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      opacity: 1;
+      box-shadow: 0 4px 20px rgba(34, 197, 94, 0.5), inset 0 -4px 8px rgba(0, 0, 0, 0.15), inset 0 4px 8px rgba(255, 255, 255, 0.25);
+    }
   }
   
   @keyframes breathing-float {
@@ -829,6 +1094,7 @@
     background: linear-gradient(135deg, #fff 0%, #1f2937 50%, #6c2b9e 100%);
     -webkit-background-clip: text;
     background-clip: text;
+    animation: breathing-glow 2.5s ease-in-out infinite, left-shape-morph 3s ease-in-out infinite;
   }
   
   .pi-orbit-right {
@@ -838,6 +1104,42 @@
     background: linear-gradient(135deg, #fff 0%, #1f2937 50%, #6c2b9e 100%);
     -webkit-background-clip: text;
     background-clip: text;
+    animation: breathing-glow 2.5s ease-in-out infinite, right-shape-morph 3s ease-in-out infinite;
+  }
+  
+  /* 尼古拉斯（左）：正方形 → 长方形 → 正方形，每 3 秒循环 */
+  @keyframes left-shape-morph {
+    0%, 100% {
+      width: 85px;
+      height: 85px;
+      border-radius: 14px;
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.6), 0 0 40px rgba(251, 191, 36, 0.3), inset 0 0 15px rgba(251, 191, 36, 0.1);
+    }
+    50% {
+      width: 118px;
+      height: 54px;
+      border-radius: 10px;
+      box-shadow: 0 0 28px rgba(251, 191, 36, 0.85), 0 0 56px rgba(251, 191, 36, 0.5), inset 0 0 20px rgba(251, 191, 36, 0.18);
+    }
+  }
+  
+  /* 范成雕（右）：正方形 → 三角形 → 呼吸灯亮起 → 正方形，每 3 秒循环 */
+  @keyframes right-shape-morph {
+    0%, 100% {
+      clip-path: none;
+      border-radius: 14px;
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.6), 0 0 40px rgba(236, 72, 153, 0.3), inset 0 0 15px rgba(236, 72, 153, 0.1);
+    }
+    33% {
+      clip-path: polygon(50% 4%, 4% 96%, 96% 96%);
+      border-radius: 0;
+      box-shadow: 0 0 26px rgba(236, 72, 153, 0.75), 0 0 52px rgba(236, 72, 153, 0.4), inset 0 0 18px rgba(236, 72, 153, 0.15);
+    }
+    66% {
+      clip-path: none;
+      border-radius: 14px;
+      box-shadow: 0 0 40px rgba(236, 72, 153, 1), 0 0 80px rgba(236, 72, 153, 0.6), inset 0 0 25px rgba(236, 72, 153, 0.3);
+    }
   }
   
   .pi-orbit-card.dragging {
@@ -910,6 +1212,90 @@
       opacity: 0.7;
       filter: blur(14px);
     }
+  }
+  
+  /* ============ Satellite orbits around orbit cards ============ */
+  .pi-orbit-left .satellite,
+  .pi-orbit-right .satellite {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    margin: -4px 0 0 -4px;
+    transform-origin: center center;
+  }
+  .pi-orbit-left .satellite{
+    box-shadow:0 0 6px currentColor, 0 0 12px currentColor;
+  }
+  .pi-orbit-right .satellite{
+    box-shadow:0 0 6px currentColor, 0 0 12px currentColor;
+  }
+  .pi-orbit-left .sat-1{
+    color:#ef4444;
+    background:#ef4444;
+    animation:orbit-left-1 3.2s linear infinite;
+  }
+  .pi-orbit-left .sat-2{
+    color:#a855f7;
+    background:#a855f7;
+    animation:orbit-left-2 3.6s linear infinite;
+  }
+  .pi-orbit-right .sat-1{
+    color:#f43f5e;
+    background:#f43f5e;
+    animation:orbit-right-1 3.4s linear infinite;
+  }
+  .pi-orbit-right .sat-2{
+    color:#c084fc;
+    background:#c084fc;
+    animation:orbit-right-2 3.8s linear infinite;
+  }
+  .pi-orbit-left .sat-3{
+    color:#22c55e;
+    background:#22c55e;
+    animation:orbit-left-3 4.2s linear infinite;
+  }
+  .pi-orbit-right .sat-3{
+    color:#10b981;
+    background:#10b981;
+    animation:orbit-right-3 4.6s linear infinite;
+  }
+  .satellite::after{
+    content:"";
+    position:absolute;
+    top:50%;left:50%;
+    width:3px;height:3px;border-radius:50%;
+    background:#fff;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 4px #fff, 0 0 8px #fff;
+  }
+  @keyframes orbit-left-1{
+    0%   { transform: rotate(0deg) translateX(58px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(58px) rotate(-360deg); }
+  }
+  @keyframes orbit-left-2{
+    0%   { transform: rotate(180deg) translateX(54px) rotate(-180deg); }
+    100% { transform: rotate(540deg) translateX(54px) rotate(-540deg); }
+  }
+  @keyframes orbit-left-3{
+    0%   { transform: rotate(90deg) translateX(62px) rotate(-90deg); }
+    100% { transform: rotate(450deg) translateX(62px) rotate(-450deg); }
+  }
+  @keyframes orbit-right-1{
+    0%   { transform: rotate(0deg) translateX(58px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(58px) rotate(-360deg); }
+  }
+  @keyframes orbit-right-2{
+    0%   { transform: rotate(180deg) translateX(54px) rotate(-180deg); }
+    100% { transform: rotate(540deg) translateX(54px) rotate(-540deg); }
+  }
+  @keyframes orbit-right-3{
+    0%   { transform: rotate(90deg) translateX(62px) rotate(-90deg); }
+    100% { transform: rotate(450deg) translateX(62px) rotate(-450deg); }
   }
 
   @keyframes firework{
@@ -1391,7 +1777,7 @@
 
     <!-- Section title -->
     <div class="home-title">
-      <h3>精选 45 个派生态应用</h3>
+      <h3>精选 99 个派生态应用<span style="font-size:11px;color:var(--pi-muted);font-weight:500;margin-left:6px;">（此处所有生态已全部翻译成简体中文）</span></h3>
       <p>点击图标即可跳转至对应应用 · 覆盖官方核心、社交、金融、商城、资讯、AI 全品类</p>
     </div>
 
@@ -1402,33 +1788,27 @@
             <h3>Pi 浏览器直达应用</h3>
             <p>可直接在 Pi Browser 中打开使用</p>
           </div>
-          <div class="section-count">23</div>
+          <div class="section-count">16</div>
         </div>
+      <!-- 精选第一行：热门生态排名前三 · 白色加大字体 -->
+      <div class="featured-row" id="featuredRow"></div>
       <div class="home-grid">
-        <div class="app-item" data-eco="派元宇宙土地" data-url="https://piday.world/zh-CN?ic=MGV2PG" data-icon="🏠" data-desc1="派元宇宙虚拟土地" data-desc2="购买、建设、交易您的派虚拟领地" data-desc3="打造属于你的派元宇宙家园" data-code="MGV2PG"><div class="app-icon">🏠</div><div class="app-name">派元宇宙土地</div></div>
-        <div class="app-item" data-eco="派孵化器" data-url="https://startpi.app" data-icon="🐣" data-desc1="派项目孵化器平台" data-desc2="孵化优秀派生态项目、扶持创新团队" data-desc3="为先锋提供项目启动支持与资源对接" data-code="15536455536"><div class="app-icon">🐣</div><div class="app-name">派孵化器</div></div>
-        <div class="app-item" data-eco="派众筹生态" data-url="https://crowdfundpi.com" data-icon="🎯" data-desc1="派生态众筹平台" data-desc2="支持派项目募资与早期先锋参与" data-desc3="共同支持优质派生态项目成长" data-code="FiA5y5HE"><div class="app-icon">🎯</div><div class="app-name">派众筹生态</div></div>
-        <div class="app-item" data-eco="哈希派" data-url="https://hashpi.app" data-icon="🔗" data-desc1="哈希派生态应用" data-desc2="基于哈希的派生态分布式服务" data-desc3="去中心化数据存储与验证解决方案" data-code="15536455536"><div class="app-icon">🔗</div><div class="app-name">哈希派</div></div>
-        <div class="app-item" data-eco="派宠物" data-url="https://pipet.me/#/pages/login/login?invite=419296" data-icon="🐾" data-desc1="派宠物养成游戏" data-desc2="领养您的虚拟派宠物、培养互动" data-desc3="宠物成长、繁殖、交易一体化" data-code="419296"><div class="app-icon">🐾</div><div class="app-name">派宠物</div></div>
-        <div class="app-item" data-eco="Pi Box" data-url="https://pibox.art" data-icon="📦" data-desc1="Pi Box数字藏品" data-desc2="派生态NFT平台" data-code="107060"><div class="app-icon">📦</div><div class="app-name">Pi Box</div></div>
-        <div class="app-item" data-eco="派之声" data-url="https://applink.pinet.com/detail/63be907c18bca2002feefcc0?from=rank_trending" data-icon="🔊" data-desc1="派之声社区" data-desc2="派生态热门话题讨论" data-code="无"><div class="app-icon">🔊</div><div class="app-name">派之声</div></div>
-        <div class="app-item" data-eco="米洛斯卡牌" data-url="https://www.miloscard.com/" data-icon="🃏" data-desc1="米洛斯卡牌游戏" data-desc2="卡牌对战派币奖励" data-code="B1000003949"><div class="app-icon">🃏</div><div class="app-name">米洛斯卡牌</div></div>
-        <div class="app-item" data-eco="CIDI游戏" data-url="https://app.cidi.games" data-icon="🎲" data-desc1="CIDI游戏生态" data-desc2="多款派币游戏合集" data-desc3="派币奖励不停" data-code="无需邀请码"><div class="app-icon">🎲</div><div class="app-name">CIDI游戏</div></div>
-        <div class="app-item" data-eco="MEMO DID" data-url="https://datadidpi.memolabs.net/home" data-icon="🔐" data-desc1="MEMO DID身份" data-desc2="去中心化身份认证" data-code="BzOgU1"><div class="app-icon">🔐</div><div class="app-name">MEMO DID</div></div>
-        <div class="app-item" data-eco="月光宝盒" data-url="https://openbox.world?referral_code=15536455536" data-icon="🎁" data-desc1="神秘宝箱开盒玩法" data-desc2="限时开盒获取稀缺奖励" data-desc3="惊喜不断，超值福利等你来开" data-code="15536455536"><div class="app-icon">🎁</div><div class="app-name">月光宝盒</div></div>
-        <div class="app-item" data-eco="水果游戏" data-url="https://fruitypi.pinet.com" data-icon="🍎" data-desc1="水果游戏" data-desc2="休闲益智派币奖励" data-code="无"><div class="app-icon">🍎</div><div class="app-name">水果游戏</div></div>
-        <div class="app-item" data-eco="GCV 价格" data-url="https://110.com" data-icon="💰" data-desc1="GCV价格查询" data-desc2="派币价格参考" data-code="110"><div class="app-icon">💰</div><div class="app-name">GCV 价格</div></div>
-        <div class="app-item" data-eco="派友农场" data-url="https://farm.piapp.art" data-icon="🌾" data-desc1="派友农场游戏" data-desc2="种植收获派币" data-code="无需邀请码"><div class="app-icon">🌾</div><div class="app-name">派友农场</div></div>
-        <div class="app-item" data-eco="派链国际" data-url="https://pipcm.com/index.html" data-icon="⛓️" data-desc1="派链国际" data-desc2="跨境支付结算" data-code="无"><div class="app-icon">⛓️</div><div class="app-name">派链国际</div></div>
-        <div class="app-item" data-eco="共帮国际善道" data-url="https://www.gbgjsc.com/" data-icon="🤝" data-desc1="共帮国际善道" data-desc2="公益慈善平台" data-code="无"><div class="app-icon">🤝</div><div class="app-name">共帮国际善道</div></div>
-        <div class="app-item" data-eco="TanTan派探探" data-url="https://tantanpi8793.pinet.com/?utm_source=piapp_link&from=piapp.link/?utm_source=piapp_link&from=piapp.link" data-icon="💕" data-desc1="派探探社交" data-desc2="派友交友平台" data-code="无"><div class="app-icon">💕</div><div class="app-name">TanTan派探探</div></div>
-        <div class="app-item" data-eco="PIBBS论坛" data-url="https://www.bbspi.chat/subPack1/user/piBrowserLogin" data-icon="💬" data-desc1="派论坛社区" data-desc2="派友交流讨论" data-code="无"><div class="app-icon">💬</div><div class="app-name">PIBBS论坛</div></div>
-        <div class="app-item" data-eco="派同城购物" data-url="https://citypi.net/addons/weliam_smartcity/h5" data-icon="🏙️" data-desc1="派同城购物" data-desc2="本地生活服务" data-code="MID:48849"><div class="app-icon">🏙️</div><div class="app-name">派同城购物</div></div>
-        <div class="app-item" data-eco="来购酷买" data-url="https://lgkm.app" data-icon="🛒" data-desc1="来购酷买商城" data-desc2="派币购物消费" data-code="853133"><div class="app-icon">🛒</div><div class="app-name">来购酷买</div></div>
-        <div class="app-item" data-eco="314159商城" data-url="https://314159u.com/" data-icon="🏪" data-desc1="314159商城" data-desc2="派生态综合商城" data-code="无"><div class="app-icon">🏪</div><div class="app-name">314159商城</div></div>
-        <div class="app-item" data-eco="YouPi优派商城" data-url="https://youpi.im/" data-icon="🛍️" data-desc1="优派商城" data-desc2="派币电商平台" data-code="ID号124436"><div class="app-icon">🛍️</div><div class="app-name">YouPi优派商城</div></div>
-        <div class="app-item" data-eco="派" data-url="https://piapp.link?r=15536455536" data-icon="π" data-desc1="派生态入口" data-desc2="探索更多派应用" data-desc3="发现派生态精彩" data-code="15536455536"><div class="app-icon"><span class="pi">π</span></div><div class="app-name">派</div></div>
-        <div class="app-item" data-eco="更多生态" data-url="https://pinets.app/" data-icon="✨" data-desc1="派生态导航" data-desc2="发现更多派应用" data-code="无"><div class="app-icon">✨</div><div class="app-name">更多生态</div></div>
+        <div class="app-item" data-eco="派元宇宙土地" data-url="https://piday.world/zh-CN?ic=MGV2PG" data-icon="🏠" data-desc1="派元宇宙虚拟土地" data-desc2="购买、建设、交易您的派虚拟领地" data-desc3="打造属于你的派元宇宙家园" data-code="MGV2PG"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g1" cx="0.5" cy="0.5" r="0.6"><stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#1e3a8a"/></radialGradient><linearGradient id="g1b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1e40af"/><stop offset="0.5" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e40af"/></linearGradient><clipPath id="earthClip"><circle cx="32" cy="32" r="20"/></clipPath></defs><rect width="64" height="64" rx="14" fill="url(#g1)"/><g clip-path="url(#earthClip)"><circle cx="32" cy="32" r="20" fill="url(#g1b)"/><g><animateTransform attributeName="transform" type="translate" from="0 0" to="-32 0" dur="6s" repeatCount="indefinite"/><path d="M14 26 Q20 22 26 26 Q30 30 36 24 Q42 18 50 24 L50 36 Q42 32 36 36 Q30 42 22 38 Q18 34 14 36 Z" fill="#22c55e"/><path d="M14 40 Q22 38 28 42 Q34 46 42 40 Q48 38 50 42 L50 50 L14 50 Z" fill="#22c55e"/><circle cx="22" cy="44" r="2" fill="#16a34a"/><circle cx="42" cy="46" r="2" fill="#16a34a"/><circle cx="32" cy="32" r="1.5" fill="#fbbf24"/></g><circle cx="32" cy="32" r="20" fill="none" stroke="#60a5fa" stroke-width="0.5" opacity=".4"/></g><ellipse cx="32" cy="32" rx="20" ry="6" fill="none" stroke="#fff" stroke-width="0.8" opacity=".5"/><path d="M12 32 Q32 28 52 32" stroke="#fff" stroke-width="0.8" fill="none" opacity=".4"/><path d="M12 32 Q32 36 52 32" stroke="#fff" stroke-width="0.8" fill="none" opacity=".4"/><circle cx="14" cy="14" r="1.5" fill="#fff"/><circle cx="50" cy="14" r="1" fill="#fff"/><circle cx="14" cy="50" r="1" fill="#fff"/><circle cx="50" cy="50" r="1.5" fill="#fff"/></svg></div><div class="app-name">派元宇宙土地</div></div>
+        <div class="app-item" data-eco="派孵化器" data-url="https://startpi.app" data-icon="🐣" data-desc1="派项目孵化器平台" data-desc2="孵化优秀派生态项目、扶持创新团队" data-desc3="为先锋提供项目启动支持与资源对接" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fef3c7"/><stop offset="1" stop-color="#fbbf24"/></linearGradient><linearGradient id="g2d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bbf7d0"/><stop offset="1" stop-color="#16a34a"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g2)"/><circle cx="50" cy="14" r="2.5" fill="#fde68a" opacity=".8"/><circle cx="14" cy="12" r="2" fill="#fde68a" opacity=".8"/><circle cx="56" cy="48" r="1.5" fill="#fde68a" opacity=".7"/><path d="M4 50 L60 50" stroke="#a16207" stroke-width="1.5" stroke-linecap="round"/><path d="M6 50 L58 50" stroke="#78350f" stroke-width="0.8" stroke-linecap="round"/><g><animateTransform attributeName="transform" type="rotate" values="0 14 50;-6 14 50;0 14 50;6 14 50;0 14 50" dur="3.2s" repeatCount="indefinite"/><path d="M14 50 L14 38 Q14 30 8 28 Q14 26 16 32 Q18 26 24 28 Q18 30 18 38 L18 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/><path d="M14 36 L14 30" stroke="#15803d" stroke-width="0.5" opacity=".5"/><circle cx="11" cy="32" r="1" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="rotate" values="0 24 50;-5 24 50;0 24 50;5 24 50;0 24 50" dur="2.6s" begin="0.4s" repeatCount="indefinite"/><path d="M24 50 L24 40 Q24 32 18 30 Q24 28 26 34 Q28 28 34 30 Q28 32 28 40 L28 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/><circle cx="21" cy="34" r="1" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="rotate" values="0 50 50;-6 50 50;0 50 50;6 50 50;0 50 50" dur="3.4s" begin="0.2s" repeatCount="indefinite"/><path d="M50 50 L50 36 Q50 28 44 26 Q50 24 52 30 Q54 24 60 26 Q54 28 54 36 L54 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/><circle cx="47" cy="30" r="1" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="rotate" values="0 40 50;-4 40 50;0 40 50;4 40 50;0 40 50" dur="2.8s" begin="0.6s" repeatCount="indefinite"/><path d="M40 50 L40 42 Q40 36 35 34 Q40 32 42 38 Q44 32 49 34 Q44 36 44 42 L44 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/></g><circle cx="6" cy="50" r="1" fill="#92400e"/><circle cx="58" cy="50" r="1" fill="#92400e"/><circle cx="32" cy="48" r="1" fill="#92400e"/></svg></div><div class="app-name">派孵化器</div></div>
+        <div class="app-item" data-eco="派众筹生态" data-url="https://crowdfundpi.com" data-icon="🎯" data-desc1="派生态众筹平台" data-desc2="支持派项目募资与早期先锋参与" data-desc3="共同支持优质派生态项目成长" data-code="FiA5y5HE"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g3" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="#bbf7d0"/><stop offset="1" stop-color="#16a34a"/></radialGradient></defs><rect width="64" height="64" rx="14" fill="url(#g3)"/><rect x="30" y="48" width="4" height="12" fill="#78350f"/><path d="M32 12 L36 12 L36 20 L40 20 L40 28 L36 28 L36 36 L42 36 L42 44 L36 44 L36 48 L28 48 L28 44 L22 44 L22 36 L28 36 L28 28 L24 28 L24 20 L28 20 L28 12 Z" fill="#22c55e" stroke="#15803d" stroke-width="1.2"/><circle cx="18" cy="20" r="4" fill="#16a34a" opacity=".85"/><circle cx="48" cy="24" r="3.5" fill="#16a34a" opacity=".85"/><circle cx="20" cy="40" r="3" fill="#22c55e"/><circle cx="46" cy="42" r="3" fill="#22c55e"/><circle cx="14" cy="32" r="2" fill="#16a34a"/><circle cx="50" cy="34" r="2" fill="#16a34a"/></svg></div><div class="app-name">派众筹生态</div></div>
+        <div class="app-item" data-eco="哈希派" data-url="https://hashpi.app" data-icon="🔗" data-desc1="哈希派生态应用" data-desc2="基于哈希的派生态分布式服务" data-desc3="去中心化数据存储与验证解决方案" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e3a8a"/></linearGradient><linearGradient id="g4b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g4)"/><circle cx="50" cy="14" r="2" fill="#fbbf24"/><circle cx="14" cy="14" r="1.5" fill="#fbbf24"/><circle cx="54" cy="50" r="1.5" fill="#fbbf24"/><g><animateTransform attributeName="transform" type="translate" values="0 0;0 -2;0 0" dur="1.2s" repeatCount="indefinite"/><path d="M14 18 L18 18 L22 38 L46 38 L50 22 L24 22" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 38 L46 38 L48 26 L24 26 Z" fill="url(#g4b)" opacity=".9"/><circle cx="26" cy="46" r="3.5" fill="#fbbf24" stroke="#fff" stroke-width="1.2"/><circle cx="42" cy="46" r="3.5" fill="#fbbf24" stroke="#fff" stroke-width="1.2"/><circle cx="26" cy="46" r="1" fill="#92400e"/><circle cx="42" cy="46" r="1" fill="#92400e"/><path d="M28 32 L34 32 M36 30 L40 30 M28 34 L32 34" stroke="#fff" stroke-width="1" opacity=".6"/></g><path d="M12 50 L52 50" stroke="#fff" stroke-width="1" opacity=".3"/></svg></div><div class="app-name">哈希派</div></div>
+        <div class="app-item" data-eco="绿洲派" data-url="https://oasispi.app" data-icon="🌱" data-desc1="绿洲派生态应用" data-desc2="绿色派生态共建平台" data-desc3="打造可持续派生态绿洲" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g5" cx="0.5" cy="0.4" r="0.7"><stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#0369a1"/></radialGradient></defs><rect width="64" height="64" rx="14" fill="url(#g5)"/><path d="M32 14 Q18 22 18 36 Q18 46 32 50 Q46 46 46 36 Q46 22 32 14 Z" fill="#1e3a8a"/><path d="M32 18 Q22 24 22 35 Q22 42 32 46" fill="#3b82f6" opacity=".7"/><path d="M32 16 Q30 22 30 28 M32 16 Q34 22 34 28" stroke="#fbbf24" stroke-width="1.5" fill="none"/><path d="M24 30 Q26 34 28 30 M36 30 Q38 34 40 30" stroke="#fbbf24" stroke-width="1.5" fill="none"/><circle cx="28" cy="36" r="2" fill="#fbbf24"/><circle cx="36" cy="36" r="2" fill="#fbbf24"/><path d="M14 50 Q32 56 50 50" stroke="#fff" stroke-width="1" fill="none" opacity=".5"/><circle cx="46" cy="14" r="2" fill="#fbbf24"/><circle cx="16" cy="20" r="1.5" fill="#fbbf24"/></svg></div><div class="app-name">绿洲派</div></div>
+        <div class="app-item" data-eco="派宠物" data-url="https://pipet.me/#/pages/login/login?invite=419296" data-icon="🐾" data-desc1="派宠物养成游戏" data-desc2="领养您的虚拟派宠物、培养互动" data-desc3="宠物成长、繁殖、交易一体化" data-code="419296"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g6" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="#6d28d9"/><stop offset="0.6" stop-color="#4c1d95"/><stop offset="1" stop-color="#1e1b4b"/></radialGradient><radialGradient id="g6b" cx="0.5" cy="0.4" r="0.6"><stop offset="0" stop-color="#fce7f3"/><stop offset="0.6" stop-color="#f9a8d4"/><stop offset="1" stop-color="#a855f7"/></radialGradient><linearGradient id="g6c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbcfe8"/><stop offset="1" stop-color="#c084fc"/></linearGradient><radialGradient id="g6d" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fef3c7"/><stop offset="1" stop-color="#a855f7"/></radialGradient><filter id="f6"><feGaussianBlur stdDeviation="0.8"/></filter><filter id="f6b"><feGaussianBlur stdDeviation="1.5"/></filter></defs><rect width="64" height="64" rx="14" fill="url(#g6)"/><circle cx="8" cy="10" r="1.2" fill="#fff" opacity=".9"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/></circle><circle cx="56" cy="8" r="1" fill="#fff" opacity=".9"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.4s" begin="0.4s" repeatCount="indefinite"/></circle><circle cx="52" cy="20" r="0.8" fill="#fde68a"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" begin="0.2s" repeatCount="indefinite"/></circle><circle cx="6" cy="28" r="1" fill="#fff" opacity=".8"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.6s" begin="0.6s" repeatCount="indefinite"/></circle><circle cx="58" cy="40" r="1.2" fill="#fde68a" opacity=".9"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" begin="0.3s" repeatCount="indefinite"/></circle><circle cx="10" cy="50" r="0.8" fill="#fff" opacity=".7"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.8s" begin="0.5s" repeatCount="indefinite"/></circle><circle cx="50" cy="56" r="1" fill="#fff" opacity=".8"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" begin="0.7s" repeatCount="indefinite"/></circle><g opacity=".6" filter="url(#f6b)"><circle cx="20" cy="14" r="0.8" fill="#fde68a"/><circle cx="44" cy="46" r="0.6" fill="#fde68a"/><circle cx="14" cy="44" r="0.6" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.5;0 0;0 1.5;0 0" dur="2.4s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="rotate" values="0 32 34;-2 32 34;0 32 34;2 32 34;0 32 34" dur="3s" repeatCount="indefinite" additive="sum"/><ellipse cx="32" cy="48" rx="10" ry="3" fill="#7c3aed" opacity=".5"/><path d="M22 18 L24 12 L28 16 L32 12 L36 16 L40 12 L42 18 L42 24 L40 22 L36 24 L32 22 L28 24 L24 22 L22 24 Z" fill="url(#g6b)" stroke="#f9a8d4" stroke-width="1"/><path d="M24 14 L25 17 M40 14 L39 17" stroke="#f9a8d4" stroke-width="0.6" opacity=".7"/><path d="M22 18 L18 22 L18 26 L22 24 Z" fill="url(#g6b)" stroke="#f9a8d4" stroke-width="0.8"/><path d="M42 18 L46 22 L46 26 L42 24 Z" fill="url(#g6b)" stroke="#f9a8d4" stroke-width="0.8"/><ellipse cx="32" cy="30" rx="12" ry="10" fill="url(#g6c)" stroke="#f9a8d4" stroke-width="1"/><path d="M24 30 L18 32 L24 33 Z" fill="url(#g6b)" stroke="#f9a8d4" stroke-width="0.8"/><path d="M40 30 L46 32 L40 33 Z" fill="url(#g6b)" stroke="#f9a8d4" stroke-width="0.8"/><ellipse cx="27" cy="28" rx="2.2" ry="2.6" fill="#fff"/><ellipse cx="37" cy="28" rx="2.2" ry="2.6" fill="#fff"/><ellipse cx="27" cy="29" rx="1.3" ry="1.7" fill="#4c1d95"><animate attributeName="ry" values="1.7;0.5;1.7" dur="3.2s" repeatCount="indefinite"/></ellipse><ellipse cx="37" cy="29" rx="1.3" ry="1.7" fill="#4c1d95"><animate attributeName="ry" values="1.7;0.5;1.7" dur="3.2s" repeatCount="indefinite"/></ellipse><circle cx="27.4" cy="28.5" r="0.5" fill="#fff"/><circle cx="37.4" cy="28.5" r="0.5" fill="#fff"/><path d="M32 30 L32 32" stroke="#4c1d95" stroke-width="0.8" stroke-linecap="round"/><path d="M30.5 32.5 Q32 33.5 33.5 32.5" stroke="#4c1d95" stroke-width="0.8" fill="none" stroke-linecap="round"/><path d="M25 32 L21 33 M25 32.5 L21 33.5 M39 32 L43 33 M39 32.5 L43 33.5" stroke="#f472b6" stroke-width="0.6" stroke-linecap="round" opacity=".7"/><path d="M28 24 L29 26 M36 24 L35 26" stroke="#4c1d95" stroke-width="0.6" stroke-linecap="round" opacity=".5"/><path d="M32 40 L28 48 Q24 52 28 52 L36 52 Q40 52 36 48 L32 40 Z" fill="url(#g6c)" stroke="#f9a8d4" stroke-width="0.8"/><path d="M32 44 L30 46 M32 44 L34 46" stroke="#f9a8d4" stroke-width="0.4" opacity=".6"/><path d="M27 50 L26 54 M30 52 L30 55 M34 52 L34 55 M37 50 L38 54" stroke="#f9a8d4" stroke-width="0.8" stroke-linecap="round"/><path d="M28 46 Q24 48 22 50" stroke="#f9a8d4" stroke-width="0.8" fill="none" stroke-linecap="round"/><path d="M36 46 Q40 48 42 50" stroke="#f9a8d4" stroke-width="0.8" fill="none" stroke-linecap="round"/></g><g><animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/><path d="M14 18 L16 16 L14 14 L12 16 Z" fill="#fde68a"/><circle cx="14" cy="16" r="0.6" fill="#fff"/></g><g><animate attributeName="opacity" values="0.3;1;0.3" dur="2.4s" begin="0.5s" repeatCount="indefinite"/><path d="M50 14 L52 12 L50 10 L48 12 Z" fill="#fde68a"/><circle cx="50" cy="12" r="0.5" fill="#fff"/></g><g><animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" begin="1s" repeatCount="indefinite"/><path d="M48 50 L50 48 L48 46 L46 48 Z" fill="#fde68a"/><circle cx="48" cy="48" r="0.5" fill="#fff"/></g><circle cx="22" cy="14" r="1" fill="#fde68a" opacity=".7"><animate attributeName="opacity" values="0.7;0.1;0.7" dur="2.2s" repeatCount="indefinite"/></circle><circle cx="44" cy="52" r="0.8" fill="#fde68a" opacity=".7"><animate attributeName="opacity" values="0.1;0.7;0.1" dur="2.6s" begin="0.4s" repeatCount="indefinite"/></circle></svg></div><div class="app-name">派宠物</div></div>
+        <div class="app-item" data-eco="MEMO DID" data-url="https://datadidpi.memolabs.net/home" data-icon="🔐" data-desc1="MEMO DID身份" data-desc2="去中心化身份认证" data-code="BzOgU1"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g7" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#5b21b6"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g7)"/><path d="M32 12 L20 18 L20 30 Q20 42 32 50 Q44 42 44 30 L44 18 Z" fill="#fff" stroke="#5b21b6" stroke-width="1.5"/><path d="M24 30 L30 36 L42 22" stroke="#5b21b6" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="30" r="1.5" fill="#5b21b6"/></svg></div><div class="app-name">MEMO DID</div></div>
+        <div class="app-item" data-eco="CIDI游戏" data-url="https://app.cidi.games" data-icon="🎲" data-desc1="CIDI游戏生态" data-desc2="多款派币游戏合集" data-desc3="派币奖励不停" data-code="无需邀请码"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g8" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#0e7490"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g8)"/><rect x="14" y="12" width="14" height="14" fill="#ef4444" stroke="#fff" stroke-width="1.5"/><rect x="30" y="12" width="14" height="14" fill="#22c55e" stroke="#fff" stroke-width="1.5"/><rect x="14" y="28" width="14" height="14" fill="#fbbf24" stroke="#fff" stroke-width="1.5"/><rect x="30" y="28" width="14" height="14" fill="#a855f7" stroke="#fff" stroke-width="1.5"/><rect x="14" y="44" width="14" height="6" fill="#3b82f6" stroke="#fff" stroke-width="1.5"/><circle cx="50" cy="46" r="6" fill="#fde68a" stroke="#92400e" stroke-width="1"/><circle cx="47" cy="44" r="1" fill="#92400e"/><circle cx="53" cy="44" r="1" fill="#92400e"/><circle cx="50" cy="48" r="1" fill="#92400e"/></svg></div><div class="app-name">CIDI游戏</div></div>
+        <div class="app-item" data-eco="跑步赚派" data-url="https://app.stepnpi.com/?ref=15536455536" data-icon="👟" data-desc1="跑步赚派生态" data-desc2="运动健身获得派币奖励" data-desc3="边跑步边赚派，健康财富双收" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g9b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset="0.5" stop-color="#3b82f6"/><stop offset="1" stop-color="#5b21b6"/></linearGradient><linearGradient id="g9c" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1e1b4b"/><stop offset="1" stop-color="#312e81"/></linearGradient><linearGradient id="g9d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8fafc"/><stop offset="1" stop-color="#cbd5e1"/></linearGradient><linearGradient id="g9e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#5b21b6"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="#ffffff" stroke="#e2e8f0" stroke-width="0.8"/><g><animateTransform attributeName="transform" type="translate" values="0 0;3 -2;0 0;-3 -2;0 0" dur="1.4s" repeatCount="indefinite"/><path d="M10 39 L10 38 Q10 37 11 37 L54 37 Q55 37 55 38 L55 39 Z" fill="url(#g9d)" stroke="#94a3b8" stroke-width="0.4"/><path d="M12 37 L11 37 Q10 30 14 26 Q19 23 24 24 L34 24 Q40 24 45 28 L52 33 Q55 35 55 37 Z" fill="url(#g9b)" stroke="#dbeafe" stroke-width="0.8" stroke-linejoin="round"/><path d="M12 37 L11 37 Q10 30 14 26 Q19 23 24 24 L22 24 Q17 24 14 27 Q11 30 12 37 Z" fill="url(#g9c)"/><path d="M14 27 Q12 32 13 37 L20 37 L20 28 Q17 28 14 27 Z" fill="#1e1b4b" opacity=".7"/><path d="M20 28 L20 37 L24 37 L24 24 Q22 24 20 25 Z" fill="url(#g9b)"/><path d="M24 24 L34 24 Q36 24 36 26 L34 30 L26 30 L24 28 Z" fill="url(#g9e)" stroke="#dbeafe" stroke-width="0.5"/><path d="M26 24 L26 26 L34 26 L34 24 Z" fill="#1e1b4b" opacity=".5"/><g stroke="#1e3a8a" stroke-width="1.2" stroke-linecap="round" fill="none"><line x1="26" y1="27" x2="32" y2="29"/><line x1="30" y1="27" x2="26" y2="29"/><line x1="32" y1="27" x2="28" y2="29"/></g><circle cx="25" cy="26" r="0.6" fill="#1e3a8a"/><circle cx="29" cy="26" r="0.6" fill="#1e3a8a"/><circle cx="33" cy="26" r="0.6" fill="#1e3a8a"/><path d="M14 36 Q20 30 30 32 Q40 34 48 30 L51 28 Q42 35 30 34 Q22 34 16 37 Z" fill="#ffffff" stroke="#ffffff" stroke-width="0.3"/><path d="M16 38 Q22 33 32 35 Q42 37 50 31" stroke="#ffffff" stroke-width="0.6" fill="none" opacity=".9"/><path d="M44 29 L48 27 L46 26 Z" fill="#1e3a8a" opacity=".9"/><path d="M36 25 L40 24 L45 26 L42 25 Z" fill="#1e1b4b" opacity=".5"/><circle cx="40" cy="25" r="0.5" fill="#1e1b4b"/></g></svg></div><div class="app-name">跑步赚派</div></div>
+        <div class="app-item" data-eco="Pi Box" data-url="https://pibox.art" data-icon="📦" data-desc1="Pi Box数字藏品" data-desc2="派生态NFT平台" data-code="107060"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g10" cx="0.5" cy="0.5" r="0.6"><stop offset="0" stop-color="#dbeafe"/><stop offset="0.6" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e3a8a"/></radialGradient><linearGradient id="g10b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset="0.5" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e3a8a"/></linearGradient><linearGradient id="g10c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#1e40af"/></linearGradient><filter id="f10"><feGaussianBlur stdDeviation="2.5"/></filter><filter id="f10b"><feGaussianBlur stdDeviation="1.2"/></filter></defs><rect width="64" height="64" rx="14" fill="url(#g10)"/><circle cx="10" cy="10" r="7" fill="#60a5fa" filter="url(#f10)" opacity=".7"/><circle cx="54" cy="54" r="6" fill="#60a5fa" filter="url(#f10)" opacity=".7"/><circle cx="50" cy="8" r="2" fill="#7dd3fc" filter="url(#f10b)"/><circle cx="6" cy="56" r="1.5" fill="#7dd3fc" filter="url(#f10b)"/><circle cx="58" cy="20" r="1" fill="#fff" opacity=".6"/><circle cx="6" cy="36" r="1" fill="#fff" opacity=".6"/><g><animateTransform attributeName="transform" type="rotate" values="0 32 32;-8 32 32;0 32 32;8 32 32;0 32 32" dur="3.6s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.5;0 0" dur="2s" repeatCount="indefinite" additive="sum"/><path d="M14 22 L32 12 L50 22 L50 44 L32 54 L14 44 Z" fill="url(#g10b)" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 22 L32 32 L50 22" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M32 32 L32 54" fill="none" stroke="#fff" stroke-width="1.5"/><path d="M14 22 L14 44 L32 54 L32 32 Z" fill="url(#g10c)" opacity=".4"/><path d="M50 22 L50 44 L32 54 L32 32 Z" fill="#1e3a8a" opacity=".4"/><g><circle cx="22" cy="26" r="2" fill="#fff"/><circle cx="22" cy="26" r="1" fill="#1e3a8a"/></g><g><circle cx="42" cy="26" r="2" fill="#fff"/><circle cx="42" cy="26" r="1" fill="#1e3a8a"/></g><g><circle cx="32" cy="22" r="2" fill="#fbbf24"/><circle cx="32" cy="22" r="1" fill="#92400e"/></g><g><circle cx="22" cy="40" r="2" fill="#fff"/><circle cx="22" cy="40" r="1" fill="#1e3a8a"/></g><g><circle cx="42" cy="40" r="2" fill="#fff"/><circle cx="42" cy="40" r="1" fill="#1e3a8a"/></g><g><circle cx="32" cy="44" r="2" fill="#fbbf24"/><circle cx="32" cy="44" r="1" fill="#92400e"/></g></g><ellipse cx="32" cy="56" rx="18" ry="2" fill="#1e3a8a" opacity=".4"/><circle cx="48" cy="14" r="1.5" fill="#fbbf24" opacity=".7"><animate attributeName="opacity" values="0.7;0.2;0.7" dur="2s" repeatCount="indefinite"/></circle><circle cx="14" cy="50" r="1.5" fill="#fbbf24" opacity=".7"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="2s" begin="0.5s" repeatCount="indefinite"/></circle></svg></div><div class="app-name">Pi Box</div></div>
+        <div class="app-item" data-eco="水果游戏" data-url="https://fruitypi.pinet.com" data-icon="🍎" data-desc1="（此生态无需签到）" data-desc2="水果游戏" data-desc3="休闲益智派币奖励" data-code="无"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g11" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fef9c3"/><stop offset="1" stop-color="#fde047"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g11)"/><circle cx="24" cy="36" r="13" fill="#ef4444" stroke="#7f1d1d" stroke-width="1.5"/><path d="M24 22 Q22 16 18 14" stroke="#16a34a" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M22 18 Q26 14 30 16 Q28 22 22 22" fill="#22c55e"/><circle cx="40" cy="44" r="9" fill="#f97316" stroke="#9a3412" stroke-width="1.5"/><path d="M40 35 Q38 30 36 28" stroke="#16a34a" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M38 32 Q42 30 44 32" stroke="#22c55e" stroke-width="2" fill="none"/><circle cx="20" cy="34" r="3" fill="#fca5a5" opacity=".8"/><circle cx="37" cy="42" r="2" fill="#fed7aa" opacity=".8"/></svg></div><div class="app-name">水果游戏</div></div>
+        <div class="app-item" data-eco="月光宝盒" data-url="https://openbox.world?referral_code=15536455536" data-icon="🎁" data-desc1="（此生态无需签到）" data-desc2="神秘宝箱开盒玩法" data-desc3="限时开盒获取稀缺奖励" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g12" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="#312e81"/><stop offset="1" stop-color="#1e1b4b"/></radialGradient></defs><rect width="64" height="64" rx="14" fill="url(#g12)"/><circle cx="32" cy="14" r="4" fill="#fef3c7" opacity=".9"/><path d="M16 30 L48 30 L48 52 L16 52 Z" fill="#7c3aed" stroke="#fbbf24" stroke-width="1.5"/><path d="M16 30 L48 30 L48 36 L16 36 Z" fill="#a78bfa"/><path d="M28 36 L36 36 L36 52 L28 52 Z" fill="#fbbf24"/><path d="M28 30 Q32 22 36 30" stroke="#fbbf24" stroke-width="2.5" fill="none"/><circle cx="20" cy="22" r="1" fill="#fff"/><circle cx="46" cy="24" r="1" fill="#fff"/><circle cx="14" cy="40" r="1.2" fill="#fff"/><circle cx="50" cy="44" r="1.2" fill="#fff"/><path d="M14 22 L18 26 M50 20 L46 24" stroke="#fbbf24" stroke-width="1" opacity=".6"/></svg></div><div class="app-name">月光宝盒</div></div>
+        <div class="app-item" data-eco="派之声" data-url="https://pivoice.app" data-icon="🔊" data-desc1="派之声社区" data-desc2="派生态热门话题讨论" data-code="无"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g13" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a21caf"/><stop offset="1" stop-color="#581c87"/></linearGradient><linearGradient id="g13b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fef3c7"/><stop offset="0.5" stop-color="#fbbf24"/><stop offset="1" stop-color="#d97706"/></linearGradient><linearGradient id="g13c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset="1" stop-color="#a16207"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g13)"/><circle cx="6" cy="14" r="1" fill="#fff" opacity=".6"/><circle cx="58" cy="50" r="1" fill="#fff" opacity=".6"/><circle cx="10" cy="50" r="1" fill="#fff" opacity=".6"/><circle cx="56" cy="14" r="1" fill="#fff" opacity=".6"/><path d="M8 32 L8 32" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" opacity="0"><animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/></path><g><animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" repeatCount="indefinite"/><path d="M8 24 L4 28 M8 32 L2 32 M8 40 L4 36" stroke="#fbbf24" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M14 22 L11 25 M14 32 L9 32 M14 42 L11 39" stroke="#fde68a" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".7"/></g><g><animate attributeName="opacity" values="0.3;1;0.3" dur="1.2s" begin="0.3s" repeatCount="indefinite"/><path d="M56 24 L60 28 M56 32 L62 32 M56 40 L60 36" stroke="#fbbf24" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M50 22 L53 25 M50 32 L55 32 M50 42 L53 39" stroke="#fde68a" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".7"/></g><rect x="26" y="14" width="12" height="22" rx="6" fill="url(#g13b)" stroke="#92400e" stroke-width="1.2"/><path d="M28 16 L28 30 M30 14 L30 30 M32 13 L32 30 M34 14 L34 30 M36 16 L36 30" stroke="#a16207" stroke-width="0.4" opacity=".5"/><ellipse cx="32" cy="36" rx="10" ry="3" fill="none" stroke="#fbbf24" stroke-width="1.5"/><rect x="30" y="36" width="4" height="8" fill="url(#g13c)"/><path d="M22 42 Q22 50 32 50 Q42 50 42 42" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="50" r="2" fill="#fbbf24"/><path d="M28 54 L36 54" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/><circle cx="20" cy="18" r="1" fill="#fde68a" opacity=".8"/><circle cx="46" cy="48" r="1" fill="#fde68a" opacity=".8"/></svg></div><div class="app-name">派之声</div></div>
+        <div class="app-item" data-eco="VCITY" data-url="https://vcity.app/" data-icon="🏙️" data-desc1="VCITY第五城" data-desc2="元宇宙虚拟城市" data-desc3="此生态是谢章老师开发的一款元宇宙游戏" data-code="274695"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g14" cx="0.5" cy="0.5" r="0.6"><stop offset="0" stop-color="#3b82f6"/><stop offset="0.6" stop-color="#1d4ed8"/><stop offset="1" stop-color="#1e1b4b"/></radialGradient><linearGradient id="g14b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset="0.4" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e3a8a"/></linearGradient><filter id="f14"><feGaussianBlur stdDeviation="1.5"/></filter></defs><rect width="64" height="64" rx="14" fill="url(#g14)"/><circle cx="10" cy="10" r="1" fill="#fff" opacity=".7"/><circle cx="54" cy="14" r="1" fill="#fff" opacity=".7"/><circle cx="50" cy="54" r="1" fill="#fff" opacity=".7"/><circle cx="8" cy="50" r="1" fill="#fff" opacity=".7"/><circle cx="6" cy="32" r="1.5" fill="#7dd3fc" opacity=".6"/><circle cx="58" cy="32" r="1.5" fill="#7dd3fc" opacity=".6"/><g opacity=".35"><rect x="4" y="40" width="4" height="22" fill="#3b82f6" filter="url(#f14)"/><rect x="12" y="34" width="5" height="28" fill="#60a5fa" filter="url(#f14)"/><rect x="46" y="36" width="5" height="26" fill="#60a5fa" filter="url(#f14)"/><rect x="56" y="40" width="4" height="22" fill="#3b82f6" filter="url(#f14)"/></g><g><animateTransform attributeName="transform" type="scale" values="1;1.06;1" dur="2.4s" repeatCount="indefinite" additive="sum"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -1;0 0" dur="2.4s" repeatCount="indefinite" additive="sum"/><path d="M12 14 L26 50 L32 56 L38 50 L52 14 L42 14 L32 40 L22 14 Z" fill="url(#g14b)" stroke="#dbeafe" stroke-width="1.5" stroke-linejoin="round"/><path d="M16 18 L30 48 L32 50 L34 48 L48 18 L44 18 L32 42 L20 18 Z" fill="#bfdbfe" opacity=".4"/><path d="M22 14 L26 24 L30 24 L32 18 L34 24 L38 24 L42 14 Z" fill="#7dd3fc" opacity=".5"/><ellipse cx="32" cy="50" rx="10" ry="2" fill="#1e3a8a" opacity=".5"/></g><circle cx="32" cy="36" r="2" fill="#fff" opacity=".9"/><circle cx="32" cy="36" r="3.5" fill="none" stroke="#fff" stroke-width="0.6" opacity=".4"/></svg></div><div class="app-name">VCITY</div></div>
+        <div class="app-item" data-eco="GCV 价格" data-url="https://pi223w.pages.dev/" data-icon="💰" data-desc1="（此生态无需签到）" data-desc2="GCV价格查询" data-desc3="派币价格参考" data-code="110"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g15" cx="0.5" cy="0.4" r="0.7"><stop offset="0" stop-color="#fef9c3"/><stop offset="0.5" stop-color="#fbbf24"/><stop offset="1" stop-color="#92400e"/></radialGradient><radialGradient id="g15b" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fffbeb"/><stop offset="1" stop-color="#fde68a"/></radialGradient><linearGradient id="g15c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dc2626"/><stop offset="1" stop-color="#7f1d1d"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g15)"/><circle cx="6" cy="6" r="1" fill="#fff" opacity=".7"/><circle cx="58" cy="6" r="1" fill="#fff" opacity=".7"/><circle cx="6" cy="58" r="1" fill="#fff" opacity=".7"/><circle cx="58" cy="58" r="1" fill="#fff" opacity=".7"/><circle cx="4" cy="32" r="1.5" fill="#fef3c7" opacity=".6"/><circle cx="60" cy="32" r="1.5" fill="#fef3c7" opacity=".6"/><g><animateTransform attributeName="transform" type="scale" values="1;1.05;1" dur="2.4s" repeatCount="indefinite" additive="sum"/><circle cx="32" cy="28" r="20" fill="url(#g15b)" stroke="#92400e" stroke-width="2"/><circle cx="32" cy="28" r="17" fill="none" stroke="#92400e" stroke-width="1.2"/><circle cx="32" cy="28" r="14" fill="none" stroke="#fcd34d" stroke-width="0.6" opacity=".6"/><text x="32" y="38" text-anchor="middle" font-size="30" font-weight="900" fill="#7c2d12" font-family="serif">π</text><path d="M14 28 L14 26 M50 28 L50 26 M14 28 L14 30 M50 28 L50 30" stroke="#92400e" stroke-width="1.2" stroke-linecap="round"/><path d="M22 16 L18 12 M42 16 L46 12 M22 40 L18 44 M42 40 L46 44" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/><circle cx="14" cy="28" r="1.5" fill="#fff"/><circle cx="50" cy="28" r="1.5" fill="#fff"/></g><g><rect x="10" y="50" width="44" height="11" rx="2" fill="url(#g15c)" stroke="#fff" stroke-width="0.8"/><rect x="10" y="50" width="44" height="3" fill="#fff" opacity=".25"/><text x="32" y="59" text-anchor="middle" font-size="8" font-weight="900" fill="#fef3c7" font-family="Arial Black, sans-serif" letter-spacing="1.5">GCV</text><circle cx="50" cy="50" r="1.5" fill="#fbbf24"/><circle cx="14" cy="60" r="1" fill="#fbbf24" opacity=".6"/></g><path d="M4 50 L60 50" stroke="#fff" stroke-width="0.4" opacity=".3"/></svg></div><div class="app-name">GCV 价格</div></div>
+        <div class="app-item" data-eco="更多导航" data-url="https://piapp.link?r=15536455536" data-icon="🌐" data-desc1="派生态导航" data-desc2="发现更多派应用" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g16" cx="0.5" cy="0.5" r="0.6"><stop offset="0" stop-color="#fbbf24"/><stop offset="0.5" stop-color="#a855f7"/><stop offset="1" stop-color="#3b0764"/></radialGradient></defs><rect width="64" height="64" rx="14" fill="url(#g16)"/><path d="M32 8 L36 24 L52 24 L40 34 L44 50 L32 40 L20 50 L24 34 L12 24 L28 24 Z" fill="#fbbf24" stroke="#fff" stroke-width="1.2"/><circle cx="32" cy="30" r="9" fill="#fff"/><text x="32" y="35" text-anchor="middle" font-size="13" font-weight="800" fill="#7c2d12" font-family="serif">π</text><text x="32" y="58" text-anchor="middle" font-size="7" font-weight="700" fill="#fff" font-family="sans-serif">派导航</text></svg></div><div class="app-name">更多导航</div></div>
       </div>
     </div>
 
@@ -1449,25 +1829,17 @@
             <h3>需下载 APP 的应用</h3>
             <p>需下载独立 APP 客户端使用</p>
           </div>
-          <div class="section-count">17</div>
+          <div class="section-count">9</div>
         </div>
       <div class="home-grid">
         <div class="app-item" data-eco="Pi App" data-url="https://share.feijipan.com/s/rB3w9JF3" data-icon="📱" data-desc1="派主应用" data-desc2="派网络核心入口" data-code="无需邀请码"><div class="app-icon">📱</div><div class="app-name">Pi App</div></div>
-        <div class="app-item" data-eco="Pi Browser" data-url="https://share.feijipan.com/s/rB3w9JF3" data-icon="🌐" data-desc1="派官方浏览器" data-desc2="专为派生态打造的浏览器" data-code="无需邀请码"><div class="app-icon">🌐</div><div class="app-name">Pi Browser</div></div>
         <div class="app-item" data-eco="加速器下载" data-url="https://share.feijipan.com/s/C84YBszt" data-icon="⚡" data-desc1="网络加速器" data-desc2="加速派生态访问" data-code="无需邀请码"><div class="app-icon">⚡</div><div class="app-name">加速器下载</div></div>
-        <div class="app-item" data-eco="派插件下载" data-url="120" data-icon="🔌" data-desc1="派浏览器插件" data-desc2="扩展派生态功能" data-code="无需邀请码"><div class="app-icon">🔌</div><div class="app-name">派插件下载</div></div>
         <div class="app-item" data-eco="TELTLK" data-url="https://www.teltlk.com/#/register?invite=sss444" data-icon="📞" data-desc1="派通讯工具" data-desc2="派友即时通讯" data-code="sss444"><div class="app-icon">📞</div><div class="app-name">TELTLK</div></div>
-        <div class="app-item" data-eco="DOPAI元宇宙" data-url="https://www.dopaimeta.net/#/pages/login/register/?uid=OKCfsi" data-icon="🎯" data-desc1="DOPAI元宇宙" data-desc2="派生态去中心化应用" data-code="OKCfsi"><div class="app-icon">🎯</div><div class="app-name">DOPAI元宇宙</div></div>
-        <div class="app-item" data-eco="VCITY第五城" data-url="#" data-icon="🏙️" data-desc1="元宇宙城市" data-desc2="虚拟城市生活空间" data-code="VCITY8888" data-comingsoon="true"><div class="app-icon">🏙️</div><div class="app-name">VCITY第五城</div></div>
-        <div class="app-item" data-eco="PCM派链国际" data-url="#" data-icon="⛓️" data-desc1="派链国际" data-desc2="跨境支付结算" data-code="PCM31415" data-comingsoon="true"><div class="app-icon">⛓️</div><div class="app-name">PCM派链国际</div></div>
+        <div class="app-item" data-eco="DOPAI元宇宙" data-url="https://www.dopaimeta.net/#/pages/login/register/?uid=OKCfsi" data-icon="🎯" data-desc1="DOPAI元宇宙" data-desc2="派生态去中心化应用" data-code="OKCfsi" data-noenter="true"><div class="app-icon">🎯</div><div class="app-name">DOPAI元宇宙</div></div>
         <div class="app-item" data-eco="spacepi" data-url="https://spacepi333.pages.dev/" data-icon="🚀" data-desc1="太空探索" data-desc2="虚拟太空冒险" data-code="无需邀请码"><div class="app-icon">🚀</div><div class="app-name">spacepi</div></div>
         <div class="app-item" data-eco="PIX派信娱乐" data-url="https://pixinyule333.pages.dev/" data-icon="🎮" data-desc1="娱乐平台" data-desc2="派币游戏娱乐" data-code="无需邀请码"><div class="app-icon">🎮</div><div class="app-name">PIX派信娱乐</div></div>
-        <div class="app-item" data-eco="锚豆" data-url="#" data-icon="⚓" data-desc1="锚豆应用" data-desc2="派生态稳定币" data-code="MAODOU314" data-comingsoon="true"><div class="app-icon">⚓</div><div class="app-name">锚豆</div></div>
-        <div class="app-item" data-eco="淘派" data-url="#" data-icon="🛒" data-desc1="淘派商城" data-desc2="派币购物平台" data-code="TAOPAI2024" data-comingsoon="true"><div class="app-icon">🛒</div><div class="app-name">淘派</div></div>
-        <div class="app-item" data-eco="派购国际" data-url="#" data-icon="🌍" data-desc1="国际购物" data-desc2="跨境派币消费" data-code="PGINT314" data-comingsoon="true"><div class="app-icon">🌍</div><div class="app-name">派购国际</div></div>
-        <div class="app-item" data-eco="Weswap" data-url="#" data-icon="🔄" data-desc1="Weswap兑换" data-desc2="数字资产兑换" data-code="WESWAP314" data-comingsoon="true"><div class="app-icon">🔄</div><div class="app-name">Weswap</div></div>
-        <div class="app-item" data-eco="Umap地图" data-url="#" data-icon="🗺️" data-desc1="Umap地图" data-desc2="去中心化地图服务" data-code="UMAP2024" data-comingsoon="true"><div class="app-icon">🗺️</div><div class="app-name">Umap地图</div></div>
-        <div class="app-item" data-eco="Pi加速器" data-url="#" data-icon="🚀" data-desc1="派加速器" data-desc2="加速派网络连接" data-code="PIACCEL314" data-comingsoon="true"><div class="app-icon">🚀</div><div class="app-name">Pi加速器</div></div>
+        <div class="app-item" data-eco="Umap地图" data-url="https://wx.shanhexiao.com/h5/#/pages/H5downLoad/H5downLoad" data-icon="🗺️" data-desc1="Umap地图" data-desc2="去中心化地图服务" data-code="" data-image="umap"><div class="app-icon">🗺️</div><div class="app-name">Umap地图</div></div>
+        <div class="app-item" data-eco="多元派对相亲" data-url="#" data-icon="💕" data-desc1="多元派对相亲" data-desc2="派友社交配对平台" data-desc3="兴趣标签匹配，遇见志同道合的派友" data-code="" data-image="party" data-comingsoon="true"><div class="app-icon">💕</div><div class="app-name">多元派对相亲</div></div>
         <div class="app-item" data-eco="对接中" data-url="#" data-icon="🔄" data-desc1="生态对接中" data-desc2="敬请期待" data-code="COMING314" data-comingsoon="true"><div class="app-icon">🔄</div><div class="app-name">对接中</div></div>
       </div>
     </div>
@@ -1476,8 +1848,18 @@
     
     <div class="pi-rotating-container">
       <div class="pi-center-card">派币</div>
-      <div class="pi-orbit-card pi-orbit-left" data-name="尼古拉斯">尼古拉斯</div>
-      <div class="pi-orbit-card pi-orbit-right" data-name="范成雕">范成雕</div>
+      <div class="pi-orbit-card pi-orbit-left" data-name="尼古拉斯">
+        <span class="satellite sat-1"></span>
+        <span class="satellite sat-2"></span>
+        <span class="satellite sat-3"></span>
+        尼古拉斯
+      </div>
+      <div class="pi-orbit-card pi-orbit-right" data-name="范成雕">
+        <span class="satellite sat-1"></span>
+        <span class="satellite sat-2"></span>
+        <span class="satellite sat-3"></span>
+        范成雕
+      </div>
     </div>
 
   </section>
@@ -1676,6 +2058,15 @@
     </button>
   </div>
 </nav>
+
+<!-- QR 码生成库（永久代码生成二维码，CDN + 备用 CDN） -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script>
+  // 备用：若主 CDN 失败则尝试备用 CDN
+  if (typeof qrcode === 'undefined') {
+    document.write('<script src="https://unpkg.com/qrcode-generator@1.4.4/qrcode.min.js"><\/script>');
+  }
+</script>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -1950,6 +2341,13 @@
         rect.top - containerRect.top + rect.height / 2,
         ['#a855f7', '#c084fc', '#6c2b9e']
       );
+      
+      // 派币点击反馈动画：放大 → 变矩形 → 消失 → 恢复圆圈
+      this.centerCard.classList.remove('click-burst');
+      // 触发重排，确保动画可以重新播放
+      void this.centerCard.offsetWidth;
+      this.centerCard.classList.add('click-burst');
+      setTimeout(() => this.centerCard.classList.remove('click-burst'), 1300);
     }
     
     playOrbitSound(index) {
@@ -2051,12 +2449,160 @@
   const ecoTitle = document.getElementById('ecoModalTitle');
   const ecoDesc1 = document.getElementById('ecoModalDesc1');
   const ecoDesc2 = document.getElementById('ecoModalDesc2');
+  const ecoDesc3 = document.getElementById('ecoModalDesc3');
   const ecoCode = document.getElementById('ecoModalCode');
+  const ecoCodeBox = document.getElementById('ecoCodeBox');
+  const ecoImageBox = document.getElementById('ecoImageBox');
+  const ecoRectUmap = document.getElementById('ecoRectUmap');
+  const ecoRectParty = document.getElementById('ecoRectParty');
+  const ecoQrUmap = document.getElementById('ecoQrUmap');
+  const ecoQrParty = document.getElementById('ecoQrParty');
   const ecoEnter = document.getElementById('ecoModalEnter');
   const ecoBack = document.getElementById('ecoModalBack');
   const ecoClose = document.getElementById('ecoModalClose');
   const ecoCopyBtn = document.getElementById('ecoCopyBtn');
+  const ecoModal = document.querySelector('.eco-modal');
   let currentEcoUrl = '';
+
+  // === 永久代码生成二维码函数（小白也能看懂） ===
+  // 思路：把一段文字（URL）传进来 → 调用 qrcode() 库 → 用 Canvas 画一个二维码
+  // 画出来的 canvas 是真正可被微信扫出来的二维码，不是图片文件
+  function renderQrCode(container, text, withCenterLogo) {
+    // 1) 安全检查：容器或文字为空就退出
+    if (!container) return;
+    container.innerHTML = '';
+    if (!text) return;
+
+    // 2) 检查 qrcode 库是否加载成功
+    if (typeof qrcode === 'undefined') {
+      container.innerHTML = '<div style="padding:10px;font-size:10px;color:#666;text-align:center;">二维码库加载失败<br>请检查网络</div>';
+      return;
+    }
+
+    try {
+      // 3) 调用 qrcode 库生成二维码
+      //    typeNumber=0 表示自动选最小版本
+      //    errorCorrectionLevel='M' 容错率中等（15%被遮挡也能扫）
+      //    withCenterLogo=true 时用 'H' 容错率（30%被遮挡也能扫），让中心 logo 盖住部分点
+      const qr = qrcode(0, withCenterLogo ? 'H' : 'M');
+      // 4) 把要编码的文字（URL）喂给二维码
+      qr.addData(text);
+      // 5) 完成计算
+      qr.make();
+
+      // 6) 拿到二维码的"格子数"
+      const n = qr.getModuleCount();
+
+      // 7) 让 canvas 完全填满方框：根据容器实际尺寸动态计算 cellSize
+      //    容器 .eco-rect-qr 是 130x130，padding 0
+      //    直接让 canvas 像素 = n * cellSize（高分辨率），CSS 强制 130x130 显示
+      const boxSize = 130;
+      const cellSize = Math.max(2, Math.floor(boxSize / n));
+      const size = n * cellSize; // canvas 实际像素（高分辨率，画质好）
+
+      // 8) 在容器里塞一个 <canvas> 元素
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      canvas.style.display = 'block';
+      canvas.style.background = '#fff';
+      canvas.style.width = boxSize + 'px';      // 强制宽 = 方框
+      canvas.style.height = boxSize + 'px';     // 强制高 = 方框
+      canvas.style.imageRendering = 'pixelated'; // 缩放时不模糊
+      container.appendChild(canvas);
+
+      // 9) 在 canvas 上画画（跟你提供的代码逻辑一模一样）
+      const ctx = canvas.getContext('2d');
+      // 9.1) 先铺一层白底
+      ctx.fillStyle = '#fff';
+      ctx.fillRect(0, 0, size, size);
+      // 9.2) 把每个黑格子画上去
+      ctx.fillStyle = '#000';
+      for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+          if (qr.isDark(i, j)) ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+        }
+      }
+
+      // 10) 如果要加中心 logo（多元派对相亲），在中心位置画
+      if (withCenterLogo) {
+        const cx = size / 2;
+        const cy = size / 2;
+        const r = size * 0.15;
+        // 10.1) 画白圆（覆盖中心黑格）
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fill();
+        // 10.2) 画紫色边框
+        ctx.strokeStyle = '#a855f7';
+        ctx.lineWidth = 2 * cellSize / 8;
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.stroke();
+        // 10.3) 画上方的小红心（多元派对相亲标志）
+        const heartY = cy - r * 0.42;
+        const heartSize = r * 0.34;
+        const hx = cx;
+        const hy = heartY;
+        const hs = heartSize;
+        // 心形渐变
+        const heartGrad = ctx.createLinearGradient(hx - hs, hy, hx + hs, hy + hs);
+        heartGrad.addColorStop(0, '#fb7185');
+        heartGrad.addColorStop(0.5, '#ef4444');
+        heartGrad.addColorStop(1, '#dc2626');
+        ctx.fillStyle = heartGrad;
+        ctx.beginPath();
+        ctx.moveTo(hx, hy + hs * 0.75);
+        ctx.bezierCurveTo(hx - hs * 1.15, hy - hs * 0.15, hx - hs * 0.55, hy - hs * 0.95, hx, hy - hs * 0.25);
+        ctx.bezierCurveTo(hx + hs * 0.55, hy - hs * 0.95, hx + hs * 1.15, hy - hs * 0.15, hx, hy + hs * 0.75);
+        ctx.fill();
+        // 10.4) 画 π 字符（彩虹渐变效果）
+        const piGrad = ctx.createLinearGradient(cx - r, cy, cx + r, cy + r);
+        piGrad.addColorStop(0, '#7c3aed');   // 紫
+        piGrad.addColorStop(0.3, '#a855f7'); // 浅紫
+        piGrad.addColorStop(0.5, '#ec4899'); // 粉
+        piGrad.addColorStop(0.7, '#f97316'); // 橙
+        piGrad.addColorStop(1, '#eab308');   // 黄
+        ctx.fillStyle = piGrad;
+        ctx.font = '900 ' + (r * 1.15) + 'px serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('π', cx, cy + r * 0.32);
+      }
+    } catch (e) {
+      // 万一出错：把 URL 文字显示出来
+      container.innerHTML = '<div style="padding:10px;font-size:11px;color:#000;word-break:break-all;text-align:center;">' + text + '</div>';
+    }
+  }
+  // === 精选第一行：热门生态排名前三（白色加大字体） ===
+  (function(){
+    const row = document.getElementById('featuredRow');
+    if (!row) return;
+    const featuredEcos = ['派元宇宙土地', '派孵化器', '派宠物'];
+    const featuredTags = ['热门生态排名第一', '热门生态排名二', '热门生态排名三'];
+    featuredEcos.forEach((name, i) => {
+      const orig = document.querySelector('.app-item[data-eco="' + name + '"]');
+      if (!orig) return;
+      const clone = orig.cloneNode(true);
+      clone.classList.add('featured-card');
+      clone.removeAttribute('data-idx');
+      // 覆盖 app-name 文字为新名称
+      const nameEl = clone.querySelector('.app-name');
+      if (nameEl) nameEl.textContent = name;
+      // 红色热门生态角标
+      let tag = clone.querySelector('.featured-tag');
+      if (!tag) {
+        tag = document.createElement('div');
+        tag.className = 'featured-tag';
+        clone.appendChild(tag);
+      }
+      tag.textContent = featuredTags[i] || '';
+      // 触发与原始 app-item 完全相同的弹窗逻辑
+      clone.addEventListener('click', () => orig.click());
+      row.appendChild(clone);
+    });
+  })();
   document.querySelectorAll('.app-item').forEach((item, idx) => {
     item.addEventListener('click', () => {
       const icon = item.dataset.icon || '';
@@ -2082,18 +2628,64 @@
       ecoTitle.textContent = item.dataset.eco || '';
       ecoDesc1.textContent = item.dataset.desc1 || '';
       ecoDesc2.textContent = item.dataset.desc2 || '';
+      const d3 = item.dataset.desc3 || '';
+      ecoDesc3.textContent = d3;
+      ecoDesc3.style.display = d3 ? '' : 'none';
       
       const modal = document.querySelector('.eco-modal');
+      const imageKey = item.dataset.image || '';
+      const noEnter = item.dataset.noenter === 'true';
+      // 根据 data-image 切换：扫码图 / 邀请码
+      if (imageKey === 'umap' || imageKey === 'party') {
+        ecoCodeBox.style.display = 'none';
+        ecoImageBox.style.display = '';
+        ecoRectUmap.style.display = (imageKey === 'umap') ? 'flex' : 'none';
+        ecoRectParty.style.display = (imageKey === 'party') ? 'flex' : 'none';
+        // 永久代码生成二维码（不依赖任何上传图片，完全填满方框）
+        if (imageKey === 'umap') {
+          // Umap地图H5：扫码进入派友地图签到页（带邀请人参数）
+          const umapUrl = 'https://wechat.shanhexiao.com/h5/#/pages/registerPage/yang?parentUserId=oJoMX5alQ9zIfOueSZyePfoLmV1M&mapId=1';
+          renderQrCode(ecoQrUmap, umapUrl, false);
+        } else if (imageKey === 'party') {
+          // 多元派对相亲：优先显示真实图片（请将图片保存为 /workspace/party-qr.png）
+          // 若图片未保存，img.onerror 触发 window.__partyQrFallback() 用代码生成永久二维码
+          window.__partyQrFallback = function() {
+            const partyUrl = 'https://weixin.qq.com/party-dating';
+            renderQrCode(ecoQrParty, partyUrl, true); // true=带中心logo（π+红心+彩虹色）
+          };
+          const partyImg = document.getElementById('ecoQrPartyImg');
+          if (partyImg) {
+            partyImg.style.display = 'block';
+            partyImg.src = 'party-qr.png?' + Date.now(); // 加时间戳防止缓存
+            // 如果图片已经在浏览器缓存中加载失败，自然触发 onerror
+            // 如果是新加载，会在加载完成后正常显示
+          }
+        }
+        // 显示二维码时：只保留"返回"按钮，隐藏"进入生态"
+        if (modal) modal.classList.add('show-qr');
+      } else {
+        ecoCodeBox.style.display = '';
+        ecoImageBox.style.display = 'none';
+        ecoRectUmap.style.display = 'none';
+        ecoRectParty.style.display = 'none';
+        if (modal) modal.classList.toggle('show-qr', noEnter);
+      }
       if (isComingSoon) {
+        if (imageKey) {
+          // 有图片的应用（如多元派对相亲）：保留"进入生态"按钮
+          if (modal) modal.classList.remove('coming-soon');
+        } else {
+          if (modal) modal.classList.add('coming-soon');
+        }
         ecoCode.textContent = '敬请期待';
         ecoCode.classList.add('none');
         currentEcoUrl = '#';
-        if (modal) modal.classList.add('coming-soon');
       } else {
         ecoCode.textContent = item.dataset.code || '暂无';
         ecoCode.classList.toggle('none', !item.dataset.code || item.dataset.code === '敬请期待');
         currentEcoUrl = url;
         if (modal) modal.classList.remove('coming-soon');
+        // 不在这里直接跳转！让用户必须点击"进入生态"按钮才会跳转
       }
       ecoMask.classList.add('active');
     });
@@ -2132,6 +2724,7 @@
     // "返回首页"：柔和下行双音
     playTone(520, {duration:0.10, type:'sine', volume:0.18});
     setTimeout(()=>playTone(360, {duration:0.14, type:'triangle', volume:0.15}), 70);
+    // 只关闭弹窗，保持页面当前位置不变（不滚动、不切换面板）
     setTimeout(hideEcoModal, 120);
   });
   if (ecoCopyBtn) ecoCopyBtn.addEventListener('click', () => {
@@ -2286,11 +2879,39 @@
       <div class="eco-modal-desc">
         <p id="ecoModalDesc1">生态功能介绍第一行</p>
         <p id="ecoModalDesc2">生态功能介绍第二行</p>
+        <p id="ecoModalDesc3" class="d3">生态功能介绍第三行</p>
       </div>
-      <div class="eco-code-box">
+      <div class="eco-code-box" id="ecoCodeBox">
         <div class="eco-code-label">邀请码</div>
         <div class="eco-code-value" id="ecoModalCode">PICO2026</div>
         <button class="eco-copy-btn" id="ecoCopyBtn">复制</button>
+      </div>
+      <!-- 长方形图片（扫码图）替代邀请码，用于 Umap地图 / 多元派对相亲 -->
+      <div class="eco-image-box" id="ecoImageBox" style="display:none;">
+        <!-- Umap地图 - 微信扫码派友地图签到（绿色） -->
+        <div class="eco-rect-card eco-rect-umap" id="ecoRectUmap" style="display:none;">
+          <div class="eco-rect-text">
+            <div class="eco-rect-line">微信扫码</div>
+            <div class="eco-rect-line">派友地图</div>
+            <div class="eco-rect-line">签到</div>
+          </div>
+          <div class="eco-rect-qr" id="ecoQrUmap">
+            <!-- 永久代码生成的二维码容器（JS动态填充，完全填满方框） -->
+          </div>
+        </div>
+        <!-- 多元派对相亲 - 微信小程序（红色） -->
+        <div class="eco-rect-card eco-rect-party" id="ecoRectParty" style="display:none;">
+          <div class="eco-rect-text">
+            <div class="eco-rect-line">多元派对</div>
+            <div class="eco-rect-line">派友相亲</div>
+            <div class="eco-rect-line">微信小程序</div>
+          </div>
+          <div class="eco-rect-qr" id="ecoQrParty">
+            <!-- 多元派对相亲二维码：直接显示真实图片（请将图片保存为 /workspace/party-qr.png） -->
+            <!-- 若图片未保存，自动用代码生成带π+红心+彩虹色中心logo的永久二维码占位 -->
+            <img id="ecoQrPartyImg" src="party-qr.png" alt="多元派对相亲二维码" class="eco-qr-img" style="display:block;" onerror="this.style.display='none'; if(typeof window.__partyQrFallback==='function'){window.__partyQrFallback();}"/>
+          </div>
+        </div>
       </div>
       <div class="eco-btn-row">
         <button class="eco-btn enter" id="ecoModalEnter">进入生态</button>
