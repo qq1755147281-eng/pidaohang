@@ -806,6 +806,163 @@
   .eco-modal.coming-soon .eco-modal-desc{background:linear-gradient(135deg,rgba(255,200,80,.12),rgba(165,94,234,.12));border:1px solid rgba(255,200,80,.35);}
   .eco-modal.coming-soon .eco-modal-desc p{color:#ffd89b;font-size:13px;letter-spacing:.5px;}
 
+  /* ============ Oasis Modal (派绿洲专属主题) ============ */
+  .eco-modal.oasis-mode{
+    aspect-ratio:auto;
+    width:min(360px,86vw);
+    background:
+      radial-gradient(circle at 20% 0%,rgba(167,243,208,.18) 0%,transparent 45%),
+      radial-gradient(circle at 100% 100%,rgba(125,211,252,.14) 0%,transparent 50%),
+      linear-gradient(160deg,#022c22 0%,#064e3b 45%,#0a3a2a 100%);
+    box-shadow:
+      0 24px 70px rgba(0,0,0,.65),
+      inset 0 0 0 1px rgba(110,231,183,.35),
+      0 0 60px rgba(16,185,129,.25);
+    padding:20px 22px 18px;
+  }
+  .eco-modal.oasis-mode::before{
+    background:linear-gradient(135deg,#34d399 0%,#fbbf24 50%,#0ea5e9 100%);
+    animation:tech-ring 4s ease-in-out infinite;
+  }
+  .eco-modal.oasis-mode::after{
+    background-image:
+      linear-gradient(rgba(110,231,183,.07) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(125,211,252,.05) 1px,transparent 1px);
+    background-size:16px 16px;
+  }
+  .oasis-badge{
+    position:absolute;top:14px;left:14px;
+    display:inline-flex;align-items:center;gap:4px;
+    padding:3px 9px;border-radius:20px;
+    background:linear-gradient(135deg,rgba(52,211,153,.25),rgba(14,165,233,.2));
+    border:1px solid rgba(110,231,183,.5);
+    color:#a7f3d0;font-size:9.5px;font-weight:700;
+    letter-spacing:1.2px;z-index:3;
+    backdrop-filter:blur(4px);
+    text-transform:uppercase;
+  }
+  .oasis-badge::before{
+    content:"";width:5px;height:5px;border-radius:50%;
+    background:#34d399;box-shadow:0 0 8px #34d399;
+    animation:oasis-pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes oasis-pulse{
+    0%,100%{opacity:1;transform:scale(1);}
+    50%{opacity:.5;transform:scale(.7);}
+  }
+  .oasis-leaves{
+    position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden;border-radius:18px;
+  }
+  .oasis-leaf{
+    position:absolute;width:14px;height:14px;
+    background:linear-gradient(135deg,#34d399,#047857);
+    clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);
+    opacity:.55;
+  }
+  .oasis-leaf.l1{top:12%;left:8%;transform:rotate(25deg);animation:oasis-float 6s ease-in-out infinite;}
+  .oasis-leaf.l2{top:62%;left:4%;width:10px;height:10px;transform:rotate(-15deg);animation:oasis-float 7.2s ease-in-out infinite .6s;opacity:.4;}
+  .oasis-leaf.l3{top:20%;right:6%;width:11px;height:11px;transform:rotate(60deg);animation:oasis-float 5.6s ease-in-out infinite 1.2s;opacity:.5;}
+  .oasis-leaf.l4{bottom:18%;right:8%;transform:rotate(-30deg);animation:oasis-float 6.8s ease-in-out infinite .3s;}
+  .oasis-leaf.l5{bottom:8%;left:42%;width:8px;height:8px;transform:rotate(45deg);animation:oasis-float 5.2s ease-in-out infinite 1.5s;opacity:.35;}
+  @keyframes oasis-float{
+    0%,100%{transform:translateY(0) rotate(var(--r,25deg));}
+    50%{transform:translateY(-8px) rotate(calc(var(--r,25deg) + 12deg));}
+  }
+  .oasis-hero{
+    text-align:center;padding:8px 0 12px;position:relative;z-index:2;
+  }
+  .oasis-logo{
+    width:60px;height:60px;margin:6px auto 8px;border-radius:16px;
+    background:linear-gradient(135deg,#10b981 0%,#0ea5e9 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 22px rgba(16,185,129,.45), inset 0 0 0 1.5px rgba(255,255,255,.25);
+    position:relative;
+  }
+  .oasis-logo::after{
+    content:"";position:absolute;inset:-4px;border-radius:18px;
+    background:linear-gradient(135deg,#34d399,#fbbf24,#0ea5e9);
+    z-index:-1;opacity:.55;filter:blur(6px);
+  }
+  .oasis-logo svg{width:36px;height:36px;}
+  .oasis-name{
+    font-size:18px;font-weight:800;letter-spacing:2px;
+    background:linear-gradient(90deg,#a7f3d0 0%,#fbbf24 50%,#7dd3fc 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    margin-bottom:4px;
+  }
+  .oasis-tagline{
+    font-size:10.5px;color:#a7f3d0;letter-spacing:1.5px;opacity:.85;
+    text-transform:uppercase;
+  }
+  .oasis-desc{
+    position:relative;z-index:2;
+    background:linear-gradient(135deg,rgba(16,185,129,.16),rgba(14,165,233,.1));
+    border:1px solid rgba(110,231,183,.32);
+    border-radius:10px;padding:10px 12px;margin-bottom:10px;
+    text-align:center;
+  }
+  .oasis-desc p{font-size:12px;color:#d1fae5;line-height:1.55;margin:2px 0;}
+  .oasis-desc .oasis-highlight{color:#fef3c7;font-weight:700;letter-spacing:.5px;}
+  .oasis-features{
+    position:relative;z-index:2;
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;
+    margin-bottom:10px;
+  }
+  .oasis-feat{
+    background:linear-gradient(160deg,rgba(16,185,129,.22),rgba(14,165,233,.12));
+    border:1px solid rgba(110,231,183,.35);
+    border-radius:9px;padding:7px 4px 6px;
+    text-align:center;cursor:default;
+    transition:all .25s ease;
+  }
+  .oasis-feat:hover{transform:translateY(-2px);border-color:rgba(251,191,36,.55);box-shadow:0 6px 16px rgba(16,185,129,.3);}
+  .oasis-feat-ico{font-size:18px;line-height:1;margin-bottom:2px;display:block;}
+  .oasis-feat-txt{font-size:10px;color:#a7f3d0;letter-spacing:.5px;font-weight:600;display:block;}
+  .oasis-stats{
+    position:relative;z-index:2;
+    display:flex;justify-content:space-around;align-items:center;
+    background:rgba(6,78,59,.45);
+    border:1px solid rgba(110,231,183,.3);
+    border-radius:9px;padding:7px 4px;margin-bottom:10px;
+  }
+  .oasis-stat{text-align:center;flex:1;}
+  .oasis-stat-num{font-size:14px;font-weight:800;color:#fbbf24;letter-spacing:.5px;line-height:1.1;}
+  .oasis-stat-lbl{font-size:9px;color:#a7f3d0;opacity:.85;margin-top:1px;letter-spacing:.5px;}
+  .oasis-stat-sep{width:1px;height:18px;background:rgba(110,231,183,.25);}
+  .oasis-cta{
+    position:relative;z-index:2;
+    width:100%;padding:11px 0;border-radius:10px;border:none;cursor:pointer;
+    background:linear-gradient(135deg,#10b981 0%,#0ea5e9 100%);
+    color:#fff;font-size:13px;font-weight:800;letter-spacing:1.5px;
+    font-family:inherit;
+    box-shadow:0 6px 20px rgba(16,185,129,.45);
+    margin-bottom:8px;
+    display:flex;align-items:center;justify-content:center;gap:6px;
+    transition:all .2s ease;
+  }
+  .oasis-cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(16,185,129,.6);}
+  .oasis-cta:active{transform:translateY(0);}
+  .oasis-cta::after{
+    content:"→";font-size:14px;transition:transform .2s ease;
+  }
+  .oasis-cta:hover::after{transform:translateX(3px);}
+  .oasis-back{
+    width:100%;padding:9px 0;border-radius:10px;cursor:pointer;
+    background:transparent;border:1px solid rgba(110,231,183,.3);
+    color:#a7f3d0;font-size:11.5px;font-weight:600;letter-spacing:1px;
+    font-family:inherit;
+    transition:all .2s ease;
+  }
+  .oasis-back:hover{background:rgba(16,185,129,.12);border-color:rgba(110,231,183,.55);}
+  /* 派绿洲模式下，隐藏默认的标题/描述/邀请码/二维码区域（只保留关闭按钮+badge+背景装饰） */
+  .eco-modal.oasis-mode .eco-modal-title,
+  .eco-modal.oasis-mode .eco-modal-desc,
+  .eco-modal.oasis-mode .eco-code-box,
+  .eco-modal.oasis-mode .eco-image-box,
+  .eco-modal.oasis-mode .eco-btn-row,
+  .eco-modal.oasis-mode .eco-modal-icon{display:none !important;}
+
   /* ============ Ranking Panel Styles (TOP 20) ============ */
   .rank-tip{
     display:flex;align-items:flex-start;gap:10px;
@@ -1797,7 +1954,7 @@
         <div class="app-item" data-eco="派孵化器" data-url="https://startpi.app" data-icon="🐣" data-desc1="派项目孵化器平台" data-desc2="孵化优秀派生态项目、扶持创新团队" data-desc3="为先锋提供项目启动支持与资源对接" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fef3c7"/><stop offset="1" stop-color="#fbbf24"/></linearGradient><linearGradient id="g2d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bbf7d0"/><stop offset="1" stop-color="#16a34a"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g2)"/><circle cx="50" cy="14" r="2.5" fill="#fde68a" opacity=".8"/><circle cx="14" cy="12" r="2" fill="#fde68a" opacity=".8"/><circle cx="56" cy="48" r="1.5" fill="#fde68a" opacity=".7"/><path d="M4 50 L60 50" stroke="#a16207" stroke-width="1.5" stroke-linecap="round"/><path d="M6 50 L58 50" stroke="#78350f" stroke-width="0.8" stroke-linecap="round"/><g><animateTransform attributeName="transform" type="rotate" values="0 14 50;-6 14 50;0 14 50;6 14 50;0 14 50" dur="3.2s" repeatCount="indefinite"/><path d="M14 50 L14 38 Q14 30 8 28 Q14 26 16 32 Q18 26 24 28 Q18 30 18 38 L18 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/><path d="M14 36 L14 30" stroke="#15803d" stroke-width="0.5" opacity=".5"/><circle cx="11" cy="32" r="1" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="rotate" values="0 24 50;-5 24 50;0 24 50;5 24 50;0 24 50" dur="2.6s" begin="0.4s" repeatCount="indefinite"/><path d="M24 50 L24 40 Q24 32 18 30 Q24 28 26 34 Q28 28 34 30 Q28 32 28 40 L28 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/><circle cx="21" cy="34" r="1" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="rotate" values="0 50 50;-6 50 50;0 50 50;6 50 50;0 50 50" dur="3.4s" begin="0.2s" repeatCount="indefinite"/><path d="M50 50 L50 36 Q50 28 44 26 Q50 24 52 30 Q54 24 60 26 Q54 28 54 36 L54 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/><circle cx="47" cy="30" r="1" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="rotate" values="0 40 50;-4 40 50;0 40 50;4 40 50;0 40 50" dur="2.8s" begin="0.6s" repeatCount="indefinite"/><path d="M40 50 L40 42 Q40 36 35 34 Q40 32 42 38 Q44 32 49 34 Q44 36 44 42 L44 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/></g><circle cx="6" cy="50" r="1" fill="#92400e"/><circle cx="58" cy="50" r="1" fill="#92400e"/><circle cx="32" cy="48" r="1" fill="#92400e"/></svg></div><div class="app-name">派孵化器</div></div>
         <div class="app-item" data-eco="派众筹生态" data-url="https://crowdfundpi.com" data-icon="🎯" data-desc1="派生态众筹平台" data-desc2="支持派项目募资与早期先锋参与" data-desc3="共同支持优质派生态项目成长" data-code="FiA5y5HE"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g3" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="#bbf7d0"/><stop offset="1" stop-color="#16a34a"/></radialGradient></defs><rect width="64" height="64" rx="14" fill="url(#g3)"/><rect x="30" y="48" width="4" height="12" fill="#78350f"/><path d="M32 12 L36 12 L36 20 L40 20 L40 28 L36 28 L36 36 L42 36 L42 44 L36 44 L36 48 L28 48 L28 44 L22 44 L22 36 L28 36 L28 28 L24 28 L24 20 L28 20 L28 12 Z" fill="#22c55e" stroke="#15803d" stroke-width="1.2"/><circle cx="18" cy="20" r="4" fill="#16a34a" opacity=".85"/><circle cx="48" cy="24" r="3.5" fill="#16a34a" opacity=".85"/><circle cx="20" cy="40" r="3" fill="#22c55e"/><circle cx="46" cy="42" r="3" fill="#22c55e"/><circle cx="14" cy="32" r="2" fill="#16a34a"/><circle cx="50" cy="34" r="2" fill="#16a34a"/></svg></div><div class="app-name">派众筹生态</div></div>
         <div class="app-item" data-eco="哈希派" data-url="https://hashpi.app" data-icon="🔗" data-desc1="哈希派生态应用" data-desc2="基于哈希的派生态分布式服务" data-desc3="去中心化数据存储与验证解决方案" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e3a8a"/></linearGradient><linearGradient id="g4b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g4)"/><circle cx="50" cy="14" r="2" fill="#fbbf24"/><circle cx="14" cy="14" r="1.5" fill="#fbbf24"/><circle cx="54" cy="50" r="1.5" fill="#fbbf24"/><g><animateTransform attributeName="transform" type="translate" values="0 0;0 -2;0 0" dur="1.2s" repeatCount="indefinite"/><path d="M14 18 L18 18 L22 38 L46 38 L50 22 L24 22" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 38 L46 38 L48 26 L24 26 Z" fill="url(#g4b)" opacity=".9"/><circle cx="26" cy="46" r="3.5" fill="#fbbf24" stroke="#fff" stroke-width="1.2"/><circle cx="42" cy="46" r="3.5" fill="#fbbf24" stroke="#fff" stroke-width="1.2"/><circle cx="26" cy="46" r="1" fill="#92400e"/><circle cx="42" cy="46" r="1" fill="#92400e"/><path d="M28 32 L34 32 M36 30 L40 30 M28 34 L32 34" stroke="#fff" stroke-width="1" opacity=".6"/></g><path d="M12 50 L52 50" stroke="#fff" stroke-width="1" opacity=".3"/></svg></div><div class="app-name">哈希派</div></div>
-        <div class="app-item" data-eco="绿洲派" data-url="https://oasispi.app" data-icon="🌱" data-desc1="绿洲派生态应用" data-desc2="绿色派生态共建平台" data-desc3="打造可持续派生态绿洲" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g5" cx="0.5" cy="0.4" r="0.7"><stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#0369a1"/></radialGradient></defs><rect width="64" height="64" rx="14" fill="url(#g5)"/><path d="M32 14 Q18 22 18 36 Q18 46 32 50 Q46 46 46 36 Q46 22 32 14 Z" fill="#1e3a8a"/><path d="M32 18 Q22 24 22 35 Q22 42 32 46" fill="#3b82f6" opacity=".7"/><path d="M32 16 Q30 22 30 28 M32 16 Q34 22 34 28" stroke="#fbbf24" stroke-width="1.5" fill="none"/><path d="M24 30 Q26 34 28 30 M36 30 Q38 34 40 30" stroke="#fbbf24" stroke-width="1.5" fill="none"/><circle cx="28" cy="36" r="2" fill="#fbbf24"/><circle cx="36" cy="36" r="2" fill="#fbbf24"/><path d="M14 50 Q32 56 50 50" stroke="#fff" stroke-width="1" fill="none" opacity=".5"/><circle cx="46" cy="14" r="2" fill="#fbbf24"/><circle cx="16" cy="20" r="1.5" fill="#fbbf24"/></svg></div><div class="app-name">绿洲派</div></div>
+        <div class="app-item" data-eco="派绿洲" data-url="https://pinet.app" data-icon="🌿" data-desc1="派绿洲生态平台 pinet.app" data-desc2="Pi Network 派生态一站式聚合入口" data-desc3="发现 · 参与 · 共建派生态绿洲" data-code="" data-special="oasis" data-noenter="false"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="gOasis" cx="0.5" cy="0.4" r="0.7"><stop offset="0" stop-color="#a7f3d0"/><stop offset="0.6" stop-color="#10b981"/><stop offset="1" stop-color="#065f46"/></radialGradient><linearGradient id="gOasisLeaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#047857"/></linearGradient><linearGradient id="gOasisDrop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#0ea5e9"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#gOasis)"/><circle cx="50" cy="14" r="1.6" fill="#fff" opacity=".8"><animate attributeName="opacity" values="0.4;1;0.4" dur="2.4s" repeatCount="indefinite"/></circle><circle cx="14" cy="20" r="1.2" fill="#fff" opacity=".7"><animate attributeName="opacity" values="0.3;1;0.3" dur="2s" begin=".4s" repeatCount="indefinite"/></circle><circle cx="54" cy="48" r="1.4" fill="#fef3c7" opacity=".7"><animate attributeName="opacity" values="0.4;1;0.4" dur="2.6s" begin=".8s" repeatCount="indefinite"/></circle><g><animateTransform attributeName="transform" type="rotate" values="-6 32 36;6 32 36;-6 32 36" dur="4s" repeatCount="indefinite"/><path d="M32 8 Q14 22 14 38 Q14 50 32 56 Q50 50 50 38 Q50 22 32 8 Z" fill="url(#gOasisLeaf)" stroke="#065f46" stroke-width="1.2"/><path d="M32 12 Q20 24 20 38 Q20 48 32 52" fill="none" stroke="#a7f3d0" stroke-width="1.2" opacity=".85"/><path d="M32 12 L32 52" stroke="#065f46" stroke-width="1" opacity=".6"/><path d="M32 22 Q26 24 24 28 M32 22 Q38 24 40 28 M32 30 Q24 32 22 36 M32 30 Q40 32 42 36 M32 38 Q26 40 24 44 M32 38 Q38 40 40 44" stroke="#065f46" stroke-width=".8" fill="none" opacity=".7"/></g><path d="M32 18 Q30 22 30 26 Q30 30 32 30 Q34 30 34 26 Q34 22 32 18 Z" fill="url(#gOasisDrop)" stroke="#0369a1" stroke-width=".6" opacity=".9"><animate attributeName="opacity" values="0.7;1;0.7" dur="1.8s" repeatCount="indefinite"/></path><circle cx="30" cy="24" r="1" fill="#fff" opacity=".8"/><path d="M14 50 Q32 56 50 50" stroke="#fff" stroke-width="1" fill="none" opacity=".5"/></svg></div><div class="app-name">派绿洲</div></div>
         <div class="app-item" data-eco="派宠物" data-url="https://pipet.me/#/pages/login/login?invite=419296" data-icon="🐾" data-desc1="派宠物养成游戏" data-desc2="领养您的虚拟派宠物、培养互动" data-desc3="宠物成长、繁殖、交易一体化" data-code="419296"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g6" cx="0.5" cy="0.5" r="0.7"><stop offset="0" stop-color="#6d28d9"/><stop offset="0.6" stop-color="#4c1d95"/><stop offset="1" stop-color="#1e1b4b"/></radialGradient><radialGradient id="g6b" cx="0.5" cy="0.4" r="0.6"><stop offset="0" stop-color="#fce7f3"/><stop offset="0.6" stop-color="#f9a8d4"/><stop offset="1" stop-color="#a855f7"/></radialGradient><linearGradient id="g6c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbcfe8"/><stop offset="1" stop-color="#c084fc"/></linearGradient><radialGradient id="g6d" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#fef3c7"/><stop offset="1" stop-color="#a855f7"/></radialGradient><filter id="f6"><feGaussianBlur stdDeviation="0.8"/></filter><filter id="f6b"><feGaussianBlur stdDeviation="1.5"/></filter></defs><rect width="64" height="64" rx="14" fill="url(#g6)"/><circle cx="8" cy="10" r="1.2" fill="#fff" opacity=".9"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/></circle><circle cx="56" cy="8" r="1" fill="#fff" opacity=".9"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.4s" begin="0.4s" repeatCount="indefinite"/></circle><circle cx="52" cy="20" r="0.8" fill="#fde68a"><animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" begin="0.2s" repeatCount="indefinite"/></circle><circle cx="6" cy="28" r="1" fill="#fff" opacity=".8"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.6s" begin="0.6s" repeatCount="indefinite"/></circle><circle cx="58" cy="40" r="1.2" fill="#fde68a" opacity=".9"><animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" begin="0.3s" repeatCount="indefinite"/></circle><circle cx="10" cy="50" r="0.8" fill="#fff" opacity=".7"><animate attributeName="opacity" values="0.2;1;0.2" dur="2.8s" begin="0.5s" repeatCount="indefinite"/></circle><circle cx="50" cy="56" r="1" fill="#fff" opacity=".8"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" begin="0.7s" repeatCount="indefinite"/></circle><g opacity=".6" filter="url(#f6b)"><circle cx="20" cy="14" r="0.8" fill="#fde68a"/><circle cx="44" cy="46" r="0.6" fill="#fde68a"/><circle cx="14" cy="44" r="0.6" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.5;0 0;0 1.5;0 0" dur="2.4s" repeatCount="indefinite"/><animateTransform attributeName="transform" type="rotate" values="0 32 34;-2 32 34;0 32 34;2 32 34;0 32 34" dur="3s" repeatCount="indefinite" additive="sum"/><ellipse cx="32" cy="48" rx="10" ry="3" fill="#7c3aed" opacity=".5"/><path d="M22 18 L24 12 L28 16 L32 12 L36 16 L40 12 L42 18 L42 24 L40 22 L36 24 L32 22 L28 24 L24 22 L22 24 Z" fill="url(#g6b)" stroke="#f9a8d4" stroke-width="1"/><path d="M24 14 L25 17 M40 14 L39 17" stroke="#f9a8d4" stroke-width="0.6" opacity=".7"/><path d="M22 18 L18 22 L18 26 L22 24 Z" fill="url(#g6b)" stroke="#f9a8d4" stroke-width="0.8"/><path d="M42 18 L46 22 L46 26 L42 24 Z" fill="url(#g6b)" stroke="#f9a8d4" stroke-width="0.8"/><ellipse cx="32" cy="30" rx="12" ry="10" fill="url(#g6c)" stroke="#f9a8d4" stroke-width="1"/><path d="M24 30 L18 32 L24 33 Z" fill="url(#g6b)" stroke="#f9a8d4" stroke-width="0.8"/><path d="M40 30 L46 32 L40 33 Z" fill="url(#g6b)" stroke="#f9a8d4" stroke-width="0.8"/><ellipse cx="27" cy="28" rx="2.2" ry="2.6" fill="#fff"/><ellipse cx="37" cy="28" rx="2.2" ry="2.6" fill="#fff"/><ellipse cx="27" cy="29" rx="1.3" ry="1.7" fill="#4c1d95"><animate attributeName="ry" values="1.7;0.5;1.7" dur="3.2s" repeatCount="indefinite"/></ellipse><ellipse cx="37" cy="29" rx="1.3" ry="1.7" fill="#4c1d95"><animate attributeName="ry" values="1.7;0.5;1.7" dur="3.2s" repeatCount="indefinite"/></ellipse><circle cx="27.4" cy="28.5" r="0.5" fill="#fff"/><circle cx="37.4" cy="28.5" r="0.5" fill="#fff"/><path d="M32 30 L32 32" stroke="#4c1d95" stroke-width="0.8" stroke-linecap="round"/><path d="M30.5 32.5 Q32 33.5 33.5 32.5" stroke="#4c1d95" stroke-width="0.8" fill="none" stroke-linecap="round"/><path d="M25 32 L21 33 M25 32.5 L21 33.5 M39 32 L43 33 M39 32.5 L43 33.5" stroke="#f472b6" stroke-width="0.6" stroke-linecap="round" opacity=".7"/><path d="M28 24 L29 26 M36 24 L35 26" stroke="#4c1d95" stroke-width="0.6" stroke-linecap="round" opacity=".5"/><path d="M32 40 L28 48 Q24 52 28 52 L36 52 Q40 52 36 48 L32 40 Z" fill="url(#g6c)" stroke="#f9a8d4" stroke-width="0.8"/><path d="M32 44 L30 46 M32 44 L34 46" stroke="#f9a8d4" stroke-width="0.4" opacity=".6"/><path d="M27 50 L26 54 M30 52 L30 55 M34 52 L34 55 M37 50 L38 54" stroke="#f9a8d4" stroke-width="0.8" stroke-linecap="round"/><path d="M28 46 Q24 48 22 50" stroke="#f9a8d4" stroke-width="0.8" fill="none" stroke-linecap="round"/><path d="M36 46 Q40 48 42 50" stroke="#f9a8d4" stroke-width="0.8" fill="none" stroke-linecap="round"/></g><g><animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/><path d="M14 18 L16 16 L14 14 L12 16 Z" fill="#fde68a"/><circle cx="14" cy="16" r="0.6" fill="#fff"/></g><g><animate attributeName="opacity" values="0.3;1;0.3" dur="2.4s" begin="0.5s" repeatCount="indefinite"/><path d="M50 14 L52 12 L50 10 L48 12 Z" fill="#fde68a"/><circle cx="50" cy="12" r="0.5" fill="#fff"/></g><g><animate attributeName="opacity" values="0.3;1;0.3" dur="2.2s" begin="1s" repeatCount="indefinite"/><path d="M48 50 L50 48 L48 46 L46 48 Z" fill="#fde68a"/><circle cx="48" cy="48" r="0.5" fill="#fff"/></g><circle cx="22" cy="14" r="1" fill="#fde68a" opacity=".7"><animate attributeName="opacity" values="0.7;0.1;0.7" dur="2.2s" repeatCount="indefinite"/></circle><circle cx="44" cy="52" r="0.8" fill="#fde68a" opacity=".7"><animate attributeName="opacity" values="0.1;0.7;0.1" dur="2.6s" begin="0.4s" repeatCount="indefinite"/></circle></svg></div><div class="app-name">派宠物</div></div>
         <div class="app-item" data-eco="MEMO DID" data-url="https://datadidpi.memolabs.net/home" data-icon="🔐" data-desc1="MEMO DID身份" data-desc2="去中心化身份认证" data-code="BzOgU1"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g7" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#5b21b6"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g7)"/><path d="M32 12 L20 18 L20 30 Q20 42 32 50 Q44 42 44 30 L44 18 Z" fill="#fff" stroke="#5b21b6" stroke-width="1.5"/><path d="M24 30 L30 36 L42 22" stroke="#5b21b6" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="30" r="1.5" fill="#5b21b6"/></svg></div><div class="app-name">MEMO DID</div></div>
         <div class="app-item" data-eco="CIDI游戏" data-url="https://app.cidi.games" data-icon="🎲" data-desc1="CIDI游戏生态" data-desc2="多款派币游戏合集" data-desc3="派币奖励不停" data-code="无需邀请码"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g8" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#06b6d4"/><stop offset="1" stop-color="#0e7490"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g8)"/><rect x="14" y="12" width="14" height="14" fill="#ef4444" stroke="#fff" stroke-width="1.5"/><rect x="30" y="12" width="14" height="14" fill="#22c55e" stroke="#fff" stroke-width="1.5"/><rect x="14" y="28" width="14" height="14" fill="#fbbf24" stroke="#fff" stroke-width="1.5"/><rect x="30" y="28" width="14" height="14" fill="#a855f7" stroke="#fff" stroke-width="1.5"/><rect x="14" y="44" width="14" height="6" fill="#3b82f6" stroke="#fff" stroke-width="1.5"/><circle cx="50" cy="46" r="6" fill="#fde68a" stroke="#92400e" stroke-width="1"/><circle cx="47" cy="44" r="1" fill="#92400e"/><circle cx="53" cy="44" r="1" fill="#92400e"/><circle cx="50" cy="48" r="1" fill="#92400e"/></svg></div><div class="app-name">CIDI游戏</div></div>
@@ -2462,6 +2619,10 @@
   const ecoClose = document.getElementById('ecoModalClose');
   const ecoCopyBtn = document.getElementById('ecoCopyBtn');
   const ecoModal = document.querySelector('.eco-modal');
+  // === 派绿洲专属弹窗元素 ===
+  const oasisContent = document.getElementById('oasisContent');
+  const oasisCta = document.getElementById('oasisCta');
+  const oasisBack = document.getElementById('oasisBack');
   let currentEcoUrl = '';
 
   // === 永久代码生成二维码函数（小白也能看懂） ===
@@ -2608,7 +2769,8 @@
       const icon = item.dataset.icon || '';
       const isComingSoon = item.dataset.comingsoon === 'true';
       const url = item.dataset.url || '#';
-      
+      const special = item.dataset.special || '';
+
       // === 添加点击音效 ===
       if (isComingSoon) {
         // 低频下潜 + 微颤 → "咚咚"提示音
@@ -2621,7 +2783,30 @@
         playTone(f, {duration:0.08, type:'sine', volume:0.22});
         setTimeout(()=>playTone(f * 1.5, {duration:0.12, type:'triangle', volume:0.18}), 55);
       }
-      
+
+      // === 派绿洲专属：直接展示绿洲主题弹窗，跳过默认填充 ===
+      if (special === 'oasis') {
+        const modal = document.querySelector('.eco-modal');
+        if (modal) {
+          modal.classList.add('oasis-mode');
+          modal.classList.remove('show-qr');
+          modal.classList.remove('coming-soon');
+        }
+        if (oasisContent) oasisContent.style.display = '';
+        currentEcoUrl = url;
+        // 绿洲主题清亮上行音：更清新的"叮铃"
+        try {
+          const ctx = getAudioCtx();
+          if (ctx) {
+            [659, 784, 988, 1318].forEach((freq, i) => {
+              setTimeout(() => playTone(freq, {duration:0.18, type:'sine', volume:0.18}), i * 60);
+            });
+          }
+        } catch(e){}
+        ecoMask.classList.add('active');
+        return;
+      }
+
       // === 显示弹窗 ===
       ecoIcon.textContent = icon;
       ecoIcon.className = 'eco-modal-icon' + (icon === 'π' ? ' has-pi' : '');
@@ -2690,7 +2875,17 @@
       ecoMask.classList.add('active');
     });
   });
-  function hideEcoModal(){ ecoMask.classList.remove('active'); }
+  function hideEcoModal(){
+    ecoMask.classList.remove('active');
+    // 关闭时清理派绿洲专属样式
+    const modal = document.querySelector('.eco-modal');
+    if (modal) {
+      modal.classList.remove('oasis-mode');
+      modal.classList.remove('show-qr');
+      modal.classList.remove('coming-soon');
+    }
+    if (typeof oasisContent !== 'undefined' && oasisContent) oasisContent.style.display = 'none';
+  }
   function goHomePanel(){
     // 切换到底部导航的首页面板
     const panels = document.querySelectorAll('.panel');
@@ -2725,6 +2920,31 @@
     playTone(520, {duration:0.10, type:'sine', volume:0.18});
     setTimeout(()=>playTone(360, {duration:0.14, type:'triangle', volume:0.15}), 70);
     // 只关闭弹窗，保持页面当前位置不变（不滚动、不切换面板）
+    setTimeout(hideEcoModal, 120);
+  });
+
+  // === 派绿洲专属按钮：进入派绿洲 / 返回导航 ===
+  if (oasisCta) oasisCta.addEventListener('click', () => {
+    // 派绿洲：清脆上行四连音 + 微妙的金属感
+    playTone(784, {duration:0.10, type:'sine', volume:0.22});
+    setTimeout(()=>playTone(988, {duration:0.10, type:'triangle', volume:0.20}), 60);
+    setTimeout(()=>playTone(1318, {duration:0.12, type:'sine', volume:0.18}), 130);
+    setTimeout(()=>playTone(1760, {duration:0.18, type:'sine', volume:0.16}), 210);
+    // 跳转到 pinet.app
+    if (currentEcoUrl && currentEcoUrl !== '#' && currentEcoUrl.startsWith('http')) {
+      try {
+        const url = new URL(currentEcoUrl);
+        window.open(url.toString(), '_blank', 'noopener,noreferrer');
+      } catch(e) {
+        console.warn('Invalid oasis URL:', currentEcoUrl);
+      }
+    }
+    setTimeout(hideEcoModal, 220);
+  });
+  if (oasisBack) oasisBack.addEventListener('click', () => {
+    // 绿洲专属"返回导航"：柔和下行双音
+    playTone(523, {duration:0.10, type:'sine', volume:0.18});
+    setTimeout(()=>playTone(330, {duration:0.16, type:'triangle', volume:0.15}), 70);
     setTimeout(hideEcoModal, 120);
   });
   if (ecoCopyBtn) ecoCopyBtn.addEventListener('click', () => {
@@ -2916,6 +3136,78 @@
       <div class="eco-btn-row">
         <button class="eco-btn enter" id="ecoModalEnter">进入生态</button>
         <button class="eco-btn back" id="ecoModalBack">返回首页</button>
+      </div>
+
+      <!-- ============ Oasis Modal Content (派绿洲专属) ============ -->
+      <div class="oasis-content" id="oasisContent" style="display:none;">
+        <div class="oasis-badge">Pi Oasis · Live</div>
+        <div class="oasis-leaves" aria-hidden="true">
+          <span class="oasis-leaf l1" style="--r:25deg;"></span>
+          <span class="oasis-leaf l2" style="--r:-15deg;"></span>
+          <span class="oasis-leaf l3" style="--r:60deg;"></span>
+          <span class="oasis-leaf l4" style="--r:-30deg;"></span>
+          <span class="oasis-leaf l5" style="--r:45deg;"></span>
+        </div>
+        <div class="oasis-hero">
+          <div class="oasis-logo">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="oasisLogoDrop" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#a7f3d0"/>
+                  <stop offset="1" stop-color="#0ea5e9"/>
+                </linearGradient>
+              </defs>
+              <path d="M32 8 Q14 22 14 38 Q14 50 32 56 Q50 50 50 38 Q50 22 32 8 Z" fill="#fff" opacity=".95"/>
+              <path d="M32 12 Q20 24 20 38 Q20 48 32 52" fill="none" stroke="#10b981" stroke-width="1.6" opacity=".75"/>
+              <path d="M32 12 L32 52" stroke="#047857" stroke-width="1.2" opacity=".55"/>
+              <path d="M32 22 Q26 24 24 28 M32 22 Q38 24 40 28 M32 30 Q24 32 22 36 M32 30 Q40 32 42 36 M32 38 Q26 40 24 44 M32 38 Q38 40 40 44" stroke="#047857" stroke-width=".9" fill="none" opacity=".75"/>
+              <path d="M32 16 Q30 20 30 24 Q30 28 32 28 Q34 28 34 24 Q34 20 32 16 Z" fill="url(#oasisLogoDrop)"/>
+              <circle cx="30.5" cy="22" r=".9" fill="#fff" opacity=".85"/>
+            </svg>
+          </div>
+          <div class="oasis-name">派绿洲</div>
+          <div class="oasis-tagline">Pi Network · pinet.app</div>
+        </div>
+
+        <div class="oasis-desc">
+          <p>Pi 生态中所有派友共建的<span class="oasis-highlight">派绿洲</span>，一站式探索派生态应用。</p>
+          <p>派币 · 社交 · 游戏 · 商城 · 工具 全聚合</p>
+        </div>
+
+        <div class="oasis-features">
+          <div class="oasis-feat">
+            <span class="oasis-feat-ico">🌐</span>
+            <span class="oasis-feat-txt">全生态聚合</span>
+          </div>
+          <div class="oasis-feat">
+            <span class="oasis-feat-ico">⚡</span>
+            <span class="oasis-feat-txt">极速访问</span>
+          </div>
+          <div class="oasis-feat">
+            <span class="oasis-feat-ico">🛡️</span>
+            <span class="oasis-feat-txt">安全可信</span>
+          </div>
+        </div>
+
+        <div class="oasis-stats">
+          <div class="oasis-stat">
+            <div class="oasis-stat-num">99+</div>
+            <div class="oasis-stat-lbl">派生态</div>
+          </div>
+          <div class="oasis-stat-sep"></div>
+          <div class="oasis-stat">
+            <div class="oasis-stat-num">2300万</div>
+            <div class="oasis-stat-lbl">派友</div>
+          </div>
+          <div class="oasis-stat-sep"></div>
+          <div class="oasis-stat">
+            <div class="oasis-stat-num">24/7</div>
+            <div class="oasis-stat-lbl">在线</div>
+          </div>
+        </div>
+
+        <button class="oasis-cta" id="oasisCta">进入派绿洲</button>
+        <button class="oasis-back" id="oasisBack">返回导航</button>
       </div>
     </div>
   </div>
