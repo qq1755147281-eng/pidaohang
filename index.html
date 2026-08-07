@@ -1711,9 +1711,646 @@
   @media(min-width:1080px){
     .app-grid{grid-template-columns:repeat(8,1fr);}
   }
+
+  /* ============ 悬浮发光派币小球 ============ */
+  .pi-ball{
+    position:fixed;
+    top:0;left:0;
+    width:64px;height:64px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff7d6 0%, #ffd84d 35%, #f5a623 70%, #c2410c 100%);
+    color:#5a1f87;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:900;
+    letter-spacing:1px;
+    cursor:pointer;
+    user-select:none;
+    z-index:9999;
+    box-shadow:
+      0 0 18px rgba(255,215,0,.85),
+      0 0 36px rgba(255,180,40,.55),
+      0 0 64px rgba(255,150,30,.4),
+      inset 0 -4px 8px rgba(180,80,0,.35),
+      inset 0 4px 6px rgba(255,255,255,.7);
+    text-shadow:0 1px 0 rgba(255,255,255,.5), 0 0 6px rgba(255,230,120,.8);
+    animation:pi-ball-pulse 2.2s ease-in-out infinite;
+    will-change:transform,left,top;
+    touch-action:none;
+  }
+  .pi-ball::before{
+    content:"";
+    position:absolute;
+    inset:-14px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,215,0,.45) 0%, rgba(255,180,40,.15) 40%, transparent 70%);
+    z-index:-1;
+    animation:pi-ball-halo 2.2s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .pi-ball::after{
+    content:"";
+    position:absolute;
+    top:8px;left:12px;
+    width:18px;height:10px;
+    border-radius:50%;
+    background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,0));
+    transform:rotate(-30deg);
+    pointer-events:none;
+  }
+  .pi-ball:active{cursor:grabbing;}
+  @keyframes pi-ball-pulse{
+    0%,100%{
+      box-shadow:
+        0 0 18px rgba(255,215,0,.85),
+        0 0 36px rgba(255,180,40,.55),
+        0 0 64px rgba(255,150,30,.4),
+        inset 0 -4px 8px rgba(180,80,0,.35),
+        inset 0 4px 6px rgba(255,255,255,.7);
+    }
+    50%{
+      box-shadow:
+        0 0 26px rgba(255,215,0,1),
+        0 0 52px rgba(255,180,40,.75),
+        0 0 90px rgba(255,150,30,.55),
+        inset 0 -4px 8px rgba(180,80,0,.35),
+        inset 0 4px 6px rgba(255,255,255,.7);
+    }
+  }
+  @keyframes pi-ball-halo{
+    0%,100%{transform:scale(1);opacity:.85;}
+    50%{transform:scale(1.25);opacity:1;}
+  }
+  @media (max-width:640px){
+    .pi-ball{width:54px;height:54px;font-size:11px;}
+  }
+
+  /* ============ 视图切换：派币专属页 ============ */
+  .paibi-view{
+    position:fixed;inset:0;
+    z-index:9000;
+    overflow-y:auto;
+    overflow-x:hidden;
+    display:none;
+    background:linear-gradient(135deg,
+      #3a1262 0%,
+      #6c2b9e 30%,
+      #7c2d92 55%,
+      #ffc629 100%);
+    color:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    line-height:1.6;
+    -webkit-overflow-scrolling:touch;
+  }
+  .paibi-view.active{display:block;}
+  .paibi-view::before{
+    content:"";
+    position:fixed;inset:0;pointer-events:none;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,.18), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(255,255,255,.12), transparent 45%);
+  }
+  body.paibi-on .pi-ball,
+  body.paibi-on .pi-modal-mask{display:none !important;}
+
+  .paibi-topbar{
+    position:sticky;top:0;z-index:10;
+    padding:14px 18px;
+    display:flex;align-items:center;gap:12px;
+    background:rgba(0,0,0,.12);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+  .paibi-back{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.22);
+    color:#fff;
+    font-size:13px;font-weight:700;
+    border:1px solid rgba(255,255,255,.35);
+    cursor:pointer;
+    transition:all .2s;
+    backdrop-filter:blur(6px);
+  }
+  .paibi-back:hover{background:rgba(255,255,255,.34);transform:translateX(-2px);}
+  .paibi-topbar .pb-title{
+    font-size:14px;font-weight:800;letter-spacing:1px;
+    color:#fff;
+    text-shadow:0 2px 6px rgba(0,0,0,.25);
+  }
+  .paibi-topbar .pb-live{
+    margin-left:auto;
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:11.5px;color:rgba(255,255,255,.9);
+    background:rgba(0,0,0,.18);
+    padding:5px 10px;border-radius:14px;
+  }
+  .paibi-topbar .pb-live .dot{
+    width:7px;height:7px;border-radius:50%;background:#22c55e;
+    box-shadow:0 0 6px #22c55e;
+    animation:pb-pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pb-pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+  .pb-hero{
+    padding:18px 22px 20px;
+    text-align:center;
+    position:relative;
+  }
+  .pb-coin{
+    width:140px;height:140px;
+    margin:0 auto 22px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff7d6 0%, #ffd84d 30%, #f5a623 60%, #b45309 100%);
+    color:#5a1f87;
+    display:flex;align-items:center;justify-content:center;
+    font-size:36px;font-weight:900;letter-spacing:2px;
+    box-shadow:
+      0 0 30px rgba(255,215,0,.7),
+      0 0 60px rgba(255,180,40,.5),
+      0 0 100px rgba(255,150,30,.35),
+      inset 0 -8px 14px rgba(180,80,0,.35),
+      inset 0 6px 10px rgba(255,255,255,.7);
+    text-shadow:0 2px 0 rgba(255,255,255,.5);
+    animation:pb-coin-spin 4s ease-in-out infinite;
+    position:relative;
+  }
+  .pb-coin::after{
+    content:"";
+    position:absolute;
+    top:18px;left:26px;
+    width:38px;height:22px;
+    border-radius:50%;
+    background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,0));
+    transform:rotate(-30deg);
+  }
+  @keyframes pb-coin-spin{
+    0%,100%{transform:rotate(-8deg) scale(1);}
+    50%{transform:rotate(8deg) scale(1.04);}
+  }
+  .pb-title{
+    font-size:30px;font-weight:900;letter-spacing:2px;
+    background:linear-gradient(180deg, #ffffff 0%, #ffe082 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 2px 0 rgba(0,0,0,.05);
+    margin-bottom:10px;
+  }
+  .pb-sub{
+    font-size:14px;
+    color:rgba(255,255,255,.95);
+    letter-spacing:1.5px;
+    text-shadow:0 1px 4px rgba(0,0,0,.25);
+    margin-bottom:6px;
+  }
+  .pb-desc{
+    margin:14px auto 0;
+    max-width:560px;
+    font-size:13px;
+    line-height:1.8;
+    color:rgba(255,255,255,.9);
+  }
+
+  .pb-card{
+    margin:24px 18px 0;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:18px;
+    padding:20px;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 12px 30px rgba(60,10,80,.18);
+  }
+  .pb-card h3{
+    font-size:15px;font-weight:800;letter-spacing:1px;
+    color:#fff;
+    margin-bottom:14px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .pb-card h3::before{
+    content:"";width:4px;height:16px;border-radius:2px;
+    background:linear-gradient(180deg,#fff,#ffe082);
+  }
+  .pb-card p{
+    font-size:13px;
+    line-height:1.85;
+    color:rgba(255,255,255,.92);
+  }
+  .pb-info-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:9px 0;
+    font-size:13px;
+    border-bottom:1px dashed rgba(255,255,255,.2);
+  }
+  .pb-info-row:last-child{border-bottom:none;}
+  .pb-info-row .k{color:rgba(255,255,255,.8);}
+  .pb-info-row .v{color:#fff;font-weight:700;}
+
+  .pb-feature-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+  }
+  .pb-feature{
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:14px;
+    padding:14px 12px;
+    text-align:center;
+    transition:all .25s;
+  }
+  .pb-feature:hover{
+    background:rgba(255,255,255,.18);
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(60,10,80,.25);
+  }
+  .pb-feature-ico{
+    width:46px;height:46px;border-radius:14px;
+    background:linear-gradient(135deg,#fff7d6,#ffd84d);
+    color:#5a1f87;
+    display:flex;align-items:center;justify-content:center;
+    font-size:22px;
+    margin:0 auto 8px;
+    box-shadow:0 6px 16px rgba(255,180,40,.4), inset 0 2px 4px rgba(255,255,255,.6);
+  }
+  .pb-feature h4{
+    font-size:13.5px;font-weight:800;
+    color:#ffe082;
+    margin-bottom:4px;
+  }
+  .pb-feature p{
+    font-size:11.5px;
+    line-height:1.5;
+    color:rgba(255,255,255,.85);
+  }
+
+  .pb-price-list{display:flex;flex-direction:column;gap:10px;}
+  .pb-price-item{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:14px;
+    transition:all .2s;
+  }
+  .pb-price-item:hover{background:rgba(255,255,255,.18);}
+  .pb-price-ico{
+    width:42px;height:42px;border-radius:12px;
+    background:rgba(255,255,255,.18);
+    display:flex;align-items:center;justify-content:center;
+    font-size:20px;
+    flex-shrink:0;
+  }
+  .pb-price-text{flex:1;min-width:0;}
+  .pb-price-text h4{font-size:13.5px;font-weight:800;margin-bottom:2px;color:#fff;}
+  .pb-price-text p{font-size:11.5px;color:rgba(255,255,255,.78);line-height:1.4;}
+  .pb-price-val{
+    font-size:13px;font-weight:900;
+    color:#ffe082;
+    text-align:right;
+    flex-shrink:0;
+  }
+
+  .pb-timeline{position:relative;padding-left:24px;}
+  .pb-timeline::before{
+    content:"";
+    position:absolute;
+    left:8px;top:6px;bottom:6px;
+    width:2px;
+    background:linear-gradient(180deg,#fff,#ffe082 50%,rgba(255,255,255,.2));
+    border-radius:2px;
+  }
+  .pb-tl-item{position:relative;padding:0 0 16px 0;}
+  .pb-tl-item:last-child{padding-bottom:0;}
+  .pb-tl-item::before{
+    content:"";
+    position:absolute;
+    left:-20px;top:6px;
+    width:12px;height:12px;border-radius:50%;
+    background:radial-gradient(circle,#ffd84d,#f5a623);
+    box-shadow:0 0 8px rgba(255,215,0,.7);
+    border:2px solid #fff;
+  }
+  .pb-tl-year{
+    font-size:11.5px;color:#ffe082;font-weight:800;
+    letter-spacing:1px;margin-bottom:2px;
+  }
+  .pb-tl-item h4{font-size:13.5px;font-weight:800;color:#fff;margin-bottom:4px;}
+  .pb-tl-item p{font-size:12px;line-height:1.7;color:rgba(255,255,255,.85);}
+
+  .pb-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .pb-step{
+    text-align:center;
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:12px;
+    padding:12px 6px;
+  }
+  .pb-step-no{
+    width:28px;height:28px;border-radius:50%;
+    background:linear-gradient(135deg,#ffd84d,#f5a623);
+    color:#5a1f87;
+    font-size:13px;font-weight:900;
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 6px;
+    box-shadow:0 4px 10px rgba(255,180,40,.4);
+  }
+  .pb-step h4{font-size:11.5px;font-weight:800;color:#fff;margin-bottom:3px;}
+  .pb-step p{font-size:10.5px;line-height:1.4;color:rgba(255,255,255,.78);}
+
+  .pb-faq{border-bottom:1px dashed rgba(255,255,255,.2);padding:12px 0;}
+  .pb-faq:last-child{border-bottom:none;}
+  .pb-faq-q{
+    font-size:13.5px;font-weight:800;
+    color:#ffe082;
+    display:flex;align-items:flex-start;gap:8px;
+    margin-bottom:6px;
+  }
+  .pb-faq-q::before{content:"Q";flex-shrink:0;
+    background:linear-gradient(135deg,#ffd84d,#f5a623);
+    color:#5a1f87;width:20px;height:20px;border-radius:6px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:900;}
+  .pb-faq-a{
+    font-size:12.5px;line-height:1.8;
+    color:rgba(255,255,255,.88);
+    padding-left:28px;
+    position:relative;
+  }
+  .pb-faq-a::before{
+    content:"A";
+    position:absolute;left:0;top:0;
+    color:#a87dc7;font-weight:900;
+  }
+
+  .pb-tag-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+  .pb-tag{
+    display:inline-block;
+    padding:6px 12px;
+    background:rgba(255,255,255,.22);
+    color:#fff;
+    font-size:12px;font-weight:700;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.32);
+  }
+  .pb-tag.gold{
+    background:linear-gradient(135deg,#ffd84d,#f5a623);
+    color:#5a1f87;
+    border-color:transparent;
+    box-shadow:0 4px 10px rgba(255,180,40,.4);
+  }
+
+  .pb-stats{
+    margin:24px 18px 0;
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:10px;
+  }
+  .pb-stat{
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:14px;padding:14px 8px;
+    text-align:center;backdrop-filter:blur(8px);
+  }
+  .pb-stat-num{
+    font-size:18px;font-weight:900;
+    background:linear-gradient(180deg,#fff,#ffe082);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .pb-stat-label{font-size:11px;color:rgba(255,255,255,.85);margin-top:4px;}
+
+  .pb-cta{
+    margin:24px 18px 0;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .pb-cta-btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 18px;
+    border-radius:14px;
+    font-size:14px;font-weight:800;letter-spacing:1px;
+    cursor:pointer;border:none;
+    font-family:inherit;
+    transition:all .2s ease;
+  }
+  .pb-cta-btn.primary{
+    background:linear-gradient(135deg,#ffd84d,#f5a623);
+    color:#5a1f87;
+    box-shadow:0 8px 22px rgba(255,180,40,.45);
+  }
+  .pb-cta-btn.primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(255,180,40,.6);}
+  .pb-cta-btn.secondary{
+    background:rgba(255,255,255,.18);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.4);
+  }
+  .pb-cta-btn.secondary:hover{background:rgba(255,255,255,.28);}
+
+  .pb-contact-list{display:flex;flex-direction:column;gap:10px;}
+  .pb-contact-item{
+    display:flex;align-items:center;gap:12px;
+    padding:10px 12px;
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:12px;
+  }
+  .pb-contact-ico{
+    width:36px;height:36px;border-radius:10px;
+    background:rgba(255,255,255,.2);
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;
+  }
+  .pb-contact-text{flex:1;min-width:0;}
+  .pb-contact-text .l{font-size:11.5px;color:rgba(255,255,255,.7);}
+  .pb-contact-text .v{font-size:13px;font-weight:700;color:#fff;word-break:break-all;}
+
+  .pb-footer{
+    text-align:center;
+    font-size:11.5px;
+    color:rgba(255,255,255,.75);
+    padding:30px 18px 22px;
+    margin-top:24px;
+  }
+  .pb-footer a{color:#ffe082;font-weight:700;}
+
+  /* ============ 创始人椭圆图标（左右循环运动） ============ */
+  .pb-founders{
+    position:relative;
+    width:100%;
+    height:84px;
+    margin:-12px auto 18px;
+    overflow:hidden;
+  }
+  .pb-founder{
+    position:absolute;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:7px 16px 7px 12px;
+    border-radius:30px;
+    background:rgba(255,255,255,.18);
+    border:1px solid rgba(255,255,255,.4);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    color:#fff;
+    font-size:12.5px;
+    font-weight:800;
+    letter-spacing:1px;
+    box-shadow:0 4px 12px rgba(60,10,80,.25);
+    white-space:nowrap;
+    will-change:transform;
+  }
+  .pb-founder-avatar{
+    width:30px;height:30px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#fff7d6,#ffd84d);
+    color:#5a1f87;
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:900;
+    box-shadow:0 0 8px rgba(255,215,0,.6), inset 0 2px 3px rgba(255,255,255,.6);
+    flex-shrink:0;
+  }
+  .pb-founder-label{color:#ffe082;font-size:10.5px;font-weight:700;}
+  .pb-founder-name{color:#fff;}
+
+  /* 范成雕：从左到右循环（第一行） */
+  .pb-founder.fan{
+    top:4px;
+    left:-180px;
+    animation:fan-slide 7s linear infinite;
+  }
+  /* 尼古拉斯：从右到左循环（第二行），错开半个周期 */
+  .pb-founder.nic{
+    top:46px;
+    right:-180px;
+    animation:nic-slide 7s linear infinite;
+    animation-delay:-3.5s;
+  }
+  @keyframes fan-slide{
+    0%   { transform:translateX(0); }
+    100% { transform:translateX(calc(100vw + 220px)); }
+  }
+  @keyframes nic-slide{
+    0%   { transform:translateX(0); }
+    100% { transform:translateX(calc(-100vw - 220px)); }
+  }
+
+  @media (max-width:480px){
+    .pb-hero{padding:14px 18px 16px;}
+    .pb-coin{width:120px;height:120px;font-size:30px;}
+    .pb-title{font-size:26px;}
+    .pb-sub{font-size:13px;}
+    .pb-feature-grid{grid-template-columns:repeat(2,1fr);}
+    .pb-steps{grid-template-columns:repeat(2,1fr);}
+    .pb-founders{height:78px;margin:-6px auto 14px;}
+    .pb-founder.nic{top:42px;}
+  }
+
+  /* ============ 派币进入确认弹窗 ============ */
+  .pi-modal-mask{
+    position:fixed;inset:0;
+    background:rgba(20,5,40,.55);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    display:none;
+    align-items:center;justify-content:center;
+    z-index:10000;
+    animation:pi-mask-in .25s ease;
+  }
+  .pi-modal-mask.show{display:flex;}
+  @keyframes pi-mask-in{from{opacity:0;}to{opacity:1;}}
+
+  .pi-modal{
+    width:min(360px, calc(100vw - 40px));
+    aspect-ratio:1/1;
+    background:linear-gradient(160deg, #ffffff 0%, #faf5ff 100%);
+    border-radius:20px;
+    box-shadow:0 30px 80px rgba(60,20,100,.35), 0 0 0 1px rgba(108,43,158,.08);
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    padding:24px 22px;
+    position:relative;
+    animation:pi-modal-pop .35s cubic-bezier(.18,.89,.32,1.28);
+    text-align:center;
+  }
+  @keyframes pi-modal-pop{
+    0%{opacity:0;transform:scale(.6) translateY(20px);}
+    100%{opacity:1;transform:scale(1) translateY(0);}
+  }
+  .pi-modal-icon{
+    width:64px;height:64px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff7d6 0%, #ffd84d 35%, #f5a623 70%, #c2410c 100%);
+    box-shadow:
+      0 0 14px rgba(255,215,0,.8),
+      0 0 30px rgba(255,180,40,.5),
+      inset 0 -3px 6px rgba(180,80,0,.3),
+      inset 0 3px 5px rgba(255,255,255,.7);
+    display:flex;align-items:center;justify-content:center;
+    color:#5a1f87;font-size:13px;font-weight:900;letter-spacing:1px;
+    margin-bottom:14px;
+    text-shadow:0 1px 0 rgba(255,255,255,.5);
+  }
+  .pi-modal-title{
+    font-size:16px;font-weight:800;
+    color:#2b1a3f;line-height:1.4;
+    margin-bottom:6px;
+  }
+  .pi-modal-sub{
+    font-size:12px;color:#8a7aa3;
+    line-height:1.5;margin-bottom:22px;
+    padding:0 6px;
+  }
+  .pi-modal-actions{
+    display:flex;gap:10px;width:100%;
+    margin-top:auto;
+  }
+  .pi-modal-btn{
+    flex:1;padding:11px 0;
+    border-radius:12px;
+    font-size:13.5px;font-weight:700;
+    cursor:pointer;
+    border:1.5px solid transparent;
+    transition:all .2s ease;
+    font-family:inherit;
+  }
+  .pi-modal-btn.cancel{
+    background:#fff;
+    color:#6c2b9e;
+    border-color:#ece3f5;
+  }
+  .pi-modal-btn.cancel:hover{
+    background:#faf5ff;
+    border-color:#a87dc7;
+    transform:translateY(-1px);
+  }
+  .pi-modal-btn.confirm{
+    background:linear-gradient(135deg,#6c2b9e 0%,#5a1f87 100%);
+    color:#fff;
+    box-shadow:0 6px 18px rgba(108,43,158,.4);
+  }
+  .pi-modal-btn.confirm:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 22px rgba(108,43,158,.55);
+  }
+  .pi-modal-btn:active{transform:scale(.97);}
 </style>
 </head>
 <body>
+
+<!-- ========== 悬浮发光派币小球 ========== -->
+<div class="pi-ball" id="piBall" title="派币">派币</div>
+
+<!-- ========== 派币进入确认弹窗 ========== -->
+<div class="pi-modal-mask" id="piModal" role="dialog" aria-modal="true" aria-labelledby="piModalTitle">
+  <div class="pi-modal" role="document">
+    <div class="pi-modal-icon">派币</div>
+    <div class="pi-modal-title" id="piModalTitle">请问您是否进入<br>派币专属页面？</div>
+    <div class="pi-modal-sub">点击「进入」将跳转至派币专属页面</div>
+    <div class="pi-modal-actions">
+      <button class="pi-modal-btn confirm" id="piModalConfirm" type="button">进入</button>
+      <button class="pi-modal-btn cancel" id="piModalCancel" type="button">取消</button>
+    </div>
+  </div>
+</div>
 
 <!-- ========== FIXED HEADER ========== -->
 <header class="header">
@@ -2061,6 +2698,207 @@
     </button>
   </div>
 </nav>
+
+<!-- ========== 派币专属页面（单文件视图） ========== -->
+<div class="paibi-view" id="paibiView">
+  <header class="paibi-topbar">
+    <button class="paibi-back" id="paibiBack" type="button" aria-label="返回">← 返回</button>
+    <div class="pb-title">派币专属页面</div>
+    <div class="pb-live"><span class="dot"></span>LIVE</div>
+  </header>
+
+  <!-- Hero -->
+  <section class="pb-hero">
+    <div class="pb-founders" aria-hidden="true">
+      <div class="pb-founder fan">
+        <div class="pb-founder-avatar">范</div>
+        <span class="pb-founder-label">联合创始人</span>
+        <span class="pb-founder-name">范成雕</span>
+      </div>
+      <div class="pb-founder nic">
+        <div class="pb-founder-avatar">N</div>
+        <span class="pb-founder-label">联合创始人</span>
+        <span class="pb-founder-name">尼古拉斯</span>
+      </div>
+    </div>
+    <div class="pb-coin" aria-hidden="true">π</div>
+    <h1 class="pb-title">欢迎来到派币世界</h1>
+    <p class="pb-sub">PI · DIGITAL CURRENCY ECOSYSTEM</p>
+    <p class="pb-desc">
+      派币（Pi Network）是由斯坦福大学博士团队于 2019 年发起的去中心化加密货币项目，
+      致力于让全球普通人通过手机即可安全、便捷地参与加密经济，
+      构建一个人人可触及的 Web3 数字资产世界。
+    </p>
+  </section>
+
+  <!-- 数据统计 -->
+  <section class="pb-stats">
+    <div class="pb-stat"><div class="pb-stat-num">6000W+</div><div class="pb-stat-label">全球先锋</div></div>
+    <div class="pb-stat"><div class="pb-stat-num">200+</div><div class="pb-stat-label">覆盖国家</div></div>
+    <div class="pb-stat"><div class="pb-stat-num">$314K</div><div class="pb-stat-label">GCV 共识</div></div>
+  </section>
+
+  <!-- 关于派币 -->
+  <section class="pb-card">
+    <h3>关于派币</h3>
+    <p>
+      派币（Pi Coin / π）是一种基于 <strong>Stellar 共识协议（SCP）</strong> 演化而来的去中心化数字货币，
+      由 Nicolas Kokkalis、Vincent McPhillip、Chengdiao Fan 三位斯坦福大学博士联合发起。
+      不同于传统加密货币需要专业矿机和庞大算力，派币首创「手机挖矿」模式，
+      用户每天只需点击一次按钮即可开启挖矿，无需耗电、无需下载、不消耗流量，
+      真正实现了人人可参与、人人可触及的加密经济。
+    </p>
+  </section>
+
+  <!-- 核心特性 -->
+  <section class="pb-card">
+    <h3>六大核心特性</h3>
+    <div class="pb-feature-grid">
+      <div class="pb-feature"><div class="pb-feature-ico">📱</div><h4>手机挖矿</h4><p>无需专业设备，每天点一点即可挖矿，零门槛参与</p></div>
+      <div class="pb-feature"><div class="pb-feature-ico">🔐</div><h4>安全可信</h4><p>基于 SCP 共识协议，去中心化账本、数据不可篡改</p></div>
+      <div class="pb-feature"><div class="pb-feature-ico">🌐</div><h4>社交图谱</h4><p>独创安全圈机制，构建可信任的去中心化网络</p></div>
+      <div class="pb-feature"><div class="pb-feature-ico">💎</div><h4>通缩模型</h4><p>总量恒定，挖矿产出逐年减半，稀缺性持续提升</p></div>
+      <div class="pb-feature"><div class="pb-feature-ico">🛒</div><h4>应用生态</h4><p>99+ 派生态应用，覆盖社交、金融、商城、游戏全场景</p></div>
+      <div class="pb-feature"><div class="pb-feature-ico">🚀</div><h4>Web3 入口</h4><p>Pi Browser 一站式访问去中心化应用与数字身份</p></div>
+    </div>
+  </section>
+
+  <!-- 核心信息 -->
+  <section class="pb-card">
+    <h3>派币核心信息</h3>
+    <div class="pb-info-row"><span class="k">货币符号</span><span class="v">π (Pi)</span></div>
+    <div class="pb-info-row"><span class="k">所属生态</span><span class="v">Pi Network</span></div>
+    <div class="pb-info-row"><span class="k">共识机制</span><span class="v">SCP（Stellar Consensus Protocol）</span></div>
+    <div class="pb-info-row"><span class="k">挖矿方式</span><span class="v">手机点击挖矿</span></div>
+    <div class="pb-info-row"><span class="k">共识价格</span><span class="v">$314,159（GCV）</span></div>
+    <div class="pb-info-row"><span class="k">全球支持者</span><span class="v">6000万+</span></div>
+    <div class="pb-info-row"><span class="k">生态应用</span><span class="v">99+</span></div>
+    <div class="pb-info-row"><span class="k">核心团队</span><span class="v">斯坦福大学博士团队</span></div>
+    <div class="pb-info-row"><span class="k">发起年份</span><span class="v">2019 年 3 月 14 日</span></div>
+  </section>
+
+  <!-- 核心标签 -->
+  <section class="pb-card">
+    <h3>核心标签</h3>
+    <div class="pb-tag-list">
+      <span class="pb-tag gold">去中心化</span>
+      <span class="pb-tag">手机挖矿</span>
+      <span class="pb-tag">社交图谱</span>
+      <span class="pb-tag">安全可信</span>
+      <span class="pb-tag gold">共识价值</span>
+      <span class="pb-tag">DID 身份</span>
+      <span class="pb-tag">Web3</span>
+      <span class="pb-tag">生态共建</span>
+      <span class="pb-tag">通缩模型</span>
+      <span class="pb-tag">人人可参与</span>
+    </div>
+  </section>
+
+  <!-- 派币价格阵营 -->
+  <section class="pb-card">
+    <h3>派币价格阵营</h3>
+    <p style="margin-bottom:14px;">当前派币社区主要分为五大价格阵营，每个阵营对派币价值有不同预期：</p>
+    <div class="pb-price-list">
+      <div class="pb-price-item">
+        <div class="pb-price-ico">🏛️</div>
+        <div class="pb-price-text"><h4>GCV 价格</h4><p>全球共识价值 · 2000万+ 支持者</p></div>
+        <div class="pb-price-val">$314,159</div>
+      </div>
+      <div class="pb-price-item">
+        <div class="pb-price-ico">🏦</div>
+        <div class="pb-price-text"><h4>交易所价格</h4><p>全球实时交易所行情 · 2300万+ 支持者</p></div>
+        <div class="pb-price-val">$0.13~$31</div>
+      </div>
+      <div class="pb-price-item">
+        <div class="pb-price-ico">💸</div>
+        <div class="pb-price-text"><h4>变现者阵营</h4><p>落袋为安 · 合规变现 · 1200万+ 支持者</p></div>
+        <div class="pb-price-val">$3~$314K</div>
+      </div>
+      <div class="pb-price-item">
+        <div class="pb-price-ico">🛰️</div>
+        <div class="pb-price-text"><h4>节点者阵营</h4><p>电脑节点挖矿 · 算力时代 · 200万+ 支持者</p></div>
+        <div class="pb-price-val">$3~$314K</div>
+      </div>
+      <div class="pb-price-item">
+        <div class="pb-price-ico">🌍</div>
+        <div class="pb-price-text"><h4>生态者阵营</h4><p>共建生态 · 红利分享 · 3200万+ 支持者</p></div>
+        <div class="pb-price-val">$3~$314K</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 四步挖矿 -->
+  <section class="pb-card">
+    <h3>四步开启派币挖矿</h3>
+    <div class="pb-steps">
+      <div class="pb-step"><div class="pb-step-no">1</div><h4>下载 App</h4><p>应用商店搜索 Pi Network</p></div>
+      <div class="pb-step"><div class="pb-step-no">2</div><h4>注册账号</h4><p>手机号 + 邀请码注册</p></div>
+      <div class="pb-step"><div class="pb-step-no">3</div><h4>建立安全圈</h4><p>添加 3-5 位可信成员</p></div>
+      <div class="pb-step"><div class="pb-step-no">4</div><h4>每日点击</h4><p>24 小时点击一次挖矿</p></div>
+    </div>
+  </section>
+
+  <!-- 发展路线图 -->
+  <section class="pb-card">
+    <h3>派币发展路线图</h3>
+    <div class="pb-timeline">
+      <div class="pb-tl-item"><div class="pb-tl-year">2019 · 03</div><h4>派币正式诞生</h4><p>斯坦福博士团队于 3 月 14 日（圆周率日）正式发起派币项目，Pi Network 移动应用同步上线。</p></div>
+      <div class="pb-tl-item"><div class="pb-tl-year">2020 · 06</div><h4>用户突破 1000 万</h4><p>全球先锋用户快速增长，覆盖 100+ 国家与地区，社交图谱模型初步形成。</p></div>
+      <div class="pb-tl-item"><div class="pb-tl-year">2021 · 12</div><h4>主网筹备阶段</h4><p>启动 KYC 实名认证流程，生态应用 Pi Browser 与 Pi Apps 正式上线。</p></div>
+      <div class="pb-tl-item"><div class="pb-tl-year">2023 · 09</div><h4>开放主网</h4><p>主网分阶段开放，已完成 KYC 的先锋可逐步将派币迁移至主网。</p></div>
+      <div class="pb-tl-item"><div class="pb-tl-year">2024 · 至今</div><h4>生态爆发期</h4><p>99+ 派生态应用全面铺开，涵盖社交、金融、商城、游戏、资讯等全品类。</p></div>
+      <div class="pb-tl-item"><div class="pb-tl-year">未来 · ∞</div><h4>Web3 全球愿景</h4><p>打造一个人人可触及的 Web3 数字资产生态，构建公平、开放、共赢的去中心化未来。</p></div>
+    </div>
+  </section>
+
+  <!-- 派币生态 -->
+  <section class="pb-card">
+    <h3>派币生态全景</h3>
+    <p style="margin-bottom:14px;">派币生态已覆盖六大核心场景，赋能真实落地应用：</p>
+    <div class="pb-feature-grid">
+      <div class="pb-feature"><div class="pb-feature-ico">🌐</div><h4>官方核心</h4><p>Pi Browser、Pi Apps 主入口</p></div>
+      <div class="pb-feature"><div class="pb-feature-ico">💬</div><h4>社交通讯</h4><p>派之声、TELTLK、PIBBS 论坛</p></div>
+      <div class="pb-feature"><div class="pb-feature-ico">💰</div><h4>金融支付</h4><p>GCV 价格、交易所、节点挖矿</p></div>
+      <div class="pb-feature"><div class="pb-feature-ico">🛒</div><h4>电商商城</h4><p>314159 商城、YouPi 优派</p></div>
+      <div class="pb-feature"><div class="pb-feature-ico">🎮</div><h4>游戏娱乐</h4><p>派宠物、水果游戏、CIDI 游戏</p></div>
+      <div class="pb-feature"><div class="pb-feature-ico">🤖</div><h4>AI 与资讯</h4><p>MEMO DID、跑腿赚派、Fireside</p></div>
+    </div>
+  </section>
+
+  <!-- 常见问题 -->
+  <section class="pb-card">
+    <h3>常见问题 FAQ</h3>
+    <div class="pb-faq"><div class="pb-faq-q">派币是合法合规的吗？</div><div class="pb-faq-a">派币作为加密货币项目在全球多个国家运营，请遵守当地监管政策。派币本身是一种基于区块链技术的数字资产，用户应理性参与、谨慎投资。</div></div>
+    <div class="pb-faq"><div class="pb-faq-q">派币如何变现？</div><div class="pb-faq-a">可通过合规交易所进行交易，或参与 Pi 生态内的商城消费、应用服务等。具体方式请关注派币官方公告及主流交易所动态。</div></div>
+    <div class="pb-faq"><div class="pb-faq-q">手机挖矿会消耗流量和电量吗？</div><div class="pb-faq-a">不会。派币手机挖矿本质是参与网络共识投票，不运行高算力算法，不耗电、不耗流量，对手机硬件零损耗。</div></div>
+    <div class="pb-faq"><div class="pb-faq-q">什么是安全圈？</div><div class="pb-faq-a">安全圈是派币独创的信任图谱机制，由用户邀请 3-5 位可信任成员组成，共同构建可信任的去中心化网络，是派币防欺诈的核心机制之一。</div></div>
+    <div class="pb-faq"><div class="pb-faq-q">派币总量是多少？会增发吗？</div><div class="pb-faq-a">派币采用通缩模型，挖矿产出逐年减半，团队预留 + 挖矿释放总和恒定，不会无限增发，确保稀缺性与长期价值。</div></div>
+    <div class="pb-faq"><div class="pb-faq-q">如何加入派币生态？</div><div class="pb-faq-a">下载 Pi Network App 完成注册即可成为「派友先锋」，可参与每日挖矿、加入生态应用、共建 Web3 数字未来。</div></div>
+  </section>
+
+  <!-- 商务合作 -->
+  <section class="pb-card">
+    <h3>商务合作</h3>
+    <p style="margin-bottom:14px;">如果您是派生态商家、有想法的派先锋或项目方，欢迎联系我们合作共赢：</p>
+    <div class="pb-contact-list">
+      <div class="pb-contact-item"><div class="pb-contact-ico">📱</div><div class="pb-contact-text"><div class="l">手机号 1</div><div class="v">15536455536</div></div></div>
+      <div class="pb-contact-item"><div class="pb-contact-ico">📱</div><div class="pb-contact-text"><div class="l">手机号 2</div><div class="v">15232125536</div></div></div>
+      <div class="pb-contact-item"><div class="pb-contact-ico">💬</div><div class="pb-contact-text"><div class="l">微信号</div><div class="v">15536455536（天空之城）</div></div></div>
+      <div class="pb-contact-item"><div class="pb-contact-ico">🐧</div><div class="pb-contact-text"><div class="l">QQ 号</div><div class="v">1844187773（令移阁）</div></div></div>
+      <div class="pb-contact-item"><div class="pb-contact-ico">📧</div><div class="pb-contact-text"><div class="l">官方邮箱</div><div class="v">1844187773@qq.com</div></div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="pb-cta">
+    <a class="pb-cta-btn primary" href="#contact">📞 联系商务合作</a>
+    <button class="pb-cta-btn secondary" id="paibiBackCta" type="button">↩ 返回派生态导航</button>
+  </div>
+
+  <div class="pb-footer">
+    © 派币专属页面 · 数据仅供参考 · <a href="#" id="paibiFooterBack">派生态导航</a>
+  </div>
+</div>
 
 <!-- QR 码生成库（永久代码生成二维码，CDN + 备用 CDN） -->
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
@@ -2985,7 +3823,178 @@
         <button class="eco-btn back" id="ecoModalBack">返回首页</button>
       </div>
     </div>
-  </div>
+</div>
 
+<script>
+  // ============ 悬浮发光派币小球：随机运动 + 边界反弹 ============
+  (function(){
+    const ball = document.getElementById('piBall');
+    if(!ball) return;
+
+    const isMobile = window.matchMedia('(max-width:640px)').matches;
+    const BALL = isMobile ? 54 : 64;
+
+    let x = Math.random() * Math.max(1, (window.innerWidth  - BALL));
+    let y = Math.random() * Math.max(1, (window.innerHeight - BALL));
+
+    const speed = 1.2 + Math.random() * 1.2;
+    const angle = Math.random() * Math.PI * 2;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed;
+
+    let isDragging = false;
+    let dragOffsetX = 0, dragOffsetY = 0;
+    let lastWander = 0;
+
+    ball.style.left = x + 'px';
+    ball.style.top  = y + 'px';
+
+    function clampBounds(){
+      const maxX = window.innerWidth  - BALL;
+      const maxY = window.innerHeight - BALL;
+      if(x < 0){ x = 0; vx = Math.abs(vx); }
+      else if(x > maxX){ x = maxX; vx = -Math.abs(vx); }
+      if(y < 0){ y = 0; vy = Math.abs(vy); }
+      else if(y > maxY){ y = maxY; vy = -Math.abs(vy); }
+    }
+
+    function randomWander(){
+      const now = performance.now();
+      if(now - lastWander > 600 + Math.random()*1000){
+        lastWander = now;
+        const curAng = Math.atan2(vy, vx);
+        const curSpd = Math.hypot(vx, vy);
+        const delta = (Math.random() - 0.5) * (Math.PI * 0.4);
+        const newAng = curAng + delta;
+        const newSpd = Math.max(0.8, Math.min(2.6, curSpd + (Math.random()-0.5)*0.4));
+        vx = Math.cos(newAng) * newSpd;
+        vy = Math.sin(newAng) * newSpd;
+      }
+    }
+
+    function tick(){
+      if(!isDragging){
+        randomWander();
+        x += vx;
+        y += vy;
+        clampBounds();
+        ball.style.left = x + 'px';
+        ball.style.top  = y + 'px';
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function downHandler(e){
+      isDragging = true;
+      const pt = e.touches ? e.touches[0] : e;
+      dragOffsetX = pt.clientX - x;
+      dragOffsetY = pt.clientY - y;
+      e.preventDefault();
+    }
+    function moveHandler(e){
+      if(!isDragging) return;
+      const pt = e.touches ? e.touches[0] : e;
+      x = pt.clientX - dragOffsetX;
+      y = pt.clientY - dragOffsetY;
+      const maxX = window.innerWidth  - BALL;
+      const maxY = window.innerHeight - BALL;
+      x = Math.max(0, Math.min(maxX, x));
+      y = Math.max(0, Math.min(maxY, y));
+      ball.style.left = x + 'px';
+      ball.style.top  = y + 'px';
+      e.preventDefault();
+    }
+    function upHandler(){
+      if(!isDragging) return;
+      isDragging = false;
+      const ang = Math.random() * Math.PI * 2;
+      const spd = 1.4 + Math.random() * 1.0;
+      vx = Math.cos(ang) * spd;
+      vy = Math.sin(ang) * spd;
+    }
+
+    ball.addEventListener('mousedown', downHandler);
+    document.addEventListener('mousemove', moveHandler);
+    document.addEventListener('mouseup', upHandler);
+    ball.addEventListener('touchstart', downHandler, {passive:false});
+    document.addEventListener('touchmove', moveHandler, {passive:false});
+    document.addEventListener('touchend', upHandler);
+
+    // 区分点击与拖拽：松开时若位移极小则视为点击
+    let downX = 0, downY = 0, downT = 0;
+    ball.addEventListener('mousedown', (e) => {
+      downX = e.clientX; downY = e.clientY; downT = Date.now();
+    });
+    ball.addEventListener('touchstart', (e) => {
+      const t = e.touches[0]; downX = t.clientX; downY = t.clientY; downT = Date.now();
+    }, {passive:true});
+    function tryClick(e){
+      const pt = e.changedTouches ? e.changedTouches[0] : e;
+      const dx = Math.abs(pt.clientX - downX);
+      const dy = Math.abs(pt.clientY - downY);
+      const dt = Date.now() - downT;
+      if(dx < 6 && dy < 6 && dt < 600 && !isDragging){
+        showPiModal();
+      }
+    }
+    document.addEventListener('mouseup', tryClick);
+    document.addEventListener('touchend', tryClick);
+
+    window.addEventListener('resize', () => {
+      const maxX = window.innerWidth  - BALL;
+      const maxY = window.innerHeight - BALL;
+      x = Math.min(x, maxX);
+      y = Math.min(y, maxY);
+    });
+
+    requestAnimationFrame(tick);
+
+    // ============ 派币进入确认弹窗 ============
+    const modal = document.getElementById('piModal');
+    const btnCancel = document.getElementById('piModalCancel');
+    const btnConfirm = document.getElementById('piModalConfirm');
+
+    function showPiModal(){
+      if(!modal) return;
+      // 暂停小球运动
+      ball.style.animationPlayState = 'paused';
+      modal.classList.add('show');
+    }
+    function hidePiModal(){
+      if(!modal) return;
+      modal.classList.remove('show');
+      ball.style.animationPlayState = 'running';
+    }
+    btnCancel.addEventListener('click', hidePiModal);
+    btnConfirm.addEventListener('click', () => {
+      // 切换到派币专属页面（单文件视图）
+      const view = document.getElementById('paibiView');
+      if(view){
+        hidePiModal();
+        view.classList.add('active');
+        document.body.classList.add('paibi-on');
+        view.scrollTop = 0;
+      }
+    });
+    // 点击遮罩关闭
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) hidePiModal();
+    });
+
+    // ============ 派币视图返回按钮 ============
+    const paibiView = document.getElementById('paibiView');
+    function hidePaibiView(){
+      if(!paibiView) return;
+      paibiView.classList.remove('active');
+      document.body.classList.remove('paibi-on');
+    }
+    const paibiBack = document.getElementById('paibiBack');
+    if(paibiBack) paibiBack.addEventListener('click', hidePaibiView);
+    const paibiBackCta = document.getElementById('paibiBackCta');
+    if(paibiBackCta) paibiBackCta.addEventListener('click', hidePaibiView);
+    const paibiFooterBack = document.getElementById('paibiFooterBack');
+    if(paibiFooterBack) paibiFooterBack.addEventListener('click', (e) => { e.preventDefault(); hidePaibiView(); });
+  })();
+</script>
 </body>
 </html>
