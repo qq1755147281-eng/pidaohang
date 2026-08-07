@@ -1783,12 +1783,113 @@
   @media (max-width:640px){
     .pi-ball{width:54px;height:54px;font-size:11px;}
   }
+
+  /* ============ 派币进入确认弹窗 ============ */
+  .pi-modal-mask{
+    position:fixed;inset:0;
+    background:rgba(20,5,40,.55);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    display:none;
+    align-items:center;justify-content:center;
+    z-index:10000;
+    animation:pi-mask-in .25s ease;
+  }
+  .pi-modal-mask.show{display:flex;}
+  @keyframes pi-mask-in{from{opacity:0;}to{opacity:1;}}
+
+  .pi-modal{
+    width:min(360px, calc(100vw - 40px));
+    aspect-ratio:1/1;
+    background:linear-gradient(160deg, #ffffff 0%, #faf5ff 100%);
+    border-radius:20px;
+    box-shadow:0 30px 80px rgba(60,20,100,.35), 0 0 0 1px rgba(108,43,158,.08);
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    padding:24px 22px;
+    position:relative;
+    animation:pi-modal-pop .35s cubic-bezier(.18,.89,.32,1.28);
+    text-align:center;
+  }
+  @keyframes pi-modal-pop{
+    0%{opacity:0;transform:scale(.6) translateY(20px);}
+    100%{opacity:1;transform:scale(1) translateY(0);}
+  }
+  .pi-modal-icon{
+    width:64px;height:64px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff7d6 0%, #ffd84d 35%, #f5a623 70%, #c2410c 100%);
+    box-shadow:
+      0 0 14px rgba(255,215,0,.8),
+      0 0 30px rgba(255,180,40,.5),
+      inset 0 -3px 6px rgba(180,80,0,.3),
+      inset 0 3px 5px rgba(255,255,255,.7);
+    display:flex;align-items:center;justify-content:center;
+    color:#5a1f87;font-size:13px;font-weight:900;letter-spacing:1px;
+    margin-bottom:14px;
+    text-shadow:0 1px 0 rgba(255,255,255,.5);
+  }
+  .pi-modal-title{
+    font-size:16px;font-weight:800;
+    color:#2b1a3f;line-height:1.4;
+    margin-bottom:6px;
+  }
+  .pi-modal-sub{
+    font-size:12px;color:#8a7aa3;
+    line-height:1.5;margin-bottom:22px;
+    padding:0 6px;
+  }
+  .pi-modal-actions{
+    display:flex;gap:10px;width:100%;
+    margin-top:auto;
+  }
+  .pi-modal-btn{
+    flex:1;padding:11px 0;
+    border-radius:12px;
+    font-size:13.5px;font-weight:700;
+    cursor:pointer;
+    border:1.5px solid transparent;
+    transition:all .2s ease;
+    font-family:inherit;
+  }
+  .pi-modal-btn.cancel{
+    background:#fff;
+    color:#6c2b9e;
+    border-color:#ece3f5;
+  }
+  .pi-modal-btn.cancel:hover{
+    background:#faf5ff;
+    border-color:#a87dc7;
+    transform:translateY(-1px);
+  }
+  .pi-modal-btn.confirm{
+    background:linear-gradient(135deg,#6c2b9e 0%,#5a1f87 100%);
+    color:#fff;
+    box-shadow:0 6px 18px rgba(108,43,158,.4);
+  }
+  .pi-modal-btn.confirm:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 22px rgba(108,43,158,.55);
+  }
+  .pi-modal-btn:active{transform:scale(.97);}
 </style>
 </head>
 <body>
 
 <!-- ========== 悬浮发光派币小球 ========== -->
 <div class="pi-ball" id="piBall" title="派币">派币</div>
+
+<!-- ========== 派币进入确认弹窗 ========== -->
+<div class="pi-modal-mask" id="piModal" role="dialog" aria-modal="true" aria-labelledby="piModalTitle">
+  <div class="pi-modal" role="document">
+    <div class="pi-modal-icon">派币</div>
+    <div class="pi-modal-title" id="piModalTitle">请问您是否进入<br>派币专属页面？</div>
+    <div class="pi-modal-sub">点击「进入」将跳转至派币专属页面</div>
+    <div class="pi-modal-actions">
+      <button class="pi-modal-btn cancel" id="piModalCancel" type="button">取消</button>
+      <button class="pi-modal-btn confirm" id="piModalConfirm" type="button">进入</button>
+    </div>
+  </div>
+</div>
 
 <!-- ========== FIXED HEADER ========== -->
 <header class="header">
@@ -3157,6 +3258,26 @@
     document.addEventListener('touchmove', moveHandler, {passive:false});
     document.addEventListener('touchend', upHandler);
 
+    // 区分点击与拖拽：松开时若位移极小则视为点击
+    let downX = 0, downY = 0, downT = 0;
+    ball.addEventListener('mousedown', (e) => {
+      downX = e.clientX; downY = e.clientY; downT = Date.now();
+    });
+    ball.addEventListener('touchstart', (e) => {
+      const t = e.touches[0]; downX = t.clientX; downY = t.clientY; downT = Date.now();
+    }, {passive:true});
+    function tryClick(e){
+      const pt = e.changedTouches ? e.changedTouches[0] : e;
+      const dx = Math.abs(pt.clientX - downX);
+      const dy = Math.abs(pt.clientY - downY);
+      const dt = Date.now() - downT;
+      if(dx < 6 && dy < 6 && dt < 600 && !isDragging){
+        showPiModal();
+      }
+    }
+    document.addEventListener('mouseup', tryClick);
+    document.addEventListener('touchend', tryClick);
+
     window.addEventListener('resize', () => {
       const maxX = window.innerWidth  - BALL;
       const maxY = window.innerHeight - BALL;
@@ -3165,6 +3286,32 @@
     });
 
     requestAnimationFrame(tick);
+
+    // ============ 派币进入确认弹窗 ============
+    const modal = document.getElementById('piModal');
+    const btnCancel = document.getElementById('piModalCancel');
+    const btnConfirm = document.getElementById('piModalConfirm');
+
+    function showPiModal(){
+      if(!modal) return;
+      // 暂停小球运动
+      ball.style.animationPlayState = 'paused';
+      modal.classList.add('show');
+    }
+    function hidePiModal(){
+      if(!modal) return;
+      modal.classList.remove('show');
+      ball.style.animationPlayState = 'running';
+    }
+    btnCancel.addEventListener('click', hidePiModal);
+    btnConfirm.addEventListener('click', () => {
+      // 跳转至派币专属页面
+      window.location.href = 'paibi.html';
+    });
+    // 点击遮罩关闭
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) hidePiModal();
+    });
   })();
 </script>
 </body>

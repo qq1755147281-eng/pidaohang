@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>派币专属页面 · Pi Exclusive</title>
+<style>
+  :root{
+    --pi-purple:#6c2b9e;
+    --pi-purple-deep:#3a1262;
+    --pi-purple-mid:#7c2d92;
+    --pi-yellow:#ffc629;
+    --pi-yellow-light:#ffe082;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    color:#fff;
+    /* 紫色 → 黄色 对角渐变 */
+    background:linear-gradient(135deg,
+      var(--pi-purple-deep) 0%,
+      var(--pi-purple) 30%,
+      var(--pi-purple-mid) 55%,
+      var(--pi-yellow) 100%);
+    background-attachment:fixed;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;pointer-events:none;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,.18), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(255,255,255,.12), transparent 45%);
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* ============ 顶部返回栏 ============ */
+  .top-bar{
+    position:sticky;top:0;z-index:10;
+    padding:14px 18px;
+    display:flex;align-items:center;gap:12px;
+    background:rgba(0,0,0,.12);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+  .back-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.22);
+    color:#fff;
+    font-size:13px;font-weight:700;
+    border:1px solid rgba(255,255,255,.35);
+    cursor:pointer;
+    transition:all .2s;
+    backdrop-filter:blur(6px);
+  }
+  .back-btn:hover{background:rgba(255,255,255,.34);transform:translateX(-2px);}
+  .top-bar .title{
+    font-size:14px;font-weight:800;letter-spacing:1px;
+    color:#fff;
+    text-shadow:0 2px 6px rgba(0,0,0,.25);
+  }
+  .top-bar .live{
+    margin-left:auto;
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:11.5px;color:rgba(255,255,255,.9);
+    background:rgba(0,0,0,.18);
+    padding:5px 10px;border-radius:14px;
+  }
+  .live .dot{
+    width:7px;height:7px;border-radius:50%;background:#22c55e;
+    box-shadow:0 0 6px #22c55e;
+    animation:pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+
+  /* ============ Hero ============ */
+  .hero{
+    padding:40px 22px 20px;
+    text-align:center;
+    position:relative;
+  }
+  .hero-coin{
+    width:140px;height:140px;
+    margin:0 auto 22px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff7d6 0%, #ffd84d 30%, #f5a623 60%, #b45309 100%);
+    color:#5a1f87;
+    display:flex;align-items:center;justify-content:center;
+    font-size:30px;font-weight:900;letter-spacing:2px;
+    box-shadow:
+      0 0 30px rgba(255,215,0,.7),
+      0 0 60px rgba(255,180,40,.5),
+      0 0 100px rgba(255,150,30,.35),
+      inset 0 -8px 14px rgba(180,80,0,.35),
+      inset 0 6px 10px rgba(255,255,255,.7);
+    text-shadow:0 2px 0 rgba(255,255,255,.5);
+    animation:coin-spin 4s ease-in-out infinite;
+    position:relative;
+  }
+  .hero-coin::after{
+    content:"";
+    position:absolute;
+    top:18px;left:26px;
+    width:38px;height:22px;
+    border-radius:50%;
+    background:linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,0));
+    transform:rotate(-30deg);
+  }
+  @keyframes coin-spin{
+    0%,100%{transform:rotate(-8deg) scale(1);}
+    50%{transform:rotate(8deg) scale(1.04);}
+  }
+  .hero-title{
+    font-size:30px;font-weight:900;letter-spacing:2px;
+    background:linear-gradient(180deg, #ffffff 0%, #ffe082 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 2px 0 rgba(0,0,0,.05);
+    margin-bottom:10px;
+  }
+  .hero-sub{
+    font-size:14px;
+    color:rgba(255,255,255,.95);
+    letter-spacing:1.5px;
+    text-shadow:0 1px 4px rgba(0,0,0,.25);
+  }
+
+  /* ============ 信息卡片 ============ */
+  .info-card{
+    margin:24px 18px 0;
+    background:rgba(255,255,255,.16);
+    border:1px solid rgba(255,255,255,.3);
+    border-radius:18px;
+    padding:18px;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 12px 30px rgba(60,10,80,.18);
+  }
+  .info-card h3{
+    font-size:14px;font-weight:800;letter-spacing:1px;
+    color:#fff;
+    margin-bottom:12px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .info-card h3::before{
+    content:"";width:4px;height:14px;border-radius:2px;
+    background:linear-gradient(180deg,#fff,#ffe082);
+  }
+  .info-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:8px 0;
+    font-size:12.5px;
+    border-bottom:1px dashed rgba(255,255,255,.2);
+  }
+  .info-row:last-child{border-bottom:none;}
+  .info-row .k{color:rgba(255,255,255,.78);}
+  .info-row .v{color:#fff;font-weight:700;}
+
+  /* ============ 价值标签 ============ */
+  .tag-list{
+    display:flex;flex-wrap:wrap;gap:8px;
+    margin-top:8px;
+  }
+  .tag{
+    display:inline-block;
+    padding:6px 12px;
+    background:rgba(255,255,255,.22);
+    color:#fff;
+    font-size:12px;font-weight:700;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.32);
+  }
+  .tag.gold{
+    background:linear-gradient(135deg,#ffd84d,#f5a623);
+    color:#5a1f87;
+    border-color:transparent;
+    box-shadow:0 4px 10px rgba(255,180,40,.4);
+  }
+
+  /* ============ CTA 按钮 ============ */
+  .cta{
+    margin:24px 18px 0;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .cta-btn{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 18px;
+    border-radius:14px;
+    font-size:14px;font-weight:800;letter-spacing:1px;
+    cursor:pointer;border:none;
+    font-family:inherit;
+    transition:all .2s ease;
+  }
+  .cta-btn.primary{
+    background:linear-gradient(135deg,#ffd84d,#f5a623);
+    color:#5a1f87;
+    box-shadow:0 8px 22px rgba(255,180,40,.45);
+  }
+  .cta-btn.primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(255,180,40,.6);}
+  .cta-btn.secondary{
+    background:rgba(255,255,255,.18);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.4);
+  }
+  .cta-btn.secondary:hover{background:rgba(255,255,255,.28);}
+
+  /* ============ 数据展示 ============ */
+  .stats{
+    margin:24px 18px 0;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+  }
+  .stat{
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.28);
+    border-radius:14px;
+    padding:14px 8px;
+    text-align:center;
+    backdrop-filter:blur(8px);
+  }
+  .stat-num{
+    font-size:18px;font-weight:900;
+    background:linear-gradient(180deg,#fff,#ffe082);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .stat-label{
+    font-size:11px;color:rgba(255,255,255,.85);
+    margin-top:4px;
+  }
+
+  /* ============ 底部 ============ */
+  .footer{
+    text-align:center;
+    font-size:11.5px;
+    color:rgba(255,255,255,.75);
+    padding:30px 18px 22px;
+    margin-top:24px;
+  }
+  .footer a{color:#ffe082;font-weight:700;}
+
+  @media (max-width:480px){
+    .hero{padding:30px 18px 16px;}
+    .hero-coin{width:120px;height:120px;font-size:24px;}
+    .hero-title{font-size:26px;}
+    .hero-sub{font-size:13px;}
+  }
+</style>
+</head>
+<body>
+
+  <header class="top-bar">
+    <a class="back-btn" href="index.html" aria-label="返回">← 返回</a>
+    <div class="title">派币专属页面</div>
+    <div class="live"><span class="dot"></span>LIVE</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-coin" aria-hidden="true">π</div>
+    <h1 class="hero-title">欢迎来到派币世界</h1>
+    <p class="hero-sub">PI · DIGITAL CURRENCY ECOSYSTEM</p>
+  </section>
+
+  <section class="info-card">
+    <h3>派币核心信息</h3>
+    <div class="info-row"><span class="k">货币符号</span><span class="v">π (Pi)</span></div>
+    <div class="info-row"><span class="k">所属生态</span><span class="v">Pi Network</span></div>
+    <div class="info-row"><span class="k">共识价格</span><span class="v">$314,159</span></div>
+    <div class="info-row"><span class="k">全球支持者</span><span class="v">6000万+</span></div>
+    <div class="info-row"><span class="k">生态应用</span><span class="v">99+</span></div>
+  </section>
+
+  <section class="info-card">
+    <h3>核心标签</h3>
+    <div class="tag-list">
+      <span class="tag gold">去中心化</span>
+      <span class="tag">手机挖矿</span>
+      <span class="tag">社交图谱</span>
+      <span class="tag">安全可信</span>
+      <span class="tag gold">共识价值</span>
+      <span class="tag">DID 身份</span>
+      <span class="tag">Web3</span>
+      <span class="tag">生态共建</span>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-num">99+</div>
+      <div class="stat-label">生态应用</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">$314K</div>
+      <div class="stat-label">GCV 价格</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6000W+</div>
+      <div class="stat-label">全球先锋</div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <a class="cta-btn primary" href="index.html#contact">📞 联系商务合作</a>
+    <a class="cta-btn secondary" href="index.html">↩ 返回派生态导航</a>
+  </div>
+
+  <div class="footer">
+    © 派币专属页面 · 数据仅供参考 · <a href="index.html">派生态导航</a>
+  </div>
+
+</body>
+</html>
