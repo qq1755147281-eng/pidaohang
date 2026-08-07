@@ -30,6 +30,7 @@
       linear-gradient(180deg, #f9f5ff 0%, #f0e6fa 100%);
     min-height:100vh;
     line-height:1.6;
+    overflow-x:hidden;
   }
   a{color:inherit;text-decoration:none;}
 
@@ -45,9 +46,7 @@
     max-width:1200px;margin:0 auto;
     display:flex;align-items:center;gap:16px;
   }
-  .brand{
-    display:flex;align-items:center;gap:12px;
-  }
+  .brand{display:flex;align-items:center;gap:12px;}
   .pi-logo{
     width:38px;height:38px;border-radius:50%;
     background:#fff;color:var(--pi-purple);
@@ -95,9 +94,7 @@
   .hero-text{flex:1 1 320px;}
   .hero-text h2{font-size:22px;color:var(--pi-purple);font-weight:800;letter-spacing:.5px;margin-bottom:6px;}
   .hero-text p{color:var(--pi-muted);font-size:13.5px;}
-  .hero-stats{
-    display:flex;gap:16px;flex-wrap:wrap;
-  }
+  .hero-stats{display:flex;gap:16px;flex-wrap:wrap;}
   .stat-card{
     background:#fff;
     border:1px solid var(--pi-border);
@@ -143,9 +140,7 @@
     gap:24px;
     align-items:start;
   }
-  @media (max-width:980px){
-    .stage{grid-template-columns:1fr;}
-  }
+  @media (max-width:980px){.stage{grid-template-columns:1fr;}}
   .preview-wrap{
     background:linear-gradient(135deg,#0a0420 0%,#2a0f55 100%);
     border-radius:24px;
@@ -198,7 +193,6 @@
   }
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
 
-  /* Phone Frame */
   .phone-frame{
     position:relative;z-index:2;
     margin:0 auto;
@@ -211,11 +205,7 @@
   }
   .phone-frame.mobile{max-width:380px;}
   .phone-frame.tablet{max-width:600px;border-radius:32px;}
-  .phone-frame.desktop{
-    max-width:100%;
-    border-radius:14px;
-    padding:6px;
-  }
+  .phone-frame.desktop{max-width:100%;border-radius:14px;padding:6px;}
   .phone-screen{
     position:relative;
     width:100%;
@@ -243,9 +233,7 @@
   }
 
   /* ============ Side Panel ============ */
-  .side{
-    display:flex;flex-direction:column;gap:18px;
-  }
+  .side{display:flex;flex-direction:column;gap:18px;}
   .side-card{
     background:#fff;
     border:1px solid var(--pi-border);
@@ -281,7 +269,6 @@
     border:1px solid var(--pi-border);
     font-size:12.5px;
     transition:all .2s;
-    cursor:default;
   }
   .panel-item:hover{
     transform:translateX(2px);
@@ -331,9 +318,7 @@
     padding:2px 8px;border-radius:10px;
     font-weight:700;
   }
-  .app-chips{
-    display:flex;flex-wrap:wrap;gap:6px;
-  }
+  .app-chips{display:flex;flex-wrap:wrap;gap:6px;}
   .app-chip{
     display:inline-flex;align-items:center;gap:4px;
     padding:5px 10px;
@@ -342,7 +327,6 @@
     border-radius:14px;
     font-size:11.5px;color:var(--pi-text);
     transition:all .2s;
-    cursor:default;
   }
   .app-chip:hover{
     background:#fff;
@@ -352,7 +336,6 @@
   }
   .app-chip .ico{font-size:13px;}
 
-  /* ============ Footer ============ */
   .footer{
     text-align:center;
     color:var(--pi-muted);
@@ -363,7 +346,6 @@
   }
   .footer a{color:var(--pi-purple);font-weight:600;}
 
-  /* ============ Notice Banner ============ */
   .notice{
     background:linear-gradient(135deg,#fff8e1 0%,#fef3c7 100%);
     border:1px solid #fde68a;
@@ -375,6 +357,75 @@
     display:flex;align-items:center;gap:10px;
   }
   .notice-ico{font-size:18px;}
+
+  /* ============ 悬浮发光派币小球 ============ */
+  .pi-ball{
+    position:fixed;
+    top:0;left:0;
+    width:64px;height:64px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff7d6 0%, #ffd84d 35%, #f5a623 70%, #c2410c 100%);
+    color:#5a1f87;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:900;
+    letter-spacing:1px;
+    cursor:pointer;
+    user-select:none;
+    z-index:9999;
+    box-shadow:
+      0 0 18px rgba(255,215,0,.85),
+      0 0 36px rgba(255,180,40,.55),
+      0 0 64px rgba(255,150,30,.4),
+      inset 0 -4px 8px rgba(180,80,0,.35),
+      inset 0 4px 6px rgba(255,255,255,.7);
+    text-shadow:0 1px 0 rgba(255,255,255,.5), 0 0 6px rgba(255,230,120,.8);
+    animation:ball-pulse 2.2s ease-in-out infinite;
+    will-change:transform,left,top;
+  }
+  .pi-ball::before{
+    content:"";
+    position:absolute;
+    inset:-14px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,215,0,.45) 0%, rgba(255,180,40,.15) 40%, transparent 70%);
+    z-index:-1;
+    animation:ball-halo 2.2s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .pi-ball::after{
+    content:"";
+    position:absolute;
+    top:8px;left:12px;
+    width:18px;height:10px;
+    border-radius:50%;
+    background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,0));
+    transform:rotate(-30deg);
+    pointer-events:none;
+  }
+  .pi-ball:hover{transform:scale(1.08);}
+  .pi-ball.dragging{cursor:grabbing;transition:none;}
+  @keyframes ball-pulse{
+    0%,100%{
+      box-shadow:
+        0 0 18px rgba(255,215,0,.85),
+        0 0 36px rgba(255,180,40,.55),
+        0 0 64px rgba(255,150,30,.4),
+        inset 0 -4px 8px rgba(180,80,0,.35),
+        inset 0 4px 6px rgba(255,255,255,.7);
+    }
+    50%{
+      box-shadow:
+        0 0 26px rgba(255,215,0,1),
+        0 0 52px rgba(255,180,40,.75),
+        0 0 90px rgba(255,150,30,.55),
+        inset 0 -4px 8px rgba(180,80,0,.35),
+        inset 0 4px 6px rgba(255,255,255,.7);
+    }
+  }
+  @keyframes ball-halo{
+    0%,100%{transform:scale(1);opacity:.85;}
+    50%{transform:scale(1.25);opacity:1;}
+  }
 
   @media (max-width:640px){
     .container{padding:20px 14px 40px;}
@@ -388,12 +439,15 @@
     .brand h1{font-size:15px;}
     .brand p{font-size:10.5px;}
     .topbar-btn{padding:6px 10px;font-size:11.5px;}
+    .pi-ball{width:54px;height:54px;font-size:11px;}
   }
 </style>
 </head>
 <body>
 
-  <!-- ============ Topbar ============ -->
+  <!-- ============ 悬浮发光派币小球 ============ -->
+  <div class="pi-ball" id="piBall" title="派币">派币</div>
+
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
@@ -412,39 +466,24 @@
 
   <main class="container">
 
-    <!-- ============ Hero ============ -->
     <section class="hero">
       <div class="hero-text">
         <h2>派生态导航 · 一站式探索 99+ 派应用</h2>
         <p>本预览页用于展示 <code>index.html</code>（派生态导航）原文件的页面布局、交互与内容结构。可点击右上角"打开原页面"在新窗口查看完整功能，或在下方模拟器中直接体验。</p>
       </div>
       <div class="hero-stats">
-        <div class="stat-card">
-          <div class="stat-num">99+</div>
-          <div class="stat-label">生态应用</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">4</div>
-          <div class="stat-label">功能面板</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">6</div>
-          <div class="stat-label">应用分类</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">π</div>
-          <div class="stat-label">派币生态</div>
-        </div>
+        <div class="stat-card"><div class="stat-num">99+</div><div class="stat-label">生态应用</div></div>
+        <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">功能面板</div></div>
+        <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">应用分类</div></div>
+        <div class="stat-card"><div class="stat-num">π</div><div class="stat-label">派币生态</div></div>
       </div>
     </section>
 
-    <!-- ============ Notice ============ -->
     <div class="notice">
       <span class="notice-ico">💡</span>
-      <div>左侧为手机/平板/桌面三种预览模式，可点击切换尺寸。预览区直接加载 <strong>index.html</strong> 原文件，所有交互均与原页面一致。</div>
+      <div>左侧为手机/平板/桌面三种预览模式，可点击切换尺寸。页面右上角"↗ 打开原页面"查看完整功能。</div>
     </div>
 
-    <!-- ============ Preview Stage ============ -->
     <section class="section">
       <div class="section-title">
         <h3>页面预览</h3>
@@ -488,31 +527,19 @@
             <div class="panel-list">
               <div class="panel-item">
                 <div class="panel-ico">🏠</div>
-                <div class="panel-text">
-                  <strong>首页</strong>
-                  <small>4 横幅轮播 + 99+ 应用图标网格</small>
-                </div>
+                <div class="panel-text"><strong>首页</strong><small>4 横幅轮播 + 99+ 应用图标网格</small></div>
               </div>
               <div class="panel-item">
                 <div class="panel-ico">🏆</div>
-                <div class="panel-text">
-                  <strong>生态排行榜</strong>
-                  <small>TOP 20 热度榜单 · 点赞投票</small>
-                </div>
+                <div class="panel-text"><strong>生态排行榜</strong><small>TOP 20 热度榜单 · 点赞投票</small></div>
               </div>
               <div class="panel-item">
                 <div class="panel-ico">💰</div>
-                <div class="panel-text">
-                  <strong>派的价格</strong>
-                  <small>5 大阵营价格对比 · GCV / 交易所 / 节点</small>
-                </div>
+                <div class="panel-text"><strong>派的价格</strong><small>5 大阵营价格对比</small></div>
               </div>
               <div class="panel-item">
                 <div class="panel-ico">✉️</div>
-                <div class="panel-text">
-                  <strong>联系我们</strong>
-                  <small>商务合作 / 派生态商家对接</small>
-                </div>
+                <div class="panel-text"><strong>联系我们</strong><small>商务合作 / 派生态商家对接</small></div>
               </div>
             </div>
           </div>
@@ -530,7 +557,6 @@
       </div>
     </section>
 
-    <!-- ============ Apps Overview ============ -->
     <section class="section">
       <div class="section-title">
         <h3>应用分类概览</h3>
@@ -653,11 +679,10 @@
   const frame = document.getElementById('phoneFrame');
   const sizeLabel = document.getElementById('deviceSize');
   const sizes = {
-    mobile: { label: '375 × 812 (iPhone)', maxWidth: '380px' },
-    tablet: { label: '820 × 1180 (iPad)', maxWidth: '600px' },
+    mobile:  { label: '375 × 812 (iPhone)', maxWidth: '380px' },
+    tablet:  { label: '820 × 1180 (iPad)',  maxWidth: '600px' },
     desktop: { label: '1280 × 720 (Desktop)', maxWidth: '100%' }
   };
-
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tabs.forEach(t => t.classList.remove('active'));
@@ -670,13 +695,11 @@
     });
   });
 
-  // ============ Reload preview ============
   function reloadPreview(){
     const iframe = document.getElementById('previewFrame');
     iframe.src = iframe.src;
   }
 
-  // ============ Load file metadata ============
   async function loadFileMeta(){
     try{
       const res = await fetch('index.html', { cache: 'no-store' });
@@ -695,6 +718,130 @@
     }
   }
   loadFileMeta();
+
+  // ============ 悬浮发光派币小球：随机运动 + 边界反弹 ============
+  (function(){
+    const ball = document.getElementById('piBall');
+    if(!ball) return;
+
+    const SIZE = 64;          // 桌面默认
+    const isMobile = window.matchMedia('(max-width:640px)').matches;
+    const BALL = isMobile ? 54 : SIZE;
+
+    let x = Math.random() * (window.innerWidth - BALL);
+    let y = Math.random() * (window.innerHeight - BALL);
+
+    // 随机速度（带方向），落在 1.2 ~ 2.4 像素/帧 区间
+    const speed = 1.2 + Math.random() * 1.2;
+    const angle = Math.random() * Math.PI * 2;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed;
+
+    let isDragging = false;
+    let dragOffsetX = 0, dragOffsetY = 0;
+    let lastWander = 0;        // 上次随机扰动时间
+    let paused = false;
+
+    // 让小球初始位置正确
+    ball.style.left = x + 'px';
+    ball.style.top  = y + 'px';
+
+    function clampBounds(){
+      const maxX = window.innerWidth  - BALL;
+      const maxY = window.innerHeight - BALL;
+      if(x < 0){ x = 0; vx = Math.abs(vx); }
+      else if(x > maxX){ x = maxX; vx = -Math.abs(vx); }
+      if(y < 0){ y = 0; vy = Math.abs(vy); }
+      else if(y > maxY){ y = maxY; vy = -Math.abs(vy); }
+    }
+
+    // 随机扰动速度方向，每 0.6~1.6 秒一次，模拟"无规则运动"
+    function randomWander(){
+      const now = performance.now();
+      if(now - lastWander > 600 + Math.random()*1000){
+        lastWander = now;
+        // 在当前速度方向上叠加一个 ±35° 内的随机偏转
+        const curAng = Math.atan2(vy, vx);
+        const curSpd = Math.hypot(vx, vy);
+        const delta = (Math.random() - 0.5) * (Math.PI * 0.4);
+        const newAng = curAng + delta;
+        const newSpd = Math.max(0.8, Math.min(2.6, curSpd + (Math.random()-0.5)*0.4));
+        vx = Math.cos(newAng) * newSpd;
+        vy = Math.sin(newAng) * newSpd;
+      }
+    }
+
+    function tick(){
+      if(paused){ requestAnimationFrame(tick); return; }
+      if(!isDragging){
+        randomWander();
+        x += vx;
+        y += vy;
+        clampBounds();
+        ball.style.left = x + 'px';
+        ball.style.top  = y + 'px';
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // 拖拽支持：按下后小球跟随鼠标，松开后从当前位置继续随机运动
+    function downHandler(e){
+      isDragging = true;
+      ball.classList.add('dragging');
+      const pt = e.touches ? e.touches[0] : e;
+      dragOffsetX = pt.clientX - x;
+      dragOffsetY = pt.clientY - y;
+      e.preventDefault();
+    }
+    function moveHandler(e){
+      if(!isDragging) return;
+      const pt = e.touches ? e.touches[0] : e;
+      x = pt.clientX - dragOffsetX;
+      y = pt.clientY - dragOffsetY;
+      // 拖拽时也限制在视口内
+      const maxX = window.innerWidth  - BALL;
+      const maxY = window.innerHeight - BALL;
+      x = Math.max(0, Math.min(maxX, x));
+      y = Math.max(0, Math.min(maxY, y));
+      ball.style.left = x + 'px';
+      ball.style.top  = y + 'px';
+      e.preventDefault();
+    }
+    function upHandler(){
+      if(!isDragging) return;
+      isDragging = false;
+      ball.classList.remove('dragging');
+      // 重新给一个随机方向继续运动
+      const ang = Math.random() * Math.PI * 2;
+      const spd = 1.4 + Math.random() * 1.0;
+      vx = Math.cos(ang) * spd;
+      vy = Math.sin(ang) * spd;
+    }
+
+    ball.addEventListener('mousedown', downHandler);
+    document.addEventListener('mousemove', moveHandler);
+    document.addEventListener('mouseup', upHandler);
+    ball.addEventListener('touchstart', downHandler, {passive:false});
+    document.addEventListener('touchmove', moveHandler, {passive:false});
+    document.addEventListener('touchend', upHandler);
+
+    // 视口尺寸变化时调整位置
+    window.addEventListener('resize', () => {
+      const maxX = window.innerWidth  - BALL;
+      const maxY = window.innerHeight - BALL;
+      x = Math.min(x, maxX);
+      y = Math.min(y, maxY);
+    });
+
+    // 鼠标悬停在 iframe 上时暂停小球运动，避免遮挡操作
+    const iframe = document.getElementById('previewFrame');
+    if(iframe){
+      iframe.addEventListener('mouseenter', () => paused = true);
+      iframe.addEventListener('mouseleave', () => paused = false);
+    }
+
+    requestAnimationFrame(tick);
+  })();
 </script>
 </body>
 </html>
