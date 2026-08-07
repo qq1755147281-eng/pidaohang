@@ -1711,9 +1711,84 @@
   @media(min-width:1080px){
     .app-grid{grid-template-columns:repeat(8,1fr);}
   }
+
+  /* ============ 悬浮发光派币小球 ============ */
+  .pi-ball{
+    position:fixed;
+    top:0;left:0;
+    width:64px;height:64px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff7d6 0%, #ffd84d 35%, #f5a623 70%, #c2410c 100%);
+    color:#5a1f87;
+    display:flex;align-items:center;justify-content:center;
+    font-size:13px;font-weight:900;
+    letter-spacing:1px;
+    cursor:pointer;
+    user-select:none;
+    z-index:9999;
+    box-shadow:
+      0 0 18px rgba(255,215,0,.85),
+      0 0 36px rgba(255,180,40,.55),
+      0 0 64px rgba(255,150,30,.4),
+      inset 0 -4px 8px rgba(180,80,0,.35),
+      inset 0 4px 6px rgba(255,255,255,.7);
+    text-shadow:0 1px 0 rgba(255,255,255,.5), 0 0 6px rgba(255,230,120,.8);
+    animation:pi-ball-pulse 2.2s ease-in-out infinite;
+    will-change:transform,left,top;
+    touch-action:none;
+  }
+  .pi-ball::before{
+    content:"";
+    position:absolute;
+    inset:-14px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,215,0,.45) 0%, rgba(255,180,40,.15) 40%, transparent 70%);
+    z-index:-1;
+    animation:pi-ball-halo 2.2s ease-in-out infinite;
+    pointer-events:none;
+  }
+  .pi-ball::after{
+    content:"";
+    position:absolute;
+    top:8px;left:12px;
+    width:18px;height:10px;
+    border-radius:50%;
+    background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,0));
+    transform:rotate(-30deg);
+    pointer-events:none;
+  }
+  .pi-ball:active{cursor:grabbing;}
+  @keyframes pi-ball-pulse{
+    0%,100%{
+      box-shadow:
+        0 0 18px rgba(255,215,0,.85),
+        0 0 36px rgba(255,180,40,.55),
+        0 0 64px rgba(255,150,30,.4),
+        inset 0 -4px 8px rgba(180,80,0,.35),
+        inset 0 4px 6px rgba(255,255,255,.7);
+    }
+    50%{
+      box-shadow:
+        0 0 26px rgba(255,215,0,1),
+        0 0 52px rgba(255,180,40,.75),
+        0 0 90px rgba(255,150,30,.55),
+        inset 0 -4px 8px rgba(180,80,0,.35),
+        inset 0 4px 6px rgba(255,255,255,.7);
+    }
+  }
+  @keyframes pi-ball-halo{
+    0%,100%{transform:scale(1);opacity:.85;}
+    50%{transform:scale(1.25);opacity:1;}
+  }
+  @media (max-width:640px){
+    .pi-ball{width:54px;height:54px;font-size:11px;}
+  }
 </style>
 </head>
 <body>
+
+<!-- ========== 悬浮发光派币小球 ========== -->
+<div class="pi-ball" id="piBall" title="派币">派币</div>
 
 <!-- ========== FIXED HEADER ========== -->
 <header class="header">
@@ -2985,7 +3060,112 @@
         <button class="eco-btn back" id="ecoModalBack">返回首页</button>
       </div>
     </div>
-  </div>
+</div>
 
+<script>
+  // ============ 悬浮发光派币小球：随机运动 + 边界反弹 ============
+  (function(){
+    const ball = document.getElementById('piBall');
+    if(!ball) return;
+
+    const isMobile = window.matchMedia('(max-width:640px)').matches;
+    const BALL = isMobile ? 54 : 64;
+
+    let x = Math.random() * Math.max(1, (window.innerWidth  - BALL));
+    let y = Math.random() * Math.max(1, (window.innerHeight - BALL));
+
+    const speed = 1.2 + Math.random() * 1.2;
+    const angle = Math.random() * Math.PI * 2;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed;
+
+    let isDragging = false;
+    let dragOffsetX = 0, dragOffsetY = 0;
+    let lastWander = 0;
+
+    ball.style.left = x + 'px';
+    ball.style.top  = y + 'px';
+
+    function clampBounds(){
+      const maxX = window.innerWidth  - BALL;
+      const maxY = window.innerHeight - BALL;
+      if(x < 0){ x = 0; vx = Math.abs(vx); }
+      else if(x > maxX){ x = maxX; vx = -Math.abs(vx); }
+      if(y < 0){ y = 0; vy = Math.abs(vy); }
+      else if(y > maxY){ y = maxY; vy = -Math.abs(vy); }
+    }
+
+    function randomWander(){
+      const now = performance.now();
+      if(now - lastWander > 600 + Math.random()*1000){
+        lastWander = now;
+        const curAng = Math.atan2(vy, vx);
+        const curSpd = Math.hypot(vx, vy);
+        const delta = (Math.random() - 0.5) * (Math.PI * 0.4);
+        const newAng = curAng + delta;
+        const newSpd = Math.max(0.8, Math.min(2.6, curSpd + (Math.random()-0.5)*0.4));
+        vx = Math.cos(newAng) * newSpd;
+        vy = Math.sin(newAng) * newSpd;
+      }
+    }
+
+    function tick(){
+      if(!isDragging){
+        randomWander();
+        x += vx;
+        y += vy;
+        clampBounds();
+        ball.style.left = x + 'px';
+        ball.style.top  = y + 'px';
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function downHandler(e){
+      isDragging = true;
+      const pt = e.touches ? e.touches[0] : e;
+      dragOffsetX = pt.clientX - x;
+      dragOffsetY = pt.clientY - y;
+      e.preventDefault();
+    }
+    function moveHandler(e){
+      if(!isDragging) return;
+      const pt = e.touches ? e.touches[0] : e;
+      x = pt.clientX - dragOffsetX;
+      y = pt.clientY - dragOffsetY;
+      const maxX = window.innerWidth  - BALL;
+      const maxY = window.innerHeight - BALL;
+      x = Math.max(0, Math.min(maxX, x));
+      y = Math.max(0, Math.min(maxY, y));
+      ball.style.left = x + 'px';
+      ball.style.top  = y + 'px';
+      e.preventDefault();
+    }
+    function upHandler(){
+      if(!isDragging) return;
+      isDragging = false;
+      const ang = Math.random() * Math.PI * 2;
+      const spd = 1.4 + Math.random() * 1.0;
+      vx = Math.cos(ang) * spd;
+      vy = Math.sin(ang) * spd;
+    }
+
+    ball.addEventListener('mousedown', downHandler);
+    document.addEventListener('mousemove', moveHandler);
+    document.addEventListener('mouseup', upHandler);
+    ball.addEventListener('touchstart', downHandler, {passive:false});
+    document.addEventListener('touchmove', moveHandler, {passive:false});
+    document.addEventListener('touchend', upHandler);
+
+    window.addEventListener('resize', () => {
+      const maxX = window.innerWidth  - BALL;
+      const maxY = window.innerHeight - BALL;
+      x = Math.min(x, maxX);
+      y = Math.min(y, maxY);
+    });
+
+    requestAnimationFrame(tick);
+  })();
+</script>
 </body>
 </html>
