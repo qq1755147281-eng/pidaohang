@@ -383,70 +383,6 @@
   .app-item:nth-child(odd) .app-icon{background:linear-gradient(135deg,#fff 0%,#fff3e0 100%);}
   .app-name{font-size:11.5px;color:var(--pi-text);text-align:center;line-height:1.25;max-width:80px;font-weight:500;}
 
-  /* ============ 精选第一行（无需签到应用·白色加大字体） ============ */
-  .featured-row{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
-    padding:14px 20px 18px;
-    max-width:900px;
-    margin:0 auto;
-  }
-  .featured-card{
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-    padding:18px 10px 14px;
-    border-radius:18px;
-    background:linear-gradient(135deg,#4c1d95 0%,#7c2d12 100%);
-    box-shadow:0 6px 18px rgba(76,29,149,.35), inset 0 1px 0 rgba(255,255,255,.15);
-    border:1.5px solid rgba(255,255,255,.18);
-    cursor:pointer;
-    transition:transform .2s ease, box-shadow .2s ease;
-    overflow:hidden;
-  }
-  .featured-card::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:radial-gradient(circle at 50% 0%, rgba(251,191,36,.18), transparent 60%);
-    pointer-events:none;
-  }
-  .featured-card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(76,29,149,.45), inset 0 1px 0 rgba(255,255,255,.2);}
-  .featured-card .app-icon{
-    width:88px;height:88px;
-    border-radius:18px;
-    box-shadow:0 6px 16px rgba(0,0,0,.35);
-  }
-  .featured-card .app-icon svg{
-    width:88px!important;
-    height:88px!important;
-  }
-  .featured-card .app-name{
-    color:#ffffff;
-    font-size:16px;
-    font-weight:800;
-    letter-spacing:.8px;
-    text-shadow:0 2px 4px rgba(0,0,0,.6);
-    max-width:none;
-  }
-  .featured-card .featured-tag{
-    position:absolute;
-    top:6px;right:6px;
-    font-size:10px;
-    color:#fff5f5;
-    background:linear-gradient(135deg,#dc2626 0%,#991b1b 100%);
-    padding:3px 8px;
-    border-radius:7px;
-    font-weight:700;
-    letter-spacing:.4px;
-    box-shadow:0 2px 5px rgba(220,38,38,.5);
-    white-space:nowrap;
-    border:1px solid rgba(255,255,255,.25);
-  }
-
   /* ============ 强制统一所有16个图标大小为正方形 ============ */
   .home-grid .app-icon,
   .home-grid-section .app-icon,
@@ -2427,8 +2363,6 @@
           </div>
           <div class="section-count">19</div>
         </div>
-      <!-- 精选第一行：热门生态排名前三 · 白色加大字体 -->
-      <div class="featured-row" id="featuredRow"></div>
       <div class="home-grid">
         <div class="app-item" data-eco="派元宇宙土地" data-url="https://piday.world/zh-CN?ic=MGV2PG" data-icon="🏠" data-desc1="派元宇宙虚拟土地" data-desc2="购买、建设、交易您的派虚拟领地" data-desc3="打造属于你的派元宇宙家园" data-code="MGV2PG"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g1" cx="0.5" cy="0.5" r="0.6"><stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#1e3a8a"/></radialGradient><linearGradient id="g1b" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1e40af"/><stop offset="0.5" stop-color="#3b82f6"/><stop offset="1" stop-color="#1e40af"/></linearGradient><clipPath id="earthClip"><circle cx="32" cy="32" r="20"/></clipPath></defs><rect width="64" height="64" rx="14" fill="url(#g1)"/><g clip-path="url(#earthClip)"><circle cx="32" cy="32" r="20" fill="url(#g1b)"/><g><animateTransform attributeName="transform" type="translate" from="0 0" to="-32 0" dur="6s" repeatCount="indefinite"/><path d="M14 26 Q20 22 26 26 Q30 30 36 24 Q42 18 50 24 L50 36 Q42 32 36 36 Q30 42 22 38 Q18 34 14 36 Z" fill="#22c55e"/><path d="M14 40 Q22 38 28 42 Q34 46 42 40 Q48 38 50 42 L50 50 L14 50 Z" fill="#22c55e"/><circle cx="22" cy="44" r="2" fill="#16a34a"/><circle cx="42" cy="46" r="2" fill="#16a34a"/><circle cx="32" cy="32" r="1.5" fill="#fbbf24"/></g><circle cx="32" cy="32" r="20" fill="none" stroke="#60a5fa" stroke-width="0.5" opacity=".4"/></g><ellipse cx="32" cy="32" rx="20" ry="6" fill="none" stroke="#fff" stroke-width="0.8" opacity=".5"/><path d="M12 32 Q32 28 52 32" stroke="#fff" stroke-width="0.8" fill="none" opacity=".4"/><path d="M12 32 Q32 36 52 32" stroke="#fff" stroke-width="0.8" fill="none" opacity=".4"/><circle cx="14" cy="14" r="1.5" fill="#fff"/><circle cx="50" cy="14" r="1" fill="#fff"/><circle cx="14" cy="50" r="1" fill="#fff"/><circle cx="50" cy="50" r="1.5" fill="#fff"/></svg></div><div class="app-name">派元宇宙土地</div></div>
         <div class="app-item" data-eco="派孵化器" data-url="https://startpi.app" data-icon="🐣" data-desc1="派项目孵化器平台" data-desc2="孵化优秀派生态项目、扶持创新团队" data-desc3="为先锋提供项目启动支持与资源对接" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fef3c7"/><stop offset="1" stop-color="#fbbf24"/></linearGradient><linearGradient id="g2d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bbf7d0"/><stop offset="1" stop-color="#16a34a"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g2)"/><circle cx="50" cy="14" r="2.5" fill="#fde68a" opacity=".8"/><circle cx="14" cy="12" r="2" fill="#fde68a" opacity=".8"/><circle cx="56" cy="48" r="1.5" fill="#fde68a" opacity=".7"/><path d="M4 50 L60 50" stroke="#a16207" stroke-width="1.5" stroke-linecap="round"/><path d="M6 50 L58 50" stroke="#78350f" stroke-width="0.8" stroke-linecap="round"/><g><animateTransform attributeName="transform" type="rotate" values="0 14 50;-6 14 50;0 14 50;6 14 50;0 14 50" dur="3.2s" repeatCount="indefinite"/><path d="M14 50 L14 38 Q14 30 8 28 Q14 26 16 32 Q18 26 24 28 Q18 30 18 38 L18 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/><path d="M14 36 L14 30" stroke="#15803d" stroke-width="0.5" opacity=".5"/><circle cx="11" cy="32" r="1" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="rotate" values="0 24 50;-5 24 50;0 24 50;5 24 50;0 24 50" dur="2.6s" begin="0.4s" repeatCount="indefinite"/><path d="M24 50 L24 40 Q24 32 18 30 Q24 28 26 34 Q28 28 34 30 Q28 32 28 40 L28 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/><circle cx="21" cy="34" r="1" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="rotate" values="0 50 50;-6 50 50;0 50 50;6 50 50;0 50 50" dur="3.4s" begin="0.2s" repeatCount="indefinite"/><path d="M50 50 L50 36 Q50 28 44 26 Q50 24 52 30 Q54 24 60 26 Q54 28 54 36 L54 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/><circle cx="47" cy="30" r="1" fill="#fde68a"/></g><g><animateTransform attributeName="transform" type="rotate" values="0 40 50;-4 40 50;0 40 50;4 40 50;0 40 50" dur="2.8s" begin="0.6s" repeatCount="indefinite"/><path d="M40 50 L40 42 Q40 36 35 34 Q40 32 42 38 Q44 32 49 34 Q44 36 44 42 L44 50 Z" fill="url(#g2d)" stroke="#15803d" stroke-width="1"/></g><circle cx="6" cy="50" r="1" fill="#92400e"/><circle cx="58" cy="50" r="1" fill="#92400e"/><circle cx="32" cy="48" r="1" fill="#92400e"/></svg></div><div class="app-name">派孵化器</div></div>
@@ -2448,6 +2382,7 @@
         <div class="app-item" data-eco="万剑归宗" data-url="https://iiiiiiiii-5ov.pages.dev/" data-icon="⚔️" data-desc1="万剑归宗游戏" data-desc2="派生态武侠冒险" data-desc3="万剑齐发、归宗一剑" data-code=""><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g_wjgz" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset="1" stop-color="#312e81"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g_wjgz)"/><g opacity=".35" stroke="#cbd5e1" stroke-width="1.2" fill="none" stroke-linecap="round"><line x1="12" y1="12" x2="22" y2="22"/><line x1="52" y1="12" x2="42" y2="22"/><line x1="12" y1="52" x2="22" y2="42"/><line x1="52" y1="52" x2="42" y2="42"/><line x1="32" y1="8" x2="32" y2="14"/><line x1="8" y1="32" x2="14" y2="32"/><line x1="50" y1="32" x2="56" y2="32"/><line x1="32" y1="50" x2="32" y2="56"/></g><g transform="translate(32 32) rotate(-30)"><path d="M-2 -22 L2 -22 L1.5 4 L-1.5 4 Z" fill="#e5e7eb" stroke="#94a3b8" stroke-width="0.5"/><line x1="0" y1="-18" x2="0" y2="0" stroke="#94a3b8" stroke-width="0.3"/><rect x="-7" y="4" width="14" height="3" fill="#fbbf24" stroke="#92400e" stroke-width="0.5"/><rect x="-1.2" y="7" width="2.4" height="9" fill="#7f1d1d"/><circle cx="0" cy="18" r="2" fill="#fbbf24" stroke="#92400e" stroke-width="0.4"/></g><circle cx="32" cy="32" r="22" fill="none" stroke="#fbbf24" stroke-width="0.4" opacity=".3"/><circle cx="14" cy="14" r="1" fill="#fbbf24"/><circle cx="50" cy="50" r="1" fill="#fbbf24"/><circle cx="50" cy="14" r="1" fill="#fff" opacity=".7"/><circle cx="14" cy="50" r="1" fill="#fff" opacity=".7"/></svg></div><div class="app-name">万剑归宗</div></div>
         <div class="app-item" data-eco="对赌协议" data-url="https://duiduxieyi.pages.dev/" data-icon="🎲" data-desc1="对赌协议应用" data-desc2="派生态对赌玩法挑战" data-desc3="对赌玩法、刺激博弈" data-code=""><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g_dcdy" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a0a0a"/><stop offset="1" stop-color="#262626"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g_dcdy)"/><rect x="6" y="6" width="52" height="52" rx="10" fill="none" stroke="#fbbf24" stroke-width="1.2" opacity=".7"/><text x="32" y="40" text-anchor="middle" font-size="20" font-weight="900" fill="#fbbf24" font-family="serif" letter-spacing="3">对赌</text><path d="M10 10 L16 16 M54 10 L48 16 M10 54 L16 48 M54 54 L48 48" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/><circle cx="32" cy="50" r="1.5" fill="#dc2626"/><circle cx="14" cy="14" r="1" fill="#fbbf24" opacity=".8"/><circle cx="50" cy="50" r="1" fill="#fbbf24" opacity=".8"/></svg></div><div class="app-name">对赌协议</div></div>
         <div class="app-item" data-eco="事不过三" data-url="https://shibuguosang.pages.dev/" data-icon="🎯" data-desc1="事不过三游戏" data-desc2="派生态三次机会挑战" data-desc3="三次机会、用尽即止" data-code=""><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g_sbgs" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#dc2626"/><stop offset="1" stop-color="#7f1d1d"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g_sbgs)"/><text x="32" y="28" text-anchor="middle" font-size="12" font-weight="900" fill="#fef3c7" font-family="sans-serif" letter-spacing="1">事不过</text><circle cx="32" cy="48" r="13" fill="none" stroke="#fbbf24" stroke-width="1.2" opacity=".5"/><text x="32" y="55" text-anchor="middle" font-size="26" font-weight="900" fill="#fbbf24" font-family="serif">3</text><path d="M14 14 L18 18 M50 14 L46 18" stroke="#fbbf24" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg></div><div class="app-name">事不过三</div></div>
+        <div class="app-item" data-eco="派友AI股东卡" data-url="#" data-icon="💳" data-desc1="派友AI股东卡" data-desc2="派生态专属AI股东权益卡" data-desc3="持卡人享有派生态股东分红、AI智能服务" data-code=""><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g_card_bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1e3a8a"/><stop offset="0.5" stop-color="#5b21b6"/><stop offset="1" stop-color="#7c2d12"/></linearGradient><linearGradient id="g_card_face" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#312e81"/><stop offset="1" stop-color="#1e1b4b"/></linearGradient><linearGradient id="g_card_chip" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fde047"/><stop offset="1" stop-color="#a16207"/></linearGradient><radialGradient id="g_card_pi" cx="0.5" cy="0.5" r="0.6"><stop offset="0" stop-color="#fff7d6"/><stop offset="0.6" stop-color="#fbbf24"/><stop offset="1" stop-color="#92400e"/></radialGradient><filter id="f_card_glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.4"/></filter></defs><rect width="64" height="64" rx="14" fill="url(#g_card_bg)"/><circle cx="6" cy="6" r="1" fill="#fff" opacity=".7"/><circle cx="58" cy="58" r="1" fill="#fff" opacity=".7"/><circle cx="58" cy="8" r="0.8" fill="#fde68a" opacity=".8"/><circle cx="8" cy="56" r="0.8" fill="#fde68a" opacity=".8"/><g><animateTransform attributeName="transform" type="rotate" values="-2 32 32;2 32 32;-2 32 32" dur="3.6s" repeatCount="indefinite" additive="sum"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -1.2;0 0" dur="2.2s" repeatCount="indefinite" additive="sum"/><rect x="8" y="18" width="48" height="30" rx="4" fill="url(#g_card_face)" stroke="#fbbf24" stroke-width="0.8"/><rect x="8" y="18" width="48" height="30" rx="4" fill="none" stroke="#fde68a" stroke-width="0.4" opacity=".5" transform="translate(-1 -1)"/><rect x="8" y="18" width="48" height="6" fill="#0f172a"/><rect x="8" y="18" width="48" height="1" fill="#fbbf24" opacity=".7"/><rect x="8" y="22" width="48" height="1" fill="#fbbf24" opacity=".4"/><rect x="12" y="28" width="9" height="7" rx="1.2" fill="url(#g_card_chip)" stroke="#78350f" stroke-width="0.4"/><line x1="14" y1="29.5" x2="14" y2="33.5" stroke="#78350f" stroke-width="0.4"/><line x1="16.5" y1="29.5" x2="16.5" y2="33.5" stroke="#78350f" stroke-width="0.4"/><line x1="19" y1="29.5" x2="19" y2="33.5" stroke="#78350f" stroke-width="0.4"/><line x1="12" y1="31.5" x2="21" y2="31.5" stroke="#78350f" stroke-width="0.4"/><line x1="12.5" y1="28" x2="12.5" y2="35" stroke="#fbbf24" stroke-width=".3" opacity=".5"/><g transform="translate(40 31)"><circle r="9" fill="url(#g_card_pi)" filter="url(#f_card_glow)"/><text x="0" y="5" text-anchor="middle" font-size="14" font-weight="900" fill="#7c2d12" font-family="serif">π</text><circle r="9" fill="none" stroke="#fbbf24" stroke-width="0.4" opacity=".6"/></g><text x="12" y="44" font-size="3.6" font-weight="800" fill="#fde68a" font-family="monospace" letter-spacing=".5">PI · 8888 6666</text><text x="50" y="46" text-anchor="end" font-size="3.2" font-weight="800" fill="#fbbf24" font-family="sans-serif" letter-spacing=".3">AI CARD</text><rect x="12" y="40" width="40" height="0.4" fill="#fbbf24" opacity=".25"/></g><g><animate attributeName="opacity" values="0.4;1;0.4" dur="1.6s" repeatCount="indefinite"/><path d="M52 24 L56 22 L58 18 L60 22 L56 24 Z" fill="#fde68a"/></g><g><animate attributeName="opacity" values="0.3;0.9;0.3" dur="1.4s" begin="0.4s" repeatCount="indefinite"/><path d="M6 44 L9 42 L11 38 L13 42 L10 44 Z" fill="#fde68a" opacity=".7"/></g><g><animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.8s" begin="0.8s" repeatCount="indefinite"/><circle cx="32" cy="56" r="1" fill="#fde68a"/></g></svg></div><div class="app-name">派友AI股东卡</div></div>
         <div class="app-item" data-eco="更多导航" data-url="https://piapp.link?r=15536455536" data-icon="🌐" data-desc1="派生态导航" data-desc2="发现更多派应用" data-code="15536455536"><div class="app-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g16" cx="0.5" cy="0.5" r="0.6"><stop offset="0" stop-color="#fbbf24"/><stop offset="0.5" stop-color="#a855f7"/><stop offset="1" stop-color="#3b0764"/></radialGradient></defs><rect width="64" height="64" rx="14" fill="url(#g16)"/><path d="M32 8 L36 24 L52 24 L40 34 L44 50 L32 40 L20 50 L24 34 L12 24 L28 24 Z" fill="#fbbf24" stroke="#fff" stroke-width="1.2"/><circle cx="32" cy="30" r="9" fill="#fff"/><text x="32" y="35" text-anchor="middle" font-size="13" font-weight="800" fill="#7c2d12" font-family="serif">π</text><text x="32" y="58" text-anchor="middle" font-size="7" font-weight="700" fill="#fff" font-family="sans-serif">派导航</text></svg></div><div class="app-name">更多导航</div></div>
       </div>
     </div>
@@ -3480,34 +3415,7 @@
       container.innerHTML = '<div style="padding:10px;font-size:11px;color:#000;word-break:break-all;text-align:center;">' + text + '</div>';
     }
   }
-  // === 精选第一行：热门生态排名前三（白色加大字体） ===
-  (function(){
-    const row = document.getElementById('featuredRow');
-    if (!row) return;
-    const featuredEcos = ['派元宇宙土地', '派孵化器', '派宠物'];
-    const featuredTags = ['热门生态排名第一', '热门生态排名二', '热门生态排名三'];
-    featuredEcos.forEach((name, i) => {
-      const orig = document.querySelector('.app-item[data-eco="' + name + '"]');
-      if (!orig) return;
-      const clone = orig.cloneNode(true);
-      clone.classList.add('featured-card');
-      clone.removeAttribute('data-idx');
-      // 覆盖 app-name 文字为新名称
-      const nameEl = clone.querySelector('.app-name');
-      if (nameEl) nameEl.textContent = name;
-      // 红色热门生态角标
-      let tag = clone.querySelector('.featured-tag');
-      if (!tag) {
-        tag = document.createElement('div');
-        tag.className = 'featured-tag';
-        clone.appendChild(tag);
-      }
-      tag.textContent = featuredTags[i] || '';
-      // 触发与原始 app-item 完全相同的弹窗逻辑
-      clone.addEventListener('click', () => orig.click());
-      row.appendChild(clone);
-    });
-  })();
+  // === 派币进入派币专属页面的逻辑已整合在派币小球弹窗中 ===
   document.querySelectorAll('.app-item').forEach((item, idx) => {
     item.addEventListener('click', () => {
       const icon = item.dataset.icon || '';
